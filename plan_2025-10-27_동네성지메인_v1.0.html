@@ -2287,7 +2287,7 @@
             document.getElementById('productSigunguSelect').value = 'gangnam';
         }, 100);
 
-        // 초기 용량/요금제 옵션 생성 (음수 필터링 없이)
+        // 초기 용량/요금제 옵션 생성 및 가격 그리드 업데이트
         setTimeout(() => {
             updateProductCapacityOptions();
             updateProductPlanOptions();
@@ -2295,6 +2295,11 @@
             // 기본값 설정
             document.getElementById('productCapacitySelect').value = '256';
             document.getElementById('productPlanSelect').value = '5.5';
+
+            // 기본값 설정 후 가격 그리드 업데이트
+            setTimeout(() => {
+                updateProductPriceGrid();
+            }, 50);
         }, 100);
 
         // 상품 상세페이지 가격 그리드 업데이트 함수
@@ -2501,10 +2506,6 @@
             updateProductPriceGrid();
         });
 
-        // 초기 가격 그리드 업데이트 (페이지 로드 시 기본값 설정 후)
-        setTimeout(() => {
-            updateProductPriceGrid();
-        }, 200);
 
         // ====== 스토어홈 필터 스크립트 ======
         let storeSelectedManufacturer = '';
