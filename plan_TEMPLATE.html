@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[기획안 제목] - 노피 어드민 시스템</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jacob-po.github.io/nofee_planning/plan_YYYY-MM-DD_기획안제목_v1.0.html">
+    <meta property="og:title" content="[노피 기획안] [기획안 제목]">
+    <meta property="og:description" content="🎯 [핵심 내용 요약] | [주요 변경사항] | 작성: 제이콥 | v1.0">
+    <meta property="og:image" content="https://nofee.team/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="노피 기획안 - [기획안 제목]">
+    <meta property="og:site_name" content="노피 NOFEE - 기획 문서">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="article:author" content="제이콥">
+    <meta property="article:published_time" content="YYYY-MM-DDT00:00:00+09:00">
+    <meta property="article:modified_time" content="YYYY-MM-DDT00:00:00+09:00">
+    <meta property="article:section" content="기획안">
+    <meta property="article:tag" content="태그1">
+    <meta property="article:tag" content="태그2">
+    <meta property="article:tag" content="태그3">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://jacob-po.github.io/nofee_planning/plan_YYYY-MM-DD_기획안제목_v1.0.html">
+    <meta name="twitter:title" content="[노피 기획안] [기획안 제목]">
+    <meta name="twitter:description" content="🎯 [핵심 내용 요약] | [주요 변경사항]">
+    <meta name="twitter:image" content="https://nofee.team/images/og-image.png">
+    <meta name="twitter:image:alt" content="노피 기획안 - [기획안 제목]">
+    <meta name="twitter:creator" content="@nofee_team">
+
+    <!-- Meta Description -->
+    <meta name="description" content="🎯 [핵심 내용 요약] | [주요 변경사항] | 노피 기획안 v1.0">
+    <meta name="keywords" content="노피, NOFEE, 기획안, [키워드1], [키워드2], [키워드3]">
+
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body {
+                padding: 15mm;
+            }
+        }
+
+        body {
+            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #ffffff;
+            color: #191f28;
+            line-height: 1.6;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-header {
+            border-bottom: 2px solid #3182f6;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .logo {
+            height: 32px;
+        }
+
+        .doc-meta {
+            text-align: right;
+            font-size: 11px;
+            color: #8b95a1;
+        }
+
+        .doc-meta-item {
+            margin-bottom: 4px;
+        }
+
+        .doc-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-subtitle {
+            font-size: 16px;
+            color: #4e5968;
+            font-weight: 400;
+        }
+
+        .info-box {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+
+        .info-item {
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #8b95a1;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: #191f28;
+            font-weight: 600;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e8eb;
+        }
+
+        .content {
+            color: #4e5968;
+            line-height: 1.8;
+        }
+
+        .content p {
+            margin-bottom: 12px;
+        }
+
+        .content ul, .content ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #eff8ff;
+            border-left: 4px solid #3182f6;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: #191f28;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #e5e8eb;
+        }
+
+        .comparison-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #191f28;
+        }
+
+        .comparison-table td {
+            color: #4e5968;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .tag-before {
+            background: #fee;
+            color: #d32f2f;
+        }
+
+        .tag-after {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        /* 모바일 화면 목업 스타일 */
+        .mockup-container {
+            display: flex;
+            gap: 32px;
+            margin: 32px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .phone-mockup {
+            width: 320px;
+            background: #fff;
+            border: 1px solid #d1d5db;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-screen {
+            height: 640px;
+            overflow-y: scroll;
+            background: #fff;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        .phone-screen::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .phone-screen::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 2px;
+        }
+
+        .phone-screen-content {
+            position: relative;
+            min-height: 100%;
+        }
+
+        .mockup-header {
+            background: #fff;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e8eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mockup-logo {
+            height: 20px;
+        }
+
+        .mockup-logo img {
+            height: 100%;
+        }
+
+        .mockup-label {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+            margin-top: 16px;
+            padding: 8px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .mockup-label.before {
+            color: #d32f2f;
+            background: #ffebee;
+        }
+
+        .mockup-label.after {
+            color: #2e7d32;
+            background: #e8f5e9;
+        }
+
+        .mockup-comparison-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #3182f6;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .mockup-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mockup-comparison-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        .screenshot-container {
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .screenshot-container img {
+            max-width: 320px;
+            border: 2px solid #e5e8eb;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .screenshot-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-header">
+        <div class="logo-container">
+            <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="logo">
+            <div class="doc-meta">
+                <div class="doc-meta-item">작성일: YYYY.MM.DD</div>
+                <div class="doc-meta-item">버전: v1.0</div>
+                <div class="doc-meta-item">작성자: 제이콥</div>
+            </div>
+        </div>
+        <h1 class="doc-title">[기획안 제목]</h1>
+        <p class="doc-subtitle">[기획안 부제목 또는 한 줄 설명]</p>
+    </div>
+
+    <div class="info-box">
+        <div class="info-item">
+            <div class="info-label">문서 유형</div>
+            <div class="info-value">기획안</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">우선순위</div>
+            <div class="info-value">높음 (High)</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">목표 배포일</div>
+            <div class="info-value">YYYY.MM.DD ~ MM.DD</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">개요</h2>
+        <div class="content">
+            <p>[기획안의 핵심 내용을 간단히 요약합니다.]</p>
+
+            <div class="highlight-box">
+                <strong>핵심 변경사항</strong><br>
+                • [변경사항 1]<br>
+                • [변경사항 2]<br>
+                • [변경사항 3]
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
