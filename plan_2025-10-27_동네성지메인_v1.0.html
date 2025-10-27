@@ -1155,15 +1155,13 @@
             <div style="padding: 16px; background: #f0f9ff; border-left: 4px solid #0284c7; border-radius: 4px; margin-bottom: 16px;">
                 <div style="font-size: 14px; color: #0369a1; line-height: 1.7;">
                     <strong style="color: #075985;">음수 가격 색상 표현</strong><br><br>
-                    <strong>정책:</strong> 가격 그리드에서 음수 가격은 <strong>검은색(#111827)</strong>으로 표시합니다.<br><br>
-                    <strong>이유:</strong> 음수 가격을 빨간색으로 표시하면 "손해" 또는 "위험"으로 인식될 수 있습니다. 실제로는 고객이 돈을 받는 혜택이므로, 중립적인 검은색으로 표현하여 정확한 정보 전달을 목표로 합니다.<br><br>
+                    <strong>정책:</strong> 모든 가격은 음수/양수 관계없이 <strong>동일한 색상(검은색 #111827)</strong>으로 표시합니다.<br><br>
+                    <strong>이유:</strong> 음수 가격을 빨간색으로 표시하면 "손해" 또는 "위험"으로 인식될 수 있습니다. 실제로는 고객이 돈을 받는 혜택이므로, 모든 가격을 중립적인 검은색으로 표현하여 정확한 정보 전달을 목표로 합니다.<br><br>
                     <strong>적용 범위:</strong><br>
                     • 동네성지 메인 가격 그리드<br>
                     • 스토어홈 시세표 가격 그리드<br>
-                    • 상품 상세페이지 가격 그리드<br><br>
-                    <strong>실제 구매가 표시:</strong><br>
-                    • 상품 상세페이지 "실제 구매가"는 선택된 가격으로 동적 업데이트<br>
-                    • 음수인 경우 빨간색(#F04438)으로 표시하여 혜택 강조
+                    • 상품 상세페이지 가격 그리드<br>
+                    • 상품 상세페이지 실제 구매가
                 </div>
             </div>
 
@@ -2505,7 +2503,6 @@
             const actualPriceElement = document.getElementById('productDetailActualPrice');
             if (actualPriceElement) {
                 actualPriceElement.textContent = actualPriceInWon.toLocaleString() + '원';
-                actualPriceElement.style.color = actualPriceInWon < 0 ? '#F04438' : '#313142';
             }
 
             // 검색 결과 섹션 표시
