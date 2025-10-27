@@ -2198,6 +2198,9 @@
                 return;
             }
 
+            // plan 값을 storeData 형식으로 변환 (5.5 -> 55)
+            const planFormatted = plan.replace('.', '');
+
             // 필터 완성 시 가격 그리드 활성화 및 가격 업데이트
             priceItems.forEach(item => {
                 item.classList.remove('disabled');
@@ -2209,7 +2212,7 @@
                 // 해당 조건의 매장 데이터에서 가격 추출
                 const matchingStores = storeData.filter(store =>
                     store.capacity === parseInt(capacity) &&
-                    store.plan === plan &&
+                    store.plan === planFormatted &&
                     store.carrier === carrier &&
                     store.priceType === type
                 );
