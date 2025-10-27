@@ -1135,6 +1135,23 @@
                 </div>
             </div>
 
+            <h3 style="font-size: 15px; font-weight: 600; color: #111827; margin-top: 32px; margin-bottom: 12px;">필터 옵션 노출 정책</h3>
+            <div style="padding: 16px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 4px; margin-bottom: 16px;">
+                <div style="font-size: 14px; color: #92400e; line-height: 1.7;">
+                    <strong style="color: #78350f;">음수 가격 필터링 규칙</strong><br><br>
+                    <strong>규칙:</strong> 특정 용량/요금제 조합에서 <strong>모든 가격이 음수(마이너스)인 경우</strong>, 해당 옵션을 필터에서 제외합니다.<br><br>
+                    <strong>이유:</strong> 음수 가격은 기존 고객의 혜택(기기 반납 등)으로 발생하는 특수한 경우입니다. 일반 고객이 선택할 수 없는 옵션이므로 필터에서 제외하여 혼란을 방지합니다.<br><br>
+                    <strong>동작 방식:</strong><br>
+                    • 용량 선택 시 → 해당 용량의 모든 요금제를 검사하여 음수만 있는 요금제는 옵션에서 제외<br>
+                    • 요금제 선택 시 → 해당 요금제의 모든 용량을 검사하여 음수만 있는 용량은 옵션에서 제외<br>
+                    • 필터 변경 시마다 실시간으로 옵션 재계산 및 업데이트<br><br>
+                    <strong>예시:</strong><br>
+                    256GB + 5.5만원 조합이 모두 음수 가격(-99만, -95만 등)만 있는 경우<br>
+                    → 5.5만원 선택 시 256GB 옵션 미노출<br>
+                    → 256GB 선택 시 5.5만원 옵션 미노출
+                </div>
+            </div>
+
             <h3 style="font-size: 15px; font-weight: 600; color: #111827; margin-top: 32px; margin-bottom: 12px;">초기 선택값 비교</h3>
             <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
                 <thead>
@@ -2166,9 +2183,104 @@
             }
         }
 
+        // ====== 상품 상세페이지: 모든 가격이 음수인지 체크하는 함수 ======
+        function isAllNegativePrice(capacity, plan) {
+            const planFormatted = plan.replace('.', '');
+
+            // 해당 용량/요금제 조합의 모든 가격 데이터 조회
+            const matchingStores = storeData.filter(store =>
+                store.capacity === parseInt(capacity) &&
+                store.plan === planFormatted
+            );
+
+            if (matchingStores.length === 0) return true; // 데이터 없으면 제외
+
+            // 모든 가격이 음수인지 체크
+            return matchingStores.every(store => store.price < 0);
+        }
+
+        // ====== 상품 상세페이지: 용량 옵션 동적 생성 ======
+        function updateProductCapacityOptions() {
+            const capacitySelect = document.getElementById('productCapacitySelect');
+            const currentPlan = document.getElementById('productPlanSelect').value;
+
+            // 현재 선택값 저장
+            const currentCapacity = capacitySelect.value;
+
+            // 모든 용량 조회
+            const allCapacities = [...new Set(storeData.map(store => store.capacity))].sort((a, b) => a - b);
+
+            // 용량 옵션 재생성
+            let options = '<option value="">용량 선택</option>';
+
+            allCapacities.forEach(capacity => {
+                // 요금제가 선택되어 있으면 음수 체크
+                if (currentPlan) {
+                    if (!isAllNegativePrice(capacity.toString(), currentPlan)) {
+                        options += `<option value="${capacity}">${capacity}GB</option>`;
+                    }
+                } else {
+                    // 요금제 미선택 시 모든 옵션 표시
+                    options += `<option value="${capacity}">${capacity}GB</option>`;
+                }
+            });
+
+            capacitySelect.innerHTML = options;
+
+            // 이전 선택값 복원 (가능한 경우)
+            if (currentCapacity && capacitySelect.querySelector(`option[value="${currentCapacity}"]`)) {
+                capacitySelect.value = currentCapacity;
+            }
+        }
+
+        // ====== 상품 상세페이지: 요금제 옵션 동적 생성 ======
+        function updateProductPlanOptions() {
+            const planSelect = document.getElementById('productPlanSelect');
+            const currentCapacity = document.getElementById('productCapacitySelect').value;
+
+            // 현재 선택값 저장
+            const currentPlan = planSelect.value;
+
+            // 모든 요금제 조회 (plan 필드를 숫자로 변환하여 정렬)
+            const allPlans = [...new Set(storeData.map(store => store.plan))].sort((a, b) => {
+                const numA = parseFloat(a) / 10;
+                const numB = parseFloat(b) / 10;
+                return numA - numB;
+            });
+
+            // 요금제 옵션 재생성
+            let options = '<option value="">요금제 선택</option>';
+
+            allPlans.forEach(plan => {
+                const planValue = (parseFloat(plan) / 10).toString();
+                const planLabel = planValue + '만원';
+
+                // 용량이 선택되어 있으면 음수 체크
+                if (currentCapacity) {
+                    if (!isAllNegativePrice(currentCapacity, planValue)) {
+                        options += `<option value="${planValue}">${planLabel}</option>`;
+                    }
+                } else {
+                    // 용량 미선택 시 모든 옵션 표시
+                    options += `<option value="${planValue}">${planLabel}</option>`;
+                }
+            });
+
+            planSelect.innerHTML = options;
+
+            // 이전 선택값 복원 (가능한 경우)
+            if (currentPlan && planSelect.querySelector(`option[value="${currentPlan}"]`)) {
+                planSelect.value = currentPlan;
+            }
+        }
+
         // ====== 상품 상세페이지 필터 초기화 ======
         // 지역 선택
         setupRegionFilter('productSidoSelect', 'productSigunguSelect');
+
+        // 초기 용량/요금제 옵션 생성
+        updateProductCapacityOptions();
+        updateProductPlanOptions();
 
         // 페이지 로드 시 기본값 설정 (고객이 수정 가능)
         document.getElementById('productSidoSelect').value = 'seoul';
@@ -2176,8 +2288,13 @@
         setTimeout(() => {
             document.getElementById('productSigunguSelect').value = 'gangnam';
         }, 100);
-        document.getElementById('productCapacitySelect').value = '256';
-        document.getElementById('productPlanSelect').value = '5.5';
+
+        // 기본값 설정 후 다시 옵션 업데이트
+        setTimeout(() => {
+            document.getElementById('productCapacitySelect').value = '256';
+            updateProductPlanOptions(); // 용량 선택 후 요금제 필터링
+            document.getElementById('productPlanSelect').value = '5.5';
+        }, 100);
 
         // 상품 상세페이지 가격 그리드 업데이트 함수
         function updateProductPriceGrid() {
@@ -2370,14 +2487,16 @@
             });
         });
 
-        // 필터 변경 시 가격 그리드 업데이트
+        // 필터 변경 시 가격 그리드 업데이트 + 다른 필터 옵션 재생성
         document.getElementById('productCapacitySelect').addEventListener('change', () => {
             console.log('📱 용량 필터 변경됨 (상품상세)');
+            updateProductPlanOptions(); // 요금제 옵션 필터링
             updateProductPriceGrid();
         });
 
         document.getElementById('productPlanSelect').addEventListener('change', () => {
             console.log('📋 요금제 필터 변경됨 (상품상세)');
+            updateProductCapacityOptions(); // 용량 옵션 필터링
             updateProductPriceGrid();
         });
 
