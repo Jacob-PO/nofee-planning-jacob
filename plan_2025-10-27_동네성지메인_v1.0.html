@@ -817,8 +817,7 @@
         }
 
         .price-item.selected {
-            border: 1.5px solid #131FA0;
-            border-left: 4px solid #131FA0;
+            border: 2px solid #131FA0;
             background: #f8f9ff;
         }
 
@@ -853,7 +852,7 @@
         }
 
         .price-value.negative {
-            color: #dc2626;
+            color: #111827;
         }
 
         .selected-price-info {
@@ -1152,6 +1151,22 @@
                 </div>
             </div>
 
+            <h3 style="font-size: 15px; font-weight: 600; color: #111827; margin-top: 32px; margin-bottom: 12px;">가격 표시 정책</h3>
+            <div style="padding: 16px; background: #f0f9ff; border-left: 4px solid #0284c7; border-radius: 4px; margin-bottom: 16px;">
+                <div style="font-size: 14px; color: #0369a1; line-height: 1.7;">
+                    <strong style="color: #075985;">음수 가격 색상 표현</strong><br><br>
+                    <strong>정책:</strong> 가격 그리드에서 음수 가격은 <strong>검은색(#111827)</strong>으로 표시합니다.<br><br>
+                    <strong>이유:</strong> 음수 가격을 빨간색으로 표시하면 "손해" 또는 "위험"으로 인식될 수 있습니다. 실제로는 고객이 돈을 받는 혜택이므로, 중립적인 검은색으로 표현하여 정확한 정보 전달을 목표로 합니다.<br><br>
+                    <strong>적용 범위:</strong><br>
+                    • 동네성지 메인 가격 그리드<br>
+                    • 스토어홈 시세표 가격 그리드<br>
+                    • 상품 상세페이지 가격 그리드<br><br>
+                    <strong>실제 구매가 표시:</strong><br>
+                    • 상품 상세페이지 "실제 구매가"는 선택된 가격으로 동적 업데이트<br>
+                    • 음수인 경우 빨간색(#F04438)으로 표시하여 혜택 강조
+                </div>
+            </div>
+
             <h3 style="font-size: 15px; font-weight: 600; color: #111827; margin-top: 32px; margin-bottom: 12px;">초기 선택값 비교</h3>
             <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
                 <thead>
@@ -1245,10 +1260,15 @@
                 <strong>새 탭 추가</strong> — "검색" (기존: 리뷰, Q&A)<br>
                 <strong>초기 화면</strong> — 최저가 조건 자동 선택 + 상품 카드 표시<br>
                 <strong>검색 범위</strong> — 현재 상품만 필터링<br>
-                <strong>정렬 순서</strong> — 할부원금 낮은 순 (최저가부터)
+                <strong>정렬 순서</strong> — 할부원금 낮은 순 (최저가부터)<br>
+                <strong>실제 구매가</strong> — 선택된 가격 그리드 값으로 동적 업데이트
             </div>
 
-            <p style="color: #6b7280; font-size: 14px; margin-top: 12px;">※ "가격표" 탭(실제 구매가 추이) 삭제됨</p>
+            <p style="color: #6b7280; font-size: 14px; margin-top: 12px;">
+                ※ "가격표" 탭(실제 구매가 추이) 삭제됨<br>
+                ※ "통신비 포함" 정보 삭제됨 (데이터 없음)<br>
+                ※ "실제 구매가"는 가격 선택 시 자동 업데이트
+            </p>
         </div>
     </div>
 
@@ -1832,15 +1852,11 @@
                                     <span>총 할인액</span>
                                     <span style="color: #F04438; font-weight: 600;">-770,000원</span>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #6b7280;">
-                                    <span>통신비 포함</span>
-                                    <span style="color: #111827;">월 77,000원</span>
-                                </div>
 
-                                <!-- 실제 구매가 -->
+                                <!-- 실제 구매가 (동적 업데이트) -->
                                 <div style="border-top: 1px solid #F0F0F0; margin-top: 8px; padding-top: 8px; display: flex; justify-content: space-between; align-items: center;">
                                     <span style="font-size: 14px; font-weight: 600; color: #313142;">실제 구매가</span>
-                                    <span style="font-size: 18px; font-weight: 700; color: #313142;">330,000원</span>
+                                    <span id="productDetailActualPrice" style="font-size: 18px; font-weight: 700; color: #313142;">-</span>
                                 </div>
                             </div>
                         </div>
@@ -2479,6 +2495,18 @@
 
             document.getElementById('productSelectedPriceText').innerHTML = chips.join('');
             document.getElementById('productSelectedPriceInfo').style.display = 'block';
+
+            // 실제 구매가 업데이트 (선택된 가격의 만원 단위 가격을 원 단위로 변환)
+            let actualPriceValue = parseFloat(priceText.replace('만', '').replace(/,/g, ''));
+            if (item.querySelector('.price-value').classList.contains('negative')) {
+                actualPriceValue = -Math.abs(actualPriceValue);
+            }
+            const actualPriceInWon = actualPriceValue * 10000;
+            const actualPriceElement = document.getElementById('productDetailActualPrice');
+            if (actualPriceElement) {
+                actualPriceElement.textContent = actualPriceInWon.toLocaleString() + '원';
+                actualPriceElement.style.color = actualPriceInWon < 0 ? '#F04438' : '#313142';
+            }
 
             // 검색 결과 섹션 표시
             document.getElementById('productResultSection').style.display = 'block';
