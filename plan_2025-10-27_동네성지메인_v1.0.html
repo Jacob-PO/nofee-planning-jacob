@@ -2217,11 +2217,13 @@
                 // 요금제가 선택되어 있으면 음수 체크
                 if (currentPlan) {
                     if (!isAllNegativePrice(capacity.toString(), currentPlan)) {
-                        options += `<option value="${capacity}">${capacity}GB</option>`;
+                        const label = capacity >= 1000 ? `${capacity / 1000}TB` : `${capacity}GB`;
+                        options += `<option value="${capacity}">${label}</option>`;
                     }
                 } else {
                     // 요금제 미선택 시 모든 옵션 표시
-                    options += `<option value="${capacity}">${capacity}GB</option>`;
+                    const label = capacity >= 1000 ? `${capacity / 1000}TB` : `${capacity}GB`;
+                    options += `<option value="${capacity}">${label}</option>`;
                 }
             });
 
@@ -2278,10 +2280,6 @@
         // 지역 선택
         setupRegionFilter('productSidoSelect', 'productSigunguSelect');
 
-        // 초기 용량/요금제 옵션 생성
-        updateProductCapacityOptions();
-        updateProductPlanOptions();
-
         // 페이지 로드 시 기본값 설정 (고객이 수정 가능)
         document.getElementById('productSidoSelect').value = 'seoul';
         document.getElementById('productSidoSelect').dispatchEvent(new Event('change'));
@@ -2289,10 +2287,13 @@
             document.getElementById('productSigunguSelect').value = 'gangnam';
         }, 100);
 
-        // 기본값 설정 후 다시 옵션 업데이트
+        // 초기 용량/요금제 옵션 생성 (음수 필터링 없이)
         setTimeout(() => {
+            updateProductCapacityOptions();
+            updateProductPlanOptions();
+
+            // 기본값 설정
             document.getElementById('productCapacitySelect').value = '256';
-            updateProductPlanOptions(); // 용량 선택 후 요금제 필터링
             document.getElementById('productPlanSelect').value = '5.5';
         }, 100);
 
