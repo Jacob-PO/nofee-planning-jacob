@@ -1915,8 +1915,11 @@
                                 </div>
                             </div>
 
-                            <!-- 상품 카드 리스트 -->
-                            <div id="storeCardList" style="display: none;"></div>
+                            <!-- 검색 결과 -->
+                            <div id="storeResultSection" style="display: none;">
+                                <h2 class="result-title">검색 결과</h2>
+                                <div id="storeCardList"></div>
+                            </div>
                         </section>
                     </div>
                 </div>
@@ -2932,7 +2935,7 @@
                     `;
 
                     storeCardList.innerHTML = productCardHTML;
-                    storeCardList.style.display = 'block';
+                    document.getElementById('storeResultSection').style.display = 'block';
                 }
             });
         });
