@@ -2179,6 +2179,95 @@
         document.getElementById('productCapacitySelect').value = '256';
         document.getElementById('productPlanSelect').value = '5.5';
 
+        // 상품 상세페이지 가격 그리드 업데이트 함수
+        function updateProductPriceGrid() {
+            const capacity = document.getElementById('productCapacitySelect').value;
+            const plan = document.getElementById('productPlanSelect').value;
+
+            console.log('🔄 상품상세 가격 그리드 업데이트:', { capacity, plan });
+
+            // 용량과 요금제가 모두 선택되어야만 가격 그리드 활성화
+            const priceItems = document.querySelectorAll('#productPriceSection .price-item');
+
+            if (!capacity || !plan) {
+                // 필터 미완성 시 가격 그리드 비활성화
+                priceItems.forEach(item => {
+                    item.classList.add('disabled');
+                    item.classList.remove('selected');
+                });
+                return;
+            }
+
+            // 필터 완성 시 가격 그리드 활성화 및 가격 업데이트
+            priceItems.forEach(item => {
+                item.classList.remove('disabled');
+
+                // 실제 가격 데이터로 업데이트 (storeData 활용)
+                const carrier = item.dataset.carrier;
+                const type = item.dataset.type;
+
+                // 해당 조건의 매장 데이터에서 가격 추출
+                const matchingStores = storeData.filter(store =>
+                    store.capacity === parseInt(capacity) &&
+                    store.plan === plan &&
+                    store.carrier === carrier &&
+                    store.priceType === type
+                );
+
+                if (matchingStores.length > 0) {
+                    // 가장 낮은 가격 찾기
+                    const lowestStore = matchingStores.reduce((min, store) =>
+                        store.price < min.price ? store : min
+                    );
+
+                    const price = lowestStore.price;
+                    const priceValueElement = item.querySelector('.price-value');
+
+                    if (price < 0) {
+                        priceValueElement.textContent = `${Math.abs(Math.floor(price / 10000))}만`;
+                        priceValueElement.classList.add('negative');
+                    } else {
+                        priceValueElement.textContent = `${Math.floor(price / 10000)}만`;
+                        priceValueElement.classList.remove('negative');
+                    }
+                } else {
+                    // 데이터 없을 경우 "-" 표시
+                    item.querySelector('.price-value').textContent = '-';
+                }
+            });
+
+            // 최저가 자동 선택
+            selectLowestPrice();
+        }
+
+        // 최저가 자동 선택 함수
+        function selectLowestPrice() {
+            const priceItems = document.querySelectorAll('#productPriceSection .price-item');
+            let lowestPriceItem = null;
+            let lowestPrice = Infinity;
+
+            priceItems.forEach((item) => {
+                if (item.classList.contains('disabled')) return;
+
+                const priceText = item.querySelector('.price-value').textContent;
+                if (priceText === '-') return;
+
+                let priceValue = parseFloat(priceText.replace('만', '').replace(/,/g, ''));
+                if (item.querySelector('.price-value').classList.contains('negative')) {
+                    priceValue = -Math.abs(priceValue);
+                }
+
+                if (priceValue < lowestPrice) {
+                    lowestPrice = priceValue;
+                    lowestPriceItem = item;
+                }
+            });
+
+            if (lowestPriceItem) {
+                selectProductPrice(lowestPriceItem);
+            }
+        }
+
         // 상품 상세페이지 가격 그리드 - 동네성지 메인과 동일한 방식
         const productPriceItems = document.querySelectorAll('#productPriceSection .price-item');
 
@@ -2278,37 +2367,21 @@
             });
         });
 
-        if (productPriceItems.length > 0) {
-            let lowestPriceItem = null;
-            let lowestPrice = Infinity;
+        // 필터 변경 시 가격 그리드 업데이트
+        document.getElementById('productCapacitySelect').addEventListener('change', () => {
+            console.log('📱 용량 필터 변경됨 (상품상세)');
+            updateProductPriceGrid();
+        });
 
-            productPriceItems.forEach((item) => {
-                // disabled 아이템은 제외
-                if (item.classList.contains('disabled')) return;
+        document.getElementById('productPlanSelect').addEventListener('change', () => {
+            console.log('📋 요금제 필터 변경됨 (상품상세)');
+            updateProductPriceGrid();
+        });
 
-                const priceText = item.querySelector('.price-value').textContent;
-
-                // "-" 만 제외 (음수는 포함)
-                if (priceText === '-') return;
-
-                // 음수 처리: "negative" 클래스가 있으면 음수로 변환
-                let priceValue = parseFloat(priceText.replace('만', '').replace(/,/g, ''));
-                if (item.classList.contains('negative') || item.querySelector('.negative')) {
-                    priceValue = -Math.abs(priceValue);
-                }
-
-                // 양수, 음수 통틀어 가장 낮은 가격 선택
-                if (priceValue < lowestPrice) {
-                    lowestPrice = priceValue;
-                    lowestPriceItem = item;
-                }
-            });
-
-            // 최저가 아이템 자동 선택
-            if (lowestPriceItem) {
-                selectProductPrice(lowestPriceItem);
-            }
-        }
+        // 초기 가격 그리드 업데이트 (페이지 로드 시 기본값 설정 후)
+        setTimeout(() => {
+            updateProductPriceGrid();
+        }, 200);
 
         // ====== 스토어홈 필터 스크립트 ======
         let storeSelectedManufacturer = '';
