@@ -1918,6 +1918,14 @@
                             <!-- 검색 결과 -->
                             <div id="storeResultSection" style="display: none;">
                                 <h2 class="result-title">검색 결과</h2>
+
+                                <!-- 선택한 조건 칩 -->
+                                <div id="storeSelectedPriceInfo" style="display: none; padding: 0 16px 12px 16px;">
+                                    <div id="storeSelectedPriceText" style="display: flex; gap: 6px; flex-wrap: wrap;">
+                                        <!-- JavaScript로 동적 생성 -->
+                                    </div>
+                                </div>
+
                                 <div id="storeCardList"></div>
                             </div>
                         </section>
@@ -2898,6 +2906,47 @@
                         const planValue = parseFloat(storeSelectedPlan);
                         planText = `${Math.floor(planValue * 10000).toLocaleString()}원/월`;
                     }
+
+                    // 선택 조건 칩 생성
+                    const carrierNames = { 'skt': 'SKT', 'kt': 'KT', 'lgu': 'LG U+' };
+                    const typeNames = {
+                        'common-change': '공시지원',
+                        'select-port': '선택약정',
+                        'select-change': '선택약정',
+                        'common-port': '공시지원'
+                    };
+                    const openTypeNames = {
+                        'common-change': '기기변경',
+                        'select-port': '번호이동',
+                        'select-change': '기기변경',
+                        'common-port': '번호이동'
+                    };
+
+                    let chips = [];
+
+                    // 통신사 칩
+                    chips.push(`
+                        <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                            <span style="font-weight: 500;">${carrierNames[carrier]}</span>
+                        </div>
+                    `);
+
+                    // 지원금 칩
+                    chips.push(`
+                        <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                            <span style="font-weight: 500;">${typeNames[type]}</span>
+                        </div>
+                    `);
+
+                    // 개통방법 칩
+                    chips.push(`
+                        <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                            <span style="font-weight: 500;">${openTypeNames[type]}</span>
+                        </div>
+                    `);
+
+                    document.getElementById('storeSelectedPriceText').innerHTML = chips.join('');
+                    document.getElementById('storeSelectedPriceInfo').style.display = 'block';
 
                     const productCardHTML = `
                         <article class="product-card">
