@@ -370,38 +370,51 @@
     </main>
 
     <script>
-        // 문서 데이터
+        // 문서 데이터 (그룹화)
+        const documentGroups = [
+            {
+                id: 'dongne-phase1',
+                title: '동네성지 1차 개편',
+                description: '가격별 매장 검색 + 시세표 + UX 개선',
+                gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                mainDoc: {
+                    type: 'plan',
+                    title: '동네성지 1차 개편',
+                    description: '지역 필터에 상품 필터를 추가하여 최저가 매장을 즉시 검색할 수 있는 기능. 제조사/상품/용량/요금제 4단계 필터링으로 고객이 원하는 상품의 최저가 매장을 빠르게 찾을 수 있습니다. 시세표 기능과 연동되어 매장별 최저가 정보를 실시간으로 제공합니다.',
+                    url: 'plan_2025-10-27_동네성지메인_v1.0.html',
+                    version: 'v1.0',
+                    author: '제이콥',
+                    date: '2025.10.27',
+                    updated: '2025.10.27'
+                },
+                subDocs: [
+                    {
+                        type: 'plan',
+                        title: '시세표 콘텐츠 유형 추가',
+                        description: '판매점이 여러 상품을 표 형식으로 대량 업로드하고 관리할 수 있는 시세표 기능. 커스텀 드롭다운과 최저가 자동 선택으로 고객이 매장의 전체 상품 라인업을 한눈에 비교하고 통신사별 가격을 실시간으로 확인할 수 있습니다.',
+                        url: 'plan_2025-10-11_시세표기능_v2.1.html',
+                        version: 'v2.2',
+                        author: '제이콥',
+                        date: '2025.10.11',
+                        updated: '2025.10.13',
+                        icon: '1'
+                    },
+                    {
+                        type: 'plan',
+                        title: '맞춤 견적 알아보기 하단 고정 버튼 비활성화',
+                        description: '상품 상세 페이지의 하단 고정 버튼을 제거하고 각 이벤트 상품마다 개별 견적 신청 버튼을 추가. 불필요한 단계를 제거하여 고객이 원하는 이벤트를 직접 선택해 바로 견적을 신청할 수 있도록 사용자 경험을 개선합니다.',
+                        url: 'plan_2025-10-25_최저가자동노출_v1.0.html',
+                        version: 'v1.0',
+                        author: '제이콥',
+                        date: '2025.10.25',
+                        updated: '2025.10.25',
+                        icon: '2'
+                    }
+                ]
+            }
+        ];
+
         const documents = [
-            {
-                type: 'plan',
-                title: '동네성지 메인페이지 상품 필터 추가',
-                description: '지역 필터에 상품 필터를 추가하여 최저가 매장을 즉시 검색할 수 있는 기능. 제조사/상품/용량/요금제 4단계 필터링으로 고객이 원하는 상품의 최저가 매장을 빠르게 찾을 수 있습니다. 시세표 기능과 연동되어 매장별 최저가 정보를 실시간으로 제공합니다.',
-                url: 'plan_2025-10-27_동네성지메인_v1.0.html',
-                version: 'v1.0',
-                author: '제이콥',
-                date: '2025.10.27',
-                updated: '2025.10.27'
-            },
-            {
-                type: 'plan',
-                title: '맞춤 견적 알아보기 하단 고정 버튼 비활성화',
-                description: '상품 상세 페이지의 하단 고정 버튼을 제거하고 각 이벤트 상품마다 개별 견적 신청 버튼을 추가. 불필요한 단계를 제거하여 고객이 원하는 이벤트를 직접 선택해 바로 견적을 신청할 수 있도록 사용자 경험을 개선합니다.',
-                url: 'plan_2025-10-25_최저가자동노출_v1.0.html',
-                version: 'v1.0',
-                author: '제이콥',
-                date: '2025.10.25',
-                updated: '2025.10.25'
-            },
-            {
-                type: 'plan',
-                title: '시세표 콘텐츠 유형 추가',
-                description: '판매점이 여러 상품을 표 형식으로 대량 업로드하고 관리할 수 있는 시세표 기능. 커스텀 드롭다운과 최저가 자동 선택으로 고객이 매장의 전체 상품 라인업을 한눈에 비교하고 통신사별 가격을 실시간으로 확인할 수 있습니다.',
-                url: 'plan_2025-10-11_시세표기능_v2.1.html',
-                version: 'v2.2',
-                author: '제이콥',
-                date: '2025.10.11',
-                updated: '2025.10.13'
-            },
             {
                 type: 'plan',
                 title: '견적신청 알림톡 시스템',
@@ -485,15 +498,78 @@
             `;
         }
 
+        // 그룹 카드 생성 (토스 스타일)
+        function createGroupCard(group) {
+            const subDocsHtml = group.subDocs.map(doc => `
+                <a href="https://jacob-po.github.io/nofee_planning/${doc.url}" target="_blank" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: white; border: 1.5px solid #e5e7eb; border-radius: 8px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='#3182f6'; this.style.backgroundColor='#f8faff';" onmouseout="this.style.borderColor='#e5e7eb'; this.style.backgroundColor='white';">
+                    <div style="flex-shrink: 0; width: 32px; height: 32px; background: ${group.gradient}; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px;">${doc.icon}</div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="font-weight: 600; color: #111827; font-size: 13px; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${doc.title}</div>
+                        <div style="font-size: 11px; color: #9ca3af;">${doc.version} | ${doc.date}</div>
+                    </div>
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
+                        <path d="M7.5 15L12.5 10L7.5 5" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            `).join('');
+
+            return `
+                <div style="grid-column: 1 / -1; background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%); border: 2px solid #bfdbfe; border-radius: 16px; padding: 24px; margin-bottom: 16px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <div style="width: 48px; height: 48px; background: ${group.gradient}; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M4 6h16M4 12h16M4 18h16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div style="flex: 1;">
+                            <h3 style="font-size: 18px; font-weight: 700; color: #111827; margin: 0 0 4px 0; letter-spacing: -0.5px;">${group.title}</h3>
+                            <p style="font-size: 13px; color: #6b7280; margin: 0;">${group.description}</p>
+                        </div>
+                    </div>
+                    <a href="https://jacob-po.github.io/nofee_planning/${group.mainDoc.url}" class="card" target="_blank" style="margin-bottom: 16px; background: white; border: 2px solid #3182f6;">
+                        <div class="card-header">
+                            <div class="card-badges">
+                                <span class="badge badge-type">메인 기획</span>
+                                <span class="badge badge-version">${group.mainDoc.version}</span>
+                            </div>
+                        </div>
+                        <h3 class="card-title">${group.mainDoc.title}</h3>
+                        <p class="card-description">${group.mainDoc.description}</p>
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">작성자</span>
+                                <span class="meta-value">${group.mainDoc.author}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">작성일</span>
+                                <span class="meta-value">${group.mainDoc.date}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div style="font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 12px;">상세 기획</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        ${subDocsHtml}
+                    </div>
+                </div>
+            `;
+        }
+
         // 카드 렌더링
         function renderCards() {
             const allCards = document.getElementById('all-cards');
             const pageCards = document.getElementById('page-cards');
             const planCards = document.getElementById('plan-cards');
 
-            allCards.innerHTML = documents.map(createCard).join('');
+            // 기획안 섹션: 그룹 + 일반 문서
+            const groupsHtml = documentGroups.map(createGroupCard).join('');
+            const planDocsHtml = documents.filter(d => d.type === 'plan').map(createCard).join('');
+            planCards.innerHTML = groupsHtml + planDocsHtml;
+
+            // 전체 섹션
+            allCards.innerHTML = groupsHtml + documents.map(createCard).join('');
+
+            // 페이지 섹션
             pageCards.innerHTML = documents.filter(d => d.type === 'page').map(createCard).join('');
-            planCards.innerHTML = documents.filter(d => d.type === 'plan').map(createCard).join('');
         }
 
         // 탭 전환

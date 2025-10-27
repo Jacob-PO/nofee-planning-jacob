@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동네성지 메인페이지 상품 필터 추가 - 노피 어드민 시스템</title>
+    <title>동네성지 1차 개편 - 노피 어드민 시스템</title>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-10-27_동네성지메인_v1.0.html">
-    <meta property="og:title" content="[노피 기획안] 동네성지 메인페이지 상품 필터 추가">
-    <meta property="og:description" content="🎯 지역 필터에 상품 필터 추가로 최저가 매장 즉시 검색 | 제조사/상품/용량/요금제 4단계 필터링 | 시세표 기능과 연동 | 작성: 제이콥 | v1.0">
+    <meta property="og:title" content="[노피 기획안] 동네성지 1차 개편">
+    <meta property="og:description" content="동네성지 서비스 1차 개편 종합 기획안 | 상품 필터 추가, 시세표 기능, 맞춤견적 버튼 개선 | 작성: 제이콥 | v1.0">
     <meta property="og:image" content="https://nofee.team/images/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -167,7 +167,7 @@
 
         .highlight-box {
             background: #eff8ff;
-            border-left: 4px solid #3182f6;
+            border: 1px solid #bfdbfe;
             padding: 16px 20px;
             margin: 16px 0;
             border-radius: 4px;
@@ -1042,8 +1042,39 @@
                 <div class="doc-meta-item">작성자: 제이콥</div>
             </div>
         </div>
-        <h1 class="doc-title">동네성지 메인페이지 가격별 매장 검색</h1>
-        <p class="doc-subtitle">통신사 × 가격유형별 최저가 매장 즉시 찾기</p>
+        <h1 class="doc-title">동네성지 1차 개편</h1>
+        <p class="doc-subtitle">가격별 매장 검색 + 시세표 기능 + UX 개선</p>
+    </div>
+
+    <!-- 하위 문서 네비게이션 (토스 스타일) -->
+    <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 32px;">
+        <div style="font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 16px;">이 문서의 상세 기획</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+            <a href="https://jacob-po.github.io/nofee_planning/plan_2025-10-11_시세표기능_v2.1.html" target="_blank" style="display: flex; align-items: center; gap: 12px; padding: 16px; background: white; border: 1.5px solid #e5e7eb; border-radius: 10px; text-decoration: none; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.borderColor='#3182f6'; this.style.backgroundColor='#f8faff';" onmouseout="this.style.borderColor='#e5e7eb'; this.style.backgroundColor='white';">
+                <div style="flex-shrink: 0; width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px;">1</div>
+                <div style="flex: 1;">
+                    <div style="font-weight: 600; color: #111827; font-size: 14px; margin-bottom: 4px;">시세표 기능</div>
+                    <div style="font-size: 12px; color: #6b7280;">매장/상품별 가격 비교표</div>
+                </div>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
+                    <path d="M7.5 15L12.5 10L7.5 5" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            <a href="https://jacob-po.github.io/nofee_planning/plan_2025-10-25_최저가자동노출_v1.0.html" target="_blank" style="display: flex; align-items: center; gap: 12px; padding: 16px; background: white; border: 1.5px solid #e5e7eb; border-radius: 10px; text-decoration: none; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.borderColor='#3182f6'; this.style.backgroundColor='#f8faff';" onmouseout="this.style.borderColor='#e5e7eb'; this.style.backgroundColor='white';">
+                <div style="flex-shrink: 0; width: 40px; height: 40px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px;">2</div>
+                <div style="flex: 1;">
+                    <div style="font-weight: 600; color: #111827; font-size: 14px; margin-bottom: 4px;">맞춤견적 버튼 개선</div>
+                    <div style="font-size: 12px; color: #6b7280;">하단 고정 버튼 비활성화</div>
+                </div>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
+                    <path d="M7.5 15L12.5 10L7.5 5" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #6b7280; line-height: 1.6;">
+            <strong style="color: #111827;">3개 기획안이 하나로</strong><br>
+            이 개편은 세 가지 핵심 기능(상품 필터, 시세표, 맞춤견적 개선)이 함께 출시되어야 완성됩니다. 각 기획안을 클릭하여 상세 내용을 확인하세요.
+        </div>
     </div>
 
     <div class="info-box">
@@ -1124,7 +1155,7 @@
                 </tbody>
             </table>
 
-            <div style="margin-top: 16px; padding: 12px; background: #f0f9ff; border-left: 4px solid #0284c7; border-radius: 4px;">
+            <div style="margin-top: 16px; padding: 12px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 4px;">
                 <div style="font-size: 13px; color: #0369a1; line-height: 1.6;">
                     <strong>○</strong> = 기능 제공 &nbsp;&nbsp;|&nbsp;&nbsp; <strong>✕</strong> = 미제공<br>
                     <br>
@@ -1135,7 +1166,7 @@
             </div>
 
             <h3 style="font-size: 15px; font-weight: 600; color: #111827; margin-top: 32px; margin-bottom: 12px;">필터 옵션 노출 정책</h3>
-            <div style="padding: 16px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 4px; margin-bottom: 16px;">
+            <div style="padding: 16px; background: #fef3c7; border: 1px solid #fde68a; border-radius: 4px; margin-bottom: 16px;">
                 <div style="font-size: 14px; color: #92400e; line-height: 1.7;">
                     <strong style="color: #78350f;">음수 가격 필터링 규칙</strong><br><br>
                     <strong>규칙:</strong> 특정 용량/요금제 조합에서 <strong>모든 가격이 음수(마이너스)인 경우</strong>, 해당 옵션을 필터에서 제외합니다.<br><br>
@@ -1152,7 +1183,7 @@
             </div>
 
             <h3 style="font-size: 15px; font-weight: 600; color: #111827; margin-top: 32px; margin-bottom: 12px;">가격 표시 정책</h3>
-            <div style="padding: 16px; background: #f0f9ff; border-left: 4px solid #0284c7; border-radius: 4px; margin-bottom: 16px;">
+            <div style="padding: 16px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 4px; margin-bottom: 16px;">
                 <div style="font-size: 14px; color: #0369a1; line-height: 1.7;">
                     <strong style="color: #075985;">음수 가격 색상 표현</strong><br><br>
                     <strong>정책:</strong> 모든 가격은 음수/양수 관계없이 <strong>동일한 색상(검은색 #111827)</strong>으로 표시합니다.<br><br>
