@@ -1,0 +1,3553 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동네성지 메인페이지 상품 필터 추가 - 노피 어드민 시스템</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-10-27_동네성지메인_v1.0.html">
+    <meta property="og:title" content="[노피 기획안] 동네성지 메인페이지 상품 필터 추가">
+    <meta property="og:description" content="🎯 지역 필터에 상품 필터 추가로 최저가 매장 즉시 검색 | 제조사/상품/용량/요금제 4단계 필터링 | 시세표 기능과 연동 | 작성: 제이콥 | v1.0">
+    <meta property="og:image" content="https://nofee.team/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="노피 기획안 - 동네성지 메인페이지 상품 필터 추가">
+    <meta property="og:site_name" content="노피 NOFEE - 기획 문서">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="article:author" content="제이콥">
+    <meta property="article:published_time" content="2025-10-27T00:00:00+09:00">
+    <meta property="article:modified_time" content="2025-10-27T00:00:00+09:00">
+    <meta property="article:section" content="기획안">
+    <meta property="article:tag" content="동네성지">
+    <meta property="article:tag" content="상품검색">
+    <meta property="article:tag" content="필터링">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-10-27_동네성지메인_v1.0.html">
+    <meta name="twitter:title" content="[노피 기획안] 동네성지 메인페이지 상품 필터 추가">
+    <meta name="twitter:description" content="🎯 지역 필터에 상품 필터 추가로 최저가 매장 즉시 검색 | 제조사/상품/용량/요금제 4단계 필터링">
+    <meta name="twitter:image" content="https://nofee.team/images/og-image.png">
+    <meta name="twitter:image:alt" content="노피 기획안 - 동네성지 메인페이지 상품 필터 추가">
+    <meta name="twitter:creator" content="@nofee_team">
+
+    <!-- Meta Description -->
+    <meta name="description" content="🎯 지역 필터에 상품 필터 추가로 최저가 매장 즉시 검색 | 제조사/상품/용량/요금제 4단계 필터링 | 시세표 기능과 연동 | 노피 기획안 v1.0">
+    <meta name="keywords" content="노피, NOFEE, 기획안, 동네성지, 상품검색, 필터링, 시세표, 최저가">
+
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body {
+                padding: 15mm;
+            }
+        }
+
+        body {
+            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #ffffff;
+            color: #191f28;
+            line-height: 1.6;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-header {
+            border-bottom: 2px solid #3182f6;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .logo {
+            height: 32px;
+        }
+
+        .doc-meta {
+            text-align: right;
+            font-size: 11px;
+            color: #8b95a1;
+        }
+
+        .doc-meta-item {
+            margin-bottom: 4px;
+        }
+
+        .doc-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-subtitle {
+            font-size: 16px;
+            color: #4e5968;
+            font-weight: 400;
+        }
+
+        .info-box {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+
+        .info-item {
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #8b95a1;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: #191f28;
+            font-weight: 600;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e8eb;
+        }
+
+        .content {
+            color: #4e5968;
+            line-height: 1.8;
+        }
+
+        .content p {
+            margin-bottom: 12px;
+        }
+
+        .content ul, .content ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #eff8ff;
+            border-left: 4px solid #3182f6;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: #191f28;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #e5e8eb;
+        }
+
+        .comparison-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #191f28;
+        }
+
+        .comparison-table td {
+            color: #4e5968;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .tag-before {
+            background: #fee;
+            color: #d32f2f;
+        }
+
+        .tag-after {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        /* 모바일 화면 목업 스타일 */
+        .mockup-container {
+            display: flex;
+            gap: 32px;
+            margin: 32px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .phone-mockup {
+            width: 320px;
+            background: #fff;
+            border: 1px solid #d1d5db;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-screen {
+            height: 640px;
+            overflow-y: scroll;
+            background: #fff;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        .phone-screen::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .phone-screen::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 2px;
+        }
+
+        .phone-screen-content {
+            position: relative;
+            min-height: 100%;
+        }
+
+        .mockup-header {
+            background: #fff;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e8eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mockup-logo {
+            height: 20px;
+        }
+
+        .mockup-logo img {
+            height: 100%;
+        }
+
+        .mockup-label {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+            margin-top: 16px;
+            padding: 8px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .mockup-label.before {
+            color: #d32f2f;
+            background: #ffebee;
+        }
+
+        .mockup-label.after {
+            color: #2e7d32;
+            background: #e8f5e9;
+        }
+
+        .mockup-comparison-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #3182f6;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .mockup-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mockup-comparison-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        .screenshot-container {
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .screenshot-container img {
+            max-width: 320px;
+            border: 2px solid #e5e8eb;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .screenshot-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
+        /* 실제 모바일 화면 목업 스타일 */
+        .mobile-mockup {
+            width: 375px;
+            height: 812px;
+            background: #fff;
+            border: 1px solid #e5e8eb;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            position: relative;
+            margin: 20px auto;
+        }
+
+        .mobile-screen {
+            height: 100%;
+            overflow-y: auto;
+            background: #fff;
+        }
+
+        .mobile-screen::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .mobile-screen::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 2px;
+        }
+
+        .mobile-header {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            padding: 12px 20px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 48px;
+            position: relative;
+        }
+
+        .mobile-header-logo {
+            height: 20px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .mobile-header-tabs {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1;
+        }
+
+        .mobile-header-tab {
+            font-size: 15px;
+            font-weight: 600;
+            color: #9ba4b4;
+            cursor: pointer;
+            position: relative;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        .mobile-header-tab.active {
+            color: #131FA0;
+        }
+
+        .mobile-header-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #131FA0;
+        }
+
+        .mobile-header-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 2;
+        }
+
+        .mobile-header-mypage {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .filter-panel {
+            padding: 16px;
+            background: #fff;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            margin: 10px 16px;
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+        }
+
+        .filter-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .filter-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .filter-dropdown {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e8eb;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #191f28;
+            background: #fff;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23666' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            cursor: pointer;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .filter-tab {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e5e8eb;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #6b7280;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-tab.active {
+            background: #131FA0;
+            color: #fff;
+            border-color: #131FA0;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 8px 16px;
+            border: 1px solid #e5e8eb;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4e5968;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-button.active {
+            background: #eff8ff;
+            border-color: #3182f6;
+            color: #3182f6;
+        }
+
+        .filter-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .filter-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .filter-btn-reset {
+            background: #f9fafb;
+            color: #4e5968;
+            border: 1px solid #e5e8eb;
+        }
+
+        .filter-btn-search {
+            background: linear-gradient(to right, #1E34A5, #5D7BDC);
+            color: #fff;
+        }
+
+        .filter-btn-search:disabled {
+            background: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .search-result-summary {
+            padding: 12px 20px;
+            background: #f9fafb;
+            font-size: 13px;
+            color: #4e5968;
+            text-align: center;
+        }
+
+        /* 검색 결과 매장 리스트 */
+        .result-section {
+            border-top: 8px solid #f7f7f7;
+            border-bottom: 8px solid #f7f7f7;
+            padding: 24px 20px;
+        }
+
+        .result-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #313142;
+            margin-bottom: 4px;
+        }
+
+        .product-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .product-card {
+            padding-top: 12px;
+            overflow: hidden;
+        }
+
+        .product-card:first-child {
+            padding-top: 0;
+        }
+
+        .store-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            cursor: pointer;
+        }
+
+        .store-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .store-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .store-name-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .store-name-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+        }
+
+        .store-date {
+            font-size: 12px;
+            color: #9ba4b4;
+        }
+
+        .product-detail-card {
+            border: 1px solid #e5e8eb;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .product-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .product-image {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .product-info {
+            flex: 1;
+            width: 100%;
+        }
+
+        .product-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #191f28;
+            margin-bottom: 8px;
+        }
+
+        .product-specs {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 3px 0;
+            font-size: 12px;
+            line-height: 1.3;
+        }
+
+        .spec-label {
+            color: #9ba4b4;
+        }
+
+        .spec-value {
+            color: #9ba4b4;
+            text-align: right;
+        }
+
+        .product-divider {
+            height: 1px;
+            background: #e5e8eb;
+            margin: 10px 0;
+        }
+
+        .product-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .price-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #4e5968;
+        }
+
+        .price-amount {
+            font-size: 18px;
+            font-weight: 700;
+            color: #131FA0;
+        }
+
+        .product-action {
+            display: flex;
+            gap: 8px;
+            padding-top: 12px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(to right, #1E34A5, #5D7BDC);
+            color: #fff;
+        }
+
+        .lowest-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #131FA0;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+
+        .divider {
+            height: 8px;
+            background: #f7f7f7;
+        }
+
+        /* 가격 선택 섹션 */
+        .price-section {
+            padding: 16px 20px 20px;
+        }
+
+        .price-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #191f28;
+            margin-bottom: 12px;
+        }
+
+        .price-card {
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 20px;
+            background: #fff;
+        }
+
+        .carrier-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .carrier-name {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #191f28;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .price-item {
+            border: 1px solid #e5e8eb;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fff;
+        }
+
+        .price-item:hover {
+            border-color: #d1d5db;
+        }
+
+        .price-item.selected {
+            border: 1.5px solid #131FA0;
+            border-left: 4px solid #131FA0;
+            background: #f8f9ff;
+        }
+
+        .price-item.disabled {
+            background: #f9fafb;
+            border-color: #f3f4f6;
+            cursor: not-allowed;
+        }
+
+        .price-item.disabled:hover {
+            border-color: #f3f4f6;
+        }
+
+        .price-type {
+            font-size: 10px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .price-item.disabled .price-type {
+            color: #d1d5db;
+        }
+
+        .price-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+        }
+
+        .price-item.disabled .price-value {
+            color: #d1d5db;
+        }
+
+        .price-value.negative {
+            color: #dc2626;
+        }
+
+        .selected-price-info {
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            padding: 16px 20px;
+            border-top: 1px solid #e5e8eb;
+            display: none;
+        }
+
+        .selected-price-info.show {
+            display: block;
+        }
+
+        .selected-price-detail {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .selected-price-total {
+            font-size: 18px;
+            font-weight: 700;
+            color: #131FA0;
+        }
+
+        .apply-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #1E34A5, #5D7BDC);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        /* 리뷰 섹션 */
+        .review-section {
+            padding: 24px 20px;
+            background: #fff;
+        }
+
+        .review-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #313142;
+            margin-bottom: 16px;
+        }
+
+        .review-list {
+            border-top: 1px solid #e5e8eb;
+        }
+
+        .review-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e8eb;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .review-item:hover {
+            background: #f9fafb;
+        }
+
+        .review-store-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .review-store-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #f3f4f6;
+        }
+
+        .review-store-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .review-store-info {
+            flex: 1;
+        }
+
+        .review-store-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 2px;
+        }
+
+        .review-store-stats {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .review-content-wrapper {
+            width: 100%;
+        }
+
+        .review-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .review-author {
+            font-size: 14px;
+            font-weight: 600;
+            color: #7E7E8F;
+        }
+
+        .review-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .review-rating svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .review-date {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-left: auto;
+        }
+
+        .review-text {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .review-load-more {
+            margin-top: 16px;
+            width: 100%;
+            padding: 8px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            background: #fff;
+            color: #7E7E8F;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .review-load-more:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+        }
+
+        .review-load-more svg {
+            width: 14px;
+            height: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-header">
+        <div class="logo-container">
+            <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="logo">
+            <div class="doc-meta">
+                <div class="doc-meta-item">작성일: 2025.10.27</div>
+                <div class="doc-meta-item">버전: v1.0</div>
+                <div class="doc-meta-item">작성자: 제이콥</div>
+            </div>
+        </div>
+        <h1 class="doc-title">동네성지 메인페이지 가격별 매장 검색</h1>
+        <p class="doc-subtitle">통신사 × 가격유형별 최저가 매장 즉시 찾기</p>
+    </div>
+
+    <div class="info-box">
+        <div class="info-item">
+            <div class="info-label">문서 유형</div>
+            <div class="info-value">기획안</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">우선순위</div>
+            <div class="info-value">중간 (Medium)</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">연동 기획안</div>
+            <div class="info-value">시세표 기능 v2.1</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">핵심 기능</h2>
+        <div class="content">
+            <div class="highlight-box">
+                <strong>통신사 × 가격유형 그리드</strong> — SKT/KT/LG U+ × 4가지 가격유형 (12개 조합)<br>
+                <strong>클릭 시</strong> — 해당 조건의 최저가 매장 즉시 표시<br>
+                <strong>데이터</strong> — 판매점이 등록한 시세표 기반
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">필터 구성 비교</h2>
+        <div class="content">
+            <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
+                <thead>
+                    <tr style="background: #f9fafb; border-bottom: 2px solid #e5e7eb;">
+                        <th style="padding: 12px; text-align: left; font-weight: 600; color: #111827;">필터 항목</th>
+                        <th style="padding: 12px; text-align: center; font-weight: 600; color: #111827;">동네성지 메인</th>
+                        <th style="padding: 12px; text-align: center; font-weight: 600; color: #111827;">스토어홈<br><span style="font-size: 11px; font-weight: 400; color: #6b7280;">(시세표)</span></th>
+                        <th style="padding: 12px; text-align: center; font-weight: 600; color: #111827;">상품 상세페이지</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 12px; font-weight: 500;">지역 (시/도, 시/군/구)</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                        <td style="padding: 12px; text-align: center; color: #dc2626;">✕</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 12px; font-weight: 500;">제조사 (삼성/애플/기타)</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                        <td style="padding: 12px; text-align: center; color: #dc2626;">✕</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 12px; font-weight: 500;">상품 선택</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                        <td style="padding: 12px; text-align: center; color: #dc2626;">✕</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 12px; font-weight: 500;">용량 / 요금제</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 12px; font-weight: 500;">통신사 × 가격유형 그리드</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                    </tr>
+                    <tr style="background: #f9fafb;">
+                        <td style="padding: 12px; font-weight: 600;">검색 버튼</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○</td>
+                        <td style="padding: 12px; text-align: center; color: #dc2626;">✕</td>
+                        <td style="padding: 12px; text-align: center; color: #dc2626;">✕</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 16px; padding: 12px; background: #f0f9ff; border-left: 4px solid #0284c7; border-radius: 4px;">
+                <div style="font-size: 13px; color: #0369a1; line-height: 1.6;">
+                    <strong>○</strong> = 기능 제공 &nbsp;&nbsp;|&nbsp;&nbsp; <strong>✕</strong> = 미제공<br>
+                    <br>
+                    <strong>동네성지 메인:</strong> 모든 필터 제공 (제조사 → 상품 → 용량 → 요금제 선택 완료 시 가격 그리드 활성화, 검색 버튼 클릭 필요)<br>
+                    <strong>스토어홈:</strong> 특정 매장의 시세표 화면 (지역 필터 없음, 검색 버튼 없이 필터 변경 시 즉시 반영)<br>
+                    <strong>상품 상세:</strong> 현재 상품 기준이므로 제조사/상품 필터 없음 (지역 + 용량/요금제 선택, 검색 버튼 없이 즉시 가격 그리드 표시)
+                </div>
+            </div>
+
+            <h3 style="font-size: 15px; font-weight: 600; color: #111827; margin-top: 32px; margin-bottom: 12px;">초기 선택값 비교</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 12px;">
+                <thead>
+                    <tr style="background: #f9fafb; border-bottom: 2px solid #e5e7eb;">
+                        <th style="padding: 12px; text-align: left; font-weight: 600; color: #111827;">필터 항목</th>
+                        <th style="padding: 12px; text-align: center; font-weight: 600; color: #111827;">동네성지 메인</th>
+                        <th style="padding: 12px; text-align: center; font-weight: 600; color: #111827;">스토어홈<br><span style="font-size: 11px; font-weight: 400; color: #6b7280;">(시세표)</span></th>
+                        <th style="padding: 12px; text-align: center; font-weight: 600; color: #111827;">상품 상세페이지</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 12px; font-weight: 500;">지역</td>
+                        <td style="padding: 12px; text-align: center; color: #6b7280;">미선택</td>
+                        <td style="padding: 12px; text-align: center; color: #dc2626;">-</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">최저가 매장 기준</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 12px; font-weight: 500;">제조사</td>
+                        <td style="padding: 12px; text-align: center; color: #6b7280;">미선택</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">스토어 최저가 상품</td>
+                        <td style="padding: 12px; text-align: center; color: #dc2626;">-</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 12px; font-weight: 500;">상품</td>
+                        <td style="padding: 12px; text-align: center; color: #6b7280;">미선택</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">스토어 최저가 상품</td>
+                        <td style="padding: 12px; text-align: center; color: #dc2626;">-</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 12px; font-weight: 500;">용량</td>
+                        <td style="padding: 12px; text-align: center; color: #6b7280;">미선택</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">스토어 최저가 상품</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">해당 상품 기준</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 12px; font-weight: 500;">요금제</td>
+                        <td style="padding: 12px; text-align: center; color: #6b7280;">미선택</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">스토어 최저가 상품</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">해당 상품 기준</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e5e7eb;">
+                        <td style="padding: 12px; font-weight: 500;">가격 선택<br><span style="font-size: 11px; font-weight: 400; color: #6b7280;">(통신사×가격유형)</span></td>
+                        <td style="padding: 12px; text-align: center; color: #6b7280;">미선택 (비활성화)</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">최저가 자동 선택</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">최저가 자동 선택</td>
+                    </tr>
+                    <tr style="background: #f9fafb;">
+                        <td style="padding: 12px; font-weight: 600;">카드 표시</td>
+                        <td style="padding: 12px; text-align: center; color: #dc2626;">✕ (미표시)</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○ (매장 정보 제외)</td>
+                        <td style="padding: 12px; text-align: center; color: #16a34a; font-weight: 600;">○ (매장 정보 포함)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 16px; padding: 12px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 4px;">
+                <div style="font-size: 13px; color: #92400e; line-height: 1.6;">
+                    <strong>초기 선택값 정책:</strong><br>
+                    <br>
+                    <strong>동네성지 메인:</strong> 모든 필터 미선택, 가격 그리드 비활성화, 사용자가 직접 모든 조건 선택<br>
+                    <strong>스토어홈:</strong> 스토어가 보유한 가장 저렴한 상품 기준으로 제조사/상품/용량/요금제 자동 선택, 해당 상품의 최저가(통신사×가격유형) 자동 선택되어 매장 정보 제외한 상품 정보만 표시<br>
+                    <strong>상품 상세:</strong> 최저가 매장 기준으로 지역 자동 선택, 해당 상품의 특정 용량/요금제 자동 선택, 해당 조건의 최저가(통신사×가격유형) 자동 선택되어 매장 정보 포함한 카드 즉시 표시
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">1. 동네성지 메인</h2>
+        <div class="content">
+            <div class="highlight-box">
+                <strong>초기 화면</strong> — 필터 + 후기만 표시<br>
+                <strong>가격 그리드 초기 상태</strong> — 비활성화 (회색)<br>
+                <strong>필터 완성 시</strong> — 가격 그리드 활성화 (클릭 가능, 파란색 테두리)<br>
+                <strong>가격 선택 후</strong> — 선택한 조건 칩 + 상품 카드 표시<br>
+                <strong>초기 선택값</strong> — 없음 (사용자가 직접 선택)<br>
+                <strong>정렬 순서</strong> — 할부원금 낮은 순 (최저가부터)
+            </div>
+
+            <p style="color: #6b7280; font-size: 14px; margin-top: 12px;">
+                ※ 필터 조건: 제조사 → 상품 → 용량 → 요금제 (4단계 모두 선택 완료 시 가격 그리드 활성화)
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">2. 상품 상세페이지</h2>
+        <div class="content">
+            <div class="highlight-box">
+                <strong>새 탭 추가</strong> — "검색" (기존: 리뷰, Q&A)<br>
+                <strong>초기 화면</strong> — 최저가 조건 자동 선택 + 상품 카드 표시<br>
+                <strong>검색 범위</strong> — 현재 상품만 필터링<br>
+                <strong>정렬 순서</strong> — 할부원금 낮은 순 (최저가부터)
+            </div>
+
+            <p style="color: #6b7280; font-size: 14px; margin-top: 12px;">※ "가격표" 탭(실제 구매가 추이) 삭제됨</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">3. 스토어홈 (시세표)</h2>
+        <div class="content">
+            <div class="highlight-box">
+                <strong>초기 화면</strong> — 매장 정보 + 시세표 표시<br>
+                <strong>가격 그리드 초기 상태</strong> — 활성화 (전체 상품 가격 표시)<br>
+                <strong>초기 선택값</strong> — 최저가 자동 선택 + 상품 카드 표시<br>
+                <strong>필터 변경 시</strong> — 즉시 반영 (검색 버튼 없음)<br>
+                <strong>상품 카드</strong> — 가격 선택 시 매장정보 제외하고 상품 카드만 표시<br>
+                <strong>정렬 순서</strong> — 할부원금 낮은 순 (최저가부터)
+            </div>
+
+            <p style="color: #6b7280; font-size: 14px; margin-top: 12px;">
+                ※ 필터 조건: 제조사 → 상품 → 용량 → 요금제 (지역 필터 없음)<br>
+                ※ 특정 매장의 시세표를 보여주는 화면이므로 지역 필터 미제공<br>
+                ※ 필터 변경 시 검색 버튼 없이 즉시 가격표 갱신
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">화면 미리보기</h2>
+        <div class="content">
+            <p style="text-align: center; margin-bottom: 20px; color: #6b7280;">
+                가격을 클릭해보세요.
+            </p>
+
+            <!-- 페이지 전환 (3단 배치) -->
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+                <!-- 좌측: 동네성지 메인 -->
+                <div style="flex: 1; min-width: 0;">
+                    <h3 style="text-align: center; font-size: 14px; font-weight: 700; color: #131FA0; margin-bottom: 12px;">동네성지 메인</h3>
+                    <div class="mobile-mockup">
+                <div class="mobile-screen" id="mobileScreen">
+
+                    <!-- 동네성지 메인페이지 -->
+                    <div id="storePage" style="display: block;">
+                    <!-- 헤더 -->
+                    <div class="mobile-header">
+                        <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="mobile-header-logo">
+
+                        <div class="mobile-header-tabs">
+                            <div class="mobile-header-tab">휴대폰</div>
+                            <div class="mobile-header-tab active">동네성지</div>
+                            <div class="mobile-header-tab">인터넷</div>
+                        </div>
+
+                        <div class="mobile-header-icons">
+                            <svg class="mobile-header-mypage" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_108_4530)">
+                                    <path d="M12.6698 11.466C15.0914 11.466 17.0545 9.50295 17.0545 7.08139C17.0545 4.65984 15.0914 2.69678 12.6698 2.69678C10.2483 2.69678 8.28528 4.65984 8.28528 7.08139C8.28528 9.50295 10.2483 11.466 12.6698 11.466Z" fill="#9BA4B4"/>
+                                    <path d="M20.0638 14.8506C15.3285 13.0045 10.0116 13.0045 5.27619 14.8506C4.29773 15.2291 3.67004 16.1614 3.67004 17.2137V18.7645C3.67004 20.1676 4.80542 21.303 6.2085 21.303H19.1315C20.5346 21.303 21.67 20.1676 21.67 18.7645V17.2137C21.67 16.1614 21.0423 15.2291 20.0638 14.8506Z" fill="#9BA4B4"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_108_4530">
+                                        <rect width="24" height="24" fill="white" transform="translate(0.670044)"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- 검색 섹션 -->
+                    <section style="padding: 24px 20px; background: #fff;">
+                        <h2 class="review-title">동네성지 최저가 검색하기</h2>
+
+                        <!-- 필터 패널 -->
+                        <div class="filter-panel">
+                            <!-- 지역 선택 (좌우 배치) -->
+                            <div class="filter-label">지역</div>
+                        <div class="filter-row">
+                            <select class="filter-dropdown" id="sidoSelect">
+                                <option value="">시/도 선택</option>
+                                <option value="seoul">서울특별시</option>
+                                <option value="gyeonggi">경기도</option>
+                                <option value="incheon">인천광역시</option>
+                            </select>
+                            <select class="filter-dropdown" id="sigunguSelect" disabled>
+                                <option value="">구/군 선택</option>
+                            </select>
+                        </div>
+
+                        <!-- 제조사 선택 -->
+                        <div class="filter-section">
+                            <div class="filter-label">제조사</div>
+                            <div class="filter-tabs">
+                                <div class="filter-tab" data-manufacturer="samsung">삼성</div>
+                                <div class="filter-tab" data-manufacturer="apple">애플</div>
+                                <div class="filter-tab" data-manufacturer="etc">기타</div>
+                            </div>
+                        </div>
+
+                        <!-- 상품명 선택 -->
+                        <div class="filter-section">
+                            <div class="filter-label">상품명</div>
+                            <select class="filter-dropdown" id="productSelect" disabled>
+                                <option value="">제조사를 먼저 선택하세요</option>
+                            </select>
+                        </div>
+
+                        <!-- 용량 / 요금제 선택 (좌우 배치) -->
+                        <div class="filter-label">용량 / 요금제</div>
+                        <div class="filter-row">
+                            <select class="filter-dropdown" id="capacitySelect" disabled>
+                                <option value="">용량 선택</option>
+                            </select>
+                            <select class="filter-dropdown" id="planSelect" disabled>
+                                <option value="">요금제 선택</option>
+                            </select>
+                        </div>
+
+                        <!-- 버튼 -->
+                        <div class="filter-actions">
+                            <button class="filter-btn filter-btn-reset" id="resetBtn">초기화</button>
+                            <button class="filter-btn filter-btn-search" id="searchBtn" disabled>검색</button>
+                        </div>
+                    </div>
+
+                    <!-- 검색 결과 요약 -->
+                    <div class="search-result-summary" id="searchSummary" style="display: none;"></div>
+
+                    <!-- 가격 선택 섹션 -->
+                    <div class="price-section" id="priceSection" style="display: none;">
+                        <p class="price-section-title">가격 선택</p>
+                        <div class="price-card">
+                            <div class="carrier-header">
+                                <div class="carrier-name">SKT</div>
+                                <div class="carrier-name">KT</div>
+                                <div class="carrier-name">LG U+</div>
+                            </div>
+
+                            <!-- 공통·기변 -->
+                            <div class="price-grid">
+                                <div class="price-item" data-carrier="skt" data-type="common-change">
+                                    <div class="price-type">공통·기변</div>
+                                    <div class="price-value">33만</div>
+                                </div>
+                                <div class="price-item disabled">
+                                    <div class="price-type">공통·기변</div>
+                                    <div class="price-value">-</div>
+                                </div>
+                                <div class="price-item disabled">
+                                    <div class="price-type">공통·기변</div>
+                                    <div class="price-value">-</div>
+                                </div>
+                            </div>
+
+                            <!-- 선택·번이 -->
+                            <div class="price-grid">
+                                <div class="price-item" data-carrier="skt" data-type="select-port">
+                                    <div class="price-type">선택·번이</div>
+                                    <div class="price-value negative">-99만</div>
+                                </div>
+                                <div class="price-item" data-carrier="kt" data-type="select-port">
+                                    <div class="price-type">선택·번이</div>
+                                    <div class="price-value">22만</div>
+                                </div>
+                                <div class="price-item" data-carrier="lgu" data-type="select-port">
+                                    <div class="price-type">선택·번이</div>
+                                    <div class="price-value">66만</div>
+                                </div>
+                            </div>
+
+                            <!-- 선택·기변 -->
+                            <div class="price-grid">
+                                <div class="price-item" data-carrier="skt" data-type="select-change">
+                                    <div class="price-type">선택·기변</div>
+                                    <div class="price-value negative">-99만</div>
+                                </div>
+                                <div class="price-item disabled">
+                                    <div class="price-type">선택·기변</div>
+                                    <div class="price-value">-</div>
+                                </div>
+                                <div class="price-item" data-carrier="lgu" data-type="select-change">
+                                    <div class="price-type">선택·기변</div>
+                                    <div class="price-value negative">-99만</div>
+                                </div>
+                            </div>
+
+                            <!-- 공통·번이 -->
+                            <div class="price-grid">
+                                <div class="price-item disabled">
+                                    <div class="price-type">공통·번이</div>
+                                    <div class="price-value">-</div>
+                                </div>
+                                <div class="price-item" data-carrier="kt" data-type="common-port">
+                                    <div class="price-type">공통·번이</div>
+                                    <div class="price-value">11만</div>
+                                </div>
+                                <div class="price-item" data-carrier="lgu" data-type="common-port">
+                                    <div class="price-type">공통·번이</div>
+                                    <div class="price-value">44만</div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </section>
+
+                    <!-- 검색 결과 매장 리스트 -->
+                    <div class="result-section" id="resultSection" style="display: none;">
+                        <h2 class="result-title">검색 결과</h2>
+
+                        <!-- 선택한 조건 칩 -->
+                        <div id="mainSelectedPriceInfo" style="display: none; padding: 0 16px 12px 16px;">
+                            <div id="mainSelectedPriceText" style="display: flex; gap: 6px; flex-wrap: wrap;">
+                                <!-- JavaScript로 동적 생성 -->
+                            </div>
+                        </div>
+
+                        <div class="product-card-list" id="productCardList">
+                            <!-- JavaScript로 동적 생성 -->
+                        </div>
+                    </div>
+
+                    <!-- 리뷰 섹션 -->
+                    <section class="review-section" id="reviewSection">
+                        <h2 class="review-title">동네성지 후기 살펴보기</h2>
+                        <div class="review-list">
+                            <div class="review-item">
+                                <div class="review-store-header">
+                                    <div class="review-store-avatar">
+                                        <img src="https://dev.nofee.team/images/store/store_sample.png" alt="매장">
+                                    </div>
+                                    <div class="review-store-info">
+                                        <div class="review-store-name">신성교회</div>
+                                        <div class="review-store-stats">방문 275 · 후기 52</div>
+                                    </div>
+                                </div>
+                                <div class="review-content-wrapper">
+                                    <div class="review-meta">
+                                        <span class="review-author">정**님</span>
+                                        <div class="review-rating">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#131FA0" viewBox="0 0 10 9">
+                                                <path fill="#131FA0" d="M4.641.727a.4.4 0 0 1 .718 0l1.017 2.062a.4.4 0 0 0 .302.219l2.275.33a.4.4 0 0 1 .222.683L7.528 5.626a.4.4 0 0 0-.115.354l.389 2.266a.4.4 0 0 1-.58.422l-2.036-1.07a.4.4 0 0 0-.372 0l-2.036 1.07a.4.4 0 0 1-.58-.422l.389-2.266a.4.4 0 0 0-.115-.354L.825 4.02a.4.4 0 0 1 .222-.683l2.275-.33a.4.4 0 0 0 .302-.22z"></path>
+                                            </svg>
+                                            <span>5</span>
+                                        </div>
+                                        <div class="review-date">2025. 09. 16</div>
+                                    </div>
+                                    <p class="review-text">갤럭시 S25 카메라 성능 대박이네요. 여기서 저렴하게 구매했어요.</p>
+                                </div>
+                            </div>
+
+                            <div class="review-item">
+                                <div class="review-store-header">
+                                    <div class="review-store-avatar">
+                                        <img src="https://dev.nofee.team/images/store/store_sample.png" alt="매장">
+                                    </div>
+                                    <div class="review-store-info">
+                                        <div class="review-store-name">신성교회</div>
+                                        <div class="review-store-stats">방문 275 · 후기 52</div>
+                                    </div>
+                                </div>
+                                <div class="review-content-wrapper">
+                                    <div class="review-meta">
+                                        <span class="review-author">강**님</span>
+                                        <div class="review-rating">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#131FA0" viewBox="0 0 10 9">
+                                                <path fill="#131FA0" d="M4.641.727a.4.4 0 0 1 .718 0l1.017 2.062a.4.4 0 0 0 .302.219l2.275.33a.4.4 0 0 1 .222.683L7.528 5.626a.4.4 0 0 0-.115.354l.389 2.266a.4.4 0 0 1-.58.422l-2.036-1.07a.4.4 0 0 0-.372 0l-2.036 1.07a.4.4 0 0 1-.58-.422l.389-2.266a.4.4 0 0 0-.115-.354L.825 4.02a.4.4 0 0 1 .222-.683l2.275-.33a.4.4 0 0 0 .302-.22z"></path>
+                                            </svg>
+                                            <span>5</span>
+                                        </div>
+                                        <div class="review-date">2025. 09. 16</div>
+                                    </div>
+                                    <p class="review-text">점심시간에 들러서 갤S25+ 구매했는데 빠르고 저렴해요!</p>
+                                </div>
+                            </div>
+
+                            <div class="review-item">
+                                <div class="review-store-header">
+                                    <div class="review-store-avatar">
+                                        <img src="https://dev.nofee.team/images/store/store_sample.png" alt="매장">
+                                    </div>
+                                    <div class="review-store-info">
+                                        <div class="review-store-name">신성교회</div>
+                                        <div class="review-store-stats">방문 275 · 후기 52</div>
+                                    </div>
+                                </div>
+                                <div class="review-content-wrapper">
+                                    <div class="review-meta">
+                                        <span class="review-author">임**님</span>
+                                        <div class="review-rating">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#131FA0" viewBox="0 0 10 9">
+                                                <path fill="#131FA0" d="M4.641.727a.4.4 0 0 1 .718 0l1.017 2.062a.4.4 0 0 0 .302.219l2.275.33a.4.4 0 0 1 .222.683L7.528 5.626a.4.4 0 0 0-.115.354l.389 2.266a.4.4 0 0 1-.58.422l-2.036-1.07a.4.4 0 0 0-.372 0l-2.036 1.07a.4.4 0 0 1-.58-.422l.389-2.266a.4.4 0 0 0-.115-.354L.825 4.02a.4.4 0 0 1 .222-.683l2.275-.33a.4.4 0 0 0 .302-.22z"></path>
+                                            </svg>
+                                            <span>5</span>
+                                        </div>
+                                        <div class="review-date">2025. 09. 11</div>
+                                    </div>
+                                    <p class="review-text">아이폰 16 프로맥스 1TB 최저가로 샀어요. 사장님 정말 친절!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="review-load-more">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                <path d="M1 4v6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            다음 보기
+                        </button>
+                    </section>
+                    </div>
+                    <!-- //동네성지 메인페이지 -->
+                </div>
+            </div>
+                </div>
+
+                <!-- 중앙: 스토어홈 -->
+                <div style="flex: 1; min-width: 0;">
+                    <h3 style="text-align: center; font-size: 14px; font-weight: 700; color: #131FA0; margin-bottom: 12px;">스토어홈 (시세표)</h3>
+                    <div class="mobile-mockup">
+                <div class="mobile-screen" id="mobileScreen3">
+                    <!-- 스토어홈 페이지 -->
+                    <div id="storeHomePage" style="display: block;">
+                        <!-- 헤더 (노피 메인 헤더와 동일) -->
+                        <div class="mobile-header">
+                            <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="mobile-header-logo">
+
+                            <div class="mobile-header-tabs">
+                                <div class="mobile-header-tab">휴대폰</div>
+                                <div class="mobile-header-tab active">동네성지</div>
+                                <div class="mobile-header-tab">인터넷</div>
+                            </div>
+
+                            <div class="mobile-header-icons">
+                                <svg class="mobile-header-mypage" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_108_4530)">
+                                        <path d="M12.6698 11.466C15.0914 11.466 17.0545 9.50295 17.0545 7.08139C17.0545 4.65984 15.0914 2.69678 12.6698 2.69678C10.2483 2.69678 8.28528 4.65984 8.28528 7.08139C8.28528 9.50295 10.2483 11.466 12.6698 11.466Z" fill="#9BA4B4"/>
+                                        <path d="M20.0638 14.8506C15.3285 13.0045 10.0116 13.0045 5.27619 14.8506C4.29773 15.2291 3.67004 16.1614 3.67004 17.2137V18.7645C3.67004 20.1676 4.80542 21.303 6.2085 21.303H19.1315C20.5346 21.303 21.67 20.1676 21.67 18.7645V17.2137C21.67 16.1614 21.0423 15.2291 20.0638 14.8506Z" fill="#9BA4B4"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_108_4530">
+                                            <rect width="24" height="24" fill="white" transform="translate(0.670044)"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- 매장 정보 섹션 -->
+                        <div style="border-bottom: 16px solid #F7F7F7; padding: 16px 20px;">
+                            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+                                <div style="flex: 1;">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                                        <h1 style="font-size: 16px; font-weight: 600; color: #191f28; margin: 0;">노피</h1>
+                                        <button style="display: flex; align-items: center; justify-content: center; background: none; border: none; padding: 0; cursor: pointer;">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#9ca3af">
+                                                <path d="M8.12 9.29a1 1 0 0 1 1.41 0L12 11.76l2.47-2.47a1 1 0 1 1 1.41 1.41l-3.18 3.18a1 1 0 0 1-1.41 0L8.12 10.7a1 1 0 0 1 0-1.41z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #6b7280; margin: 4px 0;">
+                                        <div style="display: flex; align-items: center; gap: 4px;">
+                                            <svg width="16" height="16" viewBox="0 0 10 9" fill="#131FA0">
+                                                <path d="M4.641.727a.4.4 0 0 1 .718 0l1.017 2.062a.4.4 0 0 0 .302.219l2.275.33a.4.4 0 0 1 .222.683L7.528 5.626a.4.4 0 0 0-.115.354l.389 2.266a.4.4 0 0 1-.58.422l-2.036-1.07a.4.4 0 0 0-.372 0l-2.036 1.07a.4.4 0 0 1-.58-.422l.389-2.266a.4.4 0 0 0-.115-.354L.825 4.02a.4.4 0 0 1 .222-.683l2.275-.33a.4.4 0 0 0 .302-.22z"/>
+                                            </svg>
+                                            <b style="color: #191f28;">3</b>
+                                        </div>
+                                        <span>후기 2</span>
+                                    </div>
+                                    <div style="font-size: 12px; color: #6b7280;">서울 은평구<span> · 방문 1318</span></div>
+                                </div>
+                                <div style="position: relative; flex-shrink: 0; overflow: hidden; background: #f3f4f6; border-radius: 8px; width: 80px; height: 80px;">
+                                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #f8f9fc 0%, #f3f4f8 100%);"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 탭 네비게이션 -->
+                        <div style="display: flex; background: #fff; border-bottom: 1px solid #e5e7eb;">
+                            <button style="flex: 1; padding: 12px 0; border: none; background: none; text-align: center; font-size: 14px; font-weight: 600; color: #131FA0; border-bottom: 2px solid #131FA0; cursor: pointer;">홈</button>
+                            <button style="flex: 1; padding: 12px 0; border: none; background: none; text-align: center; font-size: 14px; font-weight: 600; color: #6b7280; border-bottom: 2px solid transparent; cursor: pointer;">소식</button>
+                            <button style="flex: 1; padding: 12px 0; border: none; background: none; text-align: center; font-size: 14px; font-weight: 600; color: #6b7280; border-bottom: 2px solid transparent; cursor: pointer;">후기</button>
+                        </div>
+
+                        <!-- 검색 섹션 -->
+                        <section style="padding: 24px 20px; background: #fff;">
+                            <h2 class="review-title">동네성지 최저가 검색하기</h2>
+
+                            <!-- 마지막 업데이트 -->
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: #F3F6FC; border-radius: 8px; padding: 16px; margin-bottom: 20px; font-weight: 600; color: #131FA0;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 14.5C11.5899 14.5 14.5 11.5899 14.5 8C14.5 4.41015 11.5899 1.5 8 1.5C4.41015 1.5 1.5 4.41015 1.5 8C1.5 11.5899 4.41015 14.5 8 14.5Z" stroke="#131FA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 4V8L10.5 10.5" stroke="#131FA0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span>마지막 업데이트</span>
+                                </div>
+                                <div>2025. 10. 19</div>
+                            </div>
+
+                            <!-- 필터 패널 -->
+                            <div class="filter-panel">
+                                <!-- 제조사 선택 -->
+                                <div class="filter-section">
+                                    <div class="filter-label">제조사</div>
+                                    <div class="filter-tabs">
+                                        <div class="filter-tab" data-manufacturer="samsung">삼성</div>
+                                        <div class="filter-tab" data-manufacturer="apple">애플</div>
+                                        <div class="filter-tab" data-manufacturer="etc">기타</div>
+                                    </div>
+                                </div>
+
+                                <!-- 상품명 선택 -->
+                                <div class="filter-section">
+                                    <div class="filter-label">상품명</div>
+                                    <select class="filter-dropdown" id="storeProductSelect" disabled>
+                                        <option value="">제조사를 먼저 선택하세요</option>
+                                    </select>
+                                </div>
+
+                                <!-- 용량 / 요금제 선택 (좌우 배치) -->
+                                <div class="filter-label">용량 / 요금제</div>
+                                <div class="filter-row">
+                                    <select class="filter-dropdown" id="storeCapacitySelect" disabled>
+                                        <option value="">용량 선택</option>
+                                    </select>
+                                    <select class="filter-dropdown" id="storePlanSelect" disabled>
+                                        <option value="">요금제 선택</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- 가격 선택 섹션 -->
+                            <div class="price-section" id="storePriceSection">
+                                <p class="price-section-title">가격 선택</p>
+                                <div class="price-card">
+                                    <div class="carrier-header">
+                                        <div class="carrier-name">SKT</div>
+                                        <div class="carrier-name">KT</div>
+                                        <div class="carrier-name">LG U+</div>
+                                    </div>
+
+                                    <!-- 공통·기변 -->
+                                    <div class="price-grid">
+                                        <div class="price-item" data-carrier="skt" data-type="common-change">
+                                            <div class="price-type">공통·기변</div>
+                                            <div class="price-value">33만</div>
+                                        </div>
+                                        <div class="price-item disabled">
+                                            <div class="price-type">공통·기변</div>
+                                            <div class="price-value">-</div>
+                                        </div>
+                                        <div class="price-item disabled">
+                                            <div class="price-type">공통·기변</div>
+                                            <div class="price-value">-</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 선택·번이 -->
+                                    <div class="price-grid">
+                                        <div class="price-item" data-carrier="skt" data-type="select-port">
+                                            <div class="price-type">선택·번이</div>
+                                            <div class="price-value negative">-99만</div>
+                                        </div>
+                                        <div class="price-item" data-carrier="kt" data-type="select-port">
+                                            <div class="price-type">선택·번이</div>
+                                            <div class="price-value">22만</div>
+                                        </div>
+                                        <div class="price-item" data-carrier="lgu" data-type="select-port">
+                                            <div class="price-type">선택·번이</div>
+                                            <div class="price-value">66만</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 선택·기변 -->
+                                    <div class="price-grid">
+                                        <div class="price-item" data-carrier="skt" data-type="select-change">
+                                            <div class="price-type">선택·기변</div>
+                                            <div class="price-value negative">-99만</div>
+                                        </div>
+                                        <div class="price-item disabled">
+                                            <div class="price-type">선택·기변</div>
+                                            <div class="price-value">-</div>
+                                        </div>
+                                        <div class="price-item" data-carrier="lgu" data-type="select-change">
+                                            <div class="price-type">선택·기변</div>
+                                            <div class="price-value negative">-99만</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 공통·번이 -->
+                                    <div class="price-grid">
+                                        <div class="price-item disabled">
+                                            <div class="price-type">공통·번이</div>
+                                            <div class="price-value">-</div>
+                                        </div>
+                                        <div class="price-item" data-carrier="kt" data-type="common-port">
+                                            <div class="price-type">공통·번이</div>
+                                            <div class="price-value">11만</div>
+                                        </div>
+                                        <div class="price-item" data-carrier="lgu" data-type="common-port">
+                                            <div class="price-type">공통·번이</div>
+                                            <div class="price-value">44만</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 상품 카드 리스트 -->
+                            <div id="storeCardList" style="display: none;"></div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+                </div>
+
+                <!-- 우측: 상품 상세페이지 -->
+                <div style="flex: 1; min-width: 0;">
+                    <h3 style="text-align: center; font-size: 14px; font-weight: 700; color: #131FA0; margin-bottom: 12px;">상품 상세페이지</h3>
+                    <div class="mobile-mockup">
+                <div class="mobile-screen" id="mobileScreen2">
+                    <!-- 상품 상세페이지 -->
+                    <div id="productPage" style="display: block;">
+                        <!-- 헤더 -->
+                        <div class="mobile-header">
+                            <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="mobile-header-logo">
+
+                            <div class="mobile-header-tabs">
+                                <div class="mobile-header-tab">휴대폰</div>
+                                <div class="mobile-header-tab active">동네성지</div>
+                                <div class="mobile-header-tab">인터넷</div>
+                            </div>
+
+                            <div class="mobile-header-icons">
+                                <svg class="mobile-header-mypage" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_108_4530_2)">
+                                        <path d="M12.6698 11.466C15.0914 11.466 17.0545 9.50295 17.0545 7.08139C17.0545 4.65984 15.0914 2.69678 12.6698 2.69678C10.2483 2.69678 8.28528 4.65984 8.28528 7.08139C8.28528 9.50295 10.2483 11.466 12.6698 11.466Z" fill="#9BA4B4"/>
+                                        <path d="M20.0638 14.8506C15.3285 13.0045 10.0116 13.0045 5.27619 14.8506C4.29773 15.2291 3.67004 16.1614 3.67004 17.2137V18.7645C3.67004 20.1676 4.80542 21.303 6.2085 21.303H19.1315C20.5346 21.303 21.67 20.1676 21.67 18.7645V17.2137C21.67 16.1614 21.0423 15.2291 20.0638 14.8506Z" fill="#9BA4B4"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_108_4530_2">
+                                            <rect width="24" height="24" fill="white" transform="translate(0.670044)"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- 상품 정보 영역 -->
+                        <div style="background: white; padding: 24px 16px; border-bottom: 16px solid #F7F7F7;">
+                            <!-- 상품 이미지 -->
+                            <div style="height: 215px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                                <img src="http://dev-image.nofee.team/product-group/phone/AP-PL-16/thumb/20250627150411_1b04d6da0786cd1f83c2d4c6d79ca115.png" alt="갤럭시 S24" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                            </div>
+
+                            <!-- 상품명 + 할인율 -->
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px;">
+                                <h2 style="font-size: 20px; font-weight: 700; color: #111827; margin: 0;">갤럭시 S24</h2>
+                                <span style="font-size: 12px; padding: 4px 6px; background: #131FA0; color: white; border-radius: 999px; font-weight: 600;">15%</span>
+                            </div>
+
+                            <!-- 가격 정보 카드 -->
+                            <div style="border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px;">
+                                <!-- 별점 + 색상 -->
+                                <div style="display: flex; align-items: center; justify-between; padding-bottom: 12px; margin-bottom: 16px; border-bottom: 1px solid #e5e7eb;">
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        <svg width="16" height="16" viewBox="0 0 10 9" fill="#131FA0">
+                                            <path d="M4.641.727a.4.4 0 0 1 .718 0l1.017 2.062a.4.4 0 0 0 .302.219l2.275.33a.4.4 0 0 1 .222.683L7.528 5.626a.4.4 0 0 0-.115.354l.389 2.266a.4.4 0 0 1-.58.422l-2.036-1.07a.4.4 0 0 0-.372 0l-2.036 1.07a.4.4 0 0 1-.58-.422l.389-2.266a.4.4 0 0 0-.115-.354L.825 4.02a.4.4 0 0 1 .222-.683l2.275-.33a.4.4 0 0 0 .302-.22z"/>
+                                        </svg>
+                                        <span style="font-weight: 600; color: #111827; font-size: 14px;">4.8</span>
+                                        <span style="color: #9ca3af; font-size: 12px; margin-left: 4px;">(127개 리뷰)</span>
+                                    </div>
+                                    <div style="display: flex; gap: 6px;">
+                                        <span style="width: 14px; height: 14px; border-radius: 50%; border: 1px solid #e5e7eb; background: #1a1a1a;"></span>
+                                        <span style="width: 14px; height: 14px; border-radius: 50%; border: 1px solid #e5e7eb; background: #f5f5dc;"></span>
+                                        <span style="width: 14px; height: 14px; border-radius: 50%; border: 1px solid #e5e7eb; background: #e6e6fa;"></span>
+                                    </div>
+                                </div>
+
+                                <!-- 가격 정보 -->
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #6b7280;">
+                                    <span>원래 가격</span>
+                                    <span style="text-decoration: line-through; color: #9ca3af;">1,550,000원</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #6b7280;">
+                                    <span>총 할인액</span>
+                                    <span style="color: #F04438; font-weight: 600;">-770,000원</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #6b7280;">
+                                    <span>통신비 포함</span>
+                                    <span style="color: #111827;">월 77,000원</span>
+                                </div>
+
+                                <!-- 실제 구매가 -->
+                                <div style="border-top: 1px solid #F0F0F0; margin-top: 8px; padding-top: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 14px; font-weight: 600; color: #313142;">실제 구매가</span>
+                                    <span style="font-size: 18px; font-weight: 700; color: #313142;">330,000원</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- "우리 동네에서 더 싸게" 배너 -->
+                        <div style="background: linear-gradient(to right, #eff6ff, #eef2ff); padding: 16px 20px; border-bottom: 16px solid #F7F7F7; cursor: pointer;">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <div>
+                                    <h3 style="font-size: 16px; font-weight: 700; color: #111827; margin: 0 0 4px 0;">우리 동네에서 더 싸게 살 수 있어요</h3>
+                                    <p style="font-size: 14px; color: #6b7280; margin: 0;">아래 매장을 눌러보세요</p>
+                                </div>
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="#131FA0"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- 탭 네비게이션 (스크롤 네비게이션) -->
+                        <div id="productDetailTabs" style="background: white; display: flex; border-bottom: 1px solid #e5e7eb;">
+                            <button class="product-detail-tab active" data-section="storeSection" style="flex: 1; padding: 12px 10px; border: none; background: none; font-size: 14px; font-weight: 600; color: #131FA0; border-bottom: 2px solid #131FA0; cursor: pointer; transition: all 0.2s;">
+                                검색
+                            </button>
+                            <button class="product-detail-tab" data-section="reviewSection" style="flex: 1; padding: 12px 10px; border: none; background: none; font-size: 14px; font-weight: 600; color: #6b7280; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s;">
+                                리뷰
+                            </button>
+                            <button class="product-detail-tab" data-section="faqSection" style="flex: 1; padding: 12px 10px; border: none; background: none; font-size: 14px; font-weight: 600; color: #6b7280; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s;">
+                                Q&A
+                            </button>
+                        </div>
+
+                        <!-- 콘텐츠 (모두 세로 배열) -->
+                        <div id="productTabContents" style="background: white;">
+                            <!-- 동네성지 섹션 (NEW!) -->
+                            <div id="storeSection" class="product-section" style="padding: 16px; border-bottom: 16px solid #F7F7F7;">
+                                <h3 style="font-size: 18px; font-weight: 700; color: #111827; margin: 0 0 16px 0;">동네성지 최저가 검색하기</h3>
+
+                                <!-- 필터 영역 (동네성지 메인과 동일한 스타일) -->
+                                <div class="filter-panel" style="margin-bottom: 20px;">
+                                    <!-- 지역 선택 (좌우 배치) -->
+                                    <div class="filter-label">지역</div>
+                                    <div class="filter-row">
+                                        <select class="filter-dropdown" id="productSidoSelect">
+                                            <option value="">시/도 선택</option>
+                                            <option value="seoul">서울특별시</option>
+                                            <option value="gyeonggi">경기도</option>
+                                            <option value="incheon">인천광역시</option>
+                                        </select>
+                                        <select class="filter-dropdown" id="productSigunguSelect" disabled>
+                                            <option value="">구/군 선택</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 용량 / 요금제 선택 (좌우 배치) -->
+                                    <div class="filter-label">용량 / 요금제</div>
+                                    <div class="filter-row">
+                                        <select class="filter-dropdown" id="productCapacitySelect">
+                                            <option value="">용량 선택</option>
+                                            <option value="256">256GB</option>
+                                            <option value="512">512GB</option>
+                                            <option value="1024">1TB</option>
+                                        </select>
+                                        <select class="filter-dropdown" id="productPlanSelect">
+                                            <option value="">요금제 선택</option>
+                                            <option value="5.5">5.5만원</option>
+                                            <option value="7">7만원</option>
+                                            <option value="8.9">8.9만원</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <!-- 가격 선택 섹션 (동네성지 메인과 동일한 스타일) -->
+                                <div class="price-section" id="productPriceSection" style="display: block;">
+                                    <p class="price-section-title">가격 선택</p>
+                                    <div class="price-card">
+                                        <div class="carrier-header">
+                                            <div class="carrier-name">SKT</div>
+                                            <div class="carrier-name">KT</div>
+                                            <div class="carrier-name">LG U+</div>
+                                        </div>
+
+                                        <!-- 공통·기변 -->
+                                        <div class="price-grid" id="productPriceGrid">
+                                            <div class="price-item" data-carrier="skt" data-type="common-change">
+                                                <div class="price-type">공통·기변</div>
+                                                <div class="price-value">33만</div>
+                                            </div>
+                                            <div class="price-item" data-carrier="kt" data-type="common-change">
+                                                <div class="price-type">공통·기변</div>
+                                                <div class="price-value">35만</div>
+                                            </div>
+                                            <div class="price-item" data-carrier="lgu" data-type="common-change">
+                                                <div class="price-type">공통·기변</div>
+                                                <div class="price-value">34만</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 선택·번이 -->
+                                        <div class="price-grid">
+                                            <div class="price-item" data-carrier="skt" data-type="select-port">
+                                                <div class="price-type">선택·번이</div>
+                                                <div class="price-value negative">-15만</div>
+                                            </div>
+                                            <div class="price-item" data-carrier="kt" data-type="select-port">
+                                                <div class="price-type">선택·번이</div>
+                                                <div class="price-value negative">-10만</div>
+                                            </div>
+                                            <div class="price-item" data-carrier="lgu" data-type="select-port">
+                                                <div class="price-type">선택·번이</div>
+                                                <div class="price-value negative">-12만</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 선택·기변 -->
+                                        <div class="price-grid">
+                                            <div class="price-item" data-carrier="skt" data-type="select-change">
+                                                <div class="price-type">선택·기변</div>
+                                                <div class="price-value">28만</div>
+                                            </div>
+                                            <div class="price-item" data-carrier="kt" data-type="select-change">
+                                                <div class="price-type">선택·기변</div>
+                                                <div class="price-value">29만</div>
+                                            </div>
+                                            <div class="price-item" data-carrier="lgu" data-type="select-change">
+                                                <div class="price-type">선택·기변</div>
+                                                <div class="price-value">28.5만</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 공통·번이 -->
+                                        <div class="price-grid">
+                                            <div class="price-item" data-carrier="skt" data-type="common-port">
+                                                <div class="price-type">공통·번이</div>
+                                                <div class="price-value">25만</div>
+                                            </div>
+                                            <div class="price-item" data-carrier="kt" data-type="common-port">
+                                                <div class="price-type">공통·번이</div>
+                                                <div class="price-value">26만</div>
+                                            </div>
+                                            <div class="price-item" data-carrier="lgu" data-type="common-port">
+                                                <div class="price-type">공통·번이</div>
+                                                <div class="price-value">25.5만</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 검색 결과 매장 리스트 -->
+                                <div class="result-section" id="productResultSection" style="display: none;">
+                                    <h2 class="result-title">검색 결과</h2>
+
+                                    <!-- 선택한 조건 칩 -->
+                                    <div id="productSelectedPriceInfo" style="display: none; padding: 0 16px 12px 16px;">
+                                        <div id="productSelectedPriceText" style="display: flex; gap: 6px; flex-wrap: wrap;">
+                                            <!-- JavaScript로 동적 생성 -->
+                                        </div>
+                                    </div>
+
+                                    <!-- 매장 카드 리스트 -->
+                                    <div id="productStoreCardList"></div>
+                                </div>
+                            </div>
+
+                            <!-- 리뷰 섹션 -->
+                            <div id="reviewSection" class="product-section" style="padding: 16px; border-bottom: 16px solid #F7F7F7;">
+                                <h3 style="font-size: 18px; font-weight: 600; color: #111827; margin: 0 0 16px 0;">실사용 리뷰</h3>
+                                <div style="background: #f9fafb; border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        <svg width="15" height="15" viewBox="0 0 10 9" fill="#131FA0">
+                                            <path d="M4.641.727a.4.4 0 0 1 .718 0l1.017 2.062a.4.4 0 0 0 .302.219l2.275.33a.4.4 0 0 1 .222.683L7.528 5.626a.4.4 0 0 0-.115.354l.389 2.266a.4.4 0 0 1-.58.422l-2.036-1.07a.4.4 0 0 0-.372 0l-2.036 1.07a.4.4 0 0 1-.58-.422l.389-2.266a.4.4 0 0 0-.115-.354L.825 4.02a.4.4 0 0 1 .222-.683l2.275-.33a.4.4 0 0 0 .302-.22z"/>
+                                        </svg>
+                                        <span style="font-weight: 600; color: #111827;">4.8</span>
+                                        <span style="font-size: 14px; color: #6b7280; margin-left: 8px;">총 127개의 실사용 리뷰</span>
+                                    </div>
+                                </div>
+                                <p style="font-size: 14px; color: #9ca3af; text-align: center; padding: 40px 0;">리뷰 목록 표시 영역</p>
+                            </div>
+
+                            <!-- Q&A 섹션 -->
+                            <div id="faqSection" class="product-section" style="padding: 16px; background: white;">
+                                <h3 style="font-size: 18px; font-weight: 600; color: #111827; margin: 0 0 16px 0;">자주 묻는 질문</h3>
+                                <p style="font-size: 14px; color: #9ca3af; text-align: center; padding: 40px 0;">Q&A 목록 표시 영역</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //상품 상세페이지 -->
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        // 상품 상세 탭 클릭 시 스크롤 이동
+        document.querySelectorAll('.product-detail-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const targetSection = this.dataset.section;
+                const sectionElement = document.getElementById(targetSection);
+
+                if (sectionElement) {
+                    // 모든 탭 비활성화
+                    document.querySelectorAll('.product-detail-tab').forEach(t => {
+                        t.style.color = '#6b7280';
+                        t.style.borderBottomColor = 'transparent';
+                        t.classList.remove('active');
+                    });
+
+                    // 선택한 탭 활성화
+                    this.style.color = '#131FA0';
+                    this.style.borderBottomColor = '#131FA0';
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // ====== 공통 데이터 ======
+        const sigunguData = {
+            seoul: [
+                { value: 'gangnam', name: '강남구' },
+                { value: 'gangdong', name: '강동구' },
+                { value: 'gangbuk', name: '강북구' },
+                { value: 'gwanak', name: '관악구' }
+            ],
+            gyeonggi: [
+                { value: 'suwon', name: '수원시' },
+                { value: 'goyang', name: '고양시' },
+                { value: 'seongnam', name: '성남시' }
+            ],
+            incheon: [
+                { value: 'namdong', name: '남동구' },
+                { value: 'bupyeong', name: '부평구' }
+            ]
+        };
+
+        // ====== 공통 함수: 지역 선택 처리 ======
+        function setupRegionFilter(sidoSelectId, sigunguSelectId) {
+            const sidoSelect = document.getElementById(sidoSelectId);
+            const sigunguSelect = document.getElementById(sigunguSelectId);
+
+            if (sidoSelect && sigunguSelect) {
+                sidoSelect.addEventListener('change', function() {
+                    const sido = this.value;
+                    sigunguSelect.disabled = !sido;
+                    sigunguSelect.style.background = sido ? 'white' : '#f9fafb';
+                    sigunguSelect.style.color = sido ? '#111827' : '#9ca3af';
+
+                    if (sido && sigunguData[sido]) {
+                        sigunguSelect.innerHTML = '<option value="">구/군 선택</option>' +
+                            sigunguData[sido].map(item => `<option value="${item.value}">${item.name}</option>`).join('');
+                    } else {
+                        sigunguSelect.innerHTML = '<option value="">구/군 선택</option>';
+                    }
+                });
+            }
+        }
+
+        // ====== 사용하지 않는 함수 (각 페이지별로 커스텀 구현) ======
+        // setupPriceGrid 함수는 더 이상 사용하지 않음
+
+        // ====== 상품 상세페이지 전용: 상품 카드 렌더링 ======
+        function renderProductDetailStoreCards(carrier, type, cardListId, productName) {
+            const sampleStores = [
+                {
+                    name: '휴대폰성지 띵동폰 광진점',
+                    location: '서울특별시 강남구',
+                    price: carrier === 'skt' ? 330000 : carrier === 'kt' ? 350000 : 340000,
+                    thumb: null
+                },
+                {
+                    name: '폰파는 동네형',
+                    location: '서울특별시 관악구',
+                    price: carrier === 'skt' ? 335000 : carrier === 'kt' ? 355000 : 345000,
+                    thumb: null
+                }
+            ];
+
+            const carrierName = carrier === 'skt' ? 'SKT' : carrier === 'kt' ? 'KT' : 'LG U+';
+            const typeName = type === 'common-change' ? '공통·기변' :
+                            type === 'select-port' ? '선택·번이' :
+                            type === 'select-change' ? '선택·기변' : '공통·번이';
+
+            // 개통방식과 할인방식 추출
+            const openType = typeName.includes('번이') ? '번호이동' : '기기변경';
+            const discountType = typeName.includes('공통') ? '공시지원' : '선택약정';
+
+            const html = sampleStores.map((store, index) => `
+                <article class="product-card" style="border-top: ${index > 0 ? '1px solid #e5e8eb' : 'none'};">
+                    <div class="store-header">
+                        <div class="store-avatar">
+                            ${store.thumb ?
+                                `<img src="${store.thumb}" alt="${store.name}">` :
+                                '<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #e0e7ff 0%, #f0f0f0 100%);"></div>'
+                            }
+                        </div>
+                        <div class="store-name-wrapper">
+                            <span class="store-name-text">${store.name}</span>
+                            <span class="store-date">2025-10-27</span>
+                        </div>
+                    </div>
+                    <div class="product-detail-card">
+                        <div class="product-content">
+                            <div class="product-image">
+                                <div style="width: 100%; height: 100%; background: #f9fafb; display: flex; align-items: center; justify-content: center; color: #d1d5db; font-size: 10px;">
+                                    상품<br>이미지
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">${productName}</h3>
+                                <dl class="product-specs">
+                                    <dt class="spec-label">통신사</dt>
+                                    <dd class="spec-value">${carrierName}</dd>
+                                    <dt class="spec-label">저장용량</dt>
+                                    <dd class="spec-value">256GB</dd>
+                                    <dt class="spec-label">개통방식</dt>
+                                    <dd class="spec-value">${openType}</dd>
+                                    <dt class="spec-label">할인방식</dt>
+                                    <dd class="spec-value">${discountType}</dd>
+                                    <dt class="spec-label">개통 요금제</dt>
+                                    <dd class="spec-value">5.5만원</dd>
+                                </dl>
+                                <div class="product-divider"></div>
+                                <div class="product-price-row">
+                                    <span class="price-label">할부원금</span>
+                                    <span class="price-amount">${formatPriceKorean(store.price)}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-action">
+                        <button class="action-btn">맞춤 견적 알아보기</button>
+                    </div>
+                </article>
+            `).join('');
+
+            const cardListElement = document.getElementById(cardListId);
+            if (cardListElement) {
+                cardListElement.innerHTML = html;
+            }
+        }
+
+        // ====== 상품 상세페이지 필터 초기화 ======
+        // 지역 선택
+        setupRegionFilter('productSidoSelect', 'productSigunguSelect');
+
+        // 페이지 로드 시 기본값 설정 (고객이 수정 가능)
+        document.getElementById('productSidoSelect').value = 'seoul';
+        document.getElementById('productSidoSelect').dispatchEvent(new Event('change'));
+        setTimeout(() => {
+            document.getElementById('productSigunguSelect').value = 'gangnam';
+        }, 100);
+        document.getElementById('productCapacitySelect').value = '256';
+        document.getElementById('productPlanSelect').value = '5.5';
+
+        // 상품 상세페이지 가격 그리드 - 동네성지 메인과 동일한 방식
+        const productPriceItems = document.querySelectorAll('#productPriceSection .price-item');
+
+        // 가격 클릭 이벤트 핸들러
+        function selectProductPrice(item) {
+            // disabled 상태면 클릭 무시
+            if (item.classList.contains('disabled')) {
+                return;
+            }
+
+            // 이전 선택 제거
+            document.querySelectorAll('#productPriceSection .price-item').forEach(i => i.classList.remove('selected'));
+
+            // 현재 선택
+            item.classList.add('selected');
+
+            const carrier = item.dataset.carrier;
+            const type = item.dataset.type;
+            const priceText = item.querySelector('.price-value').textContent;
+
+            // 선택 정보 표시
+            const carrierNames = { skt: 'SKT', kt: 'KT', lgu: 'LG U+' };
+            const typeNames = {
+                'common-change': '공통지원금',
+                'select-port': '선택약정',
+                'select-change': '선택약정',
+                'common-port': '공통지원금'
+            };
+            const openTypeNames = {
+                'common-change': '기기변경',
+                'select-port': '번호이동',
+                'select-change': '기기변경',
+                'common-port': '번호이동'
+            };
+
+            // 지역 정보 가져오기
+            const productSidoSelect = document.getElementById('productSidoSelect');
+            const productSigunguSelect = document.getElementById('productSigunguSelect');
+            const selectedSido = productSidoSelect?.options[productSidoSelect.selectedIndex]?.text || '';
+            const selectedSigungu = productSigunguSelect?.options[productSigunguSelect.selectedIndex]?.text || '';
+
+            console.log('🏠 지역 정보 (상품상세):', { selectedSido, selectedSigungu });
+
+            // 선택한 조건 칩 생성
+            let chips = [];
+
+            // 지역 칩
+            if (selectedSido && selectedSido !== '시/도 선택') {
+                const sidoName = selectedSido.replace('특별시', '').replace('광역시', '').replace('도', '');
+                const sigunguName = selectedSigungu && selectedSigungu !== '구/군 선택' && selectedSigungu !== '' ? selectedSigungu : '';
+                const locationText = sigunguName ? `${sidoName} ${sigunguName}` : sidoName;
+                console.log('📍 지역 칩 텍스트 (상품상세):', locationText);
+                chips.push(`
+                    <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0;">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#6c757d"/>
+                        </svg>
+                        <span style="font-weight: 500;">${locationText}</span>
+                    </div>
+                `);
+            }
+
+            // 통신사 칩
+            chips.push(`
+                <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                    <span style="font-weight: 500;">${carrierNames[carrier]}</span>
+                </div>
+            `);
+
+            // 지원금 칩
+            chips.push(`
+                <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                    <span style="font-weight: 500;">${typeNames[type]}</span>
+                </div>
+            `);
+
+            // 개통방법 칩
+            chips.push(`
+                <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                    <span style="font-weight: 500;">${openTypeNames[type]}</span>
+                </div>
+            `);
+
+            document.getElementById('productSelectedPriceText').innerHTML = chips.join('');
+            document.getElementById('productSelectedPriceInfo').style.display = 'block';
+
+            // 검색 결과 섹션 표시
+            document.getElementById('productResultSection').style.display = 'block';
+
+            // 매장 카드 표시
+            renderProductDetailStoreCards(carrier, type, 'productStoreCardList', '갤럭시 S24');
+        }
+
+        productPriceItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                selectProductPrice(item);
+            });
+        });
+
+        if (productPriceItems.length > 0) {
+            let lowestPriceItem = null;
+            let lowestPrice = Infinity;
+
+            productPriceItems.forEach((item) => {
+                // disabled 아이템은 제외
+                if (item.classList.contains('disabled')) return;
+
+                const priceText = item.querySelector('.price-value').textContent;
+
+                // "-" 만 제외 (음수는 포함)
+                if (priceText === '-') return;
+
+                // 음수 처리: "negative" 클래스가 있으면 음수로 변환
+                let priceValue = parseFloat(priceText.replace('만', '').replace(/,/g, ''));
+                if (item.classList.contains('negative') || item.querySelector('.negative')) {
+                    priceValue = -Math.abs(priceValue);
+                }
+
+                // 양수, 음수 통틀어 가장 낮은 가격 선택
+                if (priceValue < lowestPrice) {
+                    lowestPrice = priceValue;
+                    lowestPriceItem = item;
+                }
+            });
+
+            // 최저가 아이템 자동 선택
+            if (lowestPriceItem) {
+                selectProductPrice(lowestPriceItem);
+            }
+        }
+
+        // ====== 스토어홈 필터 스크립트 ======
+        let storeSelectedManufacturer = '';
+        let storeSelectedProduct = '';
+        let storeSelectedCapacity = '';
+        let storeSelectedPlan = '';
+
+        // 스토어홈 초기 선택값 자동 설정 (스토어 최저가 상품 기준)
+        // 실제로는 스토어 보유 상품 중 최저가를 찾아야 하지만, 예제로 갤럭시 A15 설정
+        setTimeout(() => {
+            // 제조사 선택 (삼성)
+            const samsungTab = document.querySelector('#mobileScreen3 .filter-tab[data-manufacturer="samsung"]');
+            if (samsungTab) {
+                samsungTab.click();
+
+                // 제조사 선택 후 상품/용량/요금제 자동 선택
+                setTimeout(() => {
+                    // 상품 선택
+                    const productSelect = document.getElementById('storeProductSelect');
+                    if (productSelect && productSelect.options.length > 0) {
+                        productSelect.value = 's24'; // 갤럭시 S24 선택
+                        productSelect.dispatchEvent(new Event('change'));
+
+                        setTimeout(() => {
+                            // 용량 선택
+                            const capacitySelect = document.getElementById('storeCapacitySelect');
+                            if (capacitySelect && capacitySelect.options.length > 0) {
+                                capacitySelect.value = '128';
+                                capacitySelect.dispatchEvent(new Event('change'));
+
+                                setTimeout(() => {
+                                    // 요금제 선택
+                                    const planSelect = document.getElementById('storePlanSelect');
+                                    if (planSelect && planSelect.options.length > 0) {
+                                        planSelect.value = '5.5';
+                                        planSelect.dispatchEvent(new Event('change'));
+                                    }
+                                }, 50);
+                            }
+                        }, 50);
+                    }
+                }, 50);
+            }
+        }, 100);
+
+        // 스토어홈 제조사 탭 클릭 이벤트
+        document.querySelectorAll('#mobileScreen3 .filter-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('#mobileScreen3 .filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                storeSelectedManufacturer = tab.dataset.manufacturer;
+                updateStoreProductOptions();
+            });
+        });
+
+        // 스토어 상품 선택 변경 이벤트
+        document.getElementById('storeProductSelect').addEventListener('change', (e) => {
+            storeSelectedProduct = e.target.value;
+            updateStoreCapacityOptions();
+        });
+
+        // 스토어 용량 선택 변경 이벤트
+        document.getElementById('storeCapacitySelect').addEventListener('change', (e) => {
+            storeSelectedCapacity = e.target.value;
+            updateStorePlanOptions();
+        });
+
+        // 스토어 요금제 선택 변경 이벤트
+        document.getElementById('storePlanSelect').addEventListener('change', (e) => {
+            storeSelectedPlan = e.target.value;
+        });
+
+        // 스토어 상품 옵션 업데이트
+        function updateStoreProductOptions() {
+            const productSelect = document.getElementById('storeProductSelect');
+            productSelect.innerHTML = '<option value="">상품을 선택하세요</option>';
+
+            if (storeSelectedManufacturer && productData[storeSelectedManufacturer]) {
+                productData[storeSelectedManufacturer].forEach(product => {
+                    const option = document.createElement('option');
+                    option.value = product.value;
+                    option.textContent = product.name;
+                    productSelect.appendChild(option);
+                });
+                productSelect.disabled = false;
+            } else {
+                productSelect.disabled = true;
+            }
+
+            storeSelectedProduct = '';
+            storeSelectedCapacity = '';
+            storeSelectedPlan = '';
+            updateStoreCapacityOptions();
+        }
+
+        // 스토어 용량 옵션 업데이트
+        function updateStoreCapacityOptions() {
+            const capacitySelect = document.getElementById('storeCapacitySelect');
+            capacitySelect.innerHTML = '<option value="">용량을 선택하세요</option>';
+
+            if (storeSelectedProduct && storeSelectedManufacturer) {
+                const product = productData[storeSelectedManufacturer].find(p => p.value === storeSelectedProduct);
+                if (product) {
+                    product.capacities.forEach(capacity => {
+                        const option = document.createElement('option');
+                        option.value = capacity;
+                        option.textContent = capacity >= 1024 ? `${capacity / 1024}TB` : `${capacity}GB`;
+                        capacitySelect.appendChild(option);
+                    });
+                    capacitySelect.disabled = false;
+                }
+            } else {
+                capacitySelect.disabled = true;
+            }
+
+            storeSelectedCapacity = '';
+            storeSelectedPlan = '';
+            updateStorePlanOptions();
+        }
+
+        // 스토어 요금제 옵션 업데이트
+        function updateStorePlanOptions() {
+            const planSelect = document.getElementById('storePlanSelect');
+            planSelect.innerHTML = '<option value="">요금제를 선택하세요</option>';
+
+            if (storeSelectedCapacity) {
+                const plans = [
+                    { value: '5.5', name: '5.5만원' },
+                    { value: '7', name: '7만원' },
+                    { value: '8.9', name: '8.9만원' },
+                    { value: '11.5', name: '11.5만원' }
+                ];
+
+                plans.forEach(plan => {
+                    const option = document.createElement('option');
+                    option.value = plan.value;
+                    option.textContent = plan.name;
+                    planSelect.appendChild(option);
+                });
+                planSelect.disabled = false;
+            } else {
+                planSelect.disabled = true;
+            }
+
+            storeSelectedPlan = '';
+        }
+
+        // ====== 스토어홈 가격 선택 스크립트 ======
+        const storePriceItems = document.querySelectorAll('#storePriceSection .price-item');
+
+        storePriceItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // disabled 상태면 클릭 무시
+                if (item.classList.contains('disabled')) {
+                    return;
+                }
+
+                // 이전 선택 제거
+                document.querySelectorAll('#storePriceSection .price-item').forEach(i => i.classList.remove('selected'));
+
+                // 현재 선택
+                item.classList.add('selected');
+
+                const carrier = item.dataset.carrier;
+                const type = item.dataset.type;
+                const priceText = item.querySelector('.price-value').textContent;
+
+                console.log('스토어홈 가격 선택:', { carrier, type, priceText });
+
+                // 상품 카드 표시 (필터에서 선택한 상품 정보 사용)
+                const storeCardList = document.getElementById('storeCardList');
+                if (storeCardList) {
+                    const carrierName = carrier === 'skt' ? 'SKT' : carrier === 'kt' ? 'KT' : 'LG U+';
+                    const typeName = type === 'common-change' ? '공통·기변' :
+                                    type === 'select-port' ? '선택·번이' :
+                                    type === 'select-change' ? '선택·기변' : '공통·번이';
+
+                    const openType = typeName.includes('번이') ? '번호이동' : '기기변경';
+                    const discountType = typeName.includes('공통') ? '공시지원' : '선택약정';
+
+                    // 가격 숫자로 변환 (22만 -> 220000, 음수 처리)
+                    let priceNumber = parseFloat(priceText.replace('만', '').replace(/,/g, '')) * 10000;
+                    if (item.classList.contains('negative') || item.querySelector('.negative')) {
+                        priceNumber = -Math.abs(priceNumber);
+                    }
+
+                    // 필터에서 선택한 상품 정보 가져오기
+                    let productName = '상품을 선택하세요';
+                    let capacityText = '용량 선택';
+                    let planText = '요금제 선택';
+                    let productImage = 'https://image.nofee.team/product-group/phone/SM-A-15/thumb/20250627150031_e38bb9e005263ed2c677616a5281b6b5.png';
+
+                    if (storeSelectedProduct && storeSelectedManufacturer) {
+                        const product = productData[storeSelectedManufacturer].find(p => p.value === storeSelectedProduct);
+                        if (product) {
+                            productName = product.name;
+                        }
+                    }
+
+                    if (storeSelectedCapacity) {
+                        capacityText = storeSelectedCapacity >= 1024 ? `${storeSelectedCapacity / 1024}TB` : `${storeSelectedCapacity}GB`;
+                    }
+
+                    if (storeSelectedPlan) {
+                        const planValue = parseFloat(storeSelectedPlan);
+                        planText = `${Math.floor(planValue * 10000).toLocaleString()}원/월`;
+                    }
+
+                    const productCardHTML = `
+                        <article class="product-card">
+                            <div class="product-detail-card">
+                                <div class="product-content">
+                                    <div class="product-image">
+                                        <img src="${productImage}" alt="${productName}" style="width: 100%; height: 100%; object-fit: contain;">
+                                    </div>
+                                    <div class="product-info">
+                                        <h3 class="product-name">${productName}</h3>
+                                        <dl class="product-specs">
+                                            <dt class="spec-label">통신사</dt>
+                                            <dd class="spec-value">${carrierName}</dd>
+                                            <dt class="spec-label">저장용량</dt>
+                                            <dd class="spec-value">${capacityText}</dd>
+                                            <dt class="spec-label">개통방식</dt>
+                                            <dd class="spec-value">${openType}</dd>
+                                            <dt class="spec-label">할인방식</dt>
+                                            <dd class="spec-value">${discountType}</dd>
+                                            <dt class="spec-label">개통 요금제</dt>
+                                            <dd class="spec-value">${planText}</dd>
+                                        </dl>
+                                        <div class="product-divider"></div>
+                                        <div class="product-price-row">
+                                            <span class="price-label">할부원금</span>
+                                            <span class="price-amount">${formatPriceKorean(priceNumber)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-action">
+                                <button class="action-btn">맞춤 견적 알아보기</button>
+                            </div>
+                        </article>
+                    `;
+
+                    storeCardList.innerHTML = productCardHTML;
+                    storeCardList.style.display = 'block';
+                }
+            });
+        });
+
+        // 스토어홈 최저가 자동 선택
+        if (storePriceItems.length > 0) {
+            let lowestPriceItem = null;
+            let lowestPrice = Infinity;
+
+            storePriceItems.forEach((item) => {
+                // disabled 아이템은 제외
+                if (item.classList.contains('disabled')) return;
+
+                const priceText = item.querySelector('.price-value').textContent;
+
+                // "-" 만 제외 (음수는 포함)
+                if (priceText === '-') return;
+
+                // 음수 처리: "negative" 클래스가 있으면 음수로 변환
+                let priceValue = parseFloat(priceText.replace('만', '').replace(/,/g, ''));
+                if (item.classList.contains('negative') || item.querySelector('.negative')) {
+                    priceValue = -Math.abs(priceValue);
+                }
+
+                // 양수, 음수 통틀어 가장 낮은 가격 선택
+                if (priceValue < lowestPrice) {
+                    lowestPrice = priceValue;
+                    lowestPriceItem = item;
+                }
+            });
+
+            if (lowestPriceItem) {
+                lowestPriceItem.click();
+            }
+        }
+
+        // ====== 동네성지 메인페이지 스크립트 ======
+        console.log('🔥 스크립트 로드 시작');
+
+        // 데이터
+        console.log('📦 데이터 정의 시작');
+
+        const productData = {
+            samsung: [
+                { value: 's24', name: '갤럭시 S24', capacities: [128, 256, 512] },
+                { value: 's24plus', name: '갤럭시 S24 Plus', capacities: [256, 512] },
+                { value: 's24ultra', name: '갤럭시 S24 Ultra', capacities: [256, 512, 1024] },
+                { value: 'zflip6', name: '갤럭시 Z Flip 6', capacities: [256, 512] }
+            ],
+            apple: [
+                { value: 'iphone15', name: '아이폰 15', capacities: [128, 256, 512] },
+                { value: 'iphone15pro', name: '아이폰 15 Pro', capacities: [128, 256, 512, 1024] },
+                { value: 'iphone15promax', name: '아이폰 15 Pro Max', capacities: [256, 512, 1024] }
+            ],
+            etc: [
+                { value: 'galaxya54', name: '갤럭시 A54', capacities: [128, 256] }
+            ]
+        };
+
+        const planData = [
+            { value: '55', name: '5.5만원' },
+            { value: '70', name: '7만원' },
+            { value: '89', name: '8.9만원' }
+        ];
+
+        console.log('📦 데이터 정의 시작');
+
+        const storeData = [
+            // ============ 갤럭시 S24 256GB 5.5만원 ============
+            // SKT 공통·기변
+            {
+                name: '휴대폰성지 띵동폰 광진점',
+                rating: 5.0,
+                reviews: 5,
+                location: '서울특별시 강남구',
+                views: 2852,
+                price: 330000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'skt',
+                priceType: 'common-change',
+                sido: 'seoul',
+                sigungu: 'gangnam',
+                thumb: null
+            },
+            {
+                name: '모바일플러스 분당점',
+                rating: 4.9,
+                reviews: 23,
+                location: '경기도 성남시',
+                views: 4125,
+                price: 350000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'skt',
+                priceType: 'common-change',
+                sido: 'gyeonggi',
+                sigungu: 'seongnam',
+                thumb: null
+            },
+            // SKT 선택·번이
+            {
+                name: '노피 동네성지 강남점',
+                rating: 4.9,
+                reviews: 8,
+                location: '서울특별시 강남구',
+                views: 3241,
+                price: -990000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'skt',
+                priceType: 'select-port',
+                sido: 'seoul',
+                sigungu: 'gangnam',
+                thumb: null
+            },
+            {
+                name: '스마트폰마켓 신촌점',
+                rating: 4.6,
+                reviews: 18,
+                location: '서울특별시 서대문구',
+                views: 2341,
+                price: -950000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'skt',
+                priceType: 'select-port',
+                sido: 'seoul',
+                sigungu: 'seodaemun',
+                thumb: null
+            },
+            {
+                name: '폰케어 강북점',
+                rating: 4.5,
+                reviews: 9,
+                location: '서울특별시 강북구',
+                views: 1456,
+                price: -980000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'skt',
+                priceType: 'select-port',
+                sido: 'seoul',
+                sigungu: 'gangbuk',
+                thumb: null
+            },
+            // SKT 선택·기변
+            {
+                name: '아이폰전문점 종로점',
+                rating: 4.9,
+                reviews: 48,
+                location: '서울특별시 종로구',
+                views: 6234,
+                price: -990000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'skt',
+                priceType: 'select-change',
+                sido: 'seoul',
+                sigungu: 'jongro',
+                thumb: null
+            },
+            {
+                name: '모바일샵 김포점',
+                rating: 4.6,
+                reviews: 22,
+                location: '경기도 김포시',
+                views: 2456,
+                price: -970000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'skt',
+                priceType: 'select-change',
+                sido: 'gyeonggi',
+                sigungu: 'gimpo',
+                thumb: null
+            },
+            // KT 선택·번이
+            {
+                name: '휴대폰아울렛 일산점',
+                rating: 4.8,
+                reviews: 12,
+                location: '경기도 고양시',
+                views: 1523,
+                price: 220000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'kt',
+                priceType: 'select-port',
+                sido: 'gyeonggi',
+                sigungu: 'goyang',
+                thumb: null
+            },
+            {
+                name: '모바일프라자 노원점',
+                rating: 4.8,
+                reviews: 19,
+                location: '서울특별시 노원구',
+                views: 2678,
+                price: 240000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'kt',
+                priceType: 'select-port',
+                sido: 'seoul',
+                sigungu: 'nowon',
+                thumb: null
+            },
+            {
+                name: '핸드폰백화점 용산점',
+                rating: 4.6,
+                reviews: 35,
+                location: '서울특별시 용산구',
+                views: 4892,
+                price: 250000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'kt',
+                priceType: 'select-port',
+                sido: 'seoul',
+                sigungu: 'yongsan',
+                thumb: null
+            },
+            // KT 공통·번이
+            {
+                name: '모바일천국 인천점',
+                rating: 4.7,
+                reviews: 27,
+                location: '인천광역시 남동구',
+                views: 3567,
+                price: 110000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'kt',
+                priceType: 'common-port',
+                sido: 'incheon',
+                sigungu: 'namdong',
+                thumb: null
+            },
+            {
+                name: '애플스토어 판교점',
+                rating: 5.0,
+                reviews: 62,
+                location: '경기도 성남시',
+                views: 8456,
+                price: 130000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'kt',
+                priceType: 'common-port',
+                sido: 'gyeonggi',
+                sigungu: 'seongnam',
+                thumb: null
+            },
+            // LG U+ 선택·번이
+            {
+                name: '프리미엄폰 수원점',
+                rating: 4.7,
+                reviews: 15,
+                location: '경기도 수원시',
+                views: 1842,
+                price: 660000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'lgu',
+                priceType: 'select-port',
+                sido: 'gyeonggi',
+                sigungu: 'suwon',
+                thumb: null
+            },
+            {
+                name: '핸드폰직거래센터 부평점',
+                rating: 4.9,
+                reviews: 42,
+                location: '인천광역시 부평구',
+                views: 5234,
+                price: 680000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'lgu',
+                priceType: 'select-port',
+                sido: 'incheon',
+                sigungu: 'bupyeong',
+                thumb: null
+            },
+            // LG U+ 선택·기변
+            {
+                name: '폰마켓 광명점',
+                rating: 4.7,
+                reviews: 21,
+                location: '경기도 광명시',
+                views: 2134,
+                price: -990000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'lgu',
+                priceType: 'select-change',
+                sido: 'gyeonggi',
+                sigungu: 'gwangmyeong',
+                thumb: null
+            },
+            {
+                name: '핸드폰할인마트 안양점',
+                rating: 4.8,
+                reviews: 31,
+                location: '경기도 안양시',
+                views: 1923,
+                price: -950000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'lgu',
+                priceType: 'select-change',
+                sido: 'gyeonggi',
+                sigungu: 'anyang',
+                thumb: null
+            },
+            // LG U+ 공통·번이
+            {
+                name: '스마트존 의정부점',
+                rating: 4.4,
+                reviews: 14,
+                location: '경기도 의정부시',
+                views: 1845,
+                price: 440000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'lgu',
+                priceType: 'common-port',
+                sido: 'gyeonggi',
+                sigungu: 'uijeongbu',
+                thumb: null
+            },
+            {
+                name: '착한폰가게 구로점',
+                rating: 4.5,
+                reviews: 16,
+                location: '서울특별시 구로구',
+                views: 1923,
+                price: 460000,
+                product: 's24',
+                capacity: 256,
+                plan: '55',
+                carrier: 'lgu',
+                priceType: 'common-port',
+                sido: 'seoul',
+                sigungu: 'guro',
+                thumb: null
+            }
+        ];
+
+        console.log('✅ storeData 정의 완료, 개수:', storeData.length);
+
+        // 상태
+        let selectedManufacturer = null;
+        let selectedProduct = null;
+        let selectedCapacity = null;
+        let selectedPlan = null;
+        let selectedSido = null;
+        let selectedSigungu = null;
+        let selectedPrice = null;
+
+        // 초기화
+        function init() {
+            console.log('=== INIT 시작 ===');
+            setupEventListeners();
+
+            // HTML에 이미 선택된 값들 동기화
+            const activeTab = document.querySelector('.filter-tab.active');
+            if (activeTab) {
+                selectedManufacturer = activeTab.dataset.manufacturer;
+                console.log('제조사:', selectedManufacturer);
+            }
+
+            const productSelect = document.getElementById('productSelect');
+            if (productSelect.value) {
+                selectedProduct = productSelect.value;
+                console.log('상품:', selectedProduct);
+            }
+
+            const capacitySelect = document.getElementById('capacitySelect');
+            if (capacitySelect.value) {
+                selectedCapacity = capacitySelect.value;
+                console.log('용량:', selectedCapacity);
+            }
+
+            const planSelect = document.getElementById('planSelect');
+            if (planSelect.value) {
+                selectedPlan = planSelect.value;
+                console.log('요금제:', selectedPlan);
+            }
+
+            // 초기 로드 시에는 자동 선택하지 않음 - 사용자가 직접 선택해야 함
+            // 혹시 선택된 가격이 있다면 제거
+            document.querySelectorAll('.price-item.selected').forEach(item => {
+                item.classList.remove('selected');
+            });
+
+            console.log('✅ 초기 로드 - 가격을 선택하면 결과가 표시됩니다.');
+        }
+
+        function setupEventListeners() {
+            // 시/도 선택
+            document.getElementById('sidoSelect').addEventListener('change', (e) => {
+                selectedSido = e.target.value;
+                updateSigunguOptions();
+            });
+
+            // 구/군 선택
+            document.getElementById('sigunguSelect').addEventListener('change', (e) => {
+                selectedSigungu = e.target.value;
+            });
+
+            // 제조사 탭
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    selectedManufacturer = tab.dataset.manufacturer;
+                    updateProductOptions();
+                    checkFilterComplete();
+                });
+            });
+
+            // 상품 선택
+            document.getElementById('productSelect').addEventListener('change', (e) => {
+                selectedProduct = e.target.value;
+                updateCapacityOptions();
+                checkFilterComplete();
+            });
+
+            // 용량 선택
+            document.getElementById('capacitySelect').addEventListener('change', (e) => {
+                selectedCapacity = e.target.value;
+                updatePlanOptions();
+                checkFilterComplete();
+            });
+
+            // 요금제 선택
+            document.getElementById('planSelect').addEventListener('change', (e) => {
+                selectedPlan = e.target.value;
+                checkFilterComplete();
+            });
+
+            // 필터 완성도 체크 및 가격 그리드 활성화
+            function checkFilterComplete() {
+                const isComplete = selectedManufacturer && selectedProduct && selectedCapacity && selectedPlan;
+                const priceItems = document.querySelectorAll('#priceSection .price-item');
+                const searchBtn = document.getElementById('searchBtn');
+
+                if (isComplete) {
+                    // 모든 조건이 완성되면 가격 그리드 및 검색 버튼 활성화
+                    priceItems.forEach(item => {
+                        if (!item.classList.contains('disabled')) {
+                            // 이미 활성화된 것은 그대로
+                        } else if (item.dataset.carrier && item.dataset.type) {
+                            // data 속성이 있는 항목만 활성화
+                            item.classList.remove('disabled');
+                        }
+                    });
+                    searchBtn.disabled = false;
+                    console.log('✅ 필터 조건 완성 - 가격 그리드 및 검색 버튼 활성화');
+                } else {
+                    // 조건이 미완성이면 비활성화
+                    priceItems.forEach(item => {
+                        if (item.dataset.carrier && item.dataset.type) {
+                            item.classList.add('disabled');
+                            item.classList.remove('selected');
+                        }
+                    });
+                    searchBtn.disabled = true;
+                    // 검색 결과도 숨김
+                    document.getElementById('resultSection').style.display = 'none';
+                    console.log('⚠️ 필터 조건 미완성 - 가격 그리드 및 검색 버튼 비활성화');
+                }
+            }
+
+            // 초기화 버튼
+            document.getElementById('resetBtn').addEventListener('click', resetFilters);
+
+            // 검색 버튼
+            document.getElementById('searchBtn').addEventListener('click', search);
+
+            // 초기 상태: 모든 가격 그리드 비활성화
+            checkFilterComplete();
+
+            // 가격 선택 아이템 - 모든 아이템에 이벤트 등록하되 disabled 체크
+            const priceItems = document.querySelectorAll('#priceSection .price-item');
+            console.log('🔹 가격 아이템 개수:', priceItems.length);
+
+            priceItems.forEach((item, index) => {
+                console.log(`🔹 가격 아이템 ${index}:`, item.dataset.carrier, item.dataset.type);
+                item.addEventListener('click', () => {
+                    // disabled 상태면 클릭 무시
+                    if (item.classList.contains('disabled')) {
+                        console.log('⚠️ 비활성화된 아이템 클릭 무시');
+                        return;
+                    }
+
+                    console.log('🎯 가격 선택됨!', item.dataset.carrier, item.dataset.type);
+
+                    // 이전 선택 제거 (동네성지 메인의 가격 아이템만)
+                    document.querySelectorAll('#priceSection .price-item').forEach(i => i.classList.remove('selected'));
+
+                    // 현재 선택
+                    item.classList.add('selected');
+
+                    const carrier = item.dataset.carrier;
+                    const type = item.dataset.type;
+                    const priceText = item.querySelector('.price-value').textContent;
+
+                    selectedPrice = { carrier, type, price: priceText };
+                    console.log('✅ selectedPrice 설정:', selectedPrice);
+
+                    // 선택한 조건 표시
+                    const carrierNames = { skt: 'SKT', kt: 'KT', lgu: 'LG U+' };
+                    const typeNames = {
+                        'common-change': '공통지원금',
+                        'select-port': '선택약정',
+                        'select-change': '선택약정',
+                        'common-port': '공통지원금'
+                    };
+                    const openTypeNames = {
+                        'common-change': '기기변경',
+                        'select-port': '번호이동',
+                        'select-change': '기기변경',
+                        'common-port': '번호이동'
+                    };
+                    // 지역 정보 가져오기
+                    const sidoSelect = document.getElementById('sidoSelect');
+                    const sigunguSelect = document.getElementById('sigunguSelect');
+                    const selectedSido = sidoSelect?.options[sidoSelect.selectedIndex]?.text || '';
+                    const selectedSigungu = sigunguSelect?.options[sigunguSelect.selectedIndex]?.text || '';
+
+                    console.log('🏠 지역 정보:', { selectedSido, selectedSigungu });
+
+                    // 선택한 조건 칩 생성
+                    let chips = [];
+
+                    // 지역 칩
+                    if (selectedSido && selectedSido !== '시/도 선택') {
+                        const sidoName = selectedSido.replace('특별시', '').replace('광역시', '').replace('도', '');
+                        const sigunguName = selectedSigungu && selectedSigungu !== '구/군 선택' && selectedSigungu !== '' ? selectedSigungu : '';
+                        const locationText = sigunguName ? `${sidoName} ${sigunguName}` : sidoName;
+                        console.log('📍 지역 칩 텍스트:', locationText);
+                        chips.push(`
+                            <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0;">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#6c757d"/>
+                                </svg>
+                                <span style="font-weight: 500;">${locationText}</span>
+                            </div>
+                        `);
+                    }
+
+                    // 통신사 칩
+                    chips.push(`
+                        <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                            <span style="font-weight: 500;">${carrierNames[carrier]}</span>
+                        </div>
+                    `);
+
+                    // 지원금 칩
+                    chips.push(`
+                        <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                            <span style="font-weight: 500;">${typeNames[type]}</span>
+                        </div>
+                    `);
+
+                    // 개통방법 칩
+                    chips.push(`
+                        <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                            <span style="font-weight: 500;">${openTypeNames[type]}</span>
+                        </div>
+                    `);
+
+                    document.getElementById('mainSelectedPriceText').innerHTML = chips.join('');
+                    document.getElementById('mainSelectedPriceInfo').style.display = 'block';
+
+                    // 동네성지 메인용 매장 필터링 및 렌더링
+                    renderProductCards();
+                });
+            });
+        }
+
+        function showSelectedPriceInfo() {
+            console.log('⚡ showSelectedPriceInfo 호출, selectedPrice:', selectedPrice);
+            if (selectedPrice) {
+                // 상품 카드 렌더링
+                renderProductCards();
+            } else {
+                console.log('⚠️ selectedPrice가 없어서 카드 숨김');
+                // 상품 카드 숨기기
+                document.getElementById('resultSection').style.display = 'none';
+            }
+        }
+
+        function renderProductCards() {
+            console.log('=== renderProductCards 시작 ===');
+            const resultSection = document.getElementById('resultSection');
+            const productCardList = document.getElementById('productCardList');
+
+            console.log('selectedPrice:', selectedPrice);
+
+            // 가격만 선택되면 상품 카드 표시
+            if (!selectedPrice) {
+                console.log('가격이 선택되지 않아 종료');
+                resultSection.style.display = 'none';
+                return;
+            }
+
+            // 필터가 선택되지 않았으면 기본값 사용
+            if (!selectedManufacturer) selectedManufacturer = 'samsung';
+            if (!selectedProduct) selectedProduct = 's24';
+            if (!selectedCapacity) selectedCapacity = '256';
+            if (!selectedPlan) selectedPlan = '55';
+
+            console.log('최종 필터:', {
+                manufacturer: selectedManufacturer,
+                product: selectedProduct,
+                capacity: selectedCapacity,
+                plan: selectedPlan,
+                carrier: selectedPrice.carrier,
+                priceType: selectedPrice.type
+            });
+
+            // 선택된 조건으로 매장 필터링
+            let filteredStores = [...storeData];
+            console.log('전체 스토어 개수:', filteredStores.length);
+
+            // 지역 필터 제거 - 전국 매장 모두 표시
+            // if (selectedSido) {
+            //     filteredStores = filteredStores.filter(s => s.sido === selectedSido);
+            //     console.log('시도 필터 후:', filteredStores.length);
+            // }
+            // if (selectedSigungu) {
+            //     filteredStores = filteredStores.filter(s => s.sigungu === selectedSigungu);
+            //     console.log('구군 필터 후:', filteredStores.length);
+            // }
+
+            // 상품/용량/요금제 필터도 제거 - 가격만으로 필터링
+            // if (selectedProduct) {
+            //     filteredStores = filteredStores.filter(s => s.product === selectedProduct);
+            //     console.log('상품 필터 후:', filteredStores.length);
+            // }
+            // if (selectedCapacity) {
+            //     filteredStores = filteredStores.filter(s => s.capacity === parseInt(selectedCapacity));
+            //     console.log('용량 필터 후:', filteredStores.length);
+            // }
+            // if (selectedPlan) {
+            //     filteredStores = filteredStores.filter(s => s.plan === selectedPlan);
+            //     console.log('요금제 필터 후:', filteredStores.length);
+            // }
+            // 통신사 필터링
+            if (selectedPrice && selectedPrice.carrier) {
+                filteredStores = filteredStores.filter(s => s.carrier === selectedPrice.carrier);
+                console.log('통신사 필터 후:', filteredStores.length, '(carrier:', selectedPrice.carrier, ')');
+            }
+            // 가격 유형 필터링
+            if (selectedPrice && selectedPrice.type) {
+                filteredStores = filteredStores.filter(s => s.priceType === selectedPrice.type);
+                console.log('가격유형 필터 후:', filteredStores.length, '(priceType:', selectedPrice.type, ')');
+            }
+
+            // 가격순 정렬
+            filteredStores.sort((a, b) => a.price - b.price);
+
+            console.log('최종 필터된 스토어:', filteredStores);
+
+            if (filteredStores.length === 0) {
+                console.log('필터 결과가 0개 - 화면에 표시 안함');
+                resultSection.style.display = 'none';
+                return;
+            }
+
+            const productName = productData[selectedManufacturer]?.find(p => p.value === selectedProduct)?.name || '알 수 없음';
+            const carrierName = selectedPrice.carrier === 'skt' ? 'SKT' :
+                               selectedPrice.carrier === 'kt' ? 'KT' : 'LG U+';
+            const typeName = selectedPrice.type === 'common-change' ? '공통·기변' :
+                            selectedPrice.type === 'select-port' ? '선택·번이' :
+                            selectedPrice.type === 'select-change' ? '선택·기변' : '공통·번이';
+            const planName = planData.find(p => p.value === selectedPlan)?.name || '알 수 없음';
+
+            console.log('📱 상품 정보:', { productName, carrierName, typeName, planName });
+
+            // 개통방식과 할인방식 추출
+            const openType = typeName.includes('번이') ? '번호이동' : '기기변경';
+            const discountType = typeName.includes('공통') ? '공시지원' : '선택약정';
+
+            try {
+                productCardList.innerHTML = filteredStores.map((store, index) => `
+                <article class="product-card" style="border-top: ${index > 0 ? '1px solid #e5e8eb' : 'none'};">
+                    <div class="store-header">
+                        <div class="store-avatar">
+                            ${store.thumb ?
+                                `<img src="${store.thumb}" alt="${store.name}">` :
+                                '<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #e0e7ff 0%, #f0f0f0 100%);"></div>'
+                            }
+                        </div>
+                        <div class="store-name-wrapper">
+                            <span class="store-name-text">${store.name}</span>
+                            <span class="store-date">2025-10-27</span>
+                        </div>
+                    </div>
+                    <div class="product-detail-card">
+                        <div class="product-content">
+                            <div class="product-image">
+                                <div style="width: 100%; height: 100%; background: #f9fafb; display: flex; align-items: center; justify-content: center; color: #d1d5db; font-size: 10px;">
+                                    상품<br>이미지
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">${productName}</h3>
+                                <dl class="product-specs">
+                                    <dt class="spec-label">통신사</dt>
+                                    <dd class="spec-value">${carrierName}</dd>
+                                    <dt class="spec-label">저장용량</dt>
+                                    <dd class="spec-value">${selectedCapacity}GB</dd>
+                                    <dt class="spec-label">개통방식</dt>
+                                    <dd class="spec-value">${openType}</dd>
+                                    <dt class="spec-label">할인방식</dt>
+                                    <dd class="spec-value">${discountType}</dd>
+                                    <dt class="spec-label">개통 요금제</dt>
+                                    <dd class="spec-value">${planName}</dd>
+                                </dl>
+                                <div class="product-divider"></div>
+                                <div class="product-price-row">
+                                    <span class="price-label">할부원금</span>
+                                    <span class="price-amount">${formatPriceKorean(store.price)}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-action">
+                        <button class="action-btn">맞춤 견적 알아보기</button>
+                    </div>
+                </article>
+            `).join('');
+
+                console.log('✅ 상품 카드 HTML 생성 완료:', productCardList.innerHTML.length, '글자');
+                console.log('📍 resultSection 요소:', resultSection);
+                console.log('📍 productCardList 요소:', productCardList);
+
+                resultSection.style.display = 'block';
+
+                console.log('✅ resultSection.style.display 설정:', resultSection.style.display);
+                console.log('✅ 최종 화면 렌더링 완료');
+            } catch (error) {
+                console.error('❌ 상품 카드 렌더링 에러:', error);
+                console.error('에러 스택:', error.stack);
+            }
+        }
+
+        function formatPriceKorean(price) {
+            if (price < 0) {
+                return `-${Math.abs(price / 10000).toFixed(0)}만원`;
+            }
+            if (price >= 10000) {
+                const man = Math.floor(price / 10000);
+                const remainder = price % 10000;
+                if (remainder === 0) {
+                    return `${man.toLocaleString()}만원`;
+                }
+                return `${man.toLocaleString()}만 ${remainder.toLocaleString()}원`;
+            }
+            return `${price.toLocaleString()}원`;
+        }
+
+        function updateSigunguOptions() {
+            const sigunguSelect = document.getElementById('sigunguSelect');
+            sigunguSelect.innerHTML = '<option value="">구/군 선택</option>';
+
+            if (selectedSido && sigunguData[selectedSido]) {
+                sigunguSelect.disabled = false;
+                sigunguData[selectedSido].forEach(sigungu => {
+                    const option = document.createElement('option');
+                    option.value = sigungu.value;
+                    option.textContent = sigungu.name;
+                    sigunguSelect.appendChild(option);
+                });
+            } else {
+                sigunguSelect.disabled = true;
+                selectedSigungu = null;
+            }
+        }
+
+        function updateProductOptions() {
+            const productSelect = document.getElementById('productSelect');
+            productSelect.innerHTML = '<option value="">상품을 선택하세요</option>';
+
+            if (selectedManufacturer && productData[selectedManufacturer]) {
+                productSelect.disabled = false;
+                productData[selectedManufacturer].forEach(product => {
+                    const option = document.createElement('option');
+                    option.value = product.value;
+                    option.textContent = product.name;
+                    productSelect.appendChild(option);
+                });
+            } else {
+                productSelect.disabled = true;
+            }
+
+            // 하위 선택 초기화
+            selectedProduct = null;
+            selectedCapacity = null;
+            selectedPlan = null;
+            resetCapacityOptions();
+            resetPlanOptions();
+        }
+
+        function updateCapacityOptions() {
+            const capacitySelect = document.getElementById('capacitySelect');
+            capacitySelect.innerHTML = '<option value="">용량 선택</option>';
+
+            if (selectedProduct) {
+                const product = productData[selectedManufacturer].find(p => p.value === selectedProduct);
+                capacitySelect.disabled = false;
+                product.capacities.forEach(capacity => {
+                    const option = document.createElement('option');
+                    option.value = capacity;
+                    option.textContent = `${capacity}GB`;
+                    capacitySelect.appendChild(option);
+                });
+            } else {
+                capacitySelect.disabled = true;
+            }
+
+            // 하위 선택 초기화
+            selectedCapacity = null;
+            selectedPlan = null;
+            resetPlanOptions();
+        }
+
+        function resetCapacityOptions() {
+            const capacitySelect = document.getElementById('capacitySelect');
+            capacitySelect.innerHTML = '<option value="">용량 선택</option>';
+            capacitySelect.disabled = true;
+        }
+
+        function updatePlanOptions() {
+            const planSelect = document.getElementById('planSelect');
+            planSelect.innerHTML = '<option value="">요금제 선택</option>';
+
+            if (selectedCapacity) {
+                planSelect.disabled = false;
+                planData.forEach(plan => {
+                    const option = document.createElement('option');
+                    option.value = plan.value;
+                    option.textContent = plan.name;
+                    planSelect.appendChild(option);
+                });
+            } else {
+                planSelect.disabled = true;
+            }
+
+            selectedPlan = null;
+        }
+
+        function resetPlanOptions() {
+            const planSelect = document.getElementById('planSelect');
+            planSelect.innerHTML = '<option value="">요금제 선택</option>';
+            planSelect.disabled = true;
+        }
+
+        function resetFilters() {
+            // 모든 선택 초기화
+            selectedManufacturer = null;
+            selectedProduct = null;
+            selectedCapacity = null;
+            selectedPlan = null;
+            selectedSido = null;
+            selectedSigungu = null;
+
+            // UI 초기화
+            document.getElementById('sidoSelect').value = '';
+            document.getElementById('sigunguSelect').value = '';
+            document.getElementById('sigunguSelect').disabled = true;
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('productSelect').value = '';
+            document.getElementById('productSelect').disabled = true;
+            resetCapacityOptions();
+            resetPlanOptions();
+
+            // 전체 매장 표시
+            renderAllStores();
+        }
+
+        function search() {
+            let filteredStores = [...storeData];
+
+            // 지역 필터
+            if (selectedSido) {
+                filteredStores = filteredStores.filter(s => s.sido === selectedSido);
+            }
+            if (selectedSigungu) {
+                filteredStores = filteredStores.filter(s => s.sigungu === selectedSigungu);
+            }
+
+            // 상품 필터
+            if (selectedProduct) {
+                filteredStores = filteredStores.filter(s => s.product === selectedProduct);
+            }
+            if (selectedCapacity) {
+                filteredStores = filteredStores.filter(s => s.capacity === parseInt(selectedCapacity));
+            }
+            if (selectedPlan) {
+                filteredStores = filteredStores.filter(s => s.plan === selectedPlan);
+            }
+
+            // 가격순 정렬
+            if (selectedProduct && selectedCapacity && selectedPlan) {
+                filteredStores.sort((a, b) => a.price - b.price);
+            }
+
+            renderStores(filteredStores);
+            updateSummary(filteredStores);
+
+            // 가격 선택 섹션 표시 여부
+            const priceSection = document.getElementById('priceSection');
+            if (selectedProduct && selectedCapacity && selectedPlan) {
+                priceSection.style.display = 'block';
+            } else {
+                priceSection.style.display = 'none';
+            }
+        }
+
+        function renderAllStores() {
+            const summary = document.getElementById('searchSummary');
+            summary.style.display = 'none';
+            const priceSection = document.getElementById('priceSection');
+            priceSection.style.display = 'none';
+            renderStores(storeData);
+        }
+
+        function renderStores(stores) {
+            // 매장 리스트는 더 이상 사용하지 않음
+        }
+
+        function updateSummary(stores) {
+            const summary = document.getElementById('searchSummary');
+
+            if (!selectedProduct || stores.length === 0) {
+                summary.style.display = 'none';
+                return;
+            }
+
+            const sidoName = selectedSido ?
+                document.querySelector(`#sidoSelect option[value="${selectedSido}"]`).textContent : '전체';
+            const sigunguName = selectedSigungu ?
+                sigunguData[selectedSido].find(s => s.value === selectedSigungu)?.name : '';
+            const productName = productData[selectedManufacturer].find(p => p.value === selectedProduct)?.name;
+            const capacityName = selectedCapacity ? `${selectedCapacity}GB` : '';
+
+            let text = sigunguName ? `${sigunguName}에서` : `${sidoName}에서`;
+            text += ` ${productName}`;
+            if (capacityName) text += ` ${capacityName}`;
+            text += `를 판매하는 매장 ${stores.length}곳`;
+
+            summary.textContent = text;
+            summary.style.display = 'block';
+        }
+
+        function formatPrice(price) {
+            if (price < 0) {
+                return `페이백 ${Math.abs(price / 10000).toFixed(0)}만원`;
+            }
+            return `할부원금 ${(price / 10000).toFixed(0)}만원`;
+        }
+
+        // 페이지 로드 시 초기화
+        console.log('🚀 init() 호출 준비');
+        try {
+            init();
+            console.log('✅ init() 완료');
+        } catch (error) {
+            console.error('❌ init() 에러:', error);
+        }
+    </script>
+
+</body>
+</html>
