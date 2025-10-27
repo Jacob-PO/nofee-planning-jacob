@@ -3578,15 +3578,7 @@
 
         function formatPriceKorean(price) {
             if (price < 0) {
-                return `-${Math.abs(price / 10000).toFixed(0)}만원`;
-            }
-            if (price >= 10000) {
-                const man = Math.floor(price / 10000);
-                const remainder = price % 10000;
-                if (remainder === 0) {
-                    return `${man.toLocaleString()}만원`;
-                }
-                return `${man.toLocaleString()}만 ${remainder.toLocaleString()}원`;
+                return `-${Math.abs(price).toLocaleString()}원`;
             }
             return `${price.toLocaleString()}원`;
         }
