@@ -498,57 +498,19 @@
             `;
         }
 
-        // 그룹 카드 생성 (토스 스타일)
+        // 그룹 카드 생성 (기존 디자인 시스템 유지)
         function createGroupCard(group) {
-            const subDocsHtml = group.subDocs.map(doc => `
-                <a href="https://jacob-po.github.io/nofee_planning/${doc.url}" target="_blank" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: white; border: 1.5px solid #e5e7eb; border-radius: 8px; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='#3182f6'; this.style.backgroundColor='#f8faff';" onmouseout="this.style.borderColor='#e5e7eb'; this.style.backgroundColor='white';">
-                    <div style="flex-shrink: 0; width: 32px; height: 32px; background: ${group.gradient}; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px;">${doc.icon}</div>
-                    <div style="flex: 1; min-width: 0;">
-                        <div style="font-weight: 600; color: #111827; font-size: 13px; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${doc.title}</div>
-                        <div style="font-size: 11px; color: #9ca3af;">${doc.version} | ${doc.date}</div>
-                    </div>
-                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0;">
-                        <path d="M7.5 15L12.5 10L7.5 5" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-            `).join('');
+            const allDocs = [group.mainDoc, ...group.subDocs];
 
             return `
-                <div style="grid-column: 1 / -1; background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%); border: 2px solid #bfdbfe; border-radius: 16px; padding: 24px; margin-bottom: 16px;">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                        <div style="width: 48px; height: 48px; background: ${group.gradient}; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M4 6h16M4 12h16M4 18h16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                        <div style="flex: 1;">
-                            <h3 style="font-size: 18px; font-weight: 700; color: #111827; margin: 0 0 4px 0; letter-spacing: -0.5px;">${group.title}</h3>
-                            <p style="font-size: 13px; color: #6b7280; margin: 0;">${group.description}</p>
-                        </div>
+                <div style="grid-column: 1 / -1; margin-bottom: 32px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb;">
+                        <div style="width: 4px; height: 20px; background: linear-gradient(180deg, #3182f6 0%, #1e40af 100%); border-radius: 2px;"></div>
+                        <h3 style="font-size: 16px; font-weight: 700; color: #191f28; margin: 0; letter-spacing: -0.5px;">${group.title}</h3>
+                        <span style="font-size: 13px; color: #6b7684; font-weight: 500;">${group.description}</span>
                     </div>
-                    <a href="https://jacob-po.github.io/nofee_planning/${group.mainDoc.url}" class="card" target="_blank" style="margin-bottom: 16px; background: white; border: 2px solid #3182f6;">
-                        <div class="card-header">
-                            <div class="card-badges">
-                                <span class="badge badge-type">메인 기획</span>
-                                <span class="badge badge-version">${group.mainDoc.version}</span>
-                            </div>
-                        </div>
-                        <h3 class="card-title">${group.mainDoc.title}</h3>
-                        <p class="card-description">${group.mainDoc.description}</p>
-                        <div class="card-meta">
-                            <div class="meta-item">
-                                <span class="meta-label">작성자</span>
-                                <span class="meta-value">${group.mainDoc.author}</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">작성일</span>
-                                <span class="meta-value">${group.mainDoc.date}</span>
-                            </div>
-                        </div>
-                    </a>
-                    <div style="font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 12px;">상세 기획</div>
-                    <div style="display: flex; flex-direction: column; gap: 8px;">
-                        ${subDocsHtml}
+                    <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));">
+                        ${allDocs.map(doc => createCard(doc)).join('')}
                     </div>
                 </div>
             `;
