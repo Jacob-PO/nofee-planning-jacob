@@ -2924,6 +2924,16 @@
 
                     let chips = [];
 
+                    // 지역 칩 (스토어홈은 매장 고정이므로 매장 지역 표시)
+                    chips.push(`
+                        <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0;">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#6c757d"/>
+                            </svg>
+                            <span style="font-weight: 500;">서울 은평구</span>
+                        </div>
+                    `);
+
                     // 통신사 칩
                     chips.push(`
                         <div style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; font-size: 12px; color: #495057; line-height: 1;">
