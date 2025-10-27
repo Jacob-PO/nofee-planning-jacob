@@ -2308,7 +2308,7 @@
 
             // 개통방식과 할인방식 추출
             const openType = typeName.includes('번이') ? '번호이동' : '기기변경';
-            const discountType = typeName.includes('공통') ? '공시지원' : '선택약정';
+            const discountType = typeName.includes('공통') ? '공통지원' : '선택약정';
 
             const html = sampleStores.map((store, index) => `
                 <article class="product-card" style="border-top: ${index > 0 ? '1px solid #e5e8eb' : 'none'};">
@@ -2877,7 +2877,7 @@
                                     type === 'select-change' ? '선택·기변' : '공통·번이';
 
                     const openType = typeName.includes('번이') ? '번호이동' : '기기변경';
-                    const discountType = typeName.includes('공통') ? '공시지원' : '선택약정';
+                    const discountType = typeName.includes('공통') ? '공통지원' : '선택약정';
 
                     // 가격 숫자로 변환 (22만 -> 220000, 음수 처리)
                     let priceNumber = parseFloat(priceText.replace('만', '').replace(/,/g, '')) * 10000;
@@ -2910,10 +2910,10 @@
                     // 선택 조건 칩 생성
                     const carrierNames = { 'skt': 'SKT', 'kt': 'KT', 'lgu': 'LG U+' };
                     const typeNames = {
-                        'common-change': '공시지원',
+                        'common-change': '공통지원',
                         'select-port': '선택약정',
                         'select-change': '선택약정',
-                        'common-port': '공시지원'
+                        'common-port': '공통지원'
                     };
                     const openTypeNames = {
                         'common-change': '기기변경',
@@ -3698,7 +3698,7 @@
 
             // 개통방식과 할인방식 추출
             const openType = typeName.includes('번이') ? '번호이동' : '기기변경';
-            const discountType = typeName.includes('공통') ? '공시지원' : '선택약정';
+            const discountType = typeName.includes('공통') ? '공통지원' : '선택약정';
 
             try {
                 productCardList.innerHTML = filteredStores.map((store, index) => `
