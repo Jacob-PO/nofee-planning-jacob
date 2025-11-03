@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11월 전체 상품 시세표</title>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SUIT Variable', sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            width: 1080px;
+            background: #fff;
+            padding: 60px;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: #131FA0;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .main-title {
+            font-size: 60px;
+            font-weight: 900;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 28px;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .product-list {
+            list-style: none;
+        }
+
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .product-item:last-child {
+            border-bottom: none;
+        }
+
+        .product-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .product-rank {
+            font-size: 24px;
+            font-weight: 800;
+            color: #131FA0;
+            min-width: 40px;
+        }
+
+        .product-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .tag-carrier {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .tag-join {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .tag-support {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .product-price {
+            font-size: 32px;
+            font-weight: 900;
+            color: #131FA0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .footer-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ccc;
+        }
+
+        .footer-note {
+            font-size: 18px;
+            color: #999;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="date-badge">11월 3일 업데이트</div>
+            <div class="main-title">전체 상품 시세표</div>
+            <div class="subtitle">최저가 기준 정렬 · 총 19개 상품</div>
+        </div>
+
+        <!-- 상품 리스트 -->
+        <ul class="product-list">
+            <!-- 1위: 아이폰 16e -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">1</div>
+                    <div>
+                        <div class="product-name">아이폰 16e</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">-24만원</div>
+            </li>
+
+            <!-- 2위: 갤럭시 S24 FE -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">2</div>
+                    <div>
+                        <div class="product-name">갤럭시 S24 FE</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">SKT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">-22만원</div>
+            </li>
+
+            <!-- 3위: 갤럭시 S24 플러스 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">3</div>
+                    <div>
+                        <div class="product-name">갤럭시 S24 플러스</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">-13만원</div>
+            </li>
+
+            <!-- 4위: 갤럭시 와이드8 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">4</div>
+                    <div>
+                        <div class="product-name">갤럭시 와이드8</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">SKT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">선택약정</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">0만원</div>
+            </li>
+
+            <!-- 5위: 갤럭시 S25 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">5</div>
+                    <div>
+                        <div class="product-name">갤럭시 S25</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">기기변경</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">1만원</div>
+            </li>
+
+            <!-- 6위: 갤럭시 S24 울트라 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">6</div>
+                    <div>
+                        <div class="product-name">갤럭시 S24 울트라</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">5만원</div>
+            </li>
+
+            <!-- 7위: 아이폰 16 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">7</div>
+                    <div>
+                        <div class="product-name">아이폰 16</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">6만원</div>
+            </li>
+
+            <!-- 8위: 갤럭시 S24 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">8</div>
+                    <div>
+                        <div class="product-name">갤럭시 S24</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">8만원</div>
+            </li>
+
+            <!-- 9위: 갤럭시 Z 플립 7 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">9</div>
+                    <div>
+                        <div class="product-name">갤럭시 Z 플립 7</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">기기변경</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">22만원</div>
+            </li>
+
+            <!-- 10위: 갤럭시 S25 엣지 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">10</div>
+                    <div>
+                        <div class="product-name">갤럭시 S25 엣지</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">24만원</div>
+            </li>
+
+            <!-- 11위: 아이폰 17 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">11</div>
+                    <div>
+                        <div class="product-name">아이폰 17</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">27만원</div>
+            </li>
+
+            <!-- 12위: 아이폰 16 프로 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">12</div>
+                    <div>
+                        <div class="product-name">아이폰 16 프로</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">41만원</div>
+            </li>
+
+            <!-- 13위: 갤럭시 S25 울트라 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">13</div>
+                    <div>
+                        <div class="product-name">갤럭시 S25 울트라</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">54만원</div>
+            </li>
+
+            <!-- 14위: 아이폰 17 에어 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">14</div>
+                    <div>
+                        <div class="product-name">아이폰 17 에어</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">56만원</div>
+            </li>
+
+            <!-- 15위: 갤럭시 S25 플러스 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">15</div>
+                    <div>
+                        <div class="product-name">갤럭시 S25 플러스</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">58만원</div>
+            </li>
+
+            <!-- 16위: 아이폰 16 프로 맥스 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">16</div>
+                    <div>
+                        <div class="product-name">아이폰 16 프로 맥스</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">76만원</div>
+            </li>
+
+            <!-- 17위: 아이폰 17 프로 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">17</div>
+                    <div>
+                        <div class="product-name">아이폰 17 프로</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">76만원</div>
+            </li>
+
+            <!-- 18위: 아이폰 17 프로 맥스 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">18</div>
+                    <div>
+                        <div class="product-name">아이폰 17 프로 맥스</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">121만원</div>
+            </li>
+
+            <!-- 19위: 갤럭시 Z 폴드 7 -->
+            <li class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">19</div>
+                    <div>
+                        <div class="product-name">갤럭시 Z 폴드 7</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">기기변경</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">123만원</div>
+            </li>
+        </ul>
+
+        <!-- 푸터 -->
+        <div class="footer">
+            <div class="footer-text">@nofee_ai</div>
+            <div class="footer-note">가격은 요금제/통신사별로 다를 수 있습니다</div>
+        </div>
+    </div>
+</body>
+</html>

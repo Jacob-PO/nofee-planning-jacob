@@ -1,0 +1,86 @@
+=== Sora 2 Video Prompt - 15 seconds ===
+
+**Video Duration:** 15 seconds
+**Aspect Ratio:** 9:16 (Instagram vertical format)
+**Style:** Cinematic, emotional storytelling, warm color grading, Korean drama aesthetic
+
+---
+
+**VISUAL PROMPT (ENGLISH):**
+
+A heartwarming 15-second cinematic story shot in Korean home setting.
+
+SCENE 1 (0-3s): Close-up of Korean mother in her 60s sitting on a living room couch, looking worried and skeptical while looking at her adult daughter, soft natural window light, warm beige interior, shallow depth of field, concern visible on her face.
+
+SCENE 2 (3-6s): Over-the-shoulder shot of Korean daughter in her 30s showing smartphone screen to her mother, both sitting close together on couch, warm indoor lighting, intimate moment, focus on the phone screen displaying review interface with Korean text and 5-star ratings.
+
+SCENE 3 (6-9s): Close-up of mother's face gradually changing expression from skeptical to relieved and surprised, eyes widening slightly, gentle smile forming, emotional transformation captured beautifully, soft focus background.
+
+SCENE 4 (9-12s): Medium shot of mother and daughter walking together happily through a bright modern Korean shopping district during daytime, natural smiles, casual comfortable clothing, slight motion blur suggesting movement, warm atmosphere.
+
+SCENE 5 (12-15s): Final shot pulls back to reveal the two walking away into the bustling street, warm golden hour lighting, slice of life moment, authentic street photography style, peaceful and hopeful ending.
+
+Cinematography: Handheld camera with subtle movements, warm color palette with cream and beige tones, soft natural lighting throughout, photorealistic style, emotional depth, intimate family storytelling, Korean cultural context.
+
+---
+
+**KOREAN NARRATION SCRIPT (한국어 대사):**
+
+**[0-3초]**
+"인터넷으로 휴대폰 개통하면 사기당하는 거 아냐?"
+
+**[3-6초]**
+"엄마, 여기 봐. 우리 동네 사람들 여기 다 다녀왔대."
+
+**[6-9초]**
+"어머... 우리 동네 분들이 다녀왔네?"
+
+**[9-12초]**
+(배경음악만 - 부드러운 감성 BGM)
+
+**[12-15초]**
+"광고보다 강한 건, 역시 우리 동네 사람들 후기더라."
+
+---
+
+**VOICE DIRECTION:**
+- Mother's voice (0-3s): Concerned, slightly worried tone, 60s Korean woman
+- Daughter's voice (3-6s): Gentle, reassuring tone, 30s Korean woman
+- Mother's voice (6-9s): Surprised, relieved tone with warmth
+- Narrator voice (12-15s): Warm, relatable, conversational tone (female, 30s)
+
+---
+
+**AUDIO:**
+- Background music: Soft, emotional, warm Korean drama-style piano melody
+- Ambient sounds: Subtle home atmosphere (0-9s), light street sounds (9-15s)
+- No text overlays on video
+- Natural voice acting in Korean
+
+---
+
+**TECHNICAL SPECS:**
+- Resolution: 1080x1920 (vertical)
+- Frame rate: 24fps or 30fps
+- Color grading: Warm, cinematic with slightly desaturated colors
+- Transitions: Smooth cross-dissolves between scenes
+- Duration: Exactly 15 seconds
+
+---
+
+**EMOTION & MOOD:**
+The video should evoke feelings of warmth, trust, family connection, and the relief that comes from seeing genuine reviews from neighbors. Focus on the emotional journey from skepticism to trust through community validation.
+
+---
+
+**KEY MOMENTS TO CAPTURE:**
+1. Mother's initial skepticism (worry lines, furrowed brows)
+2. Daughter's caring gesture of showing phone
+3. The exact moment mother's expression changes (micro-expressions)
+4. The warmth of walking together (bonding moment)
+5. Hopeful ending walking into the future together
+
+---
+
+**REFERENCE STYLE:**
+Korean family drama cinematography, similar to heartwarming moments in "Reply 1988" or "Hospital Playlist", authentic and relatable rather than commercial, documentary-style realism with cinematic polish.

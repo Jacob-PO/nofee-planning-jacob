@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11월 전체 상품 시세표</title>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SUIT Variable', sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            width: 1080px;
+            height: 1440px;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 헤더 */
+        .header {
+            padding: 45px 45px 35px;
+            background: linear-gradient(135deg, #131FA0 0%, #1E88E5 100%);
+            position: relative;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .main-title {
+            font-size: 52px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 22px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* 상품 리스트 */
+        .products {
+            padding: 30px 45px 80px;
+        }
+
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .product-item:last-child {
+            border-bottom: none;
+        }
+
+        .product-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+        }
+
+        .product-rank {
+            font-size: 18px;
+            font-weight: 800;
+            color: #131FA0;
+            min-width: 28px;
+            text-align: center;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .tag-carrier {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .tag-join {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .tag-support {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .product-price {
+            font-size: 26px;
+            font-weight: 900;
+            color: #131FA0;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+
+        /* 푸터 */
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #131FA0;
+        }
+
+        .footer-note {
+            font-size: 14px;
+            color: #999;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="date-badge">11월 3일 업데이트</div>
+            <div class="main-title">전체 상품 시세표</div>
+            <div class="subtitle">최저가 기준 · 총 19개 상품</div>
+        </div>
+
+        <!-- 상품 리스트 -->
+        <div class="products">
+            <!-- 1위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">1</div>
+                    <div class="product-info">
+                        <div class="product-name">아이폰 16e</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">-24만원</div>
+            </div>
+
+            <!-- 2위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">2</div>
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 S24 FE</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">SKT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">-22만원</div>
+            </div>
+
+            <!-- 3위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">3</div>
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 S24 플러스</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">-13만원</div>
+            </div>
+
+            <!-- 4위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">4</div>
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 와이드8</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">SKT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">선택약정</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">0만원</div>
+            </div>
+
+            <!-- 5위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">5</div>
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 S25</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">기기변경</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">1만원</div>
+            </div>
+
+            <!-- 6위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">6</div>
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 S24 울트라</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">5만원</div>
+            </div>
+
+            <!-- 7위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">7</div>
+                    <div class="product-info">
+                        <div class="product-name">아이폰 16</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">6만원</div>
+            </div>
+
+            <!-- 8위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">8</div>
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 S24</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">8만원</div>
+            </div>
+
+            <!-- 9위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">9</div>
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 Z 플립 7</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">기기변경</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">22만원</div>
+            </div>
+
+            <!-- 10위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">10</div>
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 S25 엣지</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">24만원</div>
+            </div>
+
+            <!-- 11위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">11</div>
+                    <div class="product-info">
+                        <div class="product-name">아이폰 17</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">27만원</div>
+            </div>
+
+            <!-- 12위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">12</div>
+                    <div class="product-info">
+                        <div class="product-name">아이폰 16 프로</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">41만원</div>
+            </div>
+
+            <!-- 13위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">13</div>
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 S25 울트라</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">54만원</div>
+            </div>
+
+            <!-- 14위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">14</div>
+                    <div class="product-info">
+                        <div class="product-name">아이폰 17 에어</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">56만원</div>
+            </div>
+
+            <!-- 15위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">15</div>
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 S25 플러스</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">58만원</div>
+            </div>
+
+            <!-- 16위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">16</div>
+                    <div class="product-info">
+                        <div class="product-name">아이폰 16 프로 맥스</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">76만원</div>
+            </div>
+
+            <!-- 17위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">17</div>
+                    <div class="product-info">
+                        <div class="product-name">아이폰 17 프로</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">76만원</div>
+            </div>
+
+            <!-- 18위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">18</div>
+                    <div class="product-info">
+                        <div class="product-name">아이폰 17 프로 맥스</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-join">번호이동</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">121만원</div>
+            </div>
+
+            <!-- 19위 -->
+            <div class="product-item">
+                <div class="product-left">
+                    <div class="product-rank">19</div>
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 Z 폴드 7</div>
+                        <div class="product-tags">
+                            <span class="tag tag-carrier">KT</span>
+                            <span class="tag tag-carrier">LG U+</span>
+                            <span class="tag tag-join">기기변경</span>
+                            <span class="tag tag-support">일반</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-price">123만원</div>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <div class="footer">
+            <div class="footer-text">@nofee_ai</div>
+            <div class="footer-note">가격은 요금제/통신사별로 다를 수 있습니다</div>
+        </div>
+    </div>
+</body>
+</html>

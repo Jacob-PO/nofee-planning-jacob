@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노피 릴스 슬라이드 7장</title>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SUIT Variable', sans-serif;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding: 20px;
+        }
+
+        .slide {
+            width: 1080px;
+            height: 1920px;
+            background: #131FA0;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-content {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 80px;
+        }
+
+        .logo {
+            position: absolute;
+            top: 60px;
+            right: 60px;
+            width: 70px;
+            height: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .main-text {
+            font-size: 110px;
+            font-weight: 900;
+            color: #fff;
+            text-align: center;
+            line-height: 1.15;
+            letter-spacing: -5px;
+            margin-bottom: 0;
+        }
+
+        .sub-text {
+            font-size: 48px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            line-height: 1.4;
+            letter-spacing: -1.5px;
+            margin-top: 30px;
+        }
+
+        .price-container {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 40px;
+        }
+
+        .price-model {
+            font-size: 52px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+            text-align: center;
+        }
+
+        .price-value {
+            font-size: 140px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -6px;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .price-value.negative {
+            color: #00FF88;
+        }
+
+        .carrier-text {
+            font-size: 36px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            margin-top: 24px;
+            letter-spacing: -1px;
+        }
+
+        .footer-branding {
+            position: absolute;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-logo {
+            width: 60px;
+            height: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.7;
+        }
+
+        .footer-text {
+            font-size: 32px;
+            font-weight: 800;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: -1px;
+            text-align: center;
+        }
+
+        /* Slide 1 - 인트로 */
+        .slide-1 .main-text {
+            font-size: 120px;
+            letter-spacing: -6px;
+        }
+
+        .slide-1 .sub-text {
+            font-size: 56px;
+            margin-top: 40px;
+        }
+
+        /* Slide 2-5 - 가격 */
+        .product-image {
+            width: 500px;
+            height: 500px;
+            object-fit: contain;
+            margin-bottom: 60px;
+            background: #fff;
+            border-radius: 50%;
+            padding: 50px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        /* Slide 6 - 반전 */
+        .slide-6 .main-text {
+            font-size: 160px;
+            letter-spacing: -8px;
+            margin-bottom: 60px;
+        }
+
+        .slide-6 .sub-text {
+            font-size: 52px;
+            font-weight: 800;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.5;
+        }
+
+        /* Slide 7 - 아웃트로 */
+        .slide-7 {
+            background: linear-gradient(135deg, #131FA0 0%, #0D1570 100%);
+        }
+
+        .slide-7 .main-text {
+            font-size: 100px;
+            letter-spacing: -5px;
+            line-height: 1.3;
+        }
+
+        .slide-7 .cta-box {
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 30px;
+            padding: 50px 70px;
+            margin-top: 70px;
+        }
+
+        .slide-7 .cta-box-text {
+            font-size: 56px;
+            font-weight: 900;
+            color: #fff;
+            text-align: center;
+            letter-spacing: -2px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: 인트로 -->
+    <div class="slide slide-1">
+        <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="logo">
+        <div class="slide-content">
+            <div class="main-text">우리 동네<br>최저가</div>
+            <div class="sub-text">11월 3일 최신 모델<br>실시간 가격</div>
+        </div>
+        <div class="footer-branding">
+            <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="footer-logo">
+            <div class="footer-text">동네성지 노피</div>
+        </div>
+    </div>
+
+    <!-- Slide 2: 아이폰17 -->
+    <div class="slide slide-2">
+        <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="logo">
+        <div class="slide-content">
+            <img src="https://image.nofee.team/product-group/phone/AP-B-17/thumb/20250918085221_4c21b2c479fa70139689cd6567f875de.jpg" alt="아이폰17" class="product-image">
+            <div class="price-container">
+                <div class="price-model">아이폰17</div>
+                <div class="price-value">11만원</div>
+                <div class="carrier-text">LG U+ 기준</div>
+            </div>
+        </div>
+        <div class="footer-branding">
+            <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="footer-logo">
+            <div class="footer-text">동네성지 노피</div>
+        </div>
+    </div>
+
+    <!-- Slide 3: 갤럭시S25 -->
+    <div class="slide slide-3">
+        <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="logo">
+        <div class="slide-content">
+            <img src="https://image.nofee.team/product-group/phone/SM-S-25/thumb/20250627152510_69d7ac613e112f7ed9799137df572843.png" alt="갤럭시S25" class="product-image">
+            <div class="price-container">
+                <div class="price-model">갤럭시S25</div>
+                <div class="price-value negative">-19만원</div>
+                <div class="carrier-text">LG U+ 기준</div>
+            </div>
+        </div>
+        <div class="footer-branding">
+            <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="footer-logo">
+            <div class="footer-text">동네성지 노피</div>
+        </div>
+    </div>
+
+    <!-- Slide 4: 아이폰17 에어 -->
+    <div class="slide slide-4">
+        <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="logo">
+        <div class="slide-content">
+            <img src="https://image.nofee.team/product-group/phone/AP-A-17/thumb/20250918085235_3df2e314c64253268258481dcfdd795e.jpg" alt="아이폰17 에어" class="product-image">
+            <div class="price-container">
+                <div class="price-model">아이폰17 에어</div>
+                <div class="price-value">39만원</div>
+                <div class="carrier-text">KT 기준</div>
+            </div>
+        </div>
+        <div class="footer-branding">
+            <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="footer-logo">
+            <div class="footer-text">동네성지 노피</div>
+        </div>
+    </div>
+
+    <!-- Slide 5: 갤럭시S25 플러스 -->
+    <div class="slide slide-5">
+        <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="logo">
+        <div class="slide-content">
+            <img src="https://image.nofee.team/product-group/phone/SM-SPL-25/thumb/20250627152748_634daf3896d28f97182832712a8ab64f.png" alt="갤럭시S25 플러스" class="product-image">
+            <div class="price-container">
+                <div class="price-model">갤럭시S25 플러스</div>
+                <div class="price-value">58만원</div>
+                <div class="carrier-text">KT 기준</div>
+            </div>
+        </div>
+        <div class="footer-branding">
+            <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="footer-logo">
+            <div class="footer-text">동네성지 노피</div>
+        </div>
+    </div>
+
+    <!-- Slide 6: 반전 -->
+    <div class="slide slide-6">
+        <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="logo">
+        <div class="slide-content">
+            <div class="main-text">믿을 수<br>있을까?</div>
+            <div class="sub-text">우리 동네 판매점<br>후기 확인하고<br>안심하고 방문</div>
+        </div>
+        <div class="footer-branding">
+            <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="footer-logo">
+            <div class="footer-text">동네성지 노피</div>
+        </div>
+    </div>
+
+    <!-- Slide 7: 아웃트로 CTA -->
+    <div class="slide slide-7">
+        <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="logo">
+        <div class="slide-content">
+            <div class="main-text">네이버<br>동네성지<br>노피 검색</div>
+            <div class="cta-box">
+                <div class="cta-box-text">후기 보고<br>우리 동네에서<br>안전하게</div>
+            </div>
+        </div>
+        <div class="footer-branding">
+            <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="footer-logo">
+            <div class="footer-text">동네성지 노피</div>
+        </div>
+    </div>
+</body>
+</html>

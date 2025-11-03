@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>번호이동 공통지원 통신사별 시세표</title>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SUIT Variable', sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            width: 1080px;
+            height: 1440px;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 헤더 */
+        .header {
+            padding: 45px 45px 35px;
+            background: linear-gradient(135deg, #131FA0 0%, #1E88E5 100%);
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .main-title {
+            font-size: 50px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 22px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* 통신사 섹션 */
+        .carriers {
+            padding: 35px 45px 80px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .carrier-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .carrier-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 3px solid #f0f0f0;
+        }
+
+        .carrier-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .carrier-logo.skt {
+            background: #EA002C;
+        }
+
+        .carrier-logo.kt {
+            background: #E21937;
+        }
+
+        .carrier-logo.lg {
+            background: #C4166D;
+        }
+
+        .carrier-name {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a1a1a;
+            text-align: center;
+        }
+
+        .carrier-count {
+            font-size: 16px;
+            font-weight: 600;
+            color: #999;
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .product-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .product-item:hover {
+            border-color: #131FA0;
+            box-shadow: 0 2px 12px rgba(19,31,160,0.1);
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-rank {
+            font-size: 14px;
+            font-weight: 800;
+            color: #131FA0;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .product-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 900;
+            color: #131FA0;
+            white-space: nowrap;
+        }
+
+        /* 푸터 */
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #131FA0;
+        }
+
+        .footer-note {
+            font-size: 14px;
+            color: #999;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="date-badge">11월 3일 업데이트</div>
+            <div class="main-title">번호이동 공통지원 시세표</div>
+            <div class="subtitle">통신사별 최저가 TOP 5</div>
+        </div>
+
+        <!-- 통신사별 섹션 -->
+        <div class="carriers">
+            <!-- SKT -->
+            <div class="carrier-section">
+                <div class="carrier-header">
+                    <div class="carrier-logo skt">T</div>
+                    <div class="carrier-name">SKT</div>
+                    <div class="carrier-count">TOP 5</div>
+                </div>
+                <div class="product-list">
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">1</div>
+                            <div class="product-name">갤럭시 S24 FE</div>
+                        </div>
+                        <div class="product-price">-22만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">2</div>
+                            <div class="product-name">아이폰 16e</div>
+                        </div>
+                        <div class="product-price">8만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">3</div>
+                            <div class="product-name">갤럭시 S24 플러스</div>
+                        </div>
+                        <div class="product-price">13만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">4</div>
+                            <div class="product-name">갤럭시 S25</div>
+                        </div>
+                        <div class="product-price">25만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">5</div>
+                            <div class="product-name">갤럭시 Z 플립 7</div>
+                        </div>
+                        <div class="product-price">30만원</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KT -->
+            <div class="carrier-section">
+                <div class="carrier-header">
+                    <div class="carrier-logo kt">K</div>
+                    <div class="carrier-name">KT</div>
+                    <div class="carrier-count">TOP 5</div>
+                </div>
+                <div class="product-list">
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">1</div>
+                            <div class="product-name">갤럭시 S24 플러스</div>
+                        </div>
+                        <div class="product-price">-13만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">2</div>
+                            <div class="product-name">아이폰 16e</div>
+                        </div>
+                        <div class="product-price">-13만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">3</div>
+                            <div class="product-name">갤럭시 S25</div>
+                        </div>
+                        <div class="product-price">3만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">4</div>
+                            <div class="product-name">갤럭시 S24 FE</div>
+                        </div>
+                        <div class="product-price">3만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">5</div>
+                            <div class="product-name">갤럭시 S24 울트라</div>
+                        </div>
+                        <div class="product-price">5만원</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LG U+ -->
+            <div class="carrier-section">
+                <div class="carrier-header">
+                    <div class="carrier-logo lg">U</div>
+                    <div class="carrier-name">LG U+</div>
+                    <div class="carrier-count">TOP 5</div>
+                </div>
+                <div class="product-list">
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">1</div>
+                            <div class="product-name">아이폰 16e</div>
+                        </div>
+                        <div class="product-price">-24만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">2</div>
+                            <div class="product-name">갤럭시 S24 FE</div>
+                        </div>
+                        <div class="product-price">-10만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">3</div>
+                            <div class="product-name">갤럭시 S25</div>
+                        </div>
+                        <div class="product-price">1만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">4</div>
+                            <div class="product-name">갤럭시 S24</div>
+                        </div>
+                        <div class="product-price">8만원</div>
+                    </div>
+                    <div class="product-item">
+                        <div class="product-info">
+                            <div class="product-rank">5</div>
+                            <div class="product-name">갤럭시 S24 플러스</div>
+                        </div>
+                        <div class="product-price">19만원</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <div class="footer">
+            <div class="footer-text">@nofee_ai</div>
+            <div class="footer-note">번호이동 + 공통지원 조건 기준</div>
+        </div>
+    </div>
+</body>
+</html>

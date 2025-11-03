@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11월 판매점 캠페인 정보</title>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SUIT Variable', sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            width: 1080px;
+            height: 1440px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 헤더 */
+        .header {
+            padding: 60px 60px 40px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: #FFD700;
+            color: #1a1a1a;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .main-title {
+            font-size: 68px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 32px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* 캠페인 리스트 */
+        .campaigns {
+            padding: 40px 60px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 6px;
+            height: 36px;
+            background: #FFD700;
+            border-radius: 3px;
+        }
+
+        .campaign-item {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 28px 32px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .campaign-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .campaign-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .campaign-title {
+            font-size: 30px;
+            font-weight: 800;
+            color: #1a1a1a;
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .campaign-tag {
+            background: #667eea;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            white-space: nowrap;
+            margin-left: 16px;
+        }
+
+        .campaign-features {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            background: #f0f4ff;
+            color: #667eea;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        /* 인기 상품 섹션 */
+        .products {
+            padding: 0 60px 40px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .product-item {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .product-stores {
+            font-size: 20px;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .product-price {
+            text-align: right;
+        }
+
+        .price-label {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .price-amount {
+            font-size: 30px;
+            font-weight: 900;
+            color: #667eea;
+        }
+
+        /* 푸터 */
+        .footer {
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="date-badge">11월 3일 업데이트</div>
+            <div class="main-title">
+                판매점 캠페인<br>
+                한눈에 보기
+            </div>
+            <div class="subtitle">제휴카드 X 반납조건 X 인터넷가입 X</div>
+        </div>
+
+        <!-- 캠페인 리스트 -->
+        <div class="campaigns">
+            <div class="section-title">진행중인 캠페인</div>
+
+            <div class="campaign-item">
+                <div class="campaign-header">
+                    <div class="campaign-title">11월 3일 시세표</div>
+                    <div class="campaign-tag">강남구</div>
+                </div>
+                <div class="campaign-features">
+                    <div class="feature">카드X</div>
+                    <div class="feature">반납X</div>
+                    <div class="feature">인터넷X</div>
+                </div>
+            </div>
+
+            <div class="campaign-item">
+                <div class="campaign-header">
+                    <div class="campaign-title">띵동폰 양심매장</div>
+                    <div class="campaign-tag">은평구</div>
+                </div>
+                <div class="campaign-features">
+                    <div class="feature">부가서비스 최저</div>
+                    <div class="feature">인터넷+TV 지원</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 인기 상품 -->
+        <div class="products">
+            <div class="section-title">이달의 인기 상품</div>
+
+            <div class="product-grid">
+                <div class="product-item">
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 Z 폴드 7</div>
+                        <div class="product-stores">2개 판매점</div>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-label">월</div>
+                        <div class="price-amount">106,287원~</div>
+                    </div>
+                </div>
+
+                <div class="product-item">
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 Z 플립 7</div>
+                        <div class="product-stores">2개 판매점</div>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-label">월</div>
+                        <div class="price-amount">65,037원~</div>
+                    </div>
+                </div>
+
+                <div class="product-item">
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 S25 울트라</div>
+                        <div class="product-stores">2개 판매점</div>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-label">월</div>
+                        <div class="price-amount">76,704원~</div>
+                    </div>
+                </div>
+
+                <div class="product-item">
+                    <div class="product-info">
+                        <div class="product-name">갤럭시 S25</div>
+                        <div class="product-stores">2개 판매점</div>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-label">월</div>
+                        <div class="price-amount">55,037원~</div>
+                    </div>
+                </div>
+
+                <div class="product-item">
+                    <div class="product-info">
+                        <div class="product-name">아이폰 17 프로</div>
+                        <div class="product-stores">2개 판매점</div>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-label">월</div>
+                        <div class="price-amount">88,370원~</div>
+                    </div>
+                </div>
+
+                <div class="product-item">
+                    <div class="product-info">
+                        <div class="product-name">아이폰 17</div>
+                        <div class="product-stores">2개 판매점</div>
+                    </div>
+                    <div class="product-price">
+                        <div class="price-label">월</div>
+                        <div class="price-amount">67,537원~</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <div class="footer">
+            <div class="footer-text">@nofee_ai</div>
+        </div>
+    </div>
+</body>
+</html>

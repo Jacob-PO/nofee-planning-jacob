@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노피 최저가 시세표</title>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SUIT Variable', sans-serif;
+            background: #131FA0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            width: 1000px;
+            height: 1000px;
+            background: #131FA0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 헤더 */
+        .header {
+            padding: 48px 40px 36px;
+            background: #131FA0;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .logo-img {
+            width: 42px;
+            height: auto;
+            margin-bottom: 24px;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+            display: none;
+        }
+
+        .footer-logo {
+            width: 52px;
+            height: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.2;
+            letter-spacing: -3px;
+            margin-bottom: 16px;
+        }
+
+        .tags-container {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .condition-tag {
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 800;
+            color: #000;
+            background: #fff;
+            padding: 6px 18px;
+            border-radius: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .date-tag {
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 800;
+            color: #000;
+            background: #fff;
+            padding: 6px 18px;
+            border-radius: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            position: absolute;
+            bottom: 60px;
+            right: 40px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+            display: none;
+        }
+
+        .header-condition {
+            position: absolute;
+            bottom: 36px;
+            right: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #666;
+            letter-spacing: -0.3px;
+            display: none;
+        }
+
+        /* 그리드 */
+        .products-grid {
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: #131FA0;
+            flex: 1;
+            align-content: start;
+        }
+
+        .product-card {
+            background: #131FA0;
+            padding: 22px 18px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 0;
+            transition: all 0.15s;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .product-card:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .product-info-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -1.1px;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .price-big {
+            font-size: 32px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+
+        .product-info-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .carrier-badge {
+            font-size: 10px;
+            font-weight: 700;
+            color: #999;
+            letter-spacing: -0.1px;
+            text-align: right;
+        }
+
+        .other-prices {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            align-items: flex-end;
+        }
+
+        .price-small {
+            font-size: 9px;
+            font-weight: 500;
+            color: #444;
+            white-space: nowrap;
+        }
+
+        .price-small span {
+            font-size: 10px;
+            font-weight: 700;
+            color: #666;
+            margin-left: 4px;
+        }
+
+        .price-small.na {
+            opacity: 0.3;
+        }
+
+        /* 푸터 */
+        .footer {
+            background: #131FA0;
+            padding: 32px 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 40px;
+            right: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+        }
+
+        .footer-left {
+            font-size: 17px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -0.8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-left::before {
+            content: '→';
+            font-size: 20px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- 헤더 -->
+        <div class="header">
+            <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="logo-img">
+            <div class="title">동네성지 노피<br>전국 휴대폰 최저가 시세표</div>
+            <div class="tags-container">
+                <div class="condition-tag">공통지원</div>
+                <div class="date-tag">2025.11.03</div>
+            </div>
+            <div class="subtitle">2025.11.03 (월) 업데이트</div>
+            <div class="header-condition">번호이동 + 공통지원 조건 기준 최저가</div>
+        </div>
+
+        <!-- 상품 그리드 -->
+        <div class="products-grid">
+            <!-- 갤럭시 S24 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S24</div>
+                    <div class="price-big">8만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">LG U+</div>
+                    <div class="other-prices">
+                        <div class="price-small na">SKT <span>-</span></div>
+                        <div class="price-small na">KT <span>-</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S24 FE -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S24 FE</div>
+                    <div class="price-big">-25만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">SKT</div>
+                    <div class="other-prices">
+                        <div class="price-small">KT <span>-5만</span></div>
+                        <div class="price-small">LG <span>-10만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S24 울트라 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S24 울트라</div>
+                    <div class="price-big">-4만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>30만</span></div>
+                        <div class="price-small">LG <span>44만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S24 플러스 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S24 플러스</div>
+                    <div class="price-big">-33만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>-4만</span></div>
+                        <div class="price-small">LG <span>19만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S25 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S25</div>
+                    <div class="price-big">-19만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">LG U+</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>-3만</span></div>
+                        <div class="price-small">KT <span>-15만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S25 엣지 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S25 엣지</div>
+                    <div class="price-big">5만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>21만</span></div>
+                        <div class="price-small">LG <span>6만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S25 울트라 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S25 울트라</div>
+                    <div class="price-big">33만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">LG U+</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>51만</span></div>
+                        <div class="price-small">KT <span>39만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S25 플러스 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S25 플러스</div>
+                    <div class="price-big">58만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>113만</span></div>
+                        <div class="price-small">LG <span>79만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 Z 폴드 7 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 Z 폴드 7</div>
+                    <div class="price-big">104만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">LG U+</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>120만</span></div>
+                        <div class="price-small">KT <span>107만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 Z 플립 7 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 Z 플립 7</div>
+                    <div class="price-big">5만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">LG U+</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>14만</span></div>
+                        <div class="price-small">KT <span>7만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 16 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 16</div>
+                    <div class="price-big">-22만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>34만</span></div>
+                        <div class="price-small">LG <span>3만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 16 프로 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 16 프로</div>
+                    <div class="price-big">8만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>63만</span></div>
+                        <div class="price-small">LG <span>32만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 16 프로 맥스 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 16 프로 맥스</div>
+                    <div class="price-big">55만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>109만</span></div>
+                        <div class="price-small">LG <span>58만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 16e -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 16e</div>
+                    <div class="price-big">-24만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">LG U+</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>8만</span></div>
+                        <div class="price-small">KT <span>-13만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 17 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 17</div>
+                    <div class="price-big">11만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">LG U+</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>87만</span></div>
+                        <div class="price-small">KT <span>34만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 17 에어 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 17 에어</div>
+                    <div class="price-big">39만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>84만</span></div>
+                        <div class="price-small">LG <span>41만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 17 프로 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 17 프로</div>
+                    <div class="price-big">59만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>114만</span></div>
+                        <div class="price-small">LG <span>61만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 17 프로 맥스 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 17 프로 맥스</div>
+                    <div class="price-big">103만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>156만</span></div>
+                        <div class="price-small">LG <span>115만</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <div class="footer">
+            <div class="footer-left">네이버에 동네성지 노피 검색</div>
+            <div class="footer-right">
+                <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="footer-logo">
+            </div>
+        </div>
+    </div>
+
+    <!-- 선택약정 카드 -->
+    <div class="card" style="margin-top: 40px;">
+        <!-- 헤더 -->
+        <div class="header">
+            <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="logo-img">
+            <div class="title">동네성지 노피<br>전국 휴대폰 최저가 시세표</div>
+            <div class="tags-container">
+                <div class="condition-tag">선택약정</div>
+                <div class="date-tag">2025.11.03</div>
+            </div>
+            <div class="subtitle">2025.11.03 (월) 업데이트</div>
+            <div class="header-condition">번호이동 + 선택약정 조건 기준 최저가</div>
+        </div>
+
+        <!-- 상품 그리드 -->
+        <div class="products-grid">
+            <!-- 갤럭시 S24 FE -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S24 FE</div>
+                    <div class="price-big">31만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">SKT</div>
+                    <div class="other-prices">
+                        <div class="price-small">KT <span>53만</span></div>
+                        <div class="price-small">LG <span>49만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S24 플러스 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S24 플러스</div>
+                    <div class="price-big">53만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>70만</span></div>
+                        <div class="price-small">LG <span>91만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S25 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S25</div>
+                    <div class="price-big">53만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>65만</span></div>
+                        <div class="price-small">LG <span>58만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S24 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S24</div>
+                    <div class="price-big">71만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">LG U+</div>
+                    <div class="other-prices">
+                        <div class="price-small na">SKT <span>-</span></div>
+                        <div class="price-small na">KT <span>-</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S24 울트라 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S24 울트라</div>
+                    <div class="price-big">71만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>97만</span></div>
+                        <div class="price-small">LG <span>126만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 17 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 17</div>
+                    <div class="price-big">72만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>80만</span></div>
+                        <div class="price-small">LG <span>84만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 16 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 16</div>
+                    <div class="price-big">76만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>80만</span></div>
+                        <div class="price-small">LG <span>79만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S25 플러스 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S25 플러스</div>
+                    <div class="price-big">78만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>103만</span></div>
+                        <div class="price-small">LG <span>101만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 Z 플립 7 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 Z 플립 7</div>
+                    <div class="price-big">86만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>88만</span></div>
+                        <div class="price-small">LG <span>94만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S25 엣지 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S25 엣지</div>
+                    <div class="price-big">87만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>99만</span></div>
+                        <div class="price-small">LG <span>92만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 17 에어 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 17 에어</div>
+                    <div class="price-big">93만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">SKT</div>
+                    <div class="other-prices">
+                        <div class="price-small">KT <span>101만</span></div>
+                        <div class="price-small">LG <span>113만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 16 프로 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 16 프로</div>
+                    <div class="price-big">106만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>110만</span></div>
+                        <div class="price-small">LG <span>109만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 S25 울트라 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 S25 울트라</div>
+                    <div class="price-big">107만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>136만</span></div>
+                        <div class="price-small">LG <span>112만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 17 프로 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 17 프로</div>
+                    <div class="price-big">113만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">SKT</div>
+                    <div class="other-prices">
+                        <div class="price-small">KT <span>121만</span></div>
+                        <div class="price-small">LG <span>133만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 16 프로 맥스 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 16 프로 맥스</div>
+                    <div class="price-big">141만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>145만</span></div>
+                        <div class="price-small">LG <span>144만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 아이폰 17 프로 맥스 -->
+            <div class="product-card iphone">
+                <div class="product-info-left">
+                    <div class="product-name">아이폰 17 프로 맥스</div>
+                    <div class="price-big">141만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>143만</span></div>
+                        <div class="price-small">LG <span>153만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 Z 폴드 7 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 Z 폴드 7</div>
+                    <div class="price-big">175만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">KT</div>
+                    <div class="other-prices">
+                        <div class="price-small">SKT <span>177만</span></div>
+                        <div class="price-small">LG <span>183만</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 갤럭시 와이드8 -->
+            <div class="product-card galaxy">
+                <div class="product-info-left">
+                    <div class="product-name">갤럭시 와이드8</div>
+                    <div class="price-big">0만원</div>
+                </div>
+                <div class="product-info-right">
+                    <div class="carrier-badge">SKT</div>
+                    <div class="other-prices">
+                        <div class="price-small na">KT <span>-</span></div>
+                        <div class="price-small na">LG <span>-</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <div class="footer">
+            <div class="footer-left">네이버에 동네성지 노피 검색</div>
+            <div class="footer-right">
+                <img src="https://agency.nofee.team/image/company/logo.svg" alt="nofee" class="footer-logo">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
