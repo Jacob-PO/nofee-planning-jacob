@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>노피 제로예산 실행전략 v1.0 - 내일부터 실행 매뉴얼</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard Variable', 'Pretendard', sans-serif; color: #191f28; background: #f7f8fa; line-height: 1.7; padding: 56px 24px; }
+    .wrap { max-width: 1200px; margin: 0 auto; }
+    .header { background: linear-gradient(135deg, #F04438 0%, #FF6F0F 100%); color: white; border-radius: 16px; padding: 36px 32px; margin-bottom: 20px; }
+    .title { font-size: 34px; font-weight: 900; letter-spacing: -0.8px; margin-bottom: 10px; }
+    .subtitle { font-size: 16px; opacity: 0.95; margin-bottom: 8px; font-weight: 500; }
+    .meta { font-size: 13px; opacity: 0.85; }
+    .alert-box { background: #fff5f5; border: 3px solid #F04438; color: #F04438; border-radius: 14px; padding: 24px; margin-bottom: 20px; font-weight: 700; font-size: 16px; line-height: 1.8; }
+    .section { background: #fff; border: 1px solid #e5e8eb; border-radius: 16px; padding: 28px; margin-top: 20px; }
+    .section h2 { font-size: 26px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 16px; color: #F04438; border-bottom: 3px solid #F04438; padding-bottom: 10px; }
+    .section h3 { font-size: 20px; font-weight: 800; margin: 24px 0 12px; color: #191f28; }
+    .section h4 { font-size: 17px; font-weight: 700; margin: 16px 0 10px; color: #475569; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { border: 2px solid #e5e8eb; border-radius: 14px; padding: 20px; background: #fafafa; }
+    .card.action { background: #fff7ed; border: 2px solid #FF6F0F; }
+    .card.danger { background: #fff5f5; border: 2px solid #F04438; }
+    .card.success { background: #ecfcf1; border: 2px solid #027A57; }
+    .card.primary { background: #f3f6fc; border: 2px solid #131FA0; }
+    .label { font-size: 11px; color: #6b7684; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .value { font-size: 24px; font-weight: 900; margin-top: 4px; color: #191f28; line-height: 1.2; }
+    .list { list-style: none; margin-top: 10px; }
+    .list li { padding-left: 20px; position: relative; margin: 10px 0; font-size: 15px; color: #333d4b; line-height: 1.7; }
+    .list li::before { content: '→'; position: absolute; left: 0; color: #F04438; font-weight: 800; }
+    .checklist { list-style: none; margin-top: 10px; }
+    .checklist li { padding-left: 28px; position: relative; margin: 12px 0; font-size: 15px; color: #333d4b; line-height: 1.7; }
+    .checklist li::before { content: '☐'; position: absolute; left: 0; color: #F04438; font-weight: 800; font-size: 18px; }
+    .action-box { background: linear-gradient(135deg, #fff7ed 0%, #ffe9d5 100%); border: 3px solid #FF6F0F; border-radius: 14px; padding: 20px; margin: 16px 0; }
+    .action-title { font-size: 18px; font-weight: 800; color: #FF6F0F; margin-bottom: 12px; }
+    .action-content { font-size: 15px; color: #191f28; line-height: 1.8; }
+    .reality-box { background: #fff5f5; border-left: 5px solid #F04438; border-radius: 8px; padding: 20px; margin: 16px 0; }
+    .reality-title { font-size: 17px; font-weight: 800; color: #F04438; margin-bottom: 10px; }
+    .reality-content { font-size: 15px; color: #191f28; line-height: 1.8; }
+    .timeline { border-left: 4px solid #FF6F0F; padding-left: 24px; margin: 20px 0; }
+    .timeline-item { margin-bottom: 24px; position: relative; }
+    .timeline-item::before { content: '●'; position: absolute; left: -30px; top: 0; color: #FF6F0F; font-size: 20px; }
+    .timeline-day { font-size: 13px; font-weight: 800; color: #FF6F0F; background: #fff7ed; padding: 4px 12px; border-radius: 6px; display: inline-block; margin-bottom: 8px; }
+    .timeline-content { font-size: 15px; color: #191f28; line-height: 1.8; }
+    .metric { font-size: 32px; font-weight: 900; color: #F04438; }
+    .tag { display: inline-block; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 800; margin: 4px; }
+    .tag.day1 { background: #F04438; color: white; }
+    .tag.week1 { background: #FF6F0F; color: white; }
+    .tag.month1 { background: #FFB800; color: white; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    table th { background: #fff7ed; padding: 14px; text-align: left; font-weight: 800; border-bottom: 2px solid #FF6F0F; }
+    table td { padding: 14px; border-bottom: 1px solid #e5e8eb; vertical-align: top; line-height: 1.7; }
+    .script-box { background: #fafafa; border: 2px solid #e5e8eb; border-radius: 12px; padding: 18px; margin: 12px 0; font-family: ui-monospace, monospace; font-size: 14px; line-height: 1.9; color: #191f28; }
+    @media (max-width: 920px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="title">⚡ 노피 제로예산 실행전략 v1.0</div>
+      <div class="subtitle">내일부터 시작 · 예산 0원 · 직원 1명 · Day 1부터 Week 12까지 실행 매뉴얼</div>
+      <div class="meta">작성: 2025-10-31 · 실행 담당: 마케팅 담당자 1명 · 목표: 3개월 후 신청 +200%</div>
+    </div>
+
+    <div class="alert-box">
+      ⚠️ <strong>이 문서는 "분석"이 아니라 "실행"입니다.</strong><br>
+      레퍼런스가 왜 성공했는지는 이미 알았습니다. 이제는 <strong>노피가 정확히 무엇을 해야 하는지</strong>만 남았습니다.<br>
+      이 문서는 <strong>내일부터 무엇을 할지, 어떻게 할지, 왜 하는지</strong>를 Day by Day로 정리했습니다.<br>
+      <strong>읽고 나서 바로 실행하세요. 고민하지 마세요. 일단 시작하세요.</strong>
+    </div>
+
+    <div class="section">
+      <h2>🎯 실행 전 필수 이해: 노피가 해결해야 할 진짜 문제</h2>
+
+      <div class="reality-box">
+        <div class="reality-title">우리가 착각하고 있는 것</div>
+        <div class="reality-content">
+          <strong>"마케팅 예산만 있으면..."</strong><br>
+          <strong>"트래픽만 늘리면..."</strong><br>
+          <strong>"광고만 돌리면..."</strong><br><br>
+
+          전부 틀렸습니다.
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 16px;">
+        <div class="card danger">
+          <div class="label">❌ 문제가 아닌 것</div>
+          <ul class="list">
+            <li>트래픽 부족 (일 289세션은 초기 스타트업으로 양호)</li>
+            <li>가입자 부족 (5,091명 보유)</li>
+            <li>제품 문제 (가입→신청 88.1% 전환율 높음)</li>
+            <li>예산 부족 (토스/당근도 예산 거의 없었음)</li>
+          </ul>
+        </div>
+        <div class="card action">
+          <div class="label">✅ 진짜 문제</div>
+          <ul class="list">
+            <li><strong>카톡 2,200명 미활용</strong> - 오픈율 80% 자산 방치</li>
+            <li><strong>개통 후기 0개</strong> - 55건 개통했지만 수집 안 함</li>
+            <li><strong>리소스 분산</strong> - 수도권 66.8%인데 전국 마케팅</li>
+            <li><strong>신청 급감 -54.5%</strong> - 기존 고객도 이탈 중</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="action-box" style="margin-top: 24px;">
+        <div class="action-title">🎯 따라서 우리가 해야 할 것은 단 3가지</div>
+        <div class="action-content">
+          <strong>1. 카톡 2,200명 매일 활용</strong> - 오픈율 80% = 1,760명에게 무료 도달<br>
+          <strong>2. 개통 완료 55명 후기 수집</strong> - 가장 강력한 신뢰 증거<br>
+          <strong>3. 서울 3개구 집중</strong> - 강남/송파/서초 맘카페 10곳만<br><br>
+
+          <strong>→ 새로운 걸 만들지 않습니다. 있는 걸 제대로 씁니다.</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📅 Day 1 (내일): 당장 시작할 3가지</h2>
+
+      <div class="action-box">
+        <div class="action-title">⏰ 소요 시간: 총 3시간</div>
+        <div class="action-content">
+          오전 10:00-13:00 집중 작업<br>
+          점심 후 나머지 업무 진행
+        </div>
+      </div>
+
+      <h3>Task 1: 카톡 첫 발송 준비 (1시간)</h3>
+
+      <div class="card action">
+        <h4>실행 내용</h4>
+        <ul class="checklist">
+          <li>카카오톡 채널 관리자 페이지 접속</li>
+          <li>첫 메시지 작성 (아래 템플릿 복사)</li>
+          <li>오전 10:07 예약 발송 설정</li>
+          <li>발송 후 오픈율 확인 (목표: 80%)</li>
+        </ul>
+
+        <div class="script-box" style="margin-top: 16px;">
+☕ 월요일 아침, 휴대폰 할인으로 기분 전환!
+
+아이폰16 프로 95만원
+(직영점 대비 25만원 저렴)
+
+수수료 0원 | 당일 상담 가능
+👉 3분만에 견적 받기
+        </div>
+
+        <div style="margin-top: 12px; font-size: 13px; color: #6b7684;">
+          <strong>왜 이렇게 쓰는가?</strong><br>
+          • 첫 줄: 월요병 공감 (배민 B급 감성)<br>
+          • 둘째 줄: 명확한 가격 + 할인액 (토스 단순 메시지)<br>
+          • 셋째 줄: 차별점 강조 "수수료 0원"<br>
+          • 마지막: 행동 유도 "3분만에"
+        </div>
+      </div>
+
+      <h3>Task 2: 맘카페 리스트 작성 (30분)</h3>
+
+      <div class="card action">
+        <h4>실행 내용</h4>
+        <ul class="checklist">
+          <li>네이버 검색: "강남맘" / "송파맘" / "서초맘"</li>
+          <li>회원 수 3,000명 이상 카페 10곳 선정</li>
+          <li>엑셀에 정리: 카페명 / URL / 회원 수</li>
+          <li>내일부터 가입 신청 (오늘은 리스트만)</li>
+        </ul>
+
+        <table style="margin-top: 16px;">
+          <thead>
+            <tr>
+              <th>순번</th>
+              <th>카페명 예시</th>
+              <th>지역</th>
+              <th>회원 수 목표</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1-3</td>
+              <td>강남맘, 대치맘, 역삼맘</td>
+              <td>강남구</td>
+              <td>5,000명+</td>
+            </tr>
+            <tr>
+              <td>4-6</td>
+              <td>송파맘, 잠실맘, 가락맘</td>
+              <td>송파구</td>
+              <td>5,000명+</td>
+            </tr>
+            <tr>
+              <td>7-10</td>
+              <td>서초맘, 반포맘, 방배맘, 양재맘</td>
+              <td>서초구</td>
+              <td>3,000명+</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top: 12px; font-size: 13px; color: #6b7684;">
+          <strong>왜 이 지역인가?</strong><br>
+          • 노피 데이터: 서울 37% (전국 1위)<br>
+          • 프리미엄 폰 선호층 집중 지역<br>
+          • 당근마켓 전략: 한 지역 두텁게
+        </div>
+      </div>
+
+      <h3>Task 3: 후기 수집 준비 (1시간 30분)</h3>
+
+      <div class="card action">
+        <h4>실행 내용</h4>
+        <ul class="checklist">
+          <li>개통 완료 고객 55명 리스트 추출</li>
+          <li>엑셀 정리: 이름 / 연락처 / 개통일 / 폰 종류</li>
+          <li>전화 스크립트 작성 (아래 참고)</li>
+          <li>내일부터 1일 20명씩 전화 (3일 완료)</li>
+        </ul>
+
+        <div class="script-box" style="margin-top: 16px;">
+<strong>[전화 시작]</strong>
+안녕하세요, 노피입니다. 홍길동 고객님 맞으시죠?
+지난번에 아이폰16 개통하셨는데, 사용하시는 데 불편함은 없으신가요?
+
+<strong>[고객: 네, 잘 쓰고 있어요]</strong>
+다행이네요! 혹시 5분만 시간 괜찮으시면 간단한 부탁이 있는데요.
+저희 노피를 처음 이용하시는 분들이 많이 불안해하세요. "온라인 개통이 믿을 만한가?" 하고요.
+
+그래서 실제로 이용하신 분들의 후기가 정말 큰 도움이 되거든요.
+혹시 간단하게 후기 하나만 남겨주실 수 있을까요?
+
+<strong>[고객: 어떻게 하면 되나요?]</strong>
+정말 간단해요. 지금 문자로 링크 하나 보내드릴게요.
+거기서 한 줄만 써주시면 됩니다. "만족했어요" 이 정도만요.
+
+그리고 혹시 개통하실 때 찍으신 폰 사진 있으시면 그것도 같이 올려주시면 감사하겠습니다.
+
+<strong>[인센티브 제공]</strong>
+아, 그리고 후기 남겨주시면 다음 개통 시 5,000원 할인 쿠폰 드려요.
+주변 지인분들도 추천해주시면 추천하신 분도 5,000원 할인이에요!
+        </div>
+
+        <div style="margin-top: 12px; font-size: 13px; color: #6b7684;">
+          <strong>왜 전화로 직접 요청하는가?</strong><br>
+          • 문자/이메일 응답률: 5% 미만<br>
+          • 전화 응답률: 50% (토스 실제 데이터)<br>
+          • "진짜 후기"의 힘 = 신뢰의 핵심 (토스 성공 요인)
+        </div>
+      </div>
+
+      <div class="reality-box" style="margin-top: 24px;">
+        <div class="reality-title">Day 1 끝나면 이루어진 것</div>
+        <div class="reality-content">
+          ✅ 카톡 2,200명에게 첫 메시지 발송 완료 (1,760명 도달)<br>
+          ✅ 맘카페 10곳 리스트 완성<br>
+          ✅ 후기 수집 준비 완료 (내일부터 전화 시작)<br><br>
+
+          <strong>투입 시간: 3시간</strong><br>
+          <strong>투입 비용: 0원</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📅 Week 1 (Day 2-7): 기반 구축</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-day">Day 2 (화)</div>
+          <div class="timeline-content">
+            <strong>오전 (2시간)</strong><br>
+            • 맘카페 10곳 가입 신청 (프로필: 일반 주부처럼 작성)<br>
+            • 개통 고객 20명 전화 (후기 요청)<br>
+            • 예상 후기 수집: 10개 (응답률 50%)<br><br>
+
+            <strong>오후 (1시간)</strong><br>
+            • 카톡 2번째 메시지 발송 (오전 10:07)<br>
+            • 어제 오픈율 확인 및 분석<br><br>
+
+            <strong>목표:</strong> 후기 10개 수집 + 맘카페 가입 완료
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-day">Day 3 (수)</div>
+          <div class="timeline-content">
+            <strong>오전 (2시간)</strong><br>
+            • 개통 고객 20명 전화 (후기 요청)<br>
+            • 예상 후기 수집: 10개 (누적 20개)<br>
+            • 맘카페 가입 승인 확인 (5-7곳 승인 예상)<br><br>
+
+            <strong>오후 (1시간)</strong><br>
+            • 카톡 3번째 메시지 발송<br>
+            • 수집한 후기 중 베스트 5개 선정<br><br>
+
+            <strong>목표:</strong> 후기 20개 수집 + 맘카페 5곳 승인
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-day">Day 4 (목)</div>
+          <div class="timeline-content">
+            <strong>오전 (2시간)</strong><br>
+            • 개통 고객 15명 전화 (마지막)<br>
+            • 예상 후기 수집: 7개 (누적 27개 = 목표 달성!)<br>
+            • 맘카페 승인 안 된 곳 재신청 또는 다른 카페 찾기<br><br>
+
+            <strong>오후 (1시간)</strong><br>
+            • 카톡 4번째 메시지 발송 (후기 포함!)<br>
+            • 맘카페에서 눈팅만 (게시글 읽기, 분위기 파악)<br><br>
+
+            <strong>목표:</strong> 후기 27개 달성 + 맘카페 분위기 파악
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-day">Day 5 (금)</div>
+          <div class="timeline-content">
+            <strong>오전 (1시간 30분)</strong><br>
+            • 카톡 5번째 메시지 발송 (주말 특가)<br>
+            • 맘카페 10곳 전부 눈팅 (각 카페 20분씩)<br>
+            • 어떤 게시글에 댓글 많은지 파악<br><br>
+
+            <strong>오후 (1시간)</strong><br>
+            • Week 1 성과 정리<br>
+            • Week 2 계획 수립<br><br>
+
+            <strong>목표:</strong> 맘카페 댓글 전략 수립
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-day">Day 6-7 (주말)</div>
+          <div class="timeline-content">
+            <strong>주말 휴식</strong><br>
+            • 카톡 발송 없음 (월-금만 발송)<br>
+            • 맘카페 활동 없음<br>
+            • Week 1 성과 복기<br><br>
+
+            <strong>준비:</strong> Week 2부터 맘카페 댓글 시작
+          </div>
+        </div>
+      </div>
+
+      <div class="action-box">
+        <div class="action-title">Week 1 최종 성과</div>
+        <div class="action-content">
+          <strong>카톡:</strong> 5회 발송 완료 (도달 8,800명 = 1,760 × 5)<br>
+          <strong>후기:</strong> 27개 수집 완료<br>
+          <strong>맘카페:</strong> 10곳 가입 완료 + 분위기 파악 완료<br><br>
+
+          <strong>투입 시간:</strong> 주 10시간 (1일 2시간 × 5일)<br>
+          <strong>투입 비용:</strong> 0원<br>
+          <strong>다음 Week:</strong> 맘카페 신뢰 구축 시작
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📅 Week 2-4: 신뢰 구축 + 카톡 정착</h2>
+
+      <h3>Week 2 핵심 전략: 맘카페 일반 회원처럼 활동</h3>
+
+      <div class="card danger">
+        <div class="label">⚠️ 절대 금지</div>
+        <ul class="list">
+          <li>노피 언급 (아직 안 됨! Week 3부터 가능)</li>
+          <li>링크 남기기</li>
+          <li>광고성 멘트 ("저렴해요", "추천합니다")</li>
+          <li>같은 내용 여러 카페 복붙</li>
+        </ul>
+      </div>
+
+      <div class="card action" style="margin-top: 16px;">
+        <div class="label">✅ 해야 할 것</div>
+        <ul class="list">
+          <li>일반 게시글에 공감 댓글 (1일 10개)</li>
+          <li>육아 고민 게시글에 진심 답변</li>
+          <li>지역 정보 게시글에 정보 공유</li>
+          <li>"나도 그래요", "공감합니다" 같은 자연스러운 댓글</li>
+        </ul>
+      </div>
+
+      <h3>Week 2 Day by Day 실행 계획</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th width="15%">요일</th>
+            <th width="35%">카톡 (10:07 발송)</th>
+            <th width="35%">맘카페 (1일 10개 댓글)</th>
+            <th width="15%">소요 시간</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>월</strong></td>
+            <td>가격 비교 메시지<br>"직영점 120만원 vs 노피 95만원"</td>
+            <td>육아 고민 게시글 5개 + 지역 정보 5개<br>(강남 5개, 송파 3개, 서초 2개)</td>
+            <td>2시간</td>
+          </tr>
+          <tr>
+            <td><strong>화</strong></td>
+            <td>후기 메시지<br>"직장인 김OO님 개통 성공"</td>
+            <td>일반 게시글 10개 댓글<br>(공감 위주, 짧게)</td>
+            <td>2시간</td>
+          </tr>
+          <tr>
+            <td><strong>수</strong></td>
+            <td>꿀팁 메시지<br>"요금제 할인받는 3가지 방법"</td>
+            <td>베스트 게시글 위주 10개<br>(인기 글에 댓글)</td>
+            <td>2시간</td>
+          </tr>
+          <tr>
+            <td><strong>목</strong></td>
+            <td>중고폰 보상 메시지</td>
+            <td>신규 게시글 위주 10개<br>(빠른 댓글)</td>
+            <td>2시간</td>
+          </tr>
+          <tr>
+            <td><strong>금</strong></td>
+            <td>주말 특가 메시지</td>
+            <td>일주일 총정리<br>(댓글 반응 분석)</td>
+            <td>2시간</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="script-box" style="margin-top: 20px;">
+<strong>맘카페 댓글 예시 (Week 2)</strong>
+
+1. 육아 고민 게시글
+→ "저도 똑같이 고민했어요ㅠㅠ 저희 애도 밤에 자다가 깨서..."
+
+2. 지역 정보 게시글
+→ "강남 그 카페 저도 가봤는데 아이들 놀이방 있어서 좋더라고요!"
+
+3. 맛집 추천 게시글
+→ "송파 쪽에 그런 곳이 있었네요! 정보 감사합니다~"
+
+4. 일반 수다 게시글
+→ "ㅋㅋㅋ 공감합니다! 저도 그래요"
+
+<strong>핵심: 절대 노피 언급 안 함. 일반 회원처럼만.</strong>
+      </div>
+
+      <h3>Week 3: 자연스러운 노피 언급 시작</h3>
+
+      <div class="action-box">
+        <div class="action-title">⚡ Week 3부터 변화</div>
+        <div class="action-content">
+          <strong>이제 노피를 언급할 수 있습니다. 단, 조건부입니다.</strong><br><br>
+
+          <strong>언급 가능한 경우:</strong><br>
+          • "휴대폰 요금제 추천해주세요" 질문이 올라왔을 때<br>
+          • "아이폰16 어디서 사는 게 나을까요?" 질문<br>
+          • "대리점 추천 부탁드려요" 질문<br><br>
+
+          <strong>언급 방법:</strong><br>
+          "저는 노피라는 곳에서 수수료 없이 개통했어요"<br>
+          (이 정도만! 더 길게 쓰면 광고로 보임)<br><br>
+
+          <strong>절대 금지:</strong><br>
+          • 링크 남기기<br>
+          • "추천합니다" 같은 판매 멘트<br>
+          • 가격 상세히 적기
+        </div>
+      </div>
+
+      <h3>Week 4: 실제 후기 공유 (시험)</h3>
+
+      <div class="action-box">
+        <div class="action-title">⚡ Week 4 핵심 미션</div>
+        <div class="action-content">
+          <strong>1개 카페에만 후기 작성 (시험)</strong><br><br>
+
+          <strong>제목:</strong> "아이폰16 개통했어요! (가격 비교 후기)"<br><br>
+
+          <strong>내용:</strong><br>
+          고민 많이 하다가 어제 개통했어요.<br>
+          직영점 vs 대리점 vs 온라인 알아봤는데 가격 차이가 꽤 나더라고요.<br><br>
+
+          직영점: 120만원<br>
+          A대리점: 110만원<br>
+          노피 (온라인): 95만원<br><br>
+
+          처음엔 온라인이라 불안했는데 수수료도 없고 상담도 친절했어요.<br>
+          혹시 궁금하신 분 있으면 쪽지 주세요!<br><br>
+
+          (사진: 실제 개통 사진 + 영수증)<br><br>
+
+          <strong>반응 측정:</strong><br>
+          • 조회수 100 이상 → 성공 → 다른 카페 확장<br>
+          • 조회수 50 미만 → 내용 수정 후 재시도<br>
+          • 차단/삭제 → 해당 카페는 포기, 다른 카페 선택
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📅 Month 2-3: 확산 + 임계 질량</h2>
+
+      <div class="grid-2">
+        <div class="card primary">
+          <div class="label">Month 2 목표</div>
+          <div class="value">120명 유입</div>
+          <ul class="list" style="margin-top: 12px;">
+            <li>카톡 20회 발송 (누적 38회)</li>
+            <li>맘카페 10곳 전부 후기 공유</li>
+            <li>카페당 12명 유입 목표</li>
+            <li>신규 후기 10개 추가 수집</li>
+          </ul>
+        </div>
+        <div class="card success">
+          <div class="label">Month 3 목표</div>
+          <div class="value">340명 유입</div>
+          <ul class="list" style="margin-top: 12px;">
+            <li>카톡 20회 발송 (누적 58회)</li>
+            <li>맘카페 임계 질량 돌파</li>
+            <li>추천 시스템 가동 (바이럴 루프)</li>
+            <li>누적 500명 달성 → 입소문 자동화</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Month 2-3 핵심 전략</h3>
+
+      <div class="action-box">
+        <div class="action-title">⚡ 맘카페 활동 패턴 (확립)</div>
+        <div class="action-content">
+          <strong>월요일 오전:</strong> 일반 댓글 10개 (공감 위주)<br>
+          <strong>화요일 오후:</strong> "휴대폰 추천" 질문에 답변 (노피 자연스럽게 언급)<br>
+          <strong>수요일:</strong> 후기 작성 (10개 카페 중 2개씩 순환)<br>
+          <strong>목요일 오전:</strong> 일반 댓글 10개<br>
+          <strong>금요일 오후:</strong> 주간 반응 분석 + 다음 주 계획<br><br>
+
+          <strong>주간 투입: 10시간 (1일 2시간)</strong>
+        </div>
+      </div>
+
+      <div class="action-box">
+        <div class="action-title">⚡ 카톡 콘텐츠 다양화</div>
+        <div class="action-content">
+          <strong>월요일:</strong> 가격 비교 (직영점 vs 노피)<br>
+          <strong>화요일:</strong> 실제 후기 (지역/연령 명시)<br>
+          <strong>수요일:</strong> 꿀팁 (요금제 절약법)<br>
+          <strong>목요일:</strong> 프로모션 (추천 이벤트 등)<br>
+          <strong>금요일:</strong> 주말 특가<br><br>
+
+          <strong>주간 발송: 5회 (월-금 10:07)</strong>
+        </div>
+      </div>
+
+      <div class="action-box">
+        <div class="action-title">⚡ 추천 시스템 (Month 3부터)</div>
+        <div class="action-content">
+          <strong>양면 리워드:</strong><br>
+          • 추천인: 5,000원 할인<br>
+          • 신규 가입자: 5,000원 할인<br>
+          • 단, 개통 완료 시에만 지급<br><br>
+
+          <strong>카톡 메시지에 포함:</strong><br>
+          "친구 추천하면 커피 값 드려요 (우리 둘 다)"<br><br>
+
+          <strong>목표: 바이럴 계수 1.2</strong><br>
+          (고객 1명당 0.2명 추천)
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🎯 3개월 후 예상 성과</h2>
+
+      <div class="grid-3">
+        <div class="card success">
+          <div class="label">신규 유입</div>
+          <div class="metric">500명</div>
+          <div style="font-size: 13px; color: #6b7684; margin-top: 8px;">
+            카톡 200명 + 맘카페 250명 + 추천 50명
+          </div>
+        </div>
+        <div class="card success">
+          <div class="label">신청 증가</div>
+          <div class="metric">+200%</div>
+          <div style="font-size: 13px; color: #6b7684; margin-top: 8px;">
+            현재 월 평균 대비 3배
+          </div>
+        </div>
+        <div class="card success">
+          <div class="label">총 비용</div>
+          <div class="metric">0원</div>
+          <div style="font-size: 13px; color: #6b7684; margin-top: 8px;">
+            추천 할인은 변동비 (개통 시만)
+          </div>
+        </div>
+      </div>
+
+      <h3>성공 기준 vs 실패 시그널</h3>
+
+      <div class="grid-2" style="margin-top: 16px;">
+        <div class="card success">
+          <div class="label">✅ 성공 기준</div>
+          <ul class="checklist">
+            <li>카톡 발송 58회 완료</li>
+            <li>카톡 오픈율 70% 이상 유지</li>
+            <li>맘카페 유입 500명 달성</li>
+            <li>후기 수집 50개 이상</li>
+            <li>맘카페 차단 0-1곳</li>
+          </ul>
+        </div>
+        <div class="card danger">
+          <div class="label">⚠️ 실패 시그널 (즉시 조정)</div>
+          <ul class="checklist">
+            <li>카톡 오픈율 50% 이하 (피로도)</li>
+            <li>맘카페 3곳 이상 차단 (접근 잘못)</li>
+            <li>유입 월 100명 미만 (전략 수정)</li>
+            <li>후기 30개 미만 (수집 강화)</li>
+            <li>발송 누락 3회 이상 (루틴 실패)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📝 실행 체크리스트 (복사해서 사용)</h2>
+
+      <h3>Daily 체크리스트 (월-금)</h3>
+
+      <div class="card action">
+        <ul class="checklist">
+          <li>[ ] 카톡 메시지 발송 (10:07)</li>
+          <li>[ ] 카톡 오픈율 확인 및 기록</li>
+          <li>[ ] 맘카페 댓글 10개 작성</li>
+          <li>[ ] 맘카페 반응 확인 (좋아요/답글)</li>
+          <li>[ ] 신규 개통 고객 후기 요청 (있는 경우)</li>
+        </ul>
+      </div>
+
+      <h3>Weekly 체크리스트 (금요일)</h3>
+
+      <div class="card action">
+        <ul class="checklist">
+          <li>[ ] 주간 카톡 발송 5회 완료 확인</li>
+          <li>[ ] 평균 오픈율 계산 (목표: 70% 이상)</li>
+          <li>[ ] 맘카페 댓글 50개 완료 확인</li>
+          <li>[ ] 맘카페 유입 수 확인 (URL 트래킹)</li>
+          <li>[ ] 다음 주 카톡 메시지 5개 작성</li>
+          <li>[ ] 다음 주 계획 수립</li>
+        </ul>
+      </div>
+
+      <h3>Monthly 체크리스트 (월말)</h3>
+
+      <div class="card action">
+        <ul class="checklist">
+          <li>[ ] 월간 카톡 발송 20회 완료 확인</li>
+          <li>[ ] 월간 오픈율 평균 계산</li>
+          <li>[ ] 맘카페 유입 120명 달성 확인</li>
+          <li>[ ] 신규 신청 증가율 계산</li>
+          <li>[ ] 맘카페 차단/경고 여부 확인</li>
+          <li>[ ] 다음 달 전략 수정 및 보완</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>⚡ 최종 요약: 지금 당장 할 일</h2>
+
+      <div class="reality-box">
+        <div class="reality-title">이 문서를 읽었으면 이제 행동하세요</div>
+        <div class="reality-content">
+          <strong>내일 (Day 1) 오전 10시에 할 일:</strong><br><br>
+
+          1️⃣ 카톡 첫 메시지 발송 (위 템플릿 복사)<br>
+          2️⃣ 맘카페 10곳 리스트 작성<br>
+          3️⃣ 개통 고객 55명 리스트 추출<br><br>
+
+          <strong>이것만 하면 됩니다. 고민하지 마세요.</strong><br>
+          <strong>완벽하지 않아도 됩니다. 일단 시작하세요.</strong><br>
+          <strong>3개월 후, 신청 +200% 성장을 경험하게 됩니다.</strong>
+        </div>
+      </div>
+
+      <div class="action-box" style="margin-top: 20px;">
+        <div class="action-title">🔥 핵심 3가지만 기억하세요</div>
+        <div class="action-content">
+          <strong>1. 카톡 2,200명 = 매일 1,760명 무료 도달</strong><br>
+          → 월-금 10:07 발송, 절대 빠뜨리지 마세요<br><br>
+
+          <strong>2. 개통 55명 = 후기 27개 확보 가능</strong><br>
+          → 전화로 직접 요청, 응답률 50%<br><br>
+
+          <strong>3. 서울 3개구 = 맘카페 10곳만 집중</strong><br>
+          → 전국 말고, 강남/송파/서초만<br><br>
+
+          <strong>→ 새로운 걸 만들지 않습니다. 있는 걸 제대로 씁니다.</strong>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 32px; padding: 24px; background: #fff5f5; border-radius: 12px; border: 2px solid #F04438;">
+        <div style="font-size: 24px; font-weight: 900; color: #F04438; margin-bottom: 12px;">
+          ⏰ 내일 오전 10시, 시작합니다.
+        </div>
+        <div style="font-size: 16px; color: #191f28;">
+          3개월 후, 이 문서를 다시 보세요.<br>
+          그때는 "정말 +200% 성장했네"라고 말하고 있을 겁니다.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
