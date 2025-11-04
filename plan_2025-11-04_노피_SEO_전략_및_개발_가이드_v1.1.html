@@ -1296,161 +1296,82 @@ https://nofee.team/event/<span class="code-string">8</span>     <span class="cod
     <div class="section">
       <h2>PART 4. 개발 실행 계획</h2>
 
-      <h3>4.1 개발자 요청사항 (Developer Tasks)</h3>
+      <h3>4.1 개발자 요청사항</h3>
 
       <div class="alert-box">
-        <strong>중요:</strong> 아래 4개 작업만 진행하면 SEO 최적화가 완료됩니다.<br>
-        백엔드 작업 불필요, 프론트엔드만 수정하면 됩니다.
+        4개 작업만 진행하면 SEO 최적화 완료됩니다. 백엔드 작업 불필요합니다.
       </div>
 
       <div class="phase-container">
-        <div class="phase-header">작업 1. Layout 메타데이터 개선 (5분)</div>
+        <div class="phase-header">작업 1. Layout 메타데이터 개선</div>
         <div class="phase-content">
-          <h4 style="margin-bottom: 12px;">📁 파일: /app/layout.tsx</h4>
+          <h4 style="margin-bottom: 12px;">📁 /app/layout.tsx</h4>
 
-          <div class="success-box">
-            <strong>요청사항:</strong><br>
-            • metadataBase 추가해주세요 (new URL('https://nofee.team'))<br>
-            • &lt;head&gt; 안의 중복 &lt;title&gt; 태그 제거해주세요 (59번 줄)<br>
-            • description을 120자로 늘려주세요
-          </div>
-
-          <h4 style="margin: 20px 0 12px;">상세 작업 내용:</h4>
           <ul class="checklist">
-            <li>metadata 객체에 metadataBase 추가</li>
-            <li>&lt;head&gt; 태그 내부의 &lt;title&gt; 제거 (metadata에서 자동 생성됨)</li>
-            <li>description을 "전국 어디서나 성지 가격으로" → "전국 휴대폰 성지 최저가 비교. 갤럭시, 아이폰 등 78개 제품의 실시간 가격을 확인하고, 동네 성지 매장에서 최대 80% 할인받으세요. 공시지원금, 선택약정 조건별 최저가 자동 계산."으로 변경</li>
-            <li>keywords 배열 추가 (휴대폰 성지, 갤럭시 최저가, 아이폰 할인 등)</li>
+            <li>metadataBase 추가: new URL('https://nofee.team')</li>
+            <li>&lt;head&gt; 안의 중복 &lt;title&gt; 태그 제거 (59번 줄)</li>
+            <li>description 확장: "전국 휴대폰 성지 최저가 비교. 갤럭시, 아이폰 등 78개 제품의 실시간 가격을 확인하고, 동네 성지 매장에서 최대 80% 할인받으세요. 공시지원금, 선택약정 조건별 최저가 자동 계산."</li>
+            <li>keywords 배열 추가</li>
           </ul>
-
-          <div class="note">
-            <strong>왜 이 작업이 필요한가요?</strong><br>
-            현재 모든 페이지가 같은 제목을 사용해서 검색엔진이 페이지를 구분하지 못합니다.
-          </div>
         </div>
       </div>
 
       <div class="phase-container">
-        <div class="phase-header">작업 2. 상품 페이지 Server Component 변환 (30분)</div>
+        <div class="phase-header">작업 2. 상품 페이지 Server Component 변환</div>
         <div class="phase-content">
-          <h4 style="margin-bottom: 12px;">📁 파일: /app/product/[productGroupCode]/page.tsx</h4>
-
-          <div class="success-box">
-            <strong>요청사항:</strong><br>
-            • 현재 Client Component('use client')를 Server Component로 변경해주세요<br>
-            • 상품별로 다른 title, description, OG 이미지가 나오도록 generateMetadata 함수 추가해주세요<br>
-            • Product Schema (JSON-LD) 추가해주세요 (구글 별점 노출용)
-          </div>
+          <h4 style="margin-bottom: 12px;">📁 /app/product/[productGroupCode]/page.tsx</h4>
 
           <h4 style="margin: 20px 0 12px;">Step 1: Client 로직 분리</h4>
           <ul class="checklist">
-            <li>ProductDetailClient.tsx 파일 새로 만들어주세요</li>
-            <li>useState, useEffect, 탭 전환, 필터 로직 등 인터랙션 코드 모두 이동</li>
-            <li>초기 데이터를 Props로 받도록 수정</li>
+            <li>ProductDetailClient.tsx 파일 생성</li>
+            <li>useState, useEffect, 이벤트 핸들러 이동</li>
+            <li>Props로 초기 데이터 전달</li>
           </ul>
 
-          <h4 style="margin: 20px 0 12px;">Step 2: Server Component로 변환</h4>
+          <h4 style="margin: 20px 0 12px;">Step 2: Server Component 변환</h4>
           <ul class="checklist">
-            <li>page.tsx에서 'use client' 제거</li>
-            <li>generateMetadata 함수 추가 (상품 정보 API 호출)</li>
+            <li>'use client' 제거</li>
+            <li>generateMetadata 함수 추가</li>
             <li>title: "{상품명} 최저가 | 노피 - 전국 성지 가격 비교"</li>
             <li>description: "{상품명} 최저가 {할부원금}원. {리뷰 개수}개 실사용 리뷰, 평점 {평점}점..."</li>
-            <li>OpenGraph 이미지: 상품 썸네일 이미지 (1200x630 권장)</li>
+            <li>OpenGraph 이미지: 상품 썸네일</li>
           </ul>
 
           <h4 style="margin: 20px 0 12px;">Step 3: Structured Data 추가</h4>
           <ul class="checklist">
-            <li>Product Schema JSON-LD 객체 생성 (name, image, offers, aggregateRating)</li>
-            <li>SKU, brand, seller 정보 포함</li>
-            <li>&lt;script type="application/ld+json"&gt; 태그로 페이지에 삽입</li>
+            <li>Product Schema JSON-LD 생성 (name, image, offers, aggregateRating)</li>
+            <li>SKU, brand, seller 포함</li>
+            <li>&lt;script type="application/ld+json"&gt; 삽입</li>
           </ul>
-
-          <div class="note">
-            <strong>왜 이 작업이 필요한가요?</strong><br>
-            Server Component는 검색엔진이 HTML을 바로 읽을 수 있습니다. 지금은 JavaScript 실행 후에만 내용이 보여서 검색 노출이 안 됩니다.
-          </div>
-
-          <div class="info-box">
-            <strong>걱정하지 마세요!</strong><br>
-            기존 기능(필터, 리뷰, FAQ 탭)은 100% 그대로 작동합니다. Client Component로 분리해서 유지됩니다.
-          </div>
         </div>
       </div>
 
       <div class="phase-container">
-        <div class="phase-header">작업 3. Dynamic Sitemap 생성 (20분)</div>
+        <div class="phase-header">작업 3. Dynamic Sitemap 생성</div>
         <div class="phase-content">
-          <h4 style="margin-bottom: 12px;">📁 파일: /app/sitemap.xml/route.ts (기존 파일 수정)</h4>
+          <h4 style="margin-bottom: 12px;">📁 /app/sitemap.xml/route.ts</h4>
 
-          <div class="success-box">
-            <strong>요청사항:</strong><br>
-            • 현재 3개 URL만 등록되어 있는 sitemap을 78개 상품 전체 포함하도록 변경해주세요<br>
-            • 상품 API에서 자동으로 목록 가져오도록 구현해주세요<br>
-            • 1시간마다 자동 갱신되도록 설정해주세요
-          </div>
-
-          <h4 style="margin: 20px 0 12px;">상세 작업 내용:</h4>
           <ul class="checklist">
-            <li>revalidate = 3600 설정 (1시간 캐싱)</li>
-            <li>GET 함수에서 getProductGroupCodeList API 호출</li>
-            <li>deletedYn === 'N'인 활성 상품만 필터링</li>
-            <li>각 상품을 /product/{productGroupCode} 형태로 URL 생성</li>
-            <li>changefreq: 'daily', priority: 0.8 설정</li>
-            <li>정적 페이지(/, /product, /event)도 포함</li>
+            <li>revalidate = 3600 설정</li>
+            <li>상품 API 호출하여 78개 상품 URL 자동 생성</li>
+            <li>deletedYn === 'N' 필터링</li>
+            <li>changefreq: 'daily', priority: 0.8</li>
+            <li>정적 페이지(/, /product, /event) 포함</li>
           </ul>
-
-          <div class="note">
-            <strong>왜 이 작업이 필요한가요?</strong><br>
-            Sitemap이 없으면 검색엔진이 상품 페이지를 발견하지 못합니다. 현재는 78개 중 3개만 등록되어 있어 75개 페이지가 검색에 안 나옵니다.
-          </div>
         </div>
       </div>
 
       <div class="phase-container">
-        <div class="phase-header">작업 4. 테스트 및 검증 (15분)</div>
+        <div class="phase-header">작업 4. 테스트 및 검증</div>
         <div class="phase-content">
-          <div class="success-box">
-            <strong>요청사항:</strong><br>
-            • 상품 3개 페이지 접속해서 제목이 다르게 나오는지 확인해주세요<br>
-            • 페이지 소스 보기(Ctrl+U)로 메타 태그 확인해주세요<br>
-            • /sitemap.xml 접속해서 78개 URL 포함 확인해주세요<br>
-            • npm run build 성공 확인해주세요
-          </div>
-
-          <h4 style="margin: 20px 0 12px;">테스트 체크리스트:</h4>
           <ul class="checklist">
-            <li>상품 A 접속 → 브라우저 탭 제목이 "{상품명} 최저가 | 노피"로 표시됨</li>
-            <li>상품 B 접속 → 다른 제목 확인</li>
-            <li>페이지 소스 보기 → &lt;meta property="og:title"&gt; 확인</li>
-            <li>페이지 소스 보기 → &lt;script type="application/ld+json"&gt; 확인</li>
-            <li>/sitemap.xml 접속 → 모든 상품 URL 포함 확인</li>
-            <li>필터, 리뷰, FAQ 탭 등 기존 기능 정상 작동 확인</li>
-            <li>모바일에서도 정상 작동 확인</li>
+            <li>상품 페이지별로 다른 title/description 확인</li>
+            <li>페이지 소스 보기로 메타 태그 확인</li>
+            <li>/sitemap.xml에 78개 URL 포함 확인</li>
+            <li>npm run build 성공</li>
+            <li>기존 기능 정상 작동 확인</li>
           </ul>
-
-          <h4 style="margin: 20px 0 12px;">선택 사항 (시간 있으면):</h4>
-          <ul class="checklist">
-            <li>Google Rich Results Test 도구로 검증</li>
-            <li>Facebook Sharing Debugger로 OG 이미지 확인</li>
-          </ul>
-
-          <div class="info-box">
-            <strong>배포 후 자동 처리되는 것들:</strong><br>
-            • Google Search Console에 자동으로 sitemap 크롤링<br>
-            • Naver Search Advisor에 자동으로 페이지 등록<br>
-            • 1시간마다 sitemap 자동 갱신 (신규 상품 자동 추가)
-          </div>
         </div>
-      </div>
-
-      <div class="success-box" style="margin-top: 32px; font-size: 16px;">
-        <strong>✅ 요약: 개발자가 해야 할 일</strong><br><br>
-        1️⃣ layout.tsx 메타데이터 수정 (5분)<br>
-        2️⃣ 상품 페이지 Server Component 변환 (30분)<br>
-        3️⃣ Dynamic Sitemap 구현 (20분)<br>
-        4️⃣ 테스트 및 배포 (15분)<br><br>
-        <strong>총 작업 시간: 약 70분</strong><br>
-        <strong>백엔드 작업: 불필요</strong>
       </div>
 
       <h3>4.2 예상 성과 (3개월 후)</h3>
