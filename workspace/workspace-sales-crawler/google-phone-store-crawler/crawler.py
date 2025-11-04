@@ -656,8 +656,8 @@ def main():
 
     SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1IDbMaZucrE78gYPK_dhFGFWN_oixcRhlM1sU9tZMJRo/edit?gid=1073623102#gid=1073623102"
 
-    # headless=False로 하면 브라우저가 보임
-    crawler = DaangnStoreCrawlerSelenium(headless=False)
+    # Headless 모드 활성화 (브라우저 창 숨김, 안정성 향상)
+    crawler = DaangnStoreCrawlerSelenium(headless=True)
 
     # 크롤링 설정
     # max_searches 값 조정:
@@ -665,7 +665,9 @@ def main():
     # - 소규모: max_searches=50 (서울 일부 구 + 주요 키워드)
     # - 중규모: max_searches=200 (서울 전체 + 경기 일부)
     # - 대규모: max_searches=500 (서울 + 수도권 전체)
-    # - 전체: max_searches=1000 이상 (모든 지역 × 모든 키워드)
+    # - 전체: max_searches=2000 (모든 지역 × 모든 키워드)
+
+    # save_interval: 중간 저장 간격 (기본 50개마다)
 
     print("\n🎯 서울/수도권 집중 크롤링 모드")
     print(f"📍 총 지역 수: {len(crawler.regions)}개")
@@ -674,8 +676,9 @@ def main():
     print("=" * 80)
 
     # 크롤링 실행 (전체 지역 × 전체 키워드)
-    # 2000개 검색 = 67개 지역 × 25개 키워드 = 1,675개 조합 (모두 수행)
-    results = crawler.crawl(max_searches=2000)
+    # 2000개 검색 = 79개 지역 × 26개 키워드 = 2,054개 조합
+    # save_interval=50: 50개 검색마다 중간 저장
+    results = crawler.crawl(max_searches=2000, save_interval=50)
 
     # 요약
     crawler.print_summary()
