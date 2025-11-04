@@ -231,6 +231,12 @@
             color: #3182f6;
         }
 
+        .badge-tag {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+
         .card-title {
             font-size: 22px;
             font-weight: 700;
@@ -488,50 +494,6 @@
     </main>
 
     <script>
-        // 문서 데이터 (그룹화)
-        const documentGroups = [
-            {
-                id: 'dongne-phase1',
-                title: '동네성지 1차 개편',
-                description: '가격별 매장 검색 + 시세표 + UX 개선',
-                gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                mainDoc: {
-                    type: 'plan',
-                    title: '동네성지 1차 개편',
-                    description: '지역 필터에 상품 필터를 추가하여 최저가 매장을 즉시 검색할 수 있는 기능. 제조사/상품/용량/요금제 4단계 필터링으로 고객이 원하는 상품의 최저가 매장을 빠르게 찾을 수 있습니다. 시세표 기능과 연동되어 매장별 최저가 정보를 실시간으로 제공합니다.',
-                    url: 'plan_2025-10-27_동네성지메인_v1.0.html',
-                    version: 'v1.0',
-                    author: '제이콥',
-                    date: '2025.10.27',
-                    updated: '2025.10.27'
-                },
-                subDocs: [
-                    {
-                        type: 'plan',
-                        title: '시세표 콘텐츠 유형 추가',
-                        description: '판매점이 여러 상품을 표 형식으로 대량 업로드하고 관리할 수 있는 시세표 기능. 커스텀 드롭다운과 최저가 자동 선택으로 고객이 매장의 전체 상품 라인업을 한눈에 비교하고 통신사별 가격을 실시간으로 확인할 수 있습니다.',
-                        url: 'plan_2025-10-11_시세표기능_v2.1.html',
-                        version: 'v2.2',
-                        author: '제이콥',
-                        date: '2025.10.11',
-                        updated: '2025.10.13',
-                        icon: '1'
-                    },
-                    {
-                        type: 'plan',
-                        title: '맞춤 견적 알아보기 하단 고정 버튼 비활성화',
-                        description: '상품 상세 페이지의 하단 고정 버튼을 제거하고 각 이벤트 상품마다 개별 견적 신청 버튼을 추가. 불필요한 단계를 제거하여 고객이 원하는 이벤트를 직접 선택해 바로 견적을 신청할 수 있도록 사용자 경험을 개선합니다.',
-                        url: 'plan_2025-10-25_최저가자동노출_v1.0.html',
-                        version: 'v1.0',
-                        author: '제이콥',
-                        date: '2025.10.25',
-                        updated: '2025.10.25',
-                        icon: '2'
-                    }
-                ]
-            }
-        ];
-
         const documents = [
             {
                 type: 'plan',
@@ -542,6 +504,39 @@
                 author: '제이콥',
                 date: '2025.11.04',
                 updated: '2025.11.04'
+            },
+            {
+                type: 'plan',
+                title: '동네성지 1차 개편',
+                description: '지역 필터에 상품 필터를 추가하여 최저가 매장을 즉시 검색할 수 있는 기능. 제조사/상품/용량/요금제 4단계 필터링으로 고객이 원하는 상품의 최저가 매장을 빠르게 찾을 수 있습니다. 시세표 기능과 연동되어 매장별 최저가 정보를 실시간으로 제공합니다.',
+                url: 'plan_2025-10-27_동네성지메인_v1.0.html',
+                version: 'v1.0',
+                author: '제이콥',
+                date: '2025.10.27',
+                updated: '2025.10.27',
+                tags: ['동네성지 1차 개편']
+            },
+            {
+                type: 'plan',
+                title: '시세표 콘텐츠 유형 추가',
+                description: '판매점이 여러 상품을 표 형식으로 대량 업로드하고 관리할 수 있는 시세표 기능. 커스텀 드롭다운과 최저가 자동 선택으로 고객이 매장의 전체 상품 라인업을 한눈에 비교하고 통신사별 가격을 실시간으로 확인할 수 있습니다.',
+                url: 'plan_2025-10-11_시세표기능_v2.1.html',
+                version: 'v2.2',
+                author: '제이콥',
+                date: '2025.10.11',
+                updated: '2025.10.13',
+                tags: ['동네성지 1차 개편']
+            },
+            {
+                type: 'plan',
+                title: '맞춤 견적 알아보기 하단 고정 버튼 비활성화',
+                description: '상품 상세 페이지의 하단 고정 버튼을 제거하고 각 이벤트 상품마다 개별 견적 신청 버튼을 추가. 불필요한 단계를 제거하여 고객이 원하는 이벤트를 직접 선택해 바로 견적을 신청할 수 있도록 사용자 경험을 개선합니다.',
+                url: 'plan_2025-10-25_최저가자동노출_v1.0.html',
+                version: 'v1.0',
+                author: '제이콥',
+                date: '2025.10.25',
+                updated: '2025.10.25',
+                tags: ['동네성지 1차 개편']
             },
             {
                 type: 'marketing',
@@ -624,12 +619,18 @@
             };
             const typeLabel = typeLabelMap[doc.type] || doc.type;
 
+            // 태그 배지 생성
+            const tagBadges = doc.tags ? doc.tags.map(tag =>
+                `<span class="badge badge-tag">${tag}</span>`
+            ).join('') : '';
+
             return `
                 <a href="https://jacob-po.github.io/nofee_planning/${doc.url}" class="card" target="_blank">
                     <div class="card-header">
                         <div class="card-badges">
                             <span class="badge badge-type ${doc.type}">${typeLabel}</span>
                             <span class="badge badge-version">${doc.version}</span>
+                            ${tagBadges}
                         </div>
                     </div>
                     <h3 class="card-title">${doc.title}</h3>
@@ -652,24 +653,6 @@
             `;
         }
 
-        // 그룹 카드 생성 (기존 디자인 시스템 유지)
-        function createGroupCard(group) {
-            const allDocs = [group.mainDoc, ...group.subDocs];
-
-            return `
-                <div style="grid-column: 1 / -1; margin-bottom: 32px;">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb;">
-                        <div style="width: 4px; height: 20px; background: linear-gradient(180deg, #3182f6 0%, #1e40af 100%); border-radius: 2px;"></div>
-                        <h3 style="font-size: 16px; font-weight: 700; color: #191f28; margin: 0; letter-spacing: -0.5px;">${group.title}</h3>
-                        <span style="font-size: 13px; color: #6b7684; font-weight: 500;">${group.description}</span>
-                    </div>
-                    <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));">
-                        ${allDocs.map(doc => createCard(doc)).join('')}
-                    </div>
-                </div>
-            `;
-        }
-
         // 카드 렌더링
         function renderCards() {
             const allCards = document.getElementById('all-cards');
@@ -682,27 +665,20 @@
             const pageDocs = documents.filter(d => d.type === 'page');
             const marketingDocs = documents.filter(d => d.type === 'marketing');
 
-            // 그룹 내 문서 수 계산
-            const groupDocsCount = documentGroups.reduce((sum, group) => {
-                return sum + 1 + group.subDocs.length; // mainDoc + subDocs
-            }, 0);
-
             // 통계 업데이트
-            document.getElementById('all-count').textContent = documents.length + groupDocsCount;
+            document.getElementById('all-count').textContent = documents.length;
             document.getElementById('page-count').textContent = pageDocs.length;
-            document.getElementById('plan-count').textContent = planDocs.length + groupDocsCount;
+            document.getElementById('plan-count').textContent = planDocs.length;
             document.getElementById('marketing-count').textContent = marketingDocs.length;
 
-            // 기획안 섹션: 그룹 + 일반 문서
-            const groupsHtml = documentGroups.map(createGroupCard).join('');
-            const planDocsHtml = planDocs.map(createCard).join('');
-            planCards.innerHTML = groupsHtml + planDocsHtml;
-
             // 전체 섹션
-            allCards.innerHTML = groupsHtml + documents.map(createCard).join('');
+            allCards.innerHTML = documents.map(createCard).join('');
 
             // 페이지 섹션
             pageCards.innerHTML = pageDocs.map(createCard).join('');
+
+            // 기획안 섹션
+            planCards.innerHTML = planDocs.map(createCard).join('');
 
             // 마케팅 섹션
             marketingCards.innerHTML = marketingDocs.map(createCard).join('');
