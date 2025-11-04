@@ -4,29 +4,102 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>노피 SEO 전략 및 개발 가이드 v1.1 - 검색 유입 3배 증가 프로젝트</title>
+  <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard Variable', 'Pretendard', sans-serif;
-      color: #191f28;
-      background: #f7f8fa;
-      line-height: 1.7;
-      padding: 40px 20px;
-    }
-    .wrap { max-width: 1400px; margin: 0 auto; }
 
-    /* 헤더 */
-    .header {
-      background: linear-gradient(135deg, #131FA0 0%, #2AC1BC 100%);
-      color: white;
-      border-radius: 20px;
-      padding: 48px 40px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 40px rgba(19, 31, 160, 0.2);
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      body {
+        padding: 15mm;
+      }
     }
-    .title { font-size: 42px; font-weight: 900; letter-spacing: -1px; margin-bottom: 16px; }
-    .subtitle { font-size: 20px; opacity: 0.95; margin-bottom: 12px; font-weight: 600; line-height: 1.5; }
-    .meta { font-size: 14px; opacity: 0.85; }
+
+    body {
+      font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px;
+      background: #ffffff;
+      color: #191f28;
+      line-height: 1.6;
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 문서 헤더 */
+    .document-header {
+      border-bottom: 2px solid #3182f6;
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .logo {
+      height: 32px;
+    }
+
+    .doc-meta {
+      text-align: right;
+      font-size: 11px;
+      color: #8b95a1;
+    }
+
+    .doc-meta-item {
+      margin-bottom: 4px;
+    }
+
+    .doc-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #191f28;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .doc-subtitle {
+      font-size: 16px;
+      color: #4e5968;
+      font-weight: 400;
+    }
+
+    /* 문서 개요 박스 - 3칼럼 그리드 */
+    .info-box {
+      background: #f9fafb;
+      border: 1px solid #e5e8eb;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 24px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    .info-item {
+    }
+
+    .info-label {
+      font-size: 12px;
+      color: #8b95a1;
+      margin-bottom: 8px;
+    }
+
+    .info-value {
+      font-size: 16px;
+      color: #191f28;
+      font-weight: 600;
+    }
+
+    .wrap { max-width: 1400px; margin: 0 auto; }
 
     /* 알림박스 */
     .alert-box {
@@ -102,6 +175,32 @@
       background-repeat: no-repeat;
     }
 
+    /* 텍스트 박스 - 일반 텍스트용 */
+    .text-info-box {
+      background: linear-gradient(135deg, #f3f6fc 0%, #e3e9f7 100%);
+      border: 3px solid #131FA0;
+      color: #131FA0;
+      border-radius: 16px;
+      padding: 28px 32px 28px 76px;
+      margin-bottom: 24px;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 1.8;
+      box-shadow: 0 4px 20px rgba(19, 31, 160, 0.15);
+      position: relative;
+    }
+    .text-info-box::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 28px;
+      width: 32px;
+      height: 32px;
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23131FA0" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>');
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
     /* 섹션 */
     .section {
       background: #fff;
@@ -143,11 +242,16 @@
       border-radius: 16px;
       padding: 24px;
       background: #fafafa;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
     .card.primary { background: #f3f6fc; border: 3px solid #131FA0; }
     .card.danger { background: #fff5f5; border: 3px solid #F04438; }
     .card.success { background: #ecfcf1; border: 3px solid #027A57; }
     .card.warning { background: #fff7ed; border: 3px solid #FF6F0F; }
+    .card.core { background: #f3f6fc; border: 3px solid #131FA0; }
+    .card.high { background: #fff7ed; border: 3px solid #FF6F0F; }
+    .card.medium { background: #f0fdf4; border: 3px solid #2AC1BC; }
 
     /* 라벨 & 값 */
     .label {
@@ -460,30 +564,37 @@
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <!-- 헤더 -->
-    <div class="header">
-      <div class="title">노피 SEO 전략 및 개발 가이드 v1.1</div>
-      <div class="subtitle">검색 유입 3배 증가 프로젝트 - 실제 GA4 데이터 기반 전략</div>
-      <div class="meta">
-        작성일: 2025-11-04 |
-        기반 데이터: GA4 실측 (유기적 검색 8.74% → 목표 30%) + DB (78개 상품, 736건 인기상품) |
-        작성자: 노피 개발팀 |
-        검증: 2025년 최신 SEO 베스트 프랙티스 웹 검색 완료
+  <!-- 문서 헤더 -->
+  <div class="document-header">
+    <div class="logo-container">
+      <img src="https://admin.nofee.team/image/company/logo.svg" alt="NOFEE" class="logo">
+      <div class="doc-meta">
+        <div class="doc-meta-item">작성일: 2025년 11월 04일</div>
+        <div class="doc-meta-item">버전: v1.1 (2025 SEO 표준)</div>
+        <div class="doc-meta-item">작성자: 노피 개발팀</div>
       </div>
     </div>
+    <h1 class="doc-title">노피 SEO 전략 및 개발 가이드</h1>
+    <div class="doc-subtitle">검색 유입 3배 증가 프로젝트 - GA4 실측 데이터 기반</div>
+  </div>
 
-    <div class="info-box">
-      <strong>2025년 최신 SEO 전략 검증 완료</strong><br><br>
-      이 문서는 다음 최신 SEO 자료를 기반으로 검증되었습니다:<br>
-      • Next.js 14 App Router SEO 베스트 프랙티스 (2025)<br>
-      • Google Product Schema Variants 지원 (2024년 2월 업데이트)<br>
-      • E-commerce Structured Data 필수 요소 (2025)<br>
-      • Naver 쇼핑 SEO 3대 요소 (적합도/인기도/신뢰도)<br>
-      • Dynamic OG Image Generation (CTR 30% 향상)<br>
-      • ISR + On-Demand Revalidation 패턴<br><br>
-      <strong>모든 코드와 전략은 2025년 현재 업계 표준을 따릅니다.</strong>
+  <!-- 문서 개요 -->
+  <div class="info-box">
+    <div class="info-item">
+      <div class="info-label">핵심 목표</div>
+      <div class="info-value">유기적 검색 8.74% → 30%</div>
     </div>
+    <div class="info-item">
+      <div class="info-label">예상 효과</div>
+      <div class="info-value">월 +9,000명 자연 유입</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">광고비 절감</div>
+      <div class="info-value">월 300만원 이상</div>
+    </div>
+  </div>
+
+  <div class="wrap">
 
     <!-- 문제 인식 -->
     <div class="alert-box">
@@ -521,7 +632,7 @@
     </div>
 
     <!-- 문서 구조 안내 -->
-    <div class="info-box">
+    <div class="text-info-box">
       <strong>이 문서의 구조 (개발자를 위한 가이드)</strong><br><br>
       <strong>PART 1. 문제 정의</strong> - 왜 SEO가 필요한가? 현재 문제점 (GA4 데이터)<br>
       <strong>PART 2. 현황 분석</strong> - 실제 데이터 분석 (78개 상품, URL 구조, 검색 유입)<br>
