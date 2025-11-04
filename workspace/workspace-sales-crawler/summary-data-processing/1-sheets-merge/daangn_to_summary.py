@@ -103,9 +103,10 @@ def process_all_sheets_to_summary():
     spreadsheet_id = '1IDbMaZucrE78gYPK_dhFGFWN_oixcRhlM1sU9tZMJRo'
     sheet_names = ['daangn', 'naver', 'google']
     summary_sheet_name = 'summary'
+    daangn_sheet_name = 'daangn'
 
     # 인증 파일 경로
-    api_key_file = config_dir / 'google_api_key.json'
+    api_key_file = Path('/Users/jacob/Desktop/dev/config/google_api_key.json')
 
     if not api_key_file.exists():
         print(f"❌ 인증 파일을 찾을 수 없습니다: {api_key_file}")
@@ -331,4 +332,4 @@ if __name__ == "__main__":
     print("=" * 60)
     print()
 
-    process_daangn_to_summary()
+    process_all_sheets_to_summary()
