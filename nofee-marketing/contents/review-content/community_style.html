@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티 후기 - 폰신사 우만점</title>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f6f8;
+            padding: 20px;
+        }
+
+        .card {
+            width: 1000px;
+            height: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        /* 네이버 카페 스타일 헤더 */
+        .cafe-header {
+            background: #03c75a;
+            padding: 18px 25px;
+            border-bottom: 3px solid #00a844;
+        }
+
+        .cafe-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        /* 게시글 영역 */
+        .post-container {
+            padding: 30px 35px;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e5e5;
+            margin-bottom: 30px;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: #fff;
+        }
+
+        .author-details {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .author-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            letter-spacing: -0.3px;
+        }
+
+        .post-date {
+            font-size: 15px;
+            color: #999;
+            letter-spacing: -0.3px;
+        }
+
+        .post-category {
+            background: #f0f2ff;
+            color: #667eea;
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        /* 제목 */
+        .post-title {
+            font-size: 38px;
+            font-weight: 900;
+            color: #1a1a2e;
+            line-height: 1.4;
+            letter-spacing: -1.5px;
+            margin-bottom: 35px;
+        }
+
+        /* 본문 */
+        .post-content {
+            font-size: 22px;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.8;
+            letter-spacing: -0.5px;
+            margin-bottom: 35px;
+        }
+
+        .post-content p {
+            margin-bottom: 20px;
+        }
+
+        .highlight-box {
+            background: #fff9e6;
+            border-left: 5px solid #FFE600;
+            padding: 25px 28px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box strong {
+            font-size: 26px;
+            font-weight: 900;
+            color: #667eea;
+            letter-spacing: -0.8px;
+        }
+
+        /* 매장 정보 카드 */
+        .store-info-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 35px 40px;
+            border-radius: 16px;
+            margin: 30px 0;
+        }
+
+        .store-label {
+            font-size: 18px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .store-name {
+            font-size: 46px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 18px;
+            letter-spacing: -2px;
+        }
+
+        .store-location {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FFE600;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+
+        .store-rating {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.3px;
+        }
+
+        /* 가격 정보 */
+        .price-section {
+            background: #f8f9ff;
+            padding: 32px 35px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .price-label {
+            font-size: 19px;
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .product-name {
+            font-size: 32px;
+            font-weight: 900;
+            color: #333;
+            margin-bottom: 15px;
+            letter-spacing: -1.2px;
+        }
+
+        .price-value {
+            font-size: 52px;
+            font-weight: 900;
+            color: #667eea;
+            letter-spacing: -2px;
+        }
+
+        .price-unit {
+            font-size: 28px;
+            color: #666;
+            margin-left: 5px;
+        }
+
+        /* 후기 박스 */
+        .review-box {
+            background: #f5f5f5;
+            padding: 30px 35px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .review-author {
+            font-size: 20px;
+            font-weight: 800;
+            color: #333;
+            letter-spacing: -0.3px;
+        }
+
+        .review-stars {
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+
+        .review-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.7;
+            letter-spacing: -0.6px;
+        }
+
+        .keyword {
+            background: linear-gradient(transparent 60%, #FFE600 60%);
+            font-weight: 900;
+            color: #1a1a2e;
+        }
+
+        /* 하단 정보 */
+        .bottom-section {
+            background: #f8f9ff;
+            padding: 28px 35px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nofee-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nofee-logo {
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .nofee-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #666;
+            letter-spacing: -0.3px;
+        }
+
+        .view-count {
+            font-size: 16px;
+            color: #999;
+            letter-spacing: -0.3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- 카페 헤더 -->
+        <div class="cafe-header">
+            <div class="cafe-name">💬 우리동네 핸드폰 후기</div>
+        </div>
+
+        <!-- 게시글 -->
+        <div class="post-container">
+            <!-- 메타 정보 -->
+            <div class="post-meta">
+                <div class="author-info">
+                    <div class="profile-icon">👤</div>
+                    <div class="author-details">
+                        <div class="author-name">김○구</div>
+                        <div class="post-date">2025.11.03 12:32</div>
+                    </div>
+                </div>
+                <div class="post-category"># 후기</div>
+            </div>
+
+            <!-- 제목 -->
+            <div class="post-title">
+                핸드폰 개통 걱정했는데<br>
+                진짜 대박이네요 ㄷㄷ
+            </div>
+
+            <!-- 본문 -->
+            <div class="post-content">
+                <p>
+                    솔직히 핸드폰 매장 가면<br>
+                    시세표랑 다르게 받을까봐 걱정 많았는데
+                </p>
+
+                <div class="highlight-box">
+                    <strong>진짜 시세표 그대로 해주시더라고요</strong>
+                </div>
+
+                <p>
+                    설명도 진짜 자세하게 해주시고<br>
+                    추가 금액 같은거 일절 없었어요
+                </p>
+            </div>
+
+            <!-- 매장 정보 -->
+            <div class="store-info-card">
+                <div class="store-label">📍 여기서 개통했어요</div>
+                <div class="store-name">폰신사우만점</div>
+                <div class="store-location">경기 수원시</div>
+                <div class="store-rating">⭐ 5.0 만점 (38개 리뷰)</div>
+            </div>
+
+            <!-- 가격 정보 -->
+            <div class="price-section">
+                <div class="price-label">💰 실제 개통 가격</div>
+                <div class="product-name">iPhone 16 Pro 256GB (SKT)</div>
+                <div class="price-value">890,000<span class="price-unit">원</span></div>
+            </div>
+
+            <!-- 실제 후기 -->
+            <div class="review-box">
+                <div class="review-header">
+                    <div class="review-author">실제 구매 후기</div>
+                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div class="review-text">
+                    "핸드폰 하나도 몰라서 걱정을 좀했는데<br>
+                    <span class="keyword">시세표 그대로 해주시고</span><br>
+                    설명도 자세해서 구매 잘했습니다"
+                </div>
+            </div>
+
+            <!-- 하단 -->
+            <div class="bottom-section">
+                <div class="nofee-badge">
+                    <div class="nofee-logo">N</div>
+                    <div class="nofee-text">노피 제휴 매장</div>
+                </div>
+                <div class="view-count">조회 1,247</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
