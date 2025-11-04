@@ -94,7 +94,16 @@
 
         /* 섹션 헤더 */
         .section-header {
-            margin-bottom: 32px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f2f4f6;
+        }
+
+        .section-header-left {
+            flex: 1;
         }
 
         .section-title {
@@ -110,6 +119,43 @@
             color: #6b7684;
             font-weight: 500;
             letter-spacing: -0.3px;
+        }
+
+        .section-stats {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: right;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #8b95a1;
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: -0.2px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3182f6;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-value.marketing {
+            color: #f59e0b;
+        }
+
+        .stat-value.page {
+            color: #10b981;
+        }
+
+        .stat-value.plan {
+            color: #8b5cf6;
         }
 
         /* 카드 그리드 */
@@ -163,6 +209,21 @@
         .badge-type {
             background: #f2f4f6;
             color: #4e5968;
+        }
+
+        .badge-type.plan {
+            background: #f3e8ff;
+            color: #8b5cf6;
+        }
+
+        .badge-type.marketing {
+            background: #fef3c7;
+            color: #f59e0b;
+        }
+
+        .badge-type.page {
+            background: #d1fae5;
+            color: #10b981;
         }
 
         .badge-version {
@@ -281,8 +342,23 @@
                 padding: 40px 20px 80px;
             }
 
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .section-stats {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
             .section-title {
                 font-size: 28px;
+            }
+
+            .stat-value {
+                font-size: 20px;
             }
 
             .card-grid {
@@ -345,8 +421,16 @@
         <!-- 전체 섹션 -->
         <div class="section active" id="all-section">
             <div class="section-header">
-                <h2 class="section-title">모든 문서</h2>
-                <p class="section-description">최신순으로 정렬된 전체 문서 목록입니다</p>
+                <div class="section-header-left">
+                    <h2 class="section-title">모든 문서</h2>
+                    <p class="section-description">최신순으로 정렬된 전체 문서 목록입니다</p>
+                </div>
+                <div class="section-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">총 문서</div>
+                        <div class="stat-value" id="all-count">0</div>
+                    </div>
+                </div>
             </div>
             <div class="card-grid" id="all-cards"></div>
         </div>
@@ -354,8 +438,16 @@
         <!-- 페이지 섹션 -->
         <div class="section" id="page-section">
             <div class="section-header">
-                <h2 class="section-title">페이지</h2>
-                <p class="section-description">실제 서비스에서 사용되는 페이지 문서입니다</p>
+                <div class="section-header-left">
+                    <h2 class="section-title">페이지</h2>
+                    <p class="section-description">실제 서비스에서 사용되는 페이지 문서입니다</p>
+                </div>
+                <div class="section-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">페이지 수</div>
+                        <div class="stat-value page" id="page-count">0</div>
+                    </div>
+                </div>
             </div>
             <div class="card-grid" id="page-cards"></div>
         </div>
@@ -363,8 +455,16 @@
         <!-- 기획안 섹션 -->
         <div class="section" id="plan-section">
             <div class="section-header">
-                <h2 class="section-title">기획안</h2>
-                <p class="section-description">제품 및 기능에 대한 기획 문서입니다</p>
+                <div class="section-header-left">
+                    <h2 class="section-title">기획안</h2>
+                    <p class="section-description">제품 및 기능에 대한 기획 문서입니다</p>
+                </div>
+                <div class="section-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">기획 문서</div>
+                        <div class="stat-value plan" id="plan-count">0</div>
+                    </div>
+                </div>
             </div>
             <div class="card-grid" id="plan-cards"></div>
         </div>
@@ -372,8 +472,16 @@
         <!-- 마케팅 섹션 -->
         <div class="section" id="marketing-section">
             <div class="section-header">
-                <h2 class="section-title">마케팅</h2>
-                <p class="section-description">콘텐츠 전략, 바이럴 마케팅, 성장 전략 문서입니다</p>
+                <div class="section-header-left">
+                    <h2 class="section-title">마케팅</h2>
+                    <p class="section-description">콘텐츠 전략, 바이럴 마케팅, 성장 전략 문서입니다</p>
+                </div>
+                <div class="section-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">마케팅 문서</div>
+                        <div class="stat-value marketing" id="marketing-count">0</div>
+                    </div>
+                </div>
             </div>
             <div class="card-grid" id="marketing-cards"></div>
         </div>
@@ -509,12 +617,18 @@
 
         // 카드 생성
         function createCard(doc) {
-            const typeLabel = doc.type === 'page' ? '페이지' : '기획안';
+            const typeLabelMap = {
+                'page': '페이지',
+                'plan': '기획안',
+                'marketing': '마케팅'
+            };
+            const typeLabel = typeLabelMap[doc.type] || doc.type;
+
             return `
                 <a href="https://jacob-po.github.io/nofee_planning/${doc.url}" class="card" target="_blank">
                     <div class="card-header">
                         <div class="card-badges">
-                            <span class="badge badge-type">${typeLabel}</span>
+                            <span class="badge badge-type ${doc.type}">${typeLabel}</span>
                             <span class="badge badge-version">${doc.version}</span>
                         </div>
                     </div>
@@ -563,19 +677,35 @@
             const planCards = document.getElementById('plan-cards');
             const marketingCards = document.getElementById('marketing-cards');
 
+            // 문서 타입별 필터링
+            const planDocs = documents.filter(d => d.type === 'plan');
+            const pageDocs = documents.filter(d => d.type === 'page');
+            const marketingDocs = documents.filter(d => d.type === 'marketing');
+
+            // 그룹 내 문서 수 계산
+            const groupDocsCount = documentGroups.reduce((sum, group) => {
+                return sum + 1 + group.subDocs.length; // mainDoc + subDocs
+            }, 0);
+
+            // 통계 업데이트
+            document.getElementById('all-count').textContent = documents.length + groupDocsCount;
+            document.getElementById('page-count').textContent = pageDocs.length;
+            document.getElementById('plan-count').textContent = planDocs.length + groupDocsCount;
+            document.getElementById('marketing-count').textContent = marketingDocs.length;
+
             // 기획안 섹션: 그룹 + 일반 문서
             const groupsHtml = documentGroups.map(createGroupCard).join('');
-            const planDocsHtml = documents.filter(d => d.type === 'plan').map(createCard).join('');
+            const planDocsHtml = planDocs.map(createCard).join('');
             planCards.innerHTML = groupsHtml + planDocsHtml;
 
             // 전체 섹션
             allCards.innerHTML = groupsHtml + documents.map(createCard).join('');
 
             // 페이지 섹션
-            pageCards.innerHTML = documents.filter(d => d.type === 'page').map(createCard).join('');
+            pageCards.innerHTML = pageDocs.map(createCard).join('');
 
             // 마케팅 섹션
-            marketingCards.innerHTML = documents.filter(d => d.type === 'marketing').map(createCard).join('');
+            marketingCards.innerHTML = marketingDocs.map(createCard).join('');
         }
 
         // 탭 전환
