@@ -327,6 +327,7 @@
                 <button class="tab active" data-tab="all">전체</button>
                 <button class="tab" data-tab="page">페이지</button>
                 <button class="tab" data-tab="plan">기획안</button>
+                <button class="tab" data-tab="marketing">마케팅</button>
             </nav>
         </div>
     </header>
@@ -366,6 +367,15 @@
                 <p class="section-description">제품 및 기능에 대한 기획 문서입니다</p>
             </div>
             <div class="card-grid" id="plan-cards"></div>
+        </div>
+
+        <!-- 마케팅 섹션 -->
+        <div class="section" id="marketing-section">
+            <div class="section-header">
+                <h2 class="section-title">마케팅</h2>
+                <p class="section-description">콘텐츠 전략, 바이럴 마케팅, 성장 전략 문서입니다</p>
+            </div>
+            <div class="card-grid" id="marketing-cards"></div>
         </div>
     </main>
 
@@ -426,24 +436,24 @@
                 updated: '2025.11.04'
             },
             {
-                type: 'plan',
-                title: '노피 바이럴 콘텐츠 전략 v2.0 - 동네성지 중심',
-                description: '실제 DB 데이터 기반 바이럴 콘텐츠 전략. 284개 리뷰 (평점 4.9~5.0), 5곳 판매점, 5,091명 회원 데이터를 활용한 Instagram, 블로그, 맘카페 콘텐츠 전략. 제로 예산으로 월 5만원 (SMS)만 사용하여 리뷰 500개, 월 신청 1,000건 목표. 즉시 사용 가능한 콘텐츠 템플릿 포함.',
-                url: 'plan_2025-11-03_노피_바이럴콘텐츠_전략_v2.0_동네성지중심.html',
+                type: 'marketing',
+                title: '노피 바이럴 콘텐츠 전략 v2.0',
+                description: '실제 DB 데이터 기반 바이럴 콘텐츠 전략. 당근마켓×야놀자 전략 적용으로 "내 동네 판매점 후기 보고 안전하게 개통" 포지셔닝. 카톡 2,200명 + 개통 55명 후기 수집 + 맘카페 5곳 집중. 월 5만원 예산으로 3개월 후기 50개 달성, 신뢰 임계점 돌파. Instagram 릴스, 블로그, 맘카페 즉시 사용 가능 콘텐츠 템플릿 포함.',
+                url: 'marketing_2025-11-03_노피_바이럴콘텐츠_전략_v2.0_동네성지중심.html',
                 version: 'v2.0',
                 author: '제이콥',
                 date: '2025.11.03',
-                updated: '2025.11.03'
+                updated: '2025.11.04'
             },
             {
-                type: 'plan',
-                title: '제로 예산 성장 전략 - 레퍼런스 분석',
-                description: '광고비 없이 노피를 성장시키기 위한 전략 기획안. 당근마켓, 번개장터, 중고나라 등 레퍼런스 분석과 실제 DB 분석을 통해 커뮤니티 기반 성장 전략을 수립합니다. 매월 15만명이 방문하는 중고나라 휴대폰 게시판 분석 결과를 바탕으로 콘텐츠 마케팅 방향성을 제시합니다.',
-                url: 'plan_2025-10-31_제로예산_성장전략_레퍼런스분석_v2.1_DB실분석.html',
+                type: 'marketing',
+                title: '제로예산 성장전략 v2.1 - DB실분석',
+                description: '광고비 0원으로 노피를 성장시키는 마케팅 전략. 실제 Production DB 5,133명 + GA4 33,580명 분석 기반. 당근마켓(지역 신뢰) + 야놀자(업소 리뷰) 레퍼런스 적용. 동네성지 기능 100% 활용, 강남권 판매점 후기 밀도 집중 전략. 카톡/문자/블로그/인스타/맘카페 채널별 실행 계획 포함.',
+                url: 'marketing_2025-10-31_제로예산_성장전략_레퍼런스분석_v2.1_DB실분석.html',
                 version: 'v2.1',
                 author: '제이콥',
                 date: '2025.10.31',
-                updated: '2025.11.03'
+                updated: '2025.11.04'
             },
             {
                 type: 'plan',
@@ -466,14 +476,14 @@
                 updated: '2025.10.25'
             },
             {
-                type: 'page',
+                type: 'marketing',
                 title: '마일스톤 & 투자전략',
-                description: '노피의 성장 로드맵과 투자 전략을 담은 문서. 단계별 마일스톤, 재무 목표, 시장 진입 전략을 포함합니다.',
-                url: 'page_2025-10-24_마일스톤_투자전략_v4.1.html',
+                description: '노피의 성장 로드맵과 투자 유치 마케팅 전략. 단계별 마일스톤, 재무 목표, 투자자 커뮤니케이션 전략을 포함합니다.',
+                url: 'marketing_2025-10-24_마일스톤_투자전략_v4.1.html',
                 version: 'v4.1',
                 author: '제이콥',
                 date: '2025.10.24',
-                updated: '2025.10.24'
+                updated: '2025.11.04'
             },
             {
                 type: 'page',
@@ -551,6 +561,7 @@
             const allCards = document.getElementById('all-cards');
             const pageCards = document.getElementById('page-cards');
             const planCards = document.getElementById('plan-cards');
+            const marketingCards = document.getElementById('marketing-cards');
 
             // 기획안 섹션: 그룹 + 일반 문서
             const groupsHtml = documentGroups.map(createGroupCard).join('');
@@ -562,6 +573,9 @@
 
             // 페이지 섹션
             pageCards.innerHTML = documents.filter(d => d.type === 'page').map(createCard).join('');
+
+            // 마케팅 섹션
+            marketingCards.innerHTML = documents.filter(d => d.type === 'marketing').map(createCard).join('');
         }
 
         // 탭 전환
