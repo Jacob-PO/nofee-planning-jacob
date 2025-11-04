@@ -15,8 +15,8 @@ const __dirname = dirname(__filename);
 
 // 설정
 const PROPERTY_ID = '474694872'; // 노피 GA4 속성 ID
-const CREDENTIALS_PATH = path.resolve(__dirname, '../../config/google_api_key.json');
-const OUTPUT_DIR = path.resolve(__dirname, '../nofee-data');
+const CREDENTIALS_PATH = '/Users/jacob/Desktop/dev/config/google_api_key.json';
+const OUTPUT_DIR = path.resolve(__dirname, '../nofee-data/1-raw-data/analytics');
 
 // 날짜 포맷 함수
 function formatDate(date) {

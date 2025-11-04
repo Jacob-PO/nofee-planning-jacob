@@ -7,6 +7,7 @@
 
 import time
 import re
+import random
 from datetime import datetime
 from pathlib import Path
 import pandas as pd
@@ -34,14 +35,29 @@ class DaangnStoreCrawlerSelenium:
         else:
             self.google_api_key_path = Path(google_api_key_path)
 
-        # Chrome 옵션 설정
+        # Chrome 옵션 설정 (봇 탐지 회피 강화)
         self.chrome_options = Options()
         if headless:
             self.chrome_options.add_argument('--headless')
         self.chrome_options.add_argument('--no-sandbox')
         self.chrome_options.add_argument('--disable-dev-shm-usage')
         self.chrome_options.add_argument('--disable-blink-features=AutomationControlled')
-        self.chrome_options.add_argument('user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+
+        # User-Agent 랜덤화
+        user_agents = [
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15'
+        ]
+        self.chrome_options.add_argument(f'user-agent={random.choice(user_agents)}')
+
+        # 추가 봇 탐지 회피 옵션
+        self.chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        self.chrome_options.add_experimental_option('useAutomationExtension', False)
+        self.chrome_options.add_argument('--disable-gpu')
+        self.chrome_options.add_argument('--lang=ko-KR')
 
         self.driver = None
 
@@ -106,7 +122,17 @@ class DaangnStoreCrawlerSelenium:
             print("🌐 Chrome 브라우저 시작 중...")
             self.driver = webdriver.Chrome(options=self.chrome_options)
             self.driver.set_window_size(1920, 1080)
-            print("✅ Chrome 브라우저 시작 완료")
+
+            # WebDriver 탐지 우회 스크립트 주입
+            self.driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
+                'source': '''
+                    Object.defineProperty(navigator, 'webdriver', {
+                        get: () => undefined
+                    });
+                '''
+            })
+
+            print("✅ Chrome 브라우저 시작 완료 (봇 탐지 회피 활성화)")
             return True
         except Exception as e:
             print(f"❌ Chrome 드라이버 초기화 실패: {str(e)}")
@@ -128,7 +154,10 @@ class DaangnStoreCrawlerSelenium:
             # Google 검색
             google_url = f"https://www.google.com/search?q=당근마켓+{search_query}+site:daangn.com"
             self.driver.get(google_url)
-            time.sleep(3)
+
+            # 페이지 로드 대기 시간 랜덤화 (3-5초)
+            wait_time = random.uniform(3, 5)
+            time.sleep(wait_time)
 
             # 검색 결과에서 당근마켓 링크 수집
             daangn_links = []
@@ -367,88 +396,133 @@ class DaangnStoreCrawlerSelenium:
             traceback.print_exc()
             return None
 
-    def crawl(self, max_searches=30):
-        """크롤링 실행"""
+    def save_intermediate_results(self, results, search_count):
+        """중간 결과 저장"""
+        if not results:
+            return
+
+        try:
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            filename = self.output_path / f'daangn_stores_intermediate_{search_count}searches_{timestamp}.csv'
+
+            df = pd.DataFrame(results)
+            df.to_csv(filename, index=False, encoding='utf-8-sig')
+            print(f"    💾 중간 저장 완료: {len(results)}개 매장 → {filename.name}")
+        except Exception as e:
+            print(f"    ⚠️  중간 저장 실패: {str(e)}")
+
+    def crawl(self, max_searches=30, save_interval=50):
+        """크롤링 실행 (자동 재시작 및 중간 저장 기능 포함)"""
         print("=" * 80)
         print("🥕 당근마켓 휴대폰 매장 크롤러 (Selenium)")
         print("=" * 80)
 
-        # 드라이버 초기화
-        if not self.init_driver():
-            return []
-
         all_results = []
         visited_urls = set()
+        search_count = 0
+        retry_count = 0
+        max_retries = 3
 
-        try:
-            search_count = 0
+        # 지역별 키워드 조합
+        for region in self.regions:
+            if search_count >= max_searches:
+                break
 
-            # 지역별 키워드 조합
-            for region in self.regions:
+            for keyword in self.keywords:
                 if search_count >= max_searches:
                     break
 
-                for keyword in self.keywords:
-                    if search_count >= max_searches:
+                print(f"\n[{search_count + 1}/{max_searches}] 🔍 {region} {keyword}")
+
+                # 자동 재시작 로직
+                while retry_count < max_retries:
+                    try:
+                        # 드라이버가 없거나 연결이 끊어진 경우 재초기화
+                        if self.driver is None:
+                            print("    🔄 드라이버 재초기화 중...")
+                            if not self.init_driver():
+                                retry_count += 1
+                                print(f"    ⚠️  재시도 {retry_count}/{max_retries}")
+                                time.sleep(5)
+                                continue
+                            retry_count = 0  # 성공시 리셋
+
+                        # 검색
+                        daangn_links = self.search_daangn_stores(keyword, region)
+
+                        if not daangn_links:
+                            print(f"    ⚠️  링크 없음")
+                            search_count += 1
+                            break
+
+                        print(f"    📍 {len(daangn_links)}개 링크 발견")
+
+                        # 각 링크 방문하여 정보 추출
+                        for link in daangn_links:
+                            if link in visited_urls:
+                                continue
+
+                            visited_urls.add(link)
+                            store_info_list = self.extract_store_info_from_page(link)
+
+                            # 결과가 리스트로 반환됨 (검색 결과 페이지인 경우 여러 매장)
+                            if store_info_list:
+                                for store_info in store_info_list:
+                                    if store_info.get('phones'):
+                                        for phone in store_info['phones']:
+                                            result = {
+                                                '지역명': store_info['region'],
+                                                '매장명': store_info['store_name'],
+                                                '지역명_매장명': f"{store_info['region']}_{store_info['store_name']}",
+                                                '전화번호': phone,
+                                                '링크': store_info['url']
+                                            }
+                                            all_results.append(result)
+                                            print(f"      💾 저장: {result['매장명']} ({phone})")
+
+                            time.sleep(5)  # 요청 간격 (2초 → 5초)
+
+                        search_count += 1
+
+                        # 중간 저장 (일정 개수마다)
+                        if search_count % save_interval == 0:
+                            print(f"\n📦 중간 저장 시점 ({search_count}번 검색 완료)")
+                            self.save_intermediate_results(all_results, search_count)
+
+                        # 검색 간격을 10-15초로 랜덤하게 증가 (Google CAPTCHA 회피)
+                        wait_time = random.uniform(10, 15)
+                        print(f"    ⏳ {wait_time:.1f}초 대기 중... (Google 봇 탐지 회피)")
+                        time.sleep(wait_time)
+
+                        # 성공적으로 완료되면 루프 탈출
                         break
 
-                    print(f"\n[{search_count + 1}/{max_searches}] 🔍 {region} {keyword}")
+                    except Exception as e:
+                        # 드라이버 연결 오류 발생시 재시도
+                        print(f"    ❌ 오류 발생: {str(e)}")
+                        self.close_driver()
+                        self.driver = None
+                        retry_count += 1
+                        if retry_count >= max_retries:
+                            print(f"    ❌ 최대 재시도 횟수 초과. 다음 검색으로 이동")
+                            search_count += 1
+                            break
+                        print(f"    🔄 재시도 {retry_count}/{max_retries}...")
+                        time.sleep(5)
 
-                    # 검색
-                    daangn_links = self.search_daangn_stores(keyword, region)
+                # 재시도 카운터 리셋
+                retry_count = 0
 
-                    if not daangn_links:
-                        print(f"    ⚠️  링크 없음")
-                        search_count += 1
-                        continue
+        self.results = all_results
+        print(f"\n✅ 크롤링 완료! 총 {len(all_results)}개 매장 정보 수집")
+        print(f"   고유 URL: {len(visited_urls)}개")
 
-                    print(f"    📍 {len(daangn_links)}개 링크 발견")
+        # 최종 결과 저장
+        if all_results:
+            print(f"\n📦 최종 결과 저장 중...")
+            self.save_intermediate_results(all_results, search_count)
 
-                    # 각 링크 방문하여 정보 추출
-                    for link in daangn_links:
-                        if link in visited_urls:
-                            continue
-
-                        visited_urls.add(link)
-                        store_info_list = self.extract_store_info_from_page(link)
-
-                        # 결과가 리스트로 반환됨 (검색 결과 페이지인 경우 여러 매장)
-                        if store_info_list:
-                            for store_info in store_info_list:
-                                if store_info.get('phones'):
-                                    for phone in store_info['phones']:
-                                        result = {
-                                            '지역명': store_info['region'],
-                                            '매장명': store_info['store_name'],
-                                            '지역명_매장명': f"{store_info['region']}_{store_info['store_name']}",
-                                            '전화번호': phone,
-                                            '링크': store_info['url']
-                                        }
-                                        all_results.append(result)
-                                        print(f"      💾 저장: {result['매장명']} ({phone})")
-
-                        time.sleep(2)  # 요청 간격
-
-                    search_count += 1
-                    time.sleep(3)  # 검색 간격
-
-            self.results = all_results
-            print(f"\n✅ 크롤링 완료! 총 {len(all_results)}개 매장 정보 수집")
-            print(f"   고유 URL: {len(visited_urls)}개")
-
-        except KeyboardInterrupt:
-            print("\n\n⚠️  사용자가 중단했습니다.")
-            self.results = all_results
-
-        except Exception as e:
-            print(f"\n❌ 크롤링 중 오류: {str(e)}")
-            import traceback
-            traceback.print_exc()
-            self.results = all_results
-
-        finally:
-            self.close_driver()
-
+        self.close_driver()
         return all_results
 
     def save_to_csv(self, filename=None):
@@ -609,10 +683,10 @@ def main():
     # CSV 저장
     crawler.save_to_csv()
 
-    # Google Sheets 업로드
+    # Google Sheets 업로드 (daangn 시트에 업로드)
     if results:
         print("\n⏳ Google Sheets 업로드 중...")
-        crawler.upload_to_sheets(SPREADSHEET_URL, worksheet_name='google')
+        crawler.upload_to_sheets(SPREADSHEET_URL, worksheet_name='daangn')
 
     print("\n" + "=" * 80)
     print("✅ 완료!")

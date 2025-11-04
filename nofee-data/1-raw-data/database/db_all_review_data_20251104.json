@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "generated_at": "2025-11-04 12:03:02",
+    "database": "db_nofee"
+  },
+  "data": {
+    "total_real_reviews": 16,
+    "total_virtual_reviews": 1682,
+    "total_all_reviews": 1698,
+    "real_review_breakdown": {
+      "tb_review_phone": 1,
+      "tb_review_store_phone": 15,
+      "tb_review_campaign_phone": 0
+    },
+    "virtual_review_breakdown": {
+      "tb_review_virtual": 1398,
+      "tb_review_store_phone_virtual": 284
+    },
+    "store_statistics": [
+      {
+        "store_no": 39,
+        "store_nm": "b'7C160C9CC6F64237E6A583FF86D3A094'",
+        "review_count": 7,
+        "avg_rating": "5.00"
+      },
+      {
+        "store_no": 46,
+        "store_nm": "b'AA3D34D985EB1ABE4BF61419DB984554'",
+        "review_count": 3,
+        "avg_rating": "5.00"
+      },
+      {
+        "store_no": 42,
+        "store_nm": "b'10EAA2BF66B3B7CB3C9130FEFB2913A9'",
+        "review_count": 3,
+        "avg_rating": "5.00"
+      },
+      {
+        "store_no": 24,
+        "store_nm": "b'679C3B3C122364C62F5B75085EAEDBAB33C77127D0E0A5779703FE62A84DBD32'",
+        "review_count": 1,
+        "avg_rating": "5.00"
+      },
+      {
+        "store_no": 17,
+        "store_nm": "b'D5DA16C3D4C7D52CA87E7AF071316A5E534F502A75FB78BB82A88CCA4F4ED9A1'",
+        "review_count": 1,
+        "avg_rating": "5.00"
+      }
+    ],
+    "overall_average_rating": 5.0
+  }
+}
