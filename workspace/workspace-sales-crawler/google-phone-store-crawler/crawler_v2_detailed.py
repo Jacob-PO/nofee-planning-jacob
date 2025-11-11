@@ -296,14 +296,22 @@ class DaangnStoreCrawlerV2:
                         break
 
                     except Exception as e:
-                        print(f"    ❌ 오류 발생: {str(e)}")
+                        error_msg = str(e)
+                        print(f"    ❌ 오류 발생: {error_msg[:100]}")
+
+                        # 드라이버 완전히 종료 및 초기화
                         self.close_driver()
                         self.driver = None
+
                         retry_count += 1
                         if retry_count >= max_retries:
-                            print(f"    ❌ 최대 재시도 횟수 초과")
+                            print(f"    ❌ 최대 재시도 횟수 ({max_retries}회) 초과 - 다음 검색으로 이동")
+                            retry_count = 0  # 리셋하여 다음 검색에서 다시 시도
                             break
+
+                        print(f"    🔄 {retry_count}/{max_retries}번째 재시도 준비 중... (5초 대기)")
                         time.sleep(5)
+                        continue
 
                 retry_count = 0
 
