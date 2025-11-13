@@ -17,7 +17,7 @@
             font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             width: 1000px;
             height: 1000px;
-            background: #1A1A2E;
+            background: #131FA0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,7 +26,7 @@
         .container {
             width: 1000px;
             height: 1000px;
-            background: linear-gradient(135deg, #2C1654 0%, #6B46C1 30%, #9333EA 70%, #A855F7 100%);
+            background: #131FA0;
             padding: 15px;
             display: flex;
             flex-direction: column;
@@ -71,7 +71,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
             overflow: hidden;
-            grid-auto-rows: min-content;
+            grid-auto-rows: minmax(0, 1fr);
             align-content: start;
             padding-bottom: 8px;
         }
@@ -83,6 +83,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            min-height: 0;
         }
 
         .device-card.single-price-group {
@@ -94,7 +95,7 @@
         }
 
         .device-name {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 800;
             color: #191F28;
             margin-bottom: 6px;
@@ -106,7 +107,7 @@
 
 
         .device-tag {
-            font-size: 11px;
+            font-size: 12px;
             padding: 3px 7px;
             border-radius: 10px;
             font-weight: 600;
@@ -137,6 +138,9 @@
             display: flex;
             flex-direction: column;
             gap: 5px;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
         }
 
         .price-list.two-columns {
@@ -161,11 +165,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 6px 8px;
+            padding: 7px 9px;
             background: #F7F9FB;
             border-radius: 8px;
-            font-size: 13px;
-            min-height: 30px;
+            font-size: 14px;
+            min-height: 32px;
             gap: 8px;
         }
 
@@ -235,11 +239,11 @@
         .price {
             font-weight: 800;
             color: #191F28;
-            font-size: 15px;
+            font-size: 17px;
         }
 
         .location-tag {
-            font-size: 12px;
+            font-size: 13px;
             color: #131FA0;
             font-weight: 700;
             background: #E8EBFF;
@@ -255,7 +259,7 @@
             justify-content: space-between;
             padding: 0 20px;
             color: white;
-            font-size: 15px;
+            font-size: 17px;
             font-weight: 600;
             height: 45px;
             flex-shrink: 0;
@@ -279,7 +283,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            gap: 5px;
+            gap: 6px;
         }
 
         .search-icon {
@@ -298,8 +302,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo-text">2025년 10월 전국 휴대폰 최저가 시세표</div>
-            <div class="date">10월 16일 (목)</div>
+            <div class="logo-text">2025년 11월 전국 휴대폰 최저가 시세표</div>
+            <div class="date">11월 13일 (목)</div>
         </div>
 
         <div class="content">
@@ -310,32 +314,32 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">102만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">번호이동</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">102만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
                             <div class="carrier-dot kt"></div>
-                            <span class="price">110만</span>
+                            <span class="price">102만</span>
                             <span class="device-tag kt" style="margin-left: 5px;">KT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 마포구</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">112만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">서울 동대문구</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">113만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">서울 마포구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                 </div>
@@ -347,32 +351,32 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">57만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">48만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 동대문구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">59만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">48만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
                         </div>
-                        <span class="location-tag">서울 마포구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
                             <div class="carrier-dot kt"></div>
-                            <span class="price">66만</span>
+                            <span class="price">48만</span>
                             <span class="device-tag kt" style="margin-left: 5px;">KT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 마포구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                 </div>
@@ -384,32 +388,32 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">-1만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">번호이동</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">-1만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
                             <div class="carrier-dot kt"></div>
-                            <span class="price">41만</span>
+                            <span class="price">-1만</span>
                             <span class="device-tag kt" style="margin-left: 5px;">KT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 마포구</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">43만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">서울 동대문구</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">44만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">서울 마포구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                 </div>
@@ -421,32 +425,32 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">37만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">28만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 동대문구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">39만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">28만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
                         </div>
-                        <span class="location-tag">서울 마포구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
                             <div class="carrier-dot kt"></div>
-                            <span class="price">46만</span>
+                            <span class="price">28만</span>
                             <span class="device-tag kt" style="margin-left: 5px;">KT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 마포구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                 </div>
@@ -458,32 +462,32 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot kt"></div>
-                            <span class="price">48만</span>
-                            <span class="device-tag kt" style="margin-left: 5px;">KT</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">55만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 마포구</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">70만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">서울 마포구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
                             <div class="carrier-dot skt"></div>
-                            <span class="price">84만</span>
+                            <span class="price">55만</span>
                             <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot kt"></div>
+                            <span class="price">55만</span>
+                            <span class="device-tag kt" style="margin-left: 5px;">KT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 마포구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                 </div>
@@ -495,32 +499,32 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">27만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">번호이동</span>
+                        </div>
+                        <span class="location-tag">경기 수원시</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">27만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
+                        </div>
+                        <span class="location-tag">경기 수원시</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
                             <div class="carrier-dot kt"></div>
-                            <span class="price">12만</span>
+                            <span class="price">27만</span>
                             <span class="device-tag kt" style="margin-left: 5px;">KT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 마포구</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">33만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">경기 안산시</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">34만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">서울 마포구</span>
+                        <span class="location-tag">경기 수원시</span>
                     </div>
 
                 </div>
@@ -532,59 +536,32 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot kt"></div>
-                            <span class="price">-22만</span>
-                            <span class="device-tag kt" style="margin-left: 5px;">KT</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">-12만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 마포구</span>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">-12만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
                             <div class="carrier-dot kt"></div>
-                            <span class="price">-6만</span>
+                            <span class="price">-12만</span>
                             <span class="device-tag kt" style="margin-left: 5px;">KT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 동대문구</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">-6만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">경기 안산시</span>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="device-card multi-price">
-                <div class="device-name">아이폰 16e</div>
-                <div class="price-list">
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">0원</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">경기 부천시</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">7만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">경기 안산시</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                 </div>
@@ -596,32 +573,32 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">32만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">31만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 동대문구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">35만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">31만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
                         </div>
-                        <span class="location-tag">경기 부천시</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
                             <div class="carrier-dot kt"></div>
-                            <span class="price">35만</span>
+                            <span class="price">31만</span>
                             <span class="device-tag kt" style="margin-left: 5px;">KT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">경기 광명시</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                 </div>
@@ -633,32 +610,32 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">-25만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">번호이동</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">-25만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
                             <div class="carrier-dot kt"></div>
                             <span class="price">-25만</span>
                             <span class="device-tag kt" style="margin-left: 5px;">KT</span>
-                            <span class="device-tag join-type">기기변경</span>
-                        </div>
-                        <span class="location-tag">경기 광명시</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">-20만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">경기 광명시</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">-18만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">서울 동대문구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                 </div>
@@ -670,32 +647,133 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot kt"></div>
-                            <span class="price">-10만</span>
-                            <span class="device-tag kt" style="margin-left: 5px;">KT</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">-2만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">번호이동</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">-2만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
                             <span class="device-tag join-type">기기변경</span>
                         </div>
-                        <span class="location-tag">경기 부천시</span>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot kt"></div>
+                            <span class="price">-2만</span>
+                            <span class="device-tag kt" style="margin-left: 5px;">KT</span>
+                            <span class="device-tag join-type">번호이동</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="device-card multi-price">
+                <div class="device-name">갤럭시 S25 플러스</div>
+                <div class="price-list">
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">43만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">번호이동</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">43만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot kt"></div>
+                            <span class="price">43만</span>
+                            <span class="device-tag kt" style="margin-left: 5px;">KT</span>
+                            <span class="device-tag join-type">번호이동</span>
+                        </div>
+                        <span class="location-tag">대전 서구</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="device-card multi-price">
+                <div class="device-name">갤럭시 S24</div>
+                <div class="price-list">
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot lg"></div>
+                            <span class="price">8만</span>
+                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
+                            <span class="device-tag join-type">번호이동</span>
+                        </div>
+                        <span class="location-tag">경기 수원시</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
                             <div class="carrier-dot lg"></div>
-                            <span class="price">-5만</span>
+                            <span class="price">8만</span>
                             <span class="device-tag lg" style="margin-left: 5px;">LG</span>
+                            <span class="device-tag join-type">기기변경</span>
+                        </div>
+                        <span class="location-tag">경기 수원시</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="device-card multi-price">
+                <div class="device-name">갤럭시 S24 FE</div>
+                <div class="price-list">
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">-23만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">경기 광명시</span>
+                        <span class="location-tag">경기 수원시</span>
+                    </div>
+
+                    <div class="price-item">
+                        <div class="carrier-price">
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">-23만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
+                        </div>
+                        <span class="location-tag">경기 수원시</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
                             <div class="carrier-dot kt"></div>
-                            <span class="price">-4만</span>
+                            <span class="price">-23만</span>
                             <span class="device-tag kt" style="margin-left: 5px;">KT</span>
-                            <span class="device-tag join-type">기기변경</span>
+                            <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 동대문구</span>
+                        <span class="location-tag">경기 수원시</span>
                     </div>
 
                 </div>
@@ -707,59 +785,32 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot kt"></div>
-                            <span class="price">-30만</span>
-                            <span class="device-tag kt" style="margin-left: 5px;">KT</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">-16만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 동대문구</span>
+                        <span class="location-tag">경기 수원시</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
                             <div class="carrier-dot skt"></div>
-                            <span class="price">-5만</span>
+                            <span class="price">-16만</span>
                             <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">서울 동대문구</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot kt"></div>
-                            <span class="price">-1만</span>
-                            <span class="device-tag kt" style="margin-left: 5px;">KT</span>
                             <span class="device-tag join-type">기기변경</span>
                         </div>
-                        <span class="location-tag">서울 동대문구</span>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="device-card multi-price">
-                <div class="device-name">갤럭시 S23</div>
-                <div class="price-list">
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">18만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">경기 부천시</span>
+                        <span class="location-tag">경기 수원시</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot skt"></div>
-                            <span class="price">20만</span>
-                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <div class="carrier-dot kt"></div>
+                            <span class="price">-16만</span>
+                            <span class="device-tag kt" style="margin-left: 5px;">KT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">경기 부천시</span>
+                        <span class="location-tag">경기 수원시</span>
                     </div>
 
                 </div>
@@ -771,69 +822,32 @@
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">95만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">88만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">서울 동대문구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">96만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
+                            <div class="carrier-dot skt"></div>
+                            <span class="price">88만</span>
+                            <span class="device-tag skt" style="margin-left: 5px;">SKT</span>
+                            <span class="device-tag join-type">기기변경</span>
                         </div>
-                        <span class="location-tag">서울 마포구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                     <div class="price-item">
                         <div class="carrier-price">
                             <div class="carrier-dot kt"></div>
-                            <span class="price">99만</span>
+                            <span class="price">88만</span>
                             <span class="device-tag kt" style="margin-left: 5px;">KT</span>
                             <span class="device-tag join-type">번호이동</span>
                         </div>
-                        <span class="location-tag">경기 부천시</span>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="device-card multi-price">
-                <div class="device-name">갤럭시 Z 플립 7</div>
-                <div class="price-list">
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">-4만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">서울 동대문구</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">-3만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">번호이동</span>
-                        </div>
-                        <span class="location-tag">서울 마포구</span>
-                    </div>
-
-                    <div class="price-item">
-                        <div class="carrier-price">
-                            <div class="carrier-dot lg"></div>
-                            <span class="price">-1만</span>
-                            <span class="device-tag lg" style="margin-left: 5px;">LG</span>
-                            <span class="device-tag join-type">기기변경</span>
-                        </div>
-                        <span class="location-tag">서울 동대문구</span>
+                        <span class="location-tag">대전 서구</span>
                     </div>
 
                 </div>

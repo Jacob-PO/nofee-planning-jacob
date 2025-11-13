@@ -1,0 +1,16 @@
+{
+  "name": "campaign-price",
+  "version": "1.0.0",
+  "description": "**토스 스타일 캠페인 가격표 자동 생성 도구**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "puppeteer": "^24.29.1"
+  }
+}
