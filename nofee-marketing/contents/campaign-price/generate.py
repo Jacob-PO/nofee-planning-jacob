@@ -67,7 +67,8 @@ class CampaignPriceTossStyle:
                     priced.store_no,
                     COALESCE(s.nickname, CONVERT(s.store_nm USING utf8mb4)) as store_name_raw,
                     NULL as campaign_no,
-                    priced.pricetable_dt as start_at
+                    priced.pricetable_dt as start_at,
+                    pg.product_group_code
                 FROM (
                     SELECT
                         r.pricetable_dt,
@@ -104,20 +105,15 @@ class CampaignPriceTossStyle:
                         AND col.product_group_code = r.product_group_code
                         AND col.product_code = r.product_code
                         AND col.rate_plan_code = r.rate_plan_code
-                    WHERE r.pricetable_dt = (
-                            SELECT MAX(pricetable_dt)
-                            FROM tb_pricetable_store_phone_row
-                        )
-                        AND r.product_code IS NOT NULL
+                    WHERE r.product_code IS NOT NULL
                 ) priced
                 LEFT JOIN tb_product_phone p ON priced.product_code = p.product_code
                 LEFT JOIN tb_product_group_phone pg ON priced.product_group_code = pg.product_group_code
                 LEFT JOIN tb_store s ON priced.store_no = s.store_no
                 LEFT JOIN tb_area_sido sido ON s.sido_no = sido.sido_no
                 LEFT JOIN tb_area_sigungu sigungu ON s.sigungu_no = sigungu.sigungu_no
-                WHERE priced.lowest_price_10k < 999999999
-                    AND priced.lowest_price_10k * 10000 < 10000000
-                    AND (pg.product_group_nm IS NULL OR pg.product_group_nm NOT LIKE '%사전예약%')
+                WHERE s.deleted_yn = 'N'
+                    AND s.step_code = '0202003'
                 ORDER BY pg.product_group_nm, priced.lowest_price_10k ASC, priced.pricetable_dt DESC
                 """
 
@@ -127,7 +123,7 @@ class CampaignPriceTossStyle:
                 df = pd.DataFrame(results, columns=[
                     'device_name', 'region', 'price', 'carrier_code',
                     'join_type_code', 'campaign_title', 'store_no',
-                    'store_name_raw', 'campaign_no', 'start_at'
+                    'store_name_raw', 'campaign_no', 'start_at', 'product_group_code'
                 ])
 
                 store_map = self.fetch_store_names(df['store_no'].dropna().unique())
@@ -273,13 +269,15 @@ class CampaignPriceTossStyle:
 
         # 모든 고유 기기명 가져오기
         all_devices = df['device_name'].unique()
-        all_devices = [d for d in all_devices if d and '사전예약' not in d and d != '갤럭시 S24 울트라']
+        all_devices = [d for d in all_devices if d]
         all_devices = self.sort_devices_by_priority(all_devices)  # 최신 모델 우선순위로 정렬
 
         # 디버깅: 정렬된 기기 순서 출력
+        print(f"\n📱 전체 기기 수: {len(all_devices)}개")
         print(f"\n📱 정렬된 기기 순서:")
         for idx, device in enumerate(all_devices, 1):
-            print(f"  {idx}. {device}")
+            device_count = len(df[df['device_name'] == device])
+            print(f"  {idx}. {device} ({device_count}개 캠페인)")
 
         blog_sections = []
 
@@ -596,13 +594,14 @@ class CampaignPriceTossStyle:
 
         # 각 기기별로 데이터 정리하고 단가 개수 계산
         device_price_counts = []
-        zero_price_devices = []  # 0원 단일 상품들
-        single_price_devices = []  # 단일 가격 상품들 (0원 제외)
 
         for device in all_devices:
             device_data = df[df['device_name'] == device]
             if device_data.empty:
                 continue
+
+            # 상품 코드 가져오기
+            product_group_code = device_data['product_group_code'].iloc[0] if 'product_group_code' in device_data.columns else ''
 
             # 가격별로 그룹화하여 같은 가격의 모든 지역과 가입유형 표시
             # 같은 조건일 때 start_at이 가장 이른 지역만 선택
@@ -618,10 +617,6 @@ class CampaignPriceTossStyle:
                 start_at = row['start_at']
                 store_nm = row['store_name'] if pd.notna(row['store_name']) else ''
 
-                # 지역이 없는 경우 건너뛰기
-                if not region or not region.strip():
-                    continue
-
                 key = (carrier, price, join_type)
 
                 # 처음 보는 조합이거나 더 이른 start_at인 경우만 추가
@@ -631,104 +626,58 @@ class CampaignPriceTossStyle:
                     seen_regions_per_key[key] = set()
 
                     price_groups[key].append({
-                        'region': region.strip(),
+                        'region': region.strip() if region else '',
                         'store_nm': store_nm
                     })
-                    seen_regions_per_key[key].add((region.strip(), store_nm))
+                    seen_regions_per_key[key].add((region.strip() if region else '', store_nm))
                 elif start_at == seen_combinations[key]:
                     # 같은 start_at인 경우만 지역/매장 조합 추가
-                    combo = (region.strip(), store_nm)
+                    combo = (region.strip() if region else '', store_nm)
                     if combo not in seen_regions_per_key[key]:
                         price_groups[key].append({
-                            'region': region.strip(),
+                            'region': region.strip() if region else '',
                             'store_nm': store_nm
                         })
                         seen_regions_per_key[key].add(combo)
 
-            # 가격순으로 정렬하고 지역이 있는 항목만 필터링, 최대 3개까지 표시
+            # 가격순으로 정렬, 최대 2개까지 표시
             sorted_groups = sorted(
-                [(k, v) for k, v in price_groups.items() if v],  # 지역 리스트가 비어있지 않은 것만
+                price_groups.items(),
                 key=lambda x: x[0][1]
-            )[:3]
+            )[:2]
 
-            # 단가가 1개인 경우 분류 (지역이 있는 것만 계산)
-            valid_price_groups = {k: v for k, v in price_groups.items() if v}
+            # 모든 가격 그룹 포함
+            valid_price_groups = price_groups
 
-            # 지역이 있는 가격 항목이 없으면 건너뛰기
+            # 데이터가 없으면 건너뛰기
             if len(valid_price_groups) == 0:
                 continue
 
-            # 단일 가격인지 여러 가격인지에 관계없이 모든 상품을 동적으로 처리
-            if len(valid_price_groups) == 1:
-                # 단일 가격 상품
-                (carrier, price, join_type), regions = sorted_groups[0]
-                if price == 0:
-                    # 0원인 경우
-                    zero_price_devices.append({
-                        'device': device,
-                        'info': sorted_groups[0]
-                    })
-                else:
-                    # 0원이 아닌 단일 가격
-                    single_price_devices.append({
-                        'device': device,
-                        'info': sorted_groups[0]
-                    })
-            else:
-                # 여러 가격이 있는 경우
-                device_price_counts.append({
-                    'device': device,
-                    'price_count': len(valid_price_groups),
-                    'sorted_groups': sorted_groups
-                })
+            # 모든 상품을 device_price_counts에 추가 (단일/여러 가격 관계없이)
+            device_price_counts.append({
+                'device': device,
+                'price_count': len(valid_price_groups),
+                'sorted_groups': sorted_groups,
+                'product_group_code': product_group_code
+            })
 
         # 기기 우선순위 순서 유지 (all_devices 순서대로 이미 정렬되어 있음)
         # device_price_counts.sort(key=lambda x: x['price_count'], reverse=True)  # 이 정렬 제거
 
-        # 최저가 단가는 모든 상품 표시 (각 상품당 최대 3개 단가)
-
-        # 카드 수 최대 15개로 제한
-        max_cards = 15
-        device_price_counts = device_price_counts[:max_cards]
-
-        # 오늘의 특가를 최저가순으로 정렬하고 최대 8개까지만
-        all_special_prices = []
-
-        # 0원 상품 추가
-        for device_info in zero_price_devices:
-            (carrier, price, join_type), regions = device_info['info']
-            all_special_prices.append({
-                'device': device_info['device'],
-                'price': price,
-                'carrier': carrier,
-                'join_type': join_type,
-                'regions': regions
-            })
-
-        # 단일 가격 상품 추가
-        for device_info in single_price_devices:
-            (carrier, price, join_type), regions = device_info['info']
-            all_special_prices.append({
-                'device': device_info['device'],
-                'price': price,
-                'carrier': carrier,
-                'join_type': join_type,
-                'regions': regions
-            })
-
-        # 가격순 정렬 후 최대 8개만
-        all_special_prices.sort(key=lambda x: x['price'])
-        all_special_prices = all_special_prices[:8]
+        # 상품 카드 21개까지만 표시
+        device_price_counts = device_price_counts[:21]
 
         # 디버깅: 상품 수 출력
         print(f"\n📊 상품 분류 결과:")
         print(f"  - 표시된 상품: {len(device_price_counts)}개")
-        print(f"  - 단일 특가 상품 (미표시): {len(all_special_prices)}개\n")
+        total_prices = sum(len(d['sorted_groups']) for d in device_price_counts)
+        print(f"  - 총 가격 항목: {total_prices}개\n")
 
         # HTML 생성
         for device_info in device_price_counts:
             device = device_info['device']
             sorted_groups = device_info['sorted_groups']
+            product_group_code = device_info.get('product_group_code', '')
 
             # 가격 항목이 1개인지 여러개인지 확인
             card_class = "single-price" if len(sorted_groups) == 1 else "multi-price"
@@ -757,12 +706,11 @@ class CampaignPriceTossStyle:
                     price_class = "price"
 
                 # 지역 추출 - 실제 DB에서 가져온 지역 사용 (첫 번째 지역 표시)
-                region_display = regions[0]['region'] if regions else ""
+                region_display = regions[0]['region'] if regions else "전국"
                 store_display = regions[0].get('store_nm') if regions else ""
 
-                # 지역이 있는 경우만 HTML에 추가
-                if region_display:
-                    html += f"""
+                # 모든 가격 항목 HTML에 추가 (지역 필터 제거)
+                html += f"""
                     <div class="price-item">
                         <div class="carrier-price">
                             <div class="carrier-dot {carrier_class}"></div>
@@ -773,13 +721,13 @@ class CampaignPriceTossStyle:
                         <span class="location-tag">{region_display}</span>
                     </div>
 """
-                    device_entries.append({
-                        'carrier': carrier,
-                        'join_type': join_type,
-                        'price': price,
-                        'region': region_display,
-                        'store': self.mask_store_name(store_display)
-                    })
+                device_entries.append({
+                    'carrier': carrier,
+                    'join_type': join_type,
+                    'price': price,
+                    'region': region_display,
+                    'store': self.mask_store_name(store_display)
+                })
 
             html += """
                 </div>
@@ -788,7 +736,8 @@ class CampaignPriceTossStyle:
             if device_entries:
                 blog_sections.append({
                     'device': device,
-                    'entries': device_entries
+                    'entries': device_entries,
+                    'product_group_code': product_group_code
                 })
 
         # 오늘의 특가 섹션 제거 (하드코딩)
@@ -911,144 +860,209 @@ class CampaignPriceTossStyle:
                 f.write("데이터가 없어 블로그 요약을 생성하지 못했습니다.")
             return
 
-        def pick_unique(entries, limit=3):
-            if not entries:
-                return []
-            sorted_entries = sorted(entries, key=lambda x: x['price'])
-            unique = []
-            seen = set()
-            for entry in sorted_entries:
-                key = (entry['region'], entry['store'])
-                if key in seen:
-                    continue
-                unique.append(entry)
-                seen.add(key)
-                if len(unique) == limit:
-                    break
-            if not unique:
-                unique = sorted_entries[:limit]
-            return unique
+        # 지역별, 매장별 데이터 수집 + 상품 코드 매핑
+        region_stores = {}  # {region: {store: [entries]}}
+        all_stores = []
+        device_product_codes = {}  # {device_name: product_group_code}
 
-        title = f"{month_label} 전국 휴대폰 최저가 시세표 완벽 정리 - 아이폰17 · 갤럭시S25 통신사별 가격 비교"
+        for section in sections:
+            device = section['device']
+            product_code = section.get('product_group_code', '')
+            if device and product_code:
+                device_product_codes[device] = product_code
+
+            for entry in section['entries']:
+                region = entry['region']
+                store = entry['store'] or '제휴매장'
+
+                if region not in region_stores:
+                    region_stores[region] = {}
+                if store not in region_stores[region]:
+                    region_stores[region][store] = []
+
+                entry_with_device = entry.copy()
+                entry_with_device['device'] = device
+                entry_with_device['product_group_code'] = product_code
+                region_stores[region][store].append(entry_with_device)
+                all_stores.append((region, store, entry_with_device))
+
+        # ===== 블로그 콘텐츠 생성 (SEO 최적화) =====
+        title = f"{month_label} 전국 휴대폰 최저가 시세표 - 우리 동네 성지 총정리"
+
         blog_lines = [
             title,
             "",
-            f"{date_str} 업데이트 기준, 전국 주요 매장의 실시간 휴대폰 시세를 정리했습니다.",
-            "강남·수원·대전·부산 등 문의 많은 지역의 매장 이름까지 그대로 담았으니 방문 전에 참고하세요.",
-            ""
+            f"안녕하세요, 노피입니다!",
+            f"{date_str} 기준 전국 휴대폰 최저가 시세를 정리해드립니다.",
+            "",
+            "오늘은 요즘 핫한 동네 성지 매장들을 소개해드리려고 해요.",
+            "",
+            "━━━━━━━━━━━━━━━━━━━━━━━━",
+            "",
+            "노피는 우리 동네 성지 매장을 찾을 수 있는 플랫폼이에요.",
+            "온라인 문의 없이 직접 매장을 찾아서 발품 파는 게 제일 저렴합니다.",
+            "",
+            "[ 이용 방법 ]",
+            "",
+            "1. 노피 웹사이트에서 내 지역을 검색해보세요",
+            "   (예: 강남구, 수원시, 부산 해운대구 등)",
+            "",
+            "2. 우리 동네 성지 매장들의 최저가를 비교하세요",
+            "",
+            "3. 마음에 드는 매장에 직접 방문하면 끝!",
+            "",
+            "👉 노피 바로가기",
+            "https://nofee.team/",
+            "",
+            "━━━━━━━━━━━━━━━━━━━━━━━━",
+            "",
         ]
 
-        blog_lines.append("## 아이폰 · 갤럭시 핵심 시세")
+        # 지역별 성지 매장 소개 (SEO 핵심)
+        blog_lines.append("[ 지역별 동네 성지 매장 정보 ]")
+        blog_lines.append("")
+        blog_lines.append("요즘 핫한 동네 성지 매장들을 정리해봤어요!")
         blog_lines.append("")
 
-        region_counts = {}
-        store_counts = {}
-        carrier_counts = {}
-        join_counts = {}
+        top_regions = sorted(region_stores.items(), key=lambda x: len(x[1]), reverse=True)[:10]
 
-        for section in sections[:8]:
+        for idx, (region, stores) in enumerate(top_regions, 1):
+            sido = region.split()[0] if region else '전국'
+            sigungu = ' '.join(region.split()[1:]) if len(region.split()) > 1 else ''
+
+            blog_lines.append(f"{idx}. {region} 동네 성지")
+            blog_lines.append("")
+
+            store_list = sorted(stores.items(), key=lambda x: len(x[1]), reverse=True)[:3]
+
+            for store_name, entries in store_list:
+                devices = list(set(e['device'] for e in entries))[:3]
+
+                min_price = min(e['price'] for e in entries if e['price'] is not None)
+                price_str = self.format_price_text(min_price)
+
+                blog_lines.append(f"▶ {store_name}")
+                blog_lines.append(f"   최저가: {price_str}부터")
+                blog_lines.append(f"   취급 기종:")
+                for dev in devices:
+                    product_code = device_product_codes.get(dev, '')
+                    if product_code:
+                        blog_lines.append(f"   - {dev}")
+                        blog_lines.append(f"     https://nofee.team/product/{product_code}")
+                    else:
+                        blog_lines.append(f"   - {dev}")
+                blog_lines.append("")
+
+            blog_lines.append(f"👉 {region} 더 많은 동네 성지 찾기")
+            blog_lines.append("https://nofee.team/")
+            blog_lines.append("")
+            blog_lines.append("━━━━━━━━━━━━━━━━━━━━━━━━")
+            blog_lines.append("")
+
+        # 인기 기종별 지역 성지
+        blog_lines.append("")
+        blog_lines.append("[ 인기 기종별 동네 성지 ]")
+        blog_lines.append("")
+        blog_lines.append("요즘 가장 많이 찾는 기종들의 동네 성지를 알려드릴게요!")
+        blog_lines.append("")
+
+        for idx, section in enumerate(sections[:5], 1):
+            device = section['device']
+            product_code = section.get('product_group_code', '')
             entries = section['entries']
+
             if not entries:
                 continue
 
-            unique_entries = pick_unique(entries, limit=3)
-            if not unique_entries:
-                continue
+            # 지역별로 그룹화
+            device_regions = {}
+            for entry in entries:
+                region = entry['region']
+                store = entry['store'] or '제휴매장'
+                key = f"{region} {store}"
 
-            low_price = min(e['price'] for e in unique_entries if e['price'] is not None)
-            high_price = max(e['price'] for e in unique_entries if e['price'] is not None)
-            price_range = self.format_price_text(low_price)
-            if high_price != low_price:
-                price_range += f"~{self.format_price_text(high_price)}"
+                if key not in device_regions:
+                    device_regions[key] = entry
 
-            locations = ", ".join(
-                f"{e['region']} {e['store'] or '제휴 매장'}".strip() for e in unique_entries
-            )
-            carriers = sorted({e['carrier'] for e in entries if e['carrier']})
+            top_locations = sorted(device_regions.items(), key=lambda x: x[1]['price'])[:3]
 
-            blog_lines.append(f"### {section['device']} 시세 요약")
-            blog_lines.append(
-                f"{section['device']}은(는) {locations}에서 {price_range} 사이로 확인됐습니다. "
-                f"{', '.join(carriers)} 조건이 가장 적극적이며 오전 오픈 타임에 재고가 빠르게 움직입니다."
-            )
-            blog_lines.append("")
-            for entry in unique_entries:
-                price_text = self.format_price_text(entry['price'])
-                store_display = entry['store'] or '제휴 매장'
-                blog_lines.append(f"- {entry['region']} · {store_display} · {entry['carrier']} {entry['join_type']} : {price_text}")
+            blog_lines.append(f"{idx}. {device} 동네 성지")
+            if product_code:
+                blog_lines.append(f"   https://nofee.team/product/{product_code}")
             blog_lines.append("")
 
-        for section in sections:
-            for entry in section['entries']:
-                region_counts[entry['region']] = region_counts.get(entry['region'], 0) + 1
-                store_key = (entry['region'], entry['store'])
-                store_counts[store_key] = store_counts.get(store_key, 0) + 1
-                carrier_counts[entry['carrier']] = carrier_counts.get(entry['carrier'], 0) + 1
-                join_counts[entry['join_type']] = join_counts.get(entry['join_type'], 0) + 1
-
-        if region_counts:
-            blog_lines.append("## 지역별 인기 거점")
-            blog_lines.append("")
-            for region, count in sorted(region_counts.items(), key=lambda x: x[1], reverse=True)[:6]:
-                blog_lines.append(f"- {region}: {count}건 이상 견적이 확인된 지역으로 문의가 집중되고 있습니다.")
+            for location, entry in top_locations:
+                price_str = self.format_price_text(entry['price'])
+                blog_lines.append(f"   ▶ {location}")
+                blog_lines.append(f"      {price_str} / {entry['carrier']} {entry['join_type']}")
             blog_lines.append("")
 
-        if store_counts:
-            blog_lines.append("## 요즘 뜨는 매장")
-            blog_lines.append("")
-            for (region, store), count in sorted(store_counts.items(), key=lambda x: x[1], reverse=True)[:5]:
-                store_display = store or '제휴 매장'
-                blog_lines.append(f"- {region} {store_display}: {count}건 이상 시세 제보")
-            blog_lines.append("")
-
-        if carrier_counts or join_counts:
-            blog_lines.append("## 통신사 · 가입 유형 트렌드")
-            blog_lines.append("")
-            if carrier_counts:
-                top_carrier = max(carrier_counts.items(), key=lambda x: x[1])[0]
-                blog_lines.append(f"- 이번 주 가장 많은 특가는 {top_carrier} 조건에서 나왔습니다.")
-            if join_counts:
-                top_join = max(join_counts.items(), key=lambda x: x[1])[0]
-                blog_lines.append(f"- 가입 유형은 '{top_join}' 문의가 가장 많았고, 기기변경보다 평균 10~30만원 더 낮은 편입니다.")
-            blog_lines.append("")
-
-        hashtags = self.build_hashtags(sections)
-        blog_lines.append(" ".join(hashtags))
+        # 마무리 섹션
+        blog_lines.append("━━━━━━━━━━━━━━━━━━━━━━━━")
         blog_lines.append("")
-        blog_lines.append("자세한 상담: https://nofee.team/")
+        blog_lines.append("온라인 문의는 받지 않아요.")
+        blog_lines.append("노피는 여러분이 동네 성지를 찾아서 직접 발품 팔 수 있도록 돕는 플랫폼입니다.")
+        blog_lines.append("")
+        blog_lines.append("직접 매장 방문이 제일 저렴합니다!")
+        blog_lines.append("")
+        blog_lines.append("👉 노피에서 동네 성지 찾기")
+        blog_lines.append("https://nofee.team/")
+        blog_lines.append("")
+
+        # 해시태그 (지역 + 매장명 중심)
+        hashtags = self.build_seo_hashtags(region_stores, sections)
+
+        blog_lines.append("━━━━━━━━━━━━━━━━━━━━━━━━")
+        blog_lines.append("")
+        blog_lines.append(" ".join(hashtags[:30]))
+
+        # ===== 인스타그램 콘텐츠 생성 (바이럴 전략 - 감성 중심) =====
+
+        # 지역 샘플 추출 (구체적 숫자 노출 없이)
+        sample_regions = list(region_stores.keys())[:3]
 
         insta_lines = [
-            f"{date_str} 전국 휴대폰 시세 브리핑 📱",
-            "아이폰 · 갤럭시 실매장 가격만 골라봤어요!",
-            ""
+            "우리 동네에서",
+            "휴대폰 제일 싸게 파는 곳 어디지?",
+            "",
+            "━━━━━━━━━━━━━━━━━━━━━━━━",
+            "",
+            "노피에서 검색하면",
+            "동네 성지 매장 바로 찾을 수 있어요",
+            "",
+            "온라인 문의 말고",
+            "직접 매장 방문하세요",
+            "그게 제일 저렴합니다",
+            "",
+            "━━━━━━━━━━━━━━━━━━━━━━━━",
+            "",
         ]
 
-        highlight_entries = []
-        seen_pairs = set()
-        for section in sections:
-            for entry in section['entries']:
-                key = (entry['region'], entry['store'])
-                if key in seen_pairs:
-                    continue
-                highlight_entries.append((section['device'], entry))
-                seen_pairs.add(key)
-                if len(highlight_entries) == 6:
-                    break
-            if len(highlight_entries) == 6:
-                break
-
-        for device, entry in highlight_entries:
-            price_text = self.format_price_text(entry['price'])
-            store_display = entry.get('store') or '제휴 매장'
-            insta_lines.append(f"{device} · {entry['carrier']} {entry['join_type']} · {entry['region']} {store_display} · {price_text}")
+        # 지역 예시 (심플하게)
+        if sample_regions:
+            insta_lines.append("예시 지역")
+            insta_lines.append("")
+            for region in sample_regions:
+                insta_lines.append(f"   {region}")
+            insta_lines.append("")
+            insta_lines.append("내 지역도 검색해보세요")
 
         insta_lines.append("")
-        insta_lines.append("재고/조건 문의 👉 nofee.team")
+        insta_lines.append("━━━━━━━━━━━━━━━━━━━━━━━━")
         insta_lines.append("")
-        insta_lines.append(" ".join(hashtags))
+        insta_lines.append("nofee.team")
+        insta_lines.append("")
+        insta_lines.append("━━━━━━━━━━━━━━━━━━━━━━━━")
+        insta_lines.append("")
+        insta_lines.append("휴대폰 바꿀 친구 태그해주세요")
+        insta_lines.append("")
+        insta_lines.append(" ".join(hashtags[:30]))
 
+        # 파일 저장
         content_lines = ["[BLOG]", ""]
         content_lines.extend(blog_lines)
+        content_lines.append("")
+        content_lines.append("=" * 80)
         content_lines.append("")
         content_lines.append("[INSTAGRAM]")
         content_lines.append("")
@@ -1058,6 +1072,67 @@ class CampaignPriceTossStyle:
             f.write("\n".join(content_lines))
 
         print(f"📝 블로그 요약 저장 완료: {path}")
+
+    def build_seo_hashtags(self, region_stores, sections):
+        """SEO 최적화된 해시태그 생성 (지역 + 매장명 + 동네성지 중심)"""
+        hashtags = []
+
+        # 기본 브랜드 태그 + 동네성지 키워드 강화
+        base_tags = ['#노피', '#NOFEE', '#동네성지', '#휴대폰동네성지']
+        hashtags.extend(base_tags)
+
+        # 지역 태그 (시도 + 시군구 + 동네성지)
+        for region in sorted(region_stores.keys(), key=lambda x: len(region_stores[x]), reverse=True)[:10]:
+            parts = region.split()
+            if len(parts) >= 1:
+                sido = parts[0]
+                hashtags.append(f"#{sido}동네성지")
+                hashtags.append(f"#{sido}휴대폰")
+                if len(parts) >= 2:
+                    sigungu = parts[1]
+                    hashtags.append(f"#{sido}{sigungu}동네성지")
+                    hashtags.append(f"#{sigungu}동네성지")
+                    hashtags.append(f"#{sigungu}휴대폰")
+
+        # 매장명 태그
+        all_stores = []
+        for region, stores in region_stores.items():
+            for store_name in stores.keys():
+                if store_name and store_name != '제휴매장':
+                    clean_name = store_name.replace(' ', '')
+                    all_stores.append((region.split()[0] if region else '', clean_name))
+
+        for sido, store_name in all_stores[:10]:
+            if store_name:
+                hashtags.append(f"#{store_name}")
+                if sido:
+                    hashtags.append(f"#{sido}{store_name}")
+
+        # 기종 태그
+        for section in sections[:8]:
+            device = section['device'].replace(' ', '')
+            hashtags.append(f"#{device}")
+            hashtags.append(f"#{device}최저가")
+
+        # 일반 키워드 (동네성지 강화)
+        general_tags = [
+            '#휴대폰최저가', '#휴대폰시세', '#휴대폰매장',
+            '#아이폰동네성지', '#갤럭시동네성지',
+            '#아이폰17', '#갤럭시S25',
+            '#번호이동', '#기기변경',
+            '#핸드폰싸게사는법', '#휴대폰싸게사는곳'
+        ]
+        hashtags.extend(general_tags)
+
+        # 중복 제거
+        seen = set()
+        unique_tags = []
+        for tag in hashtags:
+            if tag not in seen:
+                seen.add(tag)
+                unique_tags.append(tag)
+
+        return unique_tags
 
     def generate(self, output_filename='campaign_price_toss.html'):
         """토스 스타일 단가표 생성"""
