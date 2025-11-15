@@ -4,12 +4,19 @@
 
 ## 📋 기능
 
+### 크롤링 기능
 - 카카오맵 검색 결과에서 매장 정보 수집
 - 매장명, 주소, 전화번호, 카테고리, 카카오맵 링크 등 수집
 - 자동 스크롤로 모든 검색 결과 로드
 - 상세 페이지 방문하여 추가 정보 수집 (옵션)
 - CSV 파일로 결과 저장 (UTF-8 with BOM, Excel 호환)
-- 중복 제거 기능
+
+### 데이터 병합 기능 (merge_csv.py)
+- 여러 크롤링 결과 파일을 하나로 자동 병합
+- 전화번호 기준 중복 제거 (동일 전화번호는 하나만 유지)
+- 주소에서 시/도, 군/구 정보 자동 파싱
+- 표준 형식으로 자동 변환 (`지역명_매장명,매장명,지역명,시,군구,전화번호,주소,링크`)
+- 상세한 병합 통계 및 로그 출력
 
 ## 🛠️ 설치
 
@@ -46,51 +53,38 @@ PY
 - 여러 키워드를 넣고 싶으면 `["휴대폰", "휴대폰 성지", ...]` 처럼 배열을 확장합니다.
 - 완전히 커스텀 URL을 쓰고 싶다면 `crawler.crawl_from_url(url, get_details=False)`를 호출하면 됩니다.
 
-### 3. 출력 CSV 통합 & 중복 제거
-- `output/` 안의 모든 `kakao_phone_stores_*.csv`를 합쳐 `kakao_phone_stores_merged_타임스탬프.csv`로 저장합니다.
+### 3. 출력 CSV 통합 & 중복 제거 (권장)
+- `output/` 안의 모든 `kakao_phone_stores_*_multi.csv`를 병합하여 `kakao_phone_stores_merged_타임스탬프.csv`로 저장합니다.
+- **전화번호 기준 중복 제거**: 같은 전화번호는 하나만 유지합니다.
+- **표준 형식 변환**: 주소에서 시/도, 군/구 정보를 자동으로 파싱하여 표준 형식으로 변환합니다.
+
 ```bash
-cd /Users/jacob/Desktop/workspace/nofee/nofee_planning/workspace/workspace-sales-crawler/kakao-map-crawler && python3 - <<'PY'
-import pandas as pd
-from pathlib import Path
-from datetime import datetime
+cd /Users/jacob/Desktop/dev/nofee/nofee_planning/workspace/workspace-sales-crawler/kakao-map-crawler && python3 merge_csv.py
+```
 
-def parse_region(addr):
-    if not isinstance(addr, str) or not addr.strip():
-        return "", "", ""
-    tokens = addr.strip().split()
-    si = tokens[0] if tokens else ""
-    gun = tokens[1] if len(tokens) > 1 else ""
-    region = f"{si} {gun}".strip() if gun else si
-    return region, si, gun
+#### 병합 스크립트 주요 기능
+- ✅ 자동 파일 검색: `kakao_phone_stores_*_multi.csv` 패턴의 모든 파일 검색
+- ✅ 2단계 중복 제거:
+  - 1단계: 모든 컬럼이 동일한 완전 중복 제거
+  - 2단계: 전화번호 기준 중복 제거 (첫 번째 행만 유지)
+- ✅ 표준 형식 변환: `지역명_매장명,매장명,지역명,시,군구,전화번호,주소,링크` 형식으로 변환
+- ✅ 주소 파싱: 주소에서 시/도, 군/구 정보 자동 추출
+- ✅ 상세 로그: 각 단계별 처리 결과 및 통계 출력
 
-output_dir = Path("output")
-dfs = []
-for file in sorted(output_dir.glob("kakao_phone_stores_*.csv")):
-    df = pd.read_csv(file, encoding="utf-8-sig")
-    dfs.append(df)
+#### 출력 예시
+```
+총 101개의 CSV 파일을 발견했습니다.
+병합 전 총 행 수: 3754
+1단계 - 완전 중복 제거 후 행 수: 3619
+2단계 - 전화번호 중복 제거 후 행 수: 520
+최종 행 수: 520
 
-all_df = pd.concat(dfs, ignore_index=True)
-all_df = all_df[all_df["전화번호"].astype(str).str.startswith("010")]
-all_df = all_df.drop_duplicates(subset=["매장명", "전화번호", "주소"])
-
-regions = all_df["주소"].apply(parse_region)
-all_df["지역명"] = regions.apply(lambda x: x[0])
-all_df["시"] = regions.apply(lambda x: x[1])
-all_df["군구"] = regions.apply(lambda x: x[2])
-all_df["지역명_매장명"] = all_df.apply(
-    lambda row: f"{row['지역명']}_{row['매장명']}" if row["지역명"] else row["매장명"],
-    axis=1
-)
-all_df.rename(columns={"카카오맵링크": "링크"}, inplace=True)
-
-cols = ["지역명_매장명", "매장명", "지역명", "시", "군구", "전화번호", "주소", "링크"]
-result = all_df[cols].sort_values(by=["지역명", "매장명"]).reset_index(drop=True)
-
-timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-output_file = output_dir / f"kakao_phone_stores_merged_{timestamp}.csv"
-result.to_csv(output_file, index=False, encoding="utf-8-sig")
-print(f"Saved merged file: {output_file}")
-PY
+=== 병합 결과 요약 ===
+총 매장 수: 520
+지역별 매장 수:
+  - 서울 구로구: 40개
+  - 경기 부천시: 38개
+  ...
 ```
 
 ### 4. Python 코드에서 직접 제어 (스크립트 내 사용)
@@ -110,22 +104,40 @@ print(f"010 번호 있는 매장: {len(results)}개")
 
 ### CSV 파일 구조
 
-- 기본 크롤 결과(`kakao_phone_stores_YYYYMMDD_HHMMSS.csv`):
-```
+#### 1. 크롤링 결과 파일 (`kakao_phone_stores_YYYYMMDD_HHMMSS_multi.csv`)
+크롤러가 생성하는 개별 결과 파일입니다.
+
+**컬럼 구조:**
+```csv
 매장명,주소,전화번호,카테고리,카카오맵링크
-휴대폰성지,서울 중구 장충단로 247 ...,010-8800-8118,휴대폰판매,https://map.kakao.com/...
+휴대폰성지,서울 중구 장충단로 247,010-8800-8118,휴대폰판매,https://map.kakao.com/...
 ```
-- 통합 결과(`kakao_phone_stores_merged_YYYYMMDD_HHMMSS.csv`):
-```
+
+#### 2. 병합 결과 파일 (`kakao_phone_stores_merged_YYYYMMDD_HHMMSS.csv`)
+`merge_csv.py`가 생성하는 통합 및 표준화된 결과 파일입니다.
+
+**컬럼 구조:**
+```csv
 지역명_매장명,매장명,지역명,시,군구,전화번호,주소,링크
-경기 고양시_꿈뱅이네 휴대폰,꿈뱅이네 휴대폰,경기 고양시,경기,고양시,010-2468-8843,경기도 고양시 ...,https://map.kakao.com/...
+서울 금천구_옆커폰 시흥점,옆커폰 시흥점,서울 금천구,서울,금천구,010-5609-1128,서울 금천구 금하로 619 1층,https://map.kakao.com/...
+경기 부천시_꿈뱅이네 휴대폰,꿈뱅이네 휴대폰,경기 부천시,경기,부천시,010-2468-8843,경기 부천시 ...,https://map.kakao.com/...
 ```
+
+**변환 내용:**
+- `지역명_매장명`: 지역명과 매장명을 결합한 고유 키
+- `지역명`: 시 + 군구 조합 (예: "서울 금천구", "경기 부천시")
+- `시`: 시/도 정보 (예: "서울", "경기", "강원특별자치도")
+- `군구`: 시/군/구 정보 (예: "금천구", "부천시", "강릉시")
+- `링크`: 카카오맵링크를 링크로 컬럼명 변경
 
 ### 저장 위치
 
 - 경로: `nofee_planning/workspace/workspace-sales-crawler/kakao-map-crawler/output/`
-- 파일명 형식: `kakao_phone_stores_YYYYMMDD_HHMMSS.csv`
-- 예시: `kakao_phone_stores_20251112_141530.csv`
+- 크롤링 결과: `kakao_phone_stores_YYYYMMDD_HHMMSS_multi.csv`
+- 병합 결과: `kakao_phone_stores_merged_YYYYMMDD_HHMMSS.csv`
+- 예시:
+  - `kakao_phone_stores_20251115_171757_multi.csv` (크롤링 결과)
+  - `kakao_phone_stores_merged_20251115_180056.csv` (병합 결과)
 
 ## 🔧 커스터마이징 포인트
 
@@ -185,6 +197,15 @@ print(f"010 번호 있는 매장: {len(results)}개")
 - 일부 매장은 전화번호를 공개하지 않을 수 있음
 
 ## 📝 버전 히스토리
+
+### v2.1 (2025-11-15)
+- **CSV 병합 스크립트 추가** (`merge_csv.py`)
+  - 여러 크롤링 결과 파일 자동 병합
+  - 전화번호 기준 중복 제거 기능
+  - 주소 파싱을 통한 지역 정보 자동 추출
+  - 표준 형식으로 자동 변환
+  - 상세한 병합 통계 출력
+- README 문서 개선 및 병합 기능 가이드 추가
 
 ### v2.0 (2024-11-12)
 - 특정 URL 지원 추가

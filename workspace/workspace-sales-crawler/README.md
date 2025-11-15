@@ -133,3 +133,9 @@ Naver Map Search → naver-map-crawler
 ## 📝 License
 
 Private use only
+
+cd /Users/jacob/Desktop/dev/nofee/nofee_planning/workspace/workspace-sales-crawler/kakao-map-crawler && python3 - <<'PY'
+from kakao_map_crawler_v2 import KakaoMapCrawlerV2
+crawler = KakaoMapCrawlerV2(headless=False)
+crawler.crawl_keywords(["휴대폰"], get_details=True)
+PY
