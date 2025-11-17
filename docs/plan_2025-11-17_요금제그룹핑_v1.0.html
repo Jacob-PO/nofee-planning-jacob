@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요금제 그룹핑 패치 - 노피 어드민 시스템</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-11-17_요금제그룹핑_v1.0.html">
+    <meta property="og:title" content="[노피 기획안] 요금제 그룹핑 패치">
+    <meta property="og:description" content="요금제 금액별 그룹핑으로 상품 필터링 개선 | 가격대별 통신사 요금제 통합 노출 | 작성: 제이콥 | v1.0">
+    <meta property="og:image" content="https://nofee.team/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="노피 기획안 - 요금제 그룹핑 패치">
+    <meta property="og:site_name" content="노피 NOFEE - 기획 문서">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="article:author" content="제이콥">
+    <meta property="article:published_time" content="2025-11-17T00:00:00+09:00">
+    <meta property="article:modified_time" content="2025-11-17T00:00:00+09:00">
+    <meta property="article:section" content="기획안">
+    <meta property="article:tag" content="요금제">
+    <meta property="article:tag" content="필터링">
+    <meta property="article:tag" content="패치">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-11-17_요금제그룹핑_v1.0.html">
+    <meta name="twitter:title" content="[노피 기획안] 요금제 그룹핑 패치">
+    <meta property="twitter:description" content="요금제 금액별 그룹핑으로 상품 필터링 개선 | 가격대별 통신사 요금제 통합 노출">
+    <meta name="twitter:image" content="https://nofee.team/images/og-image.png">
+    <meta name="twitter:image:alt" content="노피 기획안 - 요금제 그룹핑 패치">
+    <meta name="twitter:creator" content="@nofee_team">
+
+    <!-- Meta Description -->
+    <meta name="description" content="요금제 금액별 그룹핑으로 상품 필터링 개선 | 가격대별 통신사 요금제 통합 노출 | 노피 기획안 v1.0">
+    <meta name="keywords" content="노피, NOFEE, 기획안, 요금제, 필터링, 그룹핑, 가격대">
+
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body {
+                padding: 15mm;
+            }
+        }
+
+        body {
+            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #ffffff;
+            color: #191f28;
+            line-height: 1.6;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-header {
+            border-bottom: 2px solid #3182f6;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .logo {
+            height: 32px;
+        }
+
+        .doc-meta {
+            text-align: right;
+            font-size: 11px;
+            color: #8b95a1;
+        }
+
+        .doc-meta-item {
+            margin-bottom: 4px;
+        }
+
+        .doc-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-subtitle {
+            font-size: 16px;
+            color: #4e5968;
+            font-weight: 400;
+        }
+
+        .info-box {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+
+        .info-item {
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #8b95a1;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: #191f28;
+            font-weight: 600;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e8eb;
+        }
+
+        .content {
+            color: #4e5968;
+            line-height: 1.8;
+        }
+
+        .content p {
+            margin-bottom: 12px;
+        }
+
+        .content ul, .content ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #eff8ff;
+            border-left: 4px solid #3182f6;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: #191f28;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #e5e8eb;
+        }
+
+        .comparison-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #191f28;
+            text-align: center;
+        }
+
+        .comparison-table td {
+            color: #4e5968;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .tag-before {
+            background: #fee;
+            color: #d32f2f;
+        }
+
+        .tag-after {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .key-box {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-left: 4px solid #3182f6;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .key-box strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #191f28;
+            font-size: 14px;
+        }
+
+        .key-box p {
+            margin: 0;
+            color: #4e5968;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #191f28;
+            margin: 24px 0 12px 0;
+        }
+
+        /* 모바일 화면 목업 스타일 */
+        .mockup-container {
+            display: flex;
+            gap: 32px;
+            margin: 32px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .phone-mockup {
+            width: 375px;
+            background: #fff;
+            border: 2px solid #e5e8eb;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-screen {
+            background: #f9fafb;
+            padding: 20px;
+            min-height: 600px;
+        }
+
+        .mockup-label {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+            margin-top: 16px;
+            padding: 8px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .mockup-label.before {
+            color: #d32f2f;
+            background: #ffebee;
+        }
+
+        .mockup-label.after {
+            color: #2e7d32;
+            background: #e8f5e9;
+        }
+
+        .mockup-comparison-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #3182f6;
+            font-weight: 700;
+            align-self: center;
+        }
+
+        /* 필터 컴포넌트 스타일 */
+        .filter-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .filter-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+            margin-bottom: 12px;
+        }
+
+        .filter-select-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-select {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e5e8eb;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #191f28;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-select:hover {
+            border-color: #3182f6;
+        }
+
+        .filter-select.disabled {
+            background: #f9fafb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        /* 가격 테이블 스타일 */
+        .price-grid {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .price-header {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .price-header-item {
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: #191f28;
+        }
+
+        .price-row-group {
+            margin-bottom: 12px;
+        }
+
+        .price-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .price-cell {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .price-cell:hover {
+            border-color: #3182f6;
+            background: #f3f6fc;
+        }
+
+        .price-cell.selected {
+            border: 2px solid #3182f6;
+            background: #f3f6fc;
+        }
+
+        .price-cell.empty {
+            background: #f3f4f6;
+            border-color: #e5e8eb;
+            cursor: not-allowed;
+        }
+
+        .price-label {
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .price-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #191f28;
+        }
+
+        .price-value.negative {
+            color: #3182f6;
+        }
+
+        .price-detail {
+            font-size: 10px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        .arrow-icon {
+            color: #3182f6;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 900px) {
+            .mockup-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mockup-comparison-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        .warning-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffa726;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: #191f28;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .success-box strong {
+            color: #191f28;
+        }
+
+        /* 시세표 이미지 스타일 */
+        .price-table-image {
+            max-width: 800px;
+            margin: 24px auto;
+            border: 2px solid #e5e8eb;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="document-header">
+        <div class="logo-container">
+            <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="logo">
+            <div class="doc-meta">
+                <div class="doc-meta-item">작성일: 2025.11.17</div>
+                <div class="doc-meta-item">버전: v1.0</div>
+                <div class="doc-meta-item">작성자: 제이콥</div>
+            </div>
+        </div>
+        <h1 class="doc-title">요금제 그룹핑 패치</h1>
+        <p class="doc-subtitle">가격대별 요금제 그룹핑을 통한 상품 필터링 및 가격 테이블 노출 개선</p>
+    </div>
+
+    <div class="info-box">
+        <div class="info-item">
+            <div class="info-label">문서 유형</div>
+            <div class="info-value">패치 기획안</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">우선순위</div>
+            <div class="info-value">중간 (Medium)</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">목표 배포일</div>
+            <div class="info-value">2025.11.25 ~ 11.29</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">개요</h2>
+        <div class="content">
+            <p>현재 동네성지 서비스의 요금제 필터는 각 통신사의 <strong>정확한 요금제 금액</strong>을 기준으로 필터링되어, 고객이 원하는 가격대의 상품을 한눈에 비교하기 어렵습니다. 본 패치를 통해 요금제를 <strong>가격대별로 그룹핑</strong>하여, 고객이 가격대를 선택하면 해당하는 모든 통신사의 요금제 상품을 통합하여 노출합니다.</p>
+
+            <div class="highlight-box">
+                <strong>핵심 변경사항</strong><br>
+                • 요금제 필터를 정확한 금액에서 <strong>가격대 그룹(예: 11만원대, 10만원대)</strong>으로 변경<br>
+                • 상품 가격 테이블을 <strong>요금제 그룹 단위로 통합 노출</strong>하여 통신사별 비교 용이<br>
+                • 각 통신사별 요금제 금액이 다르더라도 <strong>동일 가격대 그룹으로 묶어</strong> 표시
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">배경 및 목적</h2>
+        <div class="content">
+            <h3>현재 문제점</h3>
+            <ul>
+                <li><strong>통신사별 요금제 금액 상이:</strong> 동일 가격대임에도 SKT는 109,000원, KT는 110,000원, LG는 115,000원으로 각기 다른 금액 체계</li>
+                <li><strong>필터링 불편:</strong> 고객이 "11만원대" 요금제를 원할 때 각 통신사별로 별도 검색 필요</li>
+                <li><strong>비교 어려움:</strong> 가격 테이블에서 통신사별 동일 가격대 상품을 한눈에 비교하기 어려움</li>
+                <li><strong>고객 혼란:</strong> "왜 109,000원과 110,000원이 따로 있지?" 같은 의문 발생</li>
+            </ul>
+
+            <h3>개선 목표</h3>
+            <ul>
+                <li><strong>직관적인 필터링:</strong> "11만원대", "10만원대" 등 가격대 단위로 요금제 선택</li>
+                <li><strong>통합 비교:</strong> 하나의 가격대 그룹 선택으로 모든 통신사의 해당 가격대 요금제 비교</li>
+                <li><strong>UX 개선:</strong> 고객이 원하는 예산 범위 내에서 최적의 상품 빠르게 탐색</li>
+                <li><strong>검색 효율성:</strong> 필터 선택 횟수 감소로 상품 검색 시간 단축</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">요금제 그룹 정의</h2>
+        <div class="content">
+            <p>아래 표와 같이 가격대별로 요금제를 그룹핑합니다. 각 통신사의 요금제는 정확한 금액이 다르지만, 동일한 가격대 그룹으로 분류됩니다.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">요금제 그룹</th>
+                        <th style="width: 25%;">KT</th>
+                        <th style="width: 25%;">SKT</th>
+                        <th style="width: 25%;">LG U+</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;"><strong>11만원대</strong></td>
+                        <td style="text-align: center;">110,000원</td>
+                        <td style="text-align: center;">109,000원</td>
+                        <td style="text-align: center;">115,000원</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>10만원대</strong></td>
+                        <td style="text-align: center;">100,000원</td>
+                        <td style="text-align: center;">100,000원</td>
+                        <td style="text-align: center;">105,000원</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>8만원대</strong></td>
+                        <td style="text-align: center;">90,000원</td>
+                        <td style="text-align: center;">89,000원</td>
+                        <td style="text-align: center;">95,000원</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>6만원대</strong></td>
+                        <td style="text-align: center;">61,000원</td>
+                        <td style="text-align: center;">69,000원</td>
+                        <td style="text-align: center;">61,000원</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>5만원대</strong></td>
+                        <td style="text-align: center;">-</td>
+                        <td style="text-align: center;">50,000원</td>
+                        <td style="text-align: center;">-</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>4만원대</strong></td>
+                        <td style="text-align: center;">-</td>
+                        <td style="text-align: center;">43,000원</td>
+                        <td style="text-align: center;">-</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><strong>3만원대</strong></td>
+                        <td style="text-align: center;">37,000원</td>
+                        <td style="text-align: center;">33,000원</td>
+                        <td style="text-align: center;">33,000원</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-box">
+                <strong>그룹핑 규칙</strong>
+                <p>• 각 가격대 그룹은 통신사별 유사한 요금제를 하나로 묶습니다<br>
+                • 일부 통신사에서 해당 가격대 요금제가 없는 경우 "-"로 표시<br>
+                • 그룹 이름은 대표 가격대를 사용 (예: 11만원대, 10만원대)<br>
+                • 고객이 "11만원대"를 선택하면 → SKT 109,000원, KT 110,000원, LG 115,000원 요금제를 모두 조회</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">화면 변경사항 (Before & After)</h2>
+        <div class="content">
+            <p>실제 화면이 어떻게 변경되는지 아래 목업을 통해 확인하세요.</p>
+
+            <div class="mockup-container">
+                <!-- BEFORE -->
+                <div>
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="filter-card">
+                                <div class="filter-title">용량/요금제</div>
+                                <div class="filter-select-group">
+                                    <select class="filter-select">
+                                        <option>256GB</option>
+                                    </select>
+                                    <select class="filter-select">
+                                        <option>요금제 선택</option>
+                                        <option>109,000원 (SKT)</option>
+                                        <option>110,000원 (KT)</option>
+                                        <option>115,000원 (LG U+)</option>
+                                        <option>100,000원 (SKT, KT)</option>
+                                        <option>105,000원 (LG U+)</option>
+                                        <option>89,000원 (SKT)</option>
+                                        <option>90,000원 (KT)</option>
+                                        <option>95,000원 (LG U+)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="price-grid">
+                                <div class="filter-title">가격</div>
+                                <div style="padding: 40px 20px; text-align: center; color: #9ca3af; font-size: 13px;">
+                                    요금제를 선택하면<br>가격 정보가 표시됩니다
+                                </div>
+                            </div>
+
+                            <div class="warning-box">
+                                <strong>문제점</strong><br>
+                                • 통신사별로 요금제가 분리되어 있어 혼란스러움<br>
+                                • "11만원대" 요금제를 보려면 3번 선택 필요<br>
+                                • 어떤 금액이 어떤 통신사인지 기억해야 함
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mockup-label before">변경 전 (AS-IS)</div>
+                </div>
+
+                <div class="mockup-comparison-arrow">→</div>
+
+                <!-- AFTER -->
+                <div>
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="filter-card">
+                                <div class="filter-title">용량/요금제</div>
+                                <div class="filter-select-group">
+                                    <select class="filter-select">
+                                        <option>256GB</option>
+                                    </select>
+                                    <select class="filter-select">
+                                        <option>11만원대</option>
+                                        <option>10만원대</option>
+                                        <option>8만원대</option>
+                                        <option>6만원대</option>
+                                        <option>5만원대</option>
+                                        <option>4만원대</option>
+                                        <option>3만원대</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="price-grid">
+                                <div class="filter-title">가격 (11만원대 요금제)</div>
+                                <div class="price-header">
+                                    <div class="price-header-item">SKT</div>
+                                    <div class="price-header-item">KT</div>
+                                    <div class="price-header-item">LG U+</div>
+                                </div>
+
+                                <div class="price-row-group">
+                                    <div class="price-row">
+                                        <div class="price-cell selected">
+                                            <div class="price-label">공통지원·기변</div>
+                                            <div class="price-value negative">-5만</div>
+                                            <div class="price-detail">109,000원</div>
+                                        </div>
+                                        <div class="price-cell">
+                                            <div class="price-label">공통지원·기변</div>
+                                            <div class="price-value negative">-4만</div>
+                                            <div class="price-detail">110,000원</div>
+                                        </div>
+                                        <div class="price-cell">
+                                            <div class="price-label">공통지원·기변</div>
+                                            <div class="price-value negative">-3만</div>
+                                            <div class="price-detail">115,000원</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="price-row-group">
+                                    <div class="price-row">
+                                        <div class="price-cell">
+                                            <div class="price-label">선택약정·기변</div>
+                                            <div class="price-value">15만</div>
+                                            <div class="price-detail">109,000원</div>
+                                        </div>
+                                        <div class="price-cell">
+                                            <div class="price-label">선택약정·기변</div>
+                                            <div class="price-value">16만</div>
+                                            <div class="price-detail">110,000원</div>
+                                        </div>
+                                        <div class="price-cell">
+                                            <div class="price-label">선택약정·기변</div>
+                                            <div class="price-value">17만</div>
+                                            <div class="price-detail">115,000원</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="success-box">
+                                <strong>개선 효과</strong><br>
+                                • 한 번의 선택으로 모든 통신사 비교 가능<br>
+                                • 가격대 중심으로 직관적 선택<br>
+                                • 실제 요금제 금액도 함께 표시
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mockup-label after">변경 후 (TO-BE)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">변경사항 상세</h2>
+        <div class="content">
+            <h3>1. 요금제 필터 변경</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">구분</th>
+                        <th style="width: 40%;"><span class="tag tag-before">변경 전 (AS-IS)</span></th>
+                        <th style="width: 40%;"><span class="tag tag-after">변경 후 (TO-BE)</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>필터 옵션</strong></td>
+                        <td>
+                            • 109,000원 (SKT)<br>
+                            • 110,000원 (KT)<br>
+                            • 115,000원 (LG U+)<br>
+                            • 100,000원 (SKT, KT)<br>
+                            • 105,000원 (LG U+)<br>
+                            <span style="color: #d32f2f;">→ 통신사별로 분리</span>
+                        </td>
+                        <td>
+                            • 11만원대<br>
+                            • 10만원대<br>
+                            • 8만원대<br>
+                            • 6만원대<br>
+                            <span style="color: #2e7d32;">→ 가격대로 그룹핑</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>선택 방식</strong></td>
+                        <td>특정 금액 선택 → 해당 금액만 조회</td>
+                        <td>가격대 그룹 선택 → <strong>그룹 내 모든 통신사 요금제 조회</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>검색 결과</strong></td>
+                        <td>
+                            선택한 금액의 통신사 상품만 표시<br>
+                            (예: 109,000원 선택 시 SKT만)
+                        </td>
+                        <td>
+                            선택한 가격대 그룹의 <strong>모든 통신사 상품 표시</strong><br>
+                            (예: 11만원대 선택 시 SKT, KT, LG 모두)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>고객 인지</strong></td>
+                        <td>"109,000원이 뭐지? SKT인가?"<br>→ 혼란스러움</td>
+                        <td>"11만원대 요금제!"<br>→ 직관적 이해</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>2. 상품 가격 테이블 노출 변경</h3>
+
+            <div class="key-box">
+                <strong>변경 전: 요금제 금액별 노출 (AS-IS)</strong>
+                <p>• 109,000원 선택 시 → SKT 상품만 표시<br>
+                • 110,000원 선택 시 → KT 상품만 표시<br>
+                • 115,000원 선택 시 → LG 상품만 표시<br>
+                • <strong>통신사별 개별 검색 필요 (총 3번 선택)</strong></p>
+            </div>
+
+            <div class="key-box" style="border-left-color: #4caf50; background: #e8f5e9;">
+                <strong>변경 후: 요금제 그룹별 노출 (TO-BE)</strong>
+                <p>• 11만원대 선택 시 → <strong>SKT(109,000원), KT(110,000원), LG(115,000원) 모두 표시</strong><br>
+                • 가격 테이블에서 통신사별 가격 한눈에 비교<br>
+                • 한 번의 선택으로 모든 옵션 확인 (1번만 선택)<br>
+                • 각 셀에 실제 요금제 금액도 함께 표기하여 투명성 확보</p>
+            </div>
+
+            <h3>3. 가격 테이블 UI 변경</h3>
+            <ul>
+                <li><strong>그룹 헤더 추가:</strong> 선택한 요금제 그룹명을 가격 테이블 상단에 표시 (예: "가격 (11만원대 요금제)")</li>
+                <li><strong>통신사별 실제 금액 표기:</strong> 각 통신사 셀에 실제 요금제 금액 병기 (예: 작은 글씨로 "109,000원")</li>
+                <li><strong>비교 용이성:</strong> 동일 행에 모든 통신사 가격을 배치하여 직관적 비교 가능</li>
+                <li><strong>일관성 유지:</strong> 기존 가격 테이블의 레이아웃과 스타일은 최대한 유지</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">사용자 시나리오</h2>
+        <div class="content">
+            <h3>시나리오 1: 가격대 기반 상품 검색</h3>
+            <ol>
+                <li>고객이 상품 상세 페이지에서 <strong>"서울 강남구"</strong> 지역 선택</li>
+                <li><strong>"256GB"</strong> 용량 선택</li>
+                <li>요금제 필터에서 <strong>"11만원대"</strong> 선택</li>
+                <li>가격 테이블에 SKT(109,000원), KT(110,000원), LG(115,000원)의 모든 요금제 상품이 한눈에 표시됨</li>
+                <li>통신사별 공시지원금, 선택약정 가격을 비교하여 최적 상품 선택</li>
+                <li>원하는 가격 셀 클릭 → 매장 검색 결과 표시</li>
+            </ol>
+
+            <div class="highlight-box">
+                <strong>Before: 3번의 선택 필요</strong><br>
+                109,000원 선택 → SKT 확인 → 110,000원 선택 → KT 확인 → 115,000원 선택 → LG 확인<br><br>
+                <strong>After: 1번의 선택으로 완료</strong><br>
+                11만원대 선택 → SKT, KT, LG 모두 한눈에 확인
+            </div>
+
+            <h3>시나리오 2: 가격대 변경을 통한 비교</h3>
+            <ol>
+                <li>고객이 "11만원대" 요금제 검색 후 가격 확인</li>
+                <li>예산이 부족하다고 판단하여 요금제 필터를 <strong>"8만원대"</strong>로 변경</li>
+                <li>가격 테이블이 즉시 업데이트되어 KT(90,000원), SKT(89,000원), LG(95,000원) 요금제 표시</li>
+                <li>더 저렴한 가격대에서 통신사별 옵션 비교 가능</li>
+            </ol>
+
+            <h3>시나리오 3: 일부 통신사 미지원 케이스</h3>
+            <ol>
+                <li>고객이 "5만원대" 요금제 선택</li>
+                <li>가격 테이블에 SKT만 표시되고, KT와 LG는 "-" 또는 "해당 없음"으로 표시</li>
+                <li>고객은 "5만원대는 SKT만 있구나"라고 직관적으로 이해</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">시세표 이미지 다운로드 기능 연동</h2>
+        <div class="content">
+            <p>시세표 이미지 다운로드 기능은 <strong>최고가 요금제 그룹(11만원대)</strong>을 기준으로 샘플 이미지가 생성됩니다. 이는 매장에서 가장 많이 판매되는 프리미엄 요금제 중심으로 시세표를 공유할 수 있도록 하기 위함입니다.</p>
+
+            <div class="key-box">
+                <strong>시세표 이미지 생성 기준</strong>
+                <p>• 기본 요금제: <strong>11만원대 그룹 (SKT 109,000원, KT 110,000원, LG U+ 115,000원)</strong><br>
+                • 샘플에 포함되는 상품: 매장에서 설정한 주요 판매 상품 (갤럭시 S24, 아이폰 15 등)<br>
+                • 가격 정보: 11만원대 요금제 기준 통신사별 공시지원금, 선택약정 가격 표시<br>
+                • 이미지 형식: 1080px 너비, SNS 공유 최적화 디자인</p>
+            </div>
+
+            <h3>시세표 이미지 샘플</h3>
+            <p>아래는 11만원대 요금제 그룹을 기준으로 생성되는 시세표 이미지 샘플입니다.</p>
+
+            <div class="price-table-image">
+                <!-- 헤더: 고급스러운 블루 그라데이션 -->
+                <div style="background: linear-gradient(145deg, #4d94ff 0%, #3d7eeb 50%, #2d68d6 100%); padding: 28px 32px; position: relative; overflow: hidden;">
+                    <!-- 미묘한 배경 장식 -->
+                    <div style="position: absolute; top: -120px; right: -120px; width: 350px; height: 350px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); filter: blur(40px);"></div>
+                    <div style="position: absolute; bottom: -100px; left: -100px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%); filter: blur(40px);"></div>
+
+                    <!-- 노피 로고 & 브랜드 (우상단) -->
+                    <div style="position: absolute; top: 24px; right: 28px; z-index: 2; display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                        <img src="https://admin.nofee.team/image/company/logo.svg" alt="NOFEE" style="height: 20px; filter: brightness(0) invert(1); opacity: 1;">
+                        <div style="font-size: 9px; color: rgba(255,255,255,0.75); font-weight: 600; letter-spacing: -0.2px;">휴대폰 성지 바로 여기, 노피</div>
+                    </div>
+
+                    <!-- 검색 안내 (우측 하단) -->
+                    <div style="position: absolute; bottom: 20px; right: 28px; z-index: 2; display: flex; align-items: center; gap: 6px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <span style="font-size: 11px; color: rgba(255,255,255,0.65); font-weight: 600; letter-spacing: -0.2px;">네이버에서 <span style="color: rgba(255,255,255,0.9); font-weight: 700;">'노피 휴대폰'</span> 검색</span>
+                    </div>
+
+                    <!-- 메인 영역 (왼쪽 정렬) -->
+                    <div style="position: relative; z-index: 1;">
+                        <!-- 지역 -->
+                        <div style="display: inline-flex; align-items: center; gap: 6px; margin-bottom: 12px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="rgba(255,255,255,0.65)"/>
+                            </svg>
+                            <span style="font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 600; letter-spacing: -0.3px;">서울 동대문구</span>
+                        </div>
+
+                        <!-- 매장명 -->
+                        <h1 style="font-size: 40px; font-weight: 800; color: white; letter-spacing: -2px; line-height: 1.1; margin: 0 0 10px 0;">띵동폰</h1>
+
+                        <!-- 날짜 -->
+                        <div style="font-size: 14px; color: rgba(255,255,255,0.75); font-weight: 600; letter-spacing: -0.3px;">
+                            2025.11.17 (월) 시세표 | <strong>11만원대 요금제</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 테이블 영역 -->
+                <div style="overflow-x: auto;">
+                    <table style="border-collapse: collapse; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th rowspan="3" style="vertical-align: middle; background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f5 100%); color: #191f28; padding: 18px 10px; text-align: center; border-right: 1px solid #dee2e6; border-bottom: 1px solid #dee2e6; font-weight: 800; font-size: 15px; letter-spacing: -0.5px;">상품명</th>
+                                <th rowspan="3" style="vertical-align: middle; background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f5 100%); color: #191f28; padding: 18px 10px; text-align: center; border-right: 1px solid #dee2e6; border-bottom: 1px solid #dee2e6; font-weight: 800; font-size: 15px; letter-spacing: -0.5px;">용량</th>
+                                <th colspan="4" style="text-align: center; background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%); padding: 16px 10px; border-right: 1px solid #adb5bd; border-bottom: 1px solid #dee2e6; font-weight: 900; font-size: 17px; color: #e03131; letter-spacing: -0.5px;">SKT (10.9만)</th>
+                                <th colspan="4" style="text-align: center; background: linear-gradient(135deg, #fff7e6 0%, #ffe8cc 100%); padding: 16px 10px; border-right: 1px solid #adb5bd; border-bottom: 1px solid #dee2e6; font-weight: 900; font-size: 17px; color: #d9480f; letter-spacing: -0.5px;">KT (11.0만)</th>
+                                <th colspan="4" style="text-align: center; background: linear-gradient(135deg, #ffebf5 0%, #ffd6eb 100%); padding: 16px 10px; border-bottom: 1px solid #dee2e6; font-weight: 900; font-size: 17px; color: #c2255c; letter-spacing: -0.5px;">LG U+ (11.5만)</th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" style="text-align: center; background: #fafbfc; padding: 12px 8px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; font-weight: 700; font-size: 13px; color: #495057; letter-spacing: -0.3px;">공통지원</th>
+                                <th colspan="2" style="text-align: center; background: #fafbfc; padding: 12px 8px; border-right: 1px solid #adb5bd; border-bottom: 1px solid #e9ecef; font-weight: 700; font-size: 13px; color: #495057; letter-spacing: -0.3px;">선택약정</th>
+                                <th colspan="2" style="text-align: center; background: #fafbfc; padding: 12px 8px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; font-weight: 700; font-size: 13px; color: #495057; letter-spacing: -0.3px;">공통지원</th>
+                                <th colspan="2" style="text-align: center; background: #fafbfc; padding: 12px 8px; border-right: 1px solid #adb5bd; border-bottom: 1px solid #e9ecef; font-weight: 700; font-size: 13px; color: #495057; letter-spacing: -0.3px;">선택약정</th>
+                                <th colspan="2" style="text-align: center; background: #fafbfc; padding: 12px 8px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; font-weight: 700; font-size: 13px; color: #495057; letter-spacing: -0.3px;">공통지원</th>
+                                <th colspan="2" style="text-align: center; background: #fafbfc; padding: 12px 8px; border-bottom: 1px solid #e9ecef; font-weight: 700; font-size: 13px; color: #495057; letter-spacing: -0.3px;">선택약정</th>
+                            </tr>
+                            <tr>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-right: 1px solid #e9ecef; border-bottom: 1px solid #dee2e6; font-weight: 600;">번이</th>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-right: 1px solid #e9ecef; border-bottom: 1px solid #dee2e6; font-weight: 600;">기변</th>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-right: 1px solid #e9ecef; border-bottom: 1px solid #dee2e6; font-weight: 600;">번이</th>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-right: 1px solid #adb5bd; border-bottom: 1px solid #dee2e6; font-weight: 600;">기변</th>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-right: 1px solid #e9ecef; border-bottom: 1px solid #dee2e6; font-weight: 600;">번이</th>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-right: 1px solid #e9ecef; border-bottom: 1px solid #dee2e6; font-weight: 600;">기변</th>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-right: 1px solid #e9ecef; border-bottom: 1px solid #dee2e6; font-weight: 600;">번이</th>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-right: 1px solid #adb5bd; border-bottom: 1px solid #dee2e6; font-weight: 600;">기변</th>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-right: 1px solid #e9ecef; border-bottom: 1px solid #dee2e6; font-weight: 600;">번이</th>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-right: 1px solid #e9ecef; border-bottom: 1px solid #dee2e6; font-weight: 600;">기변</th>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-right: 1px solid #e9ecef; border-bottom: 1px solid #dee2e6; font-weight: 600;">번이</th>
+                                <th style="font-size: 12px; background: #f8f9fa; color: #6c757d; padding: 10px 8px; text-align: center; border-bottom: 1px solid #dee2e6; font-weight: 600;">기변</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 18px 14px; text-align: left; font-weight: 800; color: #191f28; font-size: 16px; border-right: 1px solid #f1f3f5; border-bottom: 1px solid #e9ecef; white-space: nowrap; letter-spacing: -0.5px; background: white;">갤럭시 S24</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #495057; font-weight: 700; font-size: 14px; border-right: 1px solid #dee2e6; border-bottom: 1px solid #e9ecef; letter-spacing: -0.3px; background: white;">256GB</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff9f5;">55</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff9f5;">60</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff9f5;">45</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #adb5bd; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff9f5;">50</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fffbf5;">56</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fffbf5;">61</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fffbf5;">46</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #adb5bd; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fffbf5;">51</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff8fb;">55</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff8fb;">60</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff8fb;">45</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff8fb;">50</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 18px 14px; text-align: left; font-weight: 800; color: #191f28; font-size: 16px; border-right: 1px solid #f1f3f5; border-bottom: 1px solid #e9ecef; white-space: nowrap; letter-spacing: -0.5px; background: white;">아이폰 15 Pro</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #495057; font-weight: 700; font-size: 14px; border-right: 1px solid #dee2e6; border-bottom: 1px solid #e9ecef; letter-spacing: -0.3px; background: white;">256GB</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff9f5;">69</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff9f5;">74</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff9f5;">59</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #adb5bd; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff9f5;">64</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fffbf5;">70</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fffbf5;">75</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fffbf5;">60</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #adb5bd; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fffbf5;">65</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff8fb;">69</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff8fb;">74</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-right: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff8fb;">59</td>
+                                <td style="padding: 18px 12px; text-align: center; color: #191f28; font-weight: 900; font-size: 18px; border-bottom: 1px solid #e9ecef; letter-spacing: -0.8px; background: #fff8fb;">64</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 푸터 -->
+                <div style="background: linear-gradient(145deg, #4d94ff 0%, #3d7eeb 50%, #2d68d6 100%); padding: 24px; position: relative; overflow: hidden;">
+                    <div style="position: relative; z-index: 1; color: white; font-size: 13px; line-height: 1.6; letter-spacing: -0.3px; font-weight: 500;">
+                        <div style="font-weight: 700; margin-bottom: 8px; font-size: 14px; display: flex; align-items: center; gap: 6px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="rgba(255,255,255,0.15)"/>
+                                <path d="M12 8V12L14.5 14.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="6" r="1" fill="white"/>
+                            </svg>
+                            참고사항
+                        </div>
+                        <div style="opacity: 0.9; white-space: pre-line;">• 모든 가격은 11만원대 요금제 기준입니다.
+• 선택약정 시 추가 할인이 적용될 수 있습니다.
+• 자세한 상담은 매장 방문 또는 전화 문의 바랍니다.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>시세표 이미지 특징</strong><br>
+                • 헤더에 "<strong>11만원대 요금제</strong>" 명시로 고객이 어떤 요금제 기준인지 즉시 인지<br>
+                • 통신사별 컬럼 헤더에 실제 월 요금 표기 (SKT 10.9만, KT 11.0만, LG U+ 11.5만)<br>
+                • SNS 공유 최적화 디자인으로 인스타그램, 카카오톡 등에 바로 공유 가능<br>
+                • 노피 브랜드 로고와 검색 안내 포함으로 마케팅 효과 극대화
+            </div>
+
+            <h3>시세표 이미지 다운로드 프로세스</h3>
+            <ol>
+                <li>매장 관리자가 시세표 입력 페이지에서 상품 정보 입력</li>
+                <li>"이미지로 다운로드" 버튼 클릭</li>
+                <li><strong>11만원대 요금제</strong>를 기준으로 시세표 이미지 자동 생성</li>
+                <li>생성된 이미지를 PNG 형식으로 다운로드</li>
+                <li>매장에서 SNS, 블로그, 오픈카톡방 등에 공유</li>
+            </ol>
+
+            <div class="warning-box">
+                <strong>참고사항</strong><br>
+                • 11만원대 요금제가 없는 상품의 경우 다음 최고가 요금제 그룹(10만원대)을 기준으로 생성<br>
+                • 매장에서 요금제 그룹을 직접 선택할 수 있는 옵션은 향후 추가 검토
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">적용 범위</h2>
+        <div class="content">
+            <h3>페이지별 적용 사항</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">페이지</th>
+                        <th style="width: 15%;">적용 여부</th>
+                        <th>세부 사항</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>동네성지 메인</strong></td>
+                        <td style="text-align: center;"><span class="tag tag-after">적용</span></td>
+                        <td>요금제 필터 및 가격 테이블 모두 그룹 방식으로 변경</td>
+                    </tr>
+                    <tr>
+                        <td><strong>상품 상세 페이지</strong></td>
+                        <td style="text-align: center;"><span class="tag tag-after">적용</span></td>
+                        <td>요금제 필터 및 가격 테이블 모두 그룹 방식으로 변경</td>
+                    </tr>
+                    <tr>
+                        <td><strong>매장 상세 (스토어홈)</strong></td>
+                        <td style="text-align: center;"><span class="tag tag-after">적용</span></td>
+                        <td>요금제 필터를 그룹 방식으로 변경</td>
+                    </tr>
+                    <tr>
+                        <td><strong>시세표</strong></td>
+                        <td style="text-align: center;"><span class="tag tag-after">적용</span></td>
+                        <td>요금제 필터를 그룹 방식으로 변경하여 일관성 유지</td>
+                    </tr>
+                    <tr>
+                        <td><strong>시세표 이미지 다운로드</strong></td>
+                        <td style="text-align: center;"><span class="tag tag-after">적용</span></td>
+                        <td>11만원대 요금제 기준으로 이미지 생성</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>주의: 전체 서비스 일관성 유지</strong><br>
+                동네성지 관련 모든 페이지에서 동일한 요금제 그룹 체계를 사용하여 고객 혼란 방지
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">기대 효과</h2>
+        <div class="content">
+            <ul>
+                <li><strong>검색 효율성 향상:</strong> 한 번의 필터 선택으로 모든 통신사의 해당 가격대 상품 비교 가능 (선택 횟수 66% 감소)</li>
+                <li><strong>사용자 경험 개선:</strong> 가격대 기반의 직관적인 필터링으로 고객 편의성 증대</li>
+                <li><strong>비교 용이성:</strong> 가격 테이블에서 통신사별 가격 한눈에 파악하여 의사결정 시간 단축</li>
+                <li><strong>전환율 증가:</strong> 복잡한 검색 과정 간소화로 이탈률 감소 및 구매 전환율 향상 (예상 10-15%)</li>
+                <li><strong>고객 만족도:</strong> "왜 이렇게 많은 옵션이 있지?" → "11만원대 요금제 한눈에 보기 편하네!" 피드백 개선</li>
+                <li><strong>시세표 마케팅 강화:</strong> 11만원대 기준 시세표 이미지로 프리미엄 상품 중심의 마케팅 가능</li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>핵심 개선 지표</strong><br>
+                • 요금제 필터 사용성: 혼란스러움 → 직관적<br>
+                • 검색 소요 시간: 평균 2분 30초 → 1분 (40% 감소 예상)<br>
+                • 통신사 비교 효율: 3번 선택 필요 → 1번 선택으로 완료 (66% 감소)
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">성공 지표</h2>
+        <div class="content">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">지표</th>
+                        <th style="width: 40%;">측정 방법</th>
+                        <th style="width: 35%;">목표</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>필터 사용률</strong></td>
+                        <td>요금제 필터 클릭 및 선택 비율 측정</td>
+                        <td>20% 증가</td>
+                    </tr>
+                    <tr>
+                        <td><strong>검색 완료율</strong></td>
+                        <td>필터 선택 후 가격 셀 클릭까지 도달한 비율</td>
+                        <td>15% 증가</td>
+                    </tr>
+                    <tr>
+                        <td><strong>평균 검색 시간</strong></td>
+                        <td>필터 선택부터 상품 선택까지 소요 시간</td>
+                        <td>30% 감소 (2분 30초 → 1분 45초)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>전환율</strong></td>
+                        <td>검색 후 견적 신청 또는 상담 신청 비율</td>
+                        <td>10% 증가</td>
+                    </tr>
+                    <tr>
+                        <td><strong>이탈률</strong></td>
+                        <td>요금제 필터 선택 후 페이지 이탈 비율</td>
+                        <td>20% 감소</td>
+                    </tr>
+                    <tr>
+                        <td><strong>고객 만족도</strong></td>
+                        <td>사용자 피드백 및 CS 문의 감소율</td>
+                        <td>"요금제가 헷갈려요" 문의 50% 감소</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-box">
+                <strong>측정 기간</strong><br>
+                배포 후 2주간 데이터 수집 및 분석<br>
+                성과 확인 후 개선사항 도출
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
