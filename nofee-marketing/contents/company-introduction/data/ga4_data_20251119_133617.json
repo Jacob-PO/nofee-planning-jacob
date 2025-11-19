@@ -1,0 +1,223 @@
+{
+  "metadata": {
+    "collected_at": "2025-11-19T13:36:12.191261",
+    "purpose": "회사소개서 작성",
+    "property_id": "properties/474694872",
+    "start_date": "2024-11-19",
+    "end_date": "2025-11-19",
+    "version": "1.0"
+  },
+  "overall_metrics": {
+    "sessions": 59831,
+    "total_users": 35098,
+    "new_users": 34760,
+    "page_views": 330870,
+    "avg_session_duration": 185.00965909988133,
+    "bounce_rate": 0.028747639183700758
+  },
+  "device_category": [
+    {
+      "device": "mobile",
+      "sessions": 50098,
+      "users": 30631
+    },
+    {
+      "device": "desktop",
+      "sessions": 8331,
+      "users": 3870
+    },
+    {
+      "device": "tablet",
+      "sessions": 1158,
+      "users": 800
+    }
+  ],
+  "traffic_channels": [
+    {
+      "channel": "Paid Social",
+      "sessions": 24523,
+      "users": 17263,
+      "engagement_rate": 0.997797985564572
+    },
+    {
+      "channel": "Direct",
+      "sessions": 10501,
+      "users": 7967,
+      "engagement_rate": 0.9794305304256737
+    },
+    {
+      "channel": "Organic Search",
+      "sessions": 10011,
+      "users": 5668,
+      "engagement_rate": 0.9756268105084407
+    },
+    {
+      "channel": "Organic Social",
+      "sessions": 8819,
+      "users": 3072,
+      "engagement_rate": 0.9241410590769928
+    },
+    {
+      "channel": "Paid Other",
+      "sessions": 1672,
+      "users": 1485,
+      "engagement_rate": 0.9988038277511961
+    },
+    {
+      "channel": "Referral",
+      "sessions": 1393,
+      "users": 1022,
+      "engagement_rate": 0.9820531227566404
+    },
+    {
+      "channel": "Cross-network",
+      "sessions": 493,
+      "users": 470,
+      "engagement_rate": 0.9939148073022313
+    },
+    {
+      "channel": "Unassigned",
+      "sessions": 263,
+      "users": 145,
+      "engagement_rate": 0.8060836501901141
+    },
+    {
+      "channel": "Organic Video",
+      "sessions": 71,
+      "users": 16,
+      "engagement_rate": 1.0
+    },
+    {
+      "channel": "Paid Search",
+      "sessions": 13,
+      "users": 11,
+      "engagement_rate": 0.9230769230769231
+    }
+  ],
+  "monthly_trend": [
+    {
+      "month": "2025-01",
+      "sessions": 16,
+      "users": 12,
+      "page_views": 87
+    },
+    {
+      "month": "2025-02",
+      "sessions": 50,
+      "users": 30,
+      "page_views": 332
+    },
+    {
+      "month": "2025-03",
+      "sessions": 1,
+      "users": 1,
+      "page_views": 2
+    },
+    {
+      "month": "2025-04",
+      "sessions": 5,
+      "users": 4,
+      "page_views": 9
+    },
+    {
+      "month": "2025-05",
+      "sessions": 77,
+      "users": 34,
+      "page_views": 192
+    },
+    {
+      "month": "2025-06",
+      "sessions": 11,
+      "users": 9,
+      "page_views": 19
+    },
+    {
+      "month": "2025-07",
+      "sessions": 6829,
+      "users": 5071,
+      "page_views": 29591
+    },
+    {
+      "month": "2025-08",
+      "sessions": 19532,
+      "users": 13361,
+      "page_views": 93035
+    },
+    {
+      "month": "2025-09",
+      "sessions": 19271,
+      "users": 12119,
+      "page_views": 113588
+    },
+    {
+      "month": "2025-10",
+      "sessions": 9121,
+      "users": 5548,
+      "page_views": 78892
+    },
+    {
+      "month": "2025-11",
+      "sessions": 2877,
+      "users": 1933,
+      "page_views": 15123
+    }
+  ],
+  "top_pages": [
+    {
+      "page_path": "/",
+      "page_views": 94145,
+      "users": 30447
+    },
+    {
+      "page_path": "/welcome",
+      "page_views": 33612,
+      "users": 16407
+    },
+    {
+      "page_path": "/store",
+      "page_views": 12882,
+      "users": 3705
+    },
+    {
+      "page_path": "/login/kakao/callback",
+      "page_views": 12702,
+      "users": 7664
+    },
+    {
+      "page_path": "/product/SM-ZF-7",
+      "page_views": 11796,
+      "users": 5099
+    },
+    {
+      "page_path": "/mypage/history",
+      "page_views": 10597,
+      "users": 2968
+    },
+    {
+      "page_path": "/product/SM-SU-25",
+      "page_views": 7835,
+      "users": 3589
+    },
+    {
+      "page_path": "/mypage",
+      "page_views": 7483,
+      "users": 2877
+    },
+    {
+      "page_path": "/product/AP-P-16",
+      "page_views": 6707,
+      "users": 2836
+    },
+    {
+      "page_path": "/product",
+      "page_views": 6402,
+      "users": 3129
+    }
+  ],
+  "daily_average": {
+    "days_count": 365,
+    "avg_sessions": 163.9,
+    "avg_users": 96.2,
+    "avg_page_views": 906.5
+  }
+}

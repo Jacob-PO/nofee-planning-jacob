@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "collected_at": "2025-11-19T13:34:27.836177",
+    "purpose": "회사소개서 작성",
+    "version": "1.0"
+  },
+  "total_users": 5429,
+  "total_quote_applications": 4101,
+  "total_campaign_applications": 4772,
+  "total_applications": 8873,
+  "total_store_purchases": 3206,
+  "total_quote_completed": 47,
+  "total_campaign_completed": 193,
+  "total_completed": 240,
+  "total_stores": 56,
+  "monthly_applications": [
+    {
+      "month": "2025-07",
+      "count": 482
+    },
+    {
+      "month": "2025-08",
+      "count": 2850
+    },
+    {
+      "month": "2025-09",
+      "count": 3928
+    },
+    {
+      "month": "2025-10",
+      "count": 1396
+    },
+    {
+      "month": "2025-11",
+      "count": 217
+    }
+  ],
+  "daily_applications_recent": [
+    {
+      "date": 

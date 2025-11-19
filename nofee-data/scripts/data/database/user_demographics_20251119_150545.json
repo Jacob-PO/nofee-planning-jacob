@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "collected_at": "2025-11-19T15:05:45.162610",
+    "purpose": "고객 인구통계 분석",
+    "version": "2.0",
+    "note": "생년월일 복호화 포함"
+  },
+  "age_analysis": {
+    "total_users": 5350,
+    "valid_birthday_count": 0,
+    "decrypt_fail_count": 5350,
+    "missing_birthday_count": 0,
+    "data_completeness": 0.0,
+    "age_distribution": {},
+    "age_distribution_percentage": {},
+    "statistics": {}
+  },
+  "gender_analysis": {
+    "total_users": 5350,
+    "valid_gender_count": 5350,
+    "missing_gender_count": 0,
+    "data_completeness": 100.0,
+    "gender_distribution": {
+      "여성": 578,
+      "남성": 4772
+    },
+    "gender_distribution_percentage": {
+      "여성": 10.8,
+      "남성": 89.2
+    },
+    "gender_code_mapping": {
+      "0104001": "남성",
+      "0104002": "여성",
+      "Unknown": "미입력"
+    }
+  },
+  "cross_analysis": {
+    "Unknown": {
+      "여성": 578,
+      "남성": 4772
+    }
+  },
+  "insights": {
+    "primary_target_age_group": "Unknown",
+    "primary_target_gender": "남성",
+    "data_quality": {
+      "birthday_completeness": 0.0,
+      "gender_completeness": 100.0
+    },
+    "key_findings": [
+      "남성 사용자 비중 89.2%"
+    ]
+  }
+}

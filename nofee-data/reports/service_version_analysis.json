@@ -1,0 +1,227 @@
+{
+  "metadata": {
+    "analyzed_at": "2025-11-19T14:09:23.190509",
+    "purpose": "서비스 버전별 개통율 및 성과 분석",
+    "version": "1.0"
+  },
+  "service_versions": {
+    "v1_general": {
+      "name": "버전 1: 일반견적",
+      "description": "전국 평균 가격 기반, 노피 중개 매칭",
+      "start_date": "2020-01-01",
+      "end_date": "2025-06-30",
+      "table": "tb_apply_phone",
+      "features": [
+        "노피가 제공하는 전국 평균 가격으로 견적 제공",
+        "고객 지역 기반 판매점 매칭",
+        "DB 판매 방식"
+      ]
+    },
+    "v2_campaign": {
+      "name": "버전 2: 캠페인 견적 (동네성지 v1)",
+      "description": "판매점 직접 상품 업로드, 고객 직접 선택",
+      "start_date": "2025-07-01",
+      "end_date": "2025-08-31",
+      "table": "tb_apply_campaign_phone",
+      "features": [
+        "판매점이 직접 상품 및 가격 업로드",
+        "고객이 원하는 판매점 상품 직접 선택",
+        "DB 즉시 전달 (매칭 단계 축소)",
+        "동네성지 기능 도입"
+      ]
+    },
+    "v3_local": {
+      "name": "버전 3: 동네 견적 (동네성지 v2)",
+      "description": "동네성지 검색, 판매점 어드민 대폭 개선",
+      "start_date": "2025-09-01",
+      "end_date": "2025-12-31",
+      "table": "tb_apply_campaign_phone",
+      "features": [
+        "동네성지 검색 기능 추가",
+        "일반 견적 기능 제거 (100% 동네성지)",
+        "판매점 어드민 대규모 업데이트",
+        "판매점/고객 VOC 기반 UX 개선",
+        "판매점이 모든 상품 직접 관리"
+      ]
+    }
+  },
+  "version_analysis": {
+    "v1_general": {
+      "basic_metrics": {
+        "total_applications": 0,
+        "completed": 0,
+        "not_completed": 0,
+        "in_progress": 0,
+        "store_purchases": 0
+      },
+      "conversion_rates": {
+        "application_to_completion": "0%",
+        "application_to_purchase": "0%",
+        "purchase_to_completion": "0%"
+      },
+      "step_distribution": [],
+      "monthly_trend": [],
+      "completion_time": {
+        "avg_days": null,
+        "min_days": null,
+        "max_days": null
+      }
+    },
+    "v2_campaign": {
+      "basic_metrics": {
+        "total_applications": 1666,
+        "completed": 8,
+        "not_completed": 1650,
+        "in_progress": 8,
+        "store_purchases": 1020
+      },
+      "conversion_rates": {
+        "application_to_completion": "0.48%",
+        "application_to_purchase": "61.22%",
+        "purchase_to_completion": "0.78%"
+      },
+      "step_distribution": [
+        {
+          "step_code": "0201006",
+          "count": 1204,
+          "percentage": 72.27
+        },
+        {
+          "step_code": "0201007",
+          "count": 435,
+          "percentage": 26.11
+        },
+        {
+          "step_code": "0201003",
+          "count": 11,
+          "percentage": 0.66
+        },
+        {
+          "step_code": "0201005",
+          "count": 8,
+          "percentage": 0.48
+        },
+        {
+          "step_code": "0201001",
+          "count": 5,
+          "percentage": 0.3
+        },
+        {
+          "step_code": "0201004",
+          "count": 3,
+          "percentage": 0.18
+        }
+      ],
+      "monthly_trend": [
+        {
+          "month": "2025-07",
+          "total_applications": 241,
+          "completed": 2.0,
+          "conversion_rate": 0.83
+        },
+        {
+          "month": "2025-08",
+          "total_applications": 1425,
+          "completed": 6.0,
+          "conversion_rate": 0.42
+        }
+      ],
+      "completion_time": {
+        "avg_days": 3.0,
+        "min_days": 1,
+        "max_days": 9
+      }
+    },
+    "v3_local": {
+      "basic_metrics": {
+        "total_applications": 3106,
+        "completed": 185,
+        "not_completed": 2752,
+        "in_progress": 169,
+        "store_purchases": 2186
+      },
+      "conversion_rates": {
+        "application_to_completion": "5.96%",
+        "application_to_purchase": "70.38%",
+        "purchase_to_completion": "8.46%"
+      },
+      "step_distribution": [
+        {
+          "step_code": "0201006",
+          "count": 1864,
+          "percentage": 60.01
+        },
+        {
+          "step_code": "0201007",
+          "count": 659,
+          "percentage": 21.22
+        },
+        {
+          "step_code": "0201003",
+          "count": 229,
+          "percentage": 7.37
+        },
+        {
+          "step_code": "0201005",
+          "count": 185,
+          "percentage": 5.96
+        },
+        {
+          "step_code": "0201004",
+          "count": 165,
+          "percentage": 5.31
+        },
+        {
+          "step_code": "0201001",
+          "count": 4,
+          "percentage": 0.13
+        }
+      ],
+      "monthly_trend": [
+        {
+          "month": "2025-09",
+          "total_applications": 2022,
+          "completed": 45.0,
+          "conversion_rate": 2.23
+        },
+        {
+          "month": "2025-10",
+          "total_applications": 868,
+          "completed": 133.0,
+          "conversion_rate": 15.32
+        },
+        {
+          "month": "2025-11",
+          "total_applications": 216,
+          "completed": 7.0,
+          "conversion_rate": 3.24
+        }
+      ],
+      "completion_time": {
+        "avg_days": 15.3704,
+        "min_days": 0,
+        "max_days": 31
+      }
+    }
+  },
+  "version_comparison": {
+    "v1_general": {
+      "name": "버전 1: 일반견적",
+      "total_applications": 0,
+      "completed": 0,
+      "conversion_rate": "0%"
+    },
+    "v2_campaign": {
+      "name": "버전 2: 캠페인 견적 (동네성지 v1)",
+      "total_applications": 1666,
+      "completed": 8,
+      "conversion_rate": "0.48%"
+    },
+    "v3_local": {
+      "name": "버전 3: 동네 견적 (동네성지 v2)",
+      "total_applications": 3106,
+      "completed": 185,
+      "conversion_rate": "5.96%"
+    }
+  }
+}

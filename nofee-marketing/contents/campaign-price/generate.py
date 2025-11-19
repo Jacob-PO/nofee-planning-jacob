@@ -48,7 +48,7 @@ class CampaignPriceTossStyle:
         return env_data
 
     def get_campaign_data(self):
-        """DB에서 진행중인 캠페인 데이터 가져오기"""
+        """DB에서 진행중인 캠페인 데이터 가져오기 (노피 웹사이트와 동일한 로직)"""
         connection = pymysql.connect(**self.db_config)
 
         try:
@@ -57,64 +57,24 @@ class CampaignPriceTossStyle:
                 SELECT
                     pg.product_group_nm as device_name,
                     CONCAT(IFNULL(sido.sido_nm, ''), ' ', IFNULL(sigungu.sigungu_nm, '')) as region,
-                    CASE
-                        WHEN priced.lowest_price_10k >= 999999999 THEN NULL
-                        ELSE priced.lowest_price_10k * 10000
-                    END AS price,
-                    priced.carrier_code,
-                    priced.join_type_code,
+                    pr.installment_principal as price,
+                    pr.carrier_code,
+                    pr.join_type_code,
                     NULL as campaign_title,
-                    priced.store_no,
+                    pr.store_no,
                     COALESCE(s.nickname, CONVERT(s.store_nm USING utf8mb4)) as store_name_raw,
                     NULL as campaign_no,
-                    priced.pricetable_dt as start_at,
+                    pr.pricetable_dt as start_at,
                     pg.product_group_code
-                FROM (
-                    SELECT
-                        r.pricetable_dt,
-                        r.product_group_code,
-                        r.product_code,
-                        r.rate_plan_code,
-                        r.store_no,
-                        r.carrier_code,
-                        r.join_type_code,
-                        LEAST(
-                            COALESCE(col.skt_common_mnp, 999999999),
-                            COALESCE(col.skt_common_chg, 999999999),
-                            COALESCE(col.skt_common_new, 999999999),
-                            COALESCE(col.skt_select_mnp, 999999999),
-                            COALESCE(col.skt_select_chg, 999999999),
-                            COALESCE(col.skt_select_new, 999999999),
-                            COALESCE(col.kt_common_mnp, 999999999),
-                            COALESCE(col.kt_common_chg, 999999999),
-                            COALESCE(col.kt_common_new, 999999999),
-                            COALESCE(col.kt_select_mnp, 999999999),
-                            COALESCE(col.kt_select_chg, 999999999),
-                            COALESCE(col.kt_select_new, 999999999),
-                            COALESCE(col.lg_common_mnp, 999999999),
-                            COALESCE(col.lg_common_chg, 999999999),
-                            COALESCE(col.lg_common_new, 999999999),
-                            COALESCE(col.lg_select_mnp, 999999999),
-                            COALESCE(col.lg_select_chg, 999999999),
-                            COALESCE(col.lg_select_new, 999999999)
-                        ) AS lowest_price_10k
-                    FROM tb_pricetable_store_phone_row r
-                    LEFT JOIN tb_pricetable_store_phone_col col
-                        ON col.pricetable_dt = r.pricetable_dt
-                        AND col.store_no = r.store_no
-                        AND col.product_group_code = r.product_group_code
-                        AND col.product_code = r.product_code
-                        AND col.rate_plan_code = r.rate_plan_code
-                    WHERE r.product_code IS NOT NULL
-                ) priced
-                LEFT JOIN tb_product_phone p ON priced.product_code = p.product_code
-                LEFT JOIN tb_product_group_phone pg ON priced.product_group_code = pg.product_group_code
-                LEFT JOIN tb_store s ON priced.store_no = s.store_no
+                FROM tb_pricetable_store_phone_row pr
+                INNER JOIN tb_product_phone p ON p.product_code = pr.product_code AND p.deleted_yn = 'N'
+                INNER JOIN tb_product_group_phone pg ON pg.product_group_code = pr.product_group_code AND pg.deleted_yn = 'N' AND pg.state_code = '0204002'
+                LEFT JOIN tb_store s ON s.store_no = pr.store_no AND s.deleted_yn = 'N' AND s.pricetable_exposure_yn = 'Y' AND s.step_code = '0202003'
                 LEFT JOIN tb_area_sido sido ON s.sido_no = sido.sido_no
                 LEFT JOIN tb_area_sigungu sigungu ON s.sigungu_no = sigungu.sigungu_no
-                WHERE s.deleted_yn = 'N'
-                    AND s.step_code = '0202003'
-                ORDER BY pg.product_group_nm, priced.lowest_price_10k ASC, priced.pricetable_dt DESC
+                WHERE pr.product_code IS NOT NULL
+                    AND s.store_no IS NOT NULL
+                ORDER BY pg.product_group_nm, pr.installment_principal ASC, pr.pricetable_dt DESC
                 """
 
                 cursor.execute(query)

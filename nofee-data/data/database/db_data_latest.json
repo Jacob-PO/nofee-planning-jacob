@@ -1,0 +1,237 @@
+{
+  "metadata": {
+    "collected_at": "2025-11-19T14:19:50.406551",
+    "purpose": "회사소개서 작성",
+    "version": "1.0"
+  },
+  "total_users": 5429,
+  "total_quote_applications": 4101,
+  "total_campaign_applications": 4772,
+  "total_applications": 8873,
+  "total_store_purchases": 3206,
+  "total_quote_completed": 47,
+  "total_campaign_completed": 193,
+  "total_completed": 240,
+  "total_stores": 56,
+  "monthly_applications": [
+    {
+      "month": "2025-07",
+      "count": 482
+    },
+    {
+      "month": "2025-08",
+      "count": 2850
+    },
+    {
+      "month": "2025-09",
+      "count": 3928
+    },
+    {
+      "month": "2025-10",
+      "count": 1396
+    },
+    {
+      "month": "2025-11",
+      "count": 217
+    }
+  ],
+  "daily_applications_recent": [
+    {
+      "date": "2025-10-20",
+      "count": 45
+    },
+    {
+      "date": "2025-10-21",
+      "count": 23
+    },
+    {
+      "date": "2025-10-22",
+      "count": 21
+    },
+    {
+      "date": "2025-10-23",
+      "count": 23
+    },
+    {
+      "date": "2025-10-24",
+      "count": 18
+    },
+    {
+      "date": "2025-10-25",
+      "count": 13
+    },
+    {
+      "date": "2025-10-26",
+      "count": 7
+    },
+    {
+      "date": "2025-10-27",
+      "count": 24
+    },
+    {
+      "date": "2025-10-28",
+      "count": 11
+    },
+    {
+      "date": "2025-10-29",
+      "count": 7
+    },
+    {
+      "date": "2025-10-30",
+      "count": 6
+    },
+    {
+      "date": "2025-10-31",
+      "count": 5
+    },
+    {
+      "date": "2025-11-01",
+      "count": 27
+    },
+    {
+      "date": "2025-11-02",
+      "count": 13
+    },
+    {
+      "date": "2025-11-03",
+      "count": 16
+    },
+    {
+      "date": "2025-11-04",
+      "count": 14
+    },
+    {
+      "date": "2025-11-05",
+      "count": 9
+    },
+    {
+      "date": "2025-11-06",
+      "count": 15
+    },
+    {
+      "date": "2025-11-07",
+      "count": 12
+    },
+    {
+      "date": "2025-11-08",
+      "count": 6
+    },
+    {
+      "date": "2025-11-09",
+      "count": 15
+    },
+    {
+      "date": "2025-11-10",
+      "count": 7
+    },
+    {
+      "date": "2025-11-11",
+      "count": 14
+    },
+    {
+      "date": "2025-11-12",
+      "count": 14
+    },
+    {
+      "date": "2025-11-13",
+      "count": 17
+    },
+    {
+      "date": "2025-11-14",
+      "count": 3
+    },
+    {
+      "date": "2025-11-15",
+      "count": 12
+    },
+    {
+      "date": "2025-11-16",
+      "count": 7
+    },
+    {
+      "date": "2025-11-17",
+      "count": 6
+    },
+    {
+      "date": "2025-11-18",
+      "count": 9
+    },
+    {
+      "date": "2025-11-19",
+      "count": 1
+    }
+  ],
+  "top_stores": [
+    {
+      "store_no": 1,
+      "nickname": "노피",
+      "purchase_count": 2010
+    },
+    {
+      "store_no": 2,
+      "nickname": "신성교회",
+      "purchase_count": 304
+    },
+    {
+      "store_no": 46,
+      "nickname": "띵동폰 동대문점",
+      "purchase_count": 193
+    },
+    {
+      "store_no": 14,
+      "nickname": "청라1등성지  지산모바일",
+      "purchase_count": 114
+    },
+    {
+      "store_no": 51,
+      "nickname": "띵동폰-마포점",
+      "purchase_count": 90
+    },
+    {
+      "store_no": 42,
+      "nickname": "조이모바일",
+      "purchase_count": 81
+    },
+    {
+      "store_no": 45,
+      "nickname": "광명휴대폰성지",
+      "purchase_count": 76
+    },
+    {
+      "store_no": 15,
+      "nickname": "유모바일",
+      "purchase_count": 71
+    },
+    {
+      "store_no": 18,
+      "nickname": "폰슐랭 대전지점",
+      "purchase_count": 52
+    },
+    {
+      "store_no": 44,
+      "nickname": "폰신사우만점",
+      "purchase_count": 45
+    }
+  ],
+  "reviews": {
+    "real_reviews": {
+      "phone": 1,
+      "store_phone": 15,
+      "campaign": 0,
+      "total": 16
+    },
+    "virtual_reviews": {
+      "general": 1398,
+      "store": 287,
+      "total": 1685
+    },
+    "total_reviews": 1701
+  },
+  "conversion_rates": {
+    "application_to_purchase": 36.13,
+    "application_to_completion": 2.7,
+    "purchase_to_completion": 7.49
+  },
+  "recent_30d_users": 400,
+  "recent_30d_applications": 420
+}

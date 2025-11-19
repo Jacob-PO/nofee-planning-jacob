@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시장은 투명해야 한다. 우리가 증명했다.</title>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
+            color: #242424;
+            background: #ffffff;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #242424;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #242424;
+            margin: 80px 0 32px 0;
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #242424;
+            margin: 40px 0 20px 0;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #242424;
+            line-height: 1.8;
+        }
+
+        strong {
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #6B6B6B;
+            margin-bottom: 16px;
+        }
+
+        .meta {
+            color: #9CA3AF;
+            font-size: 15px;
+            margin-bottom: 60px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        blockquote {
+            border-left: 4px solid #242424;
+            padding-left: 28px;
+            margin: 48px 0;
+            color: #6B6B6B;
+            font-size: 19px;
+            line-height: 1.8;
+        }
+
+        .section-divider {
+            margin: 80px 0;
+            text-align: center;
+            color: #E5E7EB;
+            font-size: 20px;
+            letter-spacing: 8px;
+        }
+
+        /* Logo */
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 40px;
+        }
+
+        /* CTA Button */
+        .cta-wrapper {
+            margin: 60px 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #FAFBFC 0%, #F3F4F6 100%);
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #E5E7EB;
+        }
+
+        .cta-text {
+            font-size: 18px;
+            color: #6B6B6B;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #242424;
+            color: #ffffff;
+            padding: 18px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 17px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(36, 36, 36, 0.15);
+            letter-spacing: -0.01em;
+        }
+
+        .cta-button:hover {
+            background: #000000;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(36, 36, 36, 0.25);
+        }
+
+        /* Inverted CTA Button (for dark background) */
+        .cta-button.inverted {
+            background: #ffffff;
+            color: #242424;
+        }
+
+        .cta-button.inverted:hover {
+            background: #F3F4F6;
+            color: #000000;
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Soft Cards */
+        .soft-section {
+            background: #FAFBFC;
+            border-radius: 16px;
+            padding: 48px;
+            margin: 48px 0;
+            border: 1px solid #F3F4F6;
+        }
+
+        .soft-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #242424;
+            text-align: center;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+            border: 1px solid #F3F4F6;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: #242424;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #6B6B6B;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .stat-card.highlight {
+            background: #242424;
+            border-color: #242424;
+        }
+
+        .stat-card.highlight .stat-number {
+            color: #ffffff;
+        }
+
+        .stat-card.highlight .stat-label {
+            color: #D1D5DB;
+        }
+
+        /* Problem Cards */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .problem-grid.three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .problem-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid #F3F4F6;
+        }
+
+        .problem-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #242424;
+            margin-bottom: 16px;
+        }
+
+        .problem-content {
+            font-size: 15px;
+            color: #6B6B6B;
+            line-height: 1.7;
+        }
+
+        .problem-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0 0 0;
+        }
+
+        .problem-card li {
+            font-size: 15px;
+            color: #6B6B6B;
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .problem-card li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #242424;
+            font-weight: 700;
+        }
+
+        /* Version Journey */
+        .version-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .version-card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+            border: 1px solid #F3F4F6;
+        }
+
+        .version-card.success {
+            background: #242424;
+            border-color: #242424;
+        }
+
+        .version-badge {
+            font-size: 12px;
+            font-weight: 700;
+            color: #9CA3AF;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .version-card.success .version-badge {
+            color: #D1D5DB;
+        }
+
+        .version-period {
+            font-size: 13px;
+            color: #6B6B6B;
+            margin-bottom: 16px;
+        }
+
+        .version-card.success .version-period {
+            color: #9CA3AF;
+        }
+
+        .version-metric {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 20px 0;
+            color: #242424;
+            letter-spacing: -0.03em;
+        }
+
+        .version-card.success .version-metric {
+            color: #ffffff;
+        }
+
+        .version-note {
+            font-size: 14px;
+            color: #6B6B6B;
+            margin-top: 16px;
+        }
+
+        .version-card.success .version-note {
+            color: #9CA3AF;
+        }
+
+        /* Chart Container */
+        .chart-section {
+            background: #FAFBFC;
+            border-radius: 16px;
+            padding: 48px;
+            margin: 48px 0;
+            border: 1px solid #F3F4F6;
+        }
+
+        .chart-title {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #242424;
+        }
+
+        .line-chart-svg {
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        /* Bar Chart */
+        .bar-chart {
+            margin-top: 32px;
+        }
+
+        .bar-item {
+            margin-bottom: 28px;
+        }
+
+        .bar-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .bar-label {
+            font-size: 14px;
+            color: #6B6B6B;
+            font-weight: 600;
+        }
+
+        .bar-value {
+            font-size: 14px;
+            color: #242424;
+            font-weight: 700;
+        }
+
+        .bar-track {
+            height: 48px;
+            background: #F3F4F6;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #242424 0%, #374151 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 16px;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            transition: width 0.6s ease;
+        }
+
+        /* Efficiency Cards */
+        .efficiency-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .efficiency-card {
+            background: white;
+            border: 2px solid #242424;
+            border-radius: 12px;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        .efficiency-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #242424;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .efficiency-label {
+            font-size: 13px;
+            color: #6B6B6B;
+            font-weight: 600;
+        }
+
+        /* Roadmap */
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .phase-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #F3F4F6;
+            padding: 28px 20px;
+        }
+
+        .phase-card.current {
+            background: #242424;
+            border-color: #242424;
+        }
+
+        .phase-badge {
+            font-size: 11px;
+            font-weight: 700;
+            color: #9CA3AF;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .phase-card.current .phase-badge {
+            color: #D1D5DB;
+        }
+
+        .phase-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #242424;
+            margin-bottom: 8px;
+        }
+
+        .phase-card.current .phase-title {
+            color: #ffffff;
+        }
+
+        .phase-period {
+            font-size: 13px;
+            color: #6B6B6B;
+            margin-bottom: 16px;
+        }
+
+        .phase-card.current .phase-period {
+            color: #9CA3AF;
+        }
+
+        .phase-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .phase-items li {
+            font-size: 13px;
+            color: #6B6B6B;
+            margin-bottom: 8px;
+            padding-left: 16px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .phase-items li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #6B6B6B;
+            font-weight: 700;
+        }
+
+        .phase-card.current .phase-items li {
+            color: #9CA3AF;
+        }
+
+        .phase-card.current .phase-items li:before {
+            color: #9CA3AF;
+        }
+
+        /* Proof Grid */
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .proof-card {
+            background: #242424;
+            border-radius: 12px;
+            padding: 36px 24px;
+            text-align: center;
+        }
+
+        .proof-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #D1D5DB;
+            margin-bottom: 16px;
+        }
+
+        .proof-value {
+            font-size: 40px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: -0.03em;
+        }
+
+        .proof-detail {
+            font-size: 13px;
+            color: #9CA3AF;
+        }
+
+        /* Value Cards */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .value-card {
+            background: white;
+            border-radius: 12px;
+            padding: 36px 28px;
+            border: 1px solid #F3F4F6;
+        }
+
+        .value-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #242424;
+            margin-bottom: 16px;
+        }
+
+        .value-content {
+            font-size: 15px;
+            color: #6B6B6B;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .value-proof {
+            font-size: 14px;
+            color: #242424;
+            font-weight: 600;
+            padding-top: 16px;
+            border-top: 1px solid #F3F4F6;
+        }
+
+        /* Data Source */
+        .data-source {
+            text-align: center;
+            margin-top: 32px;
+            color: #9CA3AF;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        /* Insights Box */
+        .insight-box {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-top: 40px;
+            border: 1px solid #F3F4F6;
+        }
+
+        .insight-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #242424;
+            margin-bottom: 12px;
+        }
+
+        .insight-content {
+            font-size: 15px;
+            color: #6B6B6B;
+            line-height: 1.7;
+        }
+
+        /* Responsive */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .stat-number {
+                font-size: 28px;
+            }
+
+            .stat-label {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+
+            .container {
+                padding: 60px 24px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            h2 {
+                font-size: 26px;
+                margin: 60px 0 24px 0;
+            }
+
+            h3 {
+                font-size: 20px;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+
+            .stat-label {
+                font-size: 12px;
+            }
+
+            .soft-section {
+                padding: 32px 24px;
+                border-radius: 12px;
+            }
+
+            .chart-section {
+                padding: 32px 24px;
+                border-radius: 12px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .problem-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .problem-grid.three-col {
+                grid-template-columns: 1fr;
+            }
+
+            .version-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .efficiency-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .roadmap-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .proof-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .value-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .line-chart-svg {
+                height: 250px;
+            }
+
+            blockquote {
+                font-size: 17px;
+                padding-left: 20px;
+            }
+
+            .cta-wrapper {
+                padding: 28px 20px;
+                margin: 40px 0;
+            }
+
+            .cta-text {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+
+            .cta-button {
+                font-size: 16px;
+                padding: 16px 32px;
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SECTION 0: Hero -->
+        <img src="https://agency.nofee.team/image/company/logo.svg" alt="NoFee Logo" class="logo">
+        <h1>시장은 투명해야 한다.<br>우리가 증명했다.</h1>
+        <p class="subtitle">노피(NOFEE) — 중개수수료 없는 휴대폰 개통 플랫폼</p>
+        <div class="meta">2025년 11월 19일 • 회사소개서</div>
+
+        <div class="cta-wrapper">
+            <p class="cta-text">투명한 휴대폰 개통 시장, 지금 바로 경험해보세요</p>
+            <a href="https://nofee.team/" class="cta-button" target="_blank">노피 서비스 체험하기 →</a>
+        </div>
+
+        <!-- SECTION 1: Opening Story -->
+        <blockquote>
+            중학생 때부터 휴대폰 시장을 좋아했습니다.<br>
+            3개월마다 휴대폰을 바꾸며 즐거운 학창시절을 보냈습니다.<br><br>
+
+            시장을 알았기에 저는 항상 저렴하게, 오히려 돈을 받고 개통했습니다.<br><br>
+
+            하지만 저의 가족들은 달랐습니다.<br>
+            같은 휴대폰, 같은 요금제. 과한 개통수수료를 지불했습니다.<br><br>
+
+            왜일까요?<br><br>
+
+            아는 사람만 알고, 모르는 사람은 판매점이 부르는 게 값이 되는 정보 불균형한 시장.<br><br>
+
+            그날, 저는 이 문제를 해결하기로 했습니다.
+        </blockquote>
+
+        <div class="section-divider">• • •</div>
+
+        <!-- SECTION 2: Problems -->
+        <h2>시장의 구조적 문제</h2>
+        <p style="text-align: center; font-size: 20px; font-weight: 600; color: #6B6B6B; margin-bottom: 48px;">
+            대한민국 휴대폰 개통 시장, 무엇이 문제인가
+        </p>
+
+        <h3>정보 비대칭</h3>
+        <p>고객의 99.9%는 휴대폰 가격표를 본 적이 없습니다.<br>
+        판매점만 알고, 고객은 모릅니다. 정보 접근 자체가 불가능합니다.</p>
+
+        <div class="soft-section">
+            <div class="soft-title">우리 데이터가 보여준 현실</div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-title">고객들의 행동</div>
+                    <div class="problem-content">평균 3.1분 동안 탐색<br>5.5개 페이지 탐색<br>이탈률 2.87%</div>
+                </div>
+                <div class="problem-card" style="background: #242424; border-color: #242424;">
+                    <div class="problem-title" style="color: #ffffff;">이것이 의미하는 것</div>
+                    <div class="problem-content" style="color: #D1D5DB;">고객들은 정보를 찾고 있었습니다.<br>하지만 어디에도 없었습니다.</div>
+                </div>
+            </div>
+        </div>
+
+        <h3>불투명한 가격</h3>
+        <div class="problem-card">
+            <ul>
+                <li>판매점마다 다른 가격</li>
+                <li>통신사별, 요금제별, 기종별, 색상별 모두 다른 마진</li>
+                <li>전화 상담으로만 확인 가능</li>
+                <li>비교 불가능</li>
+            </ul>
+            <p style="margin-top: 24px; font-weight: 600; color: #242424; text-align: center;">
+                결과: "휴대폰 개통은 비싸다"는 고정관념
+            </p>
+        </div>
+
+        <h3>무너진 신뢰</h3>
+        <p style="text-align: center; font-weight: 600; color: #242424; margin-bottom: 32px;">우리가 증명한 신뢰 회복</p>
+        <div class="problem-grid">
+            <div class="stat-card">
+                <div class="stat-number">97%</div>
+                <div class="stat-label">참여율<br>콘텐츠를 끝까지 봅니다</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">7.49%</div>
+                <div class="stat-label">실제 개통 전환율<br>실제로 개통합니다</div>
+            </div>
+        </div>
+
+        <h3>접근성 장벽</h3>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="problem-title">기존 방식의 비효율</div>
+                <ul>
+                    <li>판매점마다 전화로 문의</li>
+                    <li>대기 시간</li>
+                    <li>영업시간 제약</li>
+                    <li>지역 제약</li>
+                </ul>
+            </div>
+            <div class="problem-card" style="background: #FAFBFC;">
+                <div class="problem-title">우리의 해결</div>
+                <ul>
+                    <li>모바일 84.1% - 언제 어디서나</li>
+                    <li>월평균 만 건 이상의 세션 - 24시간 접근</li>
+                    <li>모든 가격표 공개 - 실시간 비교</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-divider">• • •</div>
+
+        <!-- SECTION 3: Solution -->
+        <h2>우리의 답</h2>
+
+        <div class="soft-section">
+            <p style="text-align: center; font-size: 28px; font-weight: 700; color: #242424; line-height: 1.5; margin-bottom: 32px;">
+                투명한 시장을 만든다
+            </p>
+            <p style="text-align: center; font-size: 20px; font-weight: 600; color: #6B6B6B; line-height: 1.6;">
+                누구나 동일한 정보로<br>
+                누구나 동일한 가격으로<br>
+                누구나 공정한 기회로
+            </p>
+        </div>
+
+        <h3>시장 구조의 전환</h3>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="problem-title">기존</div>
+                <ul>
+                    <li>판매점이 가격을 결정합니다</li>
+                    <li>정보는 제한됩니다</li>
+                    <li>고객이 판매점을 찾아다닙니다</li>
+                </ul>
+            </div>
+            <div class="problem-card" style="background: #242424; border-color: #242424;">
+                <div class="problem-title" style="color: #ffffff;">NoFee</div>
+                <ul style="color: #D1D5DB;">
+                    <li style="color: #D1D5DB;"><strong style="color: #ffffff;">모든 가격표를 공개합니다</strong></li>
+                    <li style="color: #D1D5DB;">정보는 평등합니다</li>
+                    <li style="color: #D1D5DB;">판매점이 고객을 기다립니다</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta-wrapper">
+            <p class="cta-text">내 동네 최저가 판매점을 확인해보세요</p>
+            <a href="https://nofee.team/store" class="cta-button" target="_blank">노피 동네성지 보기 →</a>
+        </div>
+
+        <!-- SECTION 4: Current Operations -->
+        <h2>현재 상태</h2>
+
+        <div class="soft-section">
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-title">상품</div>
+                    <ul>
+                        <li>실제 판매중인 기종</li>
+                        <li>전 통신사 지원 (SKT, KT, LG)</li>
+                        <li>전국 주요 지역 커버</li>
+                    </ul>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-title">판매점</div>
+                    <ul>
+                        <li>등록된 협력 판매점</li>
+                        <li>활성 운영 매장</li>
+                        <li>지역별 분산 배치</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="problem-grid" style="margin-top: 20px;">
+                <div class="stat-card highlight">
+                    <div class="stat-number">5천명+</div>
+                    <div class="stat-label">가입 고객</div>
+                </div>
+                <div class="stat-card highlight">
+                    <div class="stat-number">8천건+</div>
+                    <div class="stat-label">총 신청</div>
+                </div>
+            </div>
+
+            <div class="problem-grid" style="margin-top: 20px;">
+                <div class="stat-card highlight">
+                    <div class="stat-number">수백 건</div>
+                    <div class="stat-label">실제 개통</div>
+                </div>
+                <div class="stat-card highlight">
+                    <div class="stat-number">15.3%</div>
+                    <div class="stat-label">최고 개통율</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: Our Customers -->
+        <h2>우리 고객</h2>
+
+        <p style="text-align: center; font-size: 20px; font-weight: 600; color: #242424; margin-bottom: 32px;">
+            핵심 타겟: 30대 남성 (33.6%)
+        </p>
+
+        <div class="stats-grid">
+            <div class="stat-card highlight">
+                <div class="stat-number">33.1세</div>
+                <div class="stat-label">평균 연령</div>
+            </div>
+            <div class="stat-card highlight">
+                <div class="stat-number">89.2%</div>
+                <div class="stat-label">남성 비율</div>
+            </div>
+            <div class="stat-card highlight">
+                <div class="stat-number">99.93%</div>
+                <div class="stat-label">데이터 완성도</div>
+            </div>
+        </div>
+
+        <h3>연령대 분포</h3>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">38.1%</div>
+                <div class="stat-label">30대</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">37.2%</div>
+                <div class="stat-label">20대</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">16.5%</div>
+                <div class="stat-label">40대</div>
+            </div>
+        </div>
+
+        <p style="text-align: center; color: #6B6B6B; font-size: 16px; margin-top: 32px;">
+            <strong>특성:</strong> 온라인 가격 비교 익숙 | 모바일 우선 84.1% | 투명성 중시 | 참여율 97%+
+        </p>
+
+        <div class="section-divider">• • •</div>
+
+        <!-- SECTION 6: Journey -->
+        <h2>3번의 시도, 30배의 성장</h2>
+
+        <div class="version-grid">
+            <div class="version-card">
+                <div class="version-badge">버전 1</div>
+                <div class="version-period">2025년 7월 ~ 8월</div>
+                <h3 style="font-size: 18px; margin: 12px 0;">일반견적</h3>
+                <div class="version-metric">2.8%</div>
+                <p style="font-size: 14px; color: #6B6B6B; margin-top: 16px; line-height: 1.6;">
+                    고객이 원하는 기종을 입력<br>
+                    전체 판매점의 평균 견적 제공
+                </p>
+                <div class="version-note">고객은 "평균 가격"이 아니라<br>"최저가"를 원했습니다</div>
+            </div>
+
+            <div class="version-card">
+                <div class="version-badge">버전 2</div>
+                <div class="version-period">2025년 7월 ~ 8월</div>
+                <h3 style="font-size: 18px; margin: 12px 0;">캠페인 견적</h3>
+                <div class="version-metric">0.5%</div>
+                <p style="font-size: 14px; color: #6B6B6B; margin-top: 16px; line-height: 1.6;">
+                    인기 기종 캠페인 형식<br>
+                    최저가 자동 표시
+                </p>
+                <div class="version-note">고객은 자신이 원하는 기종을<br>"검색"하고 싶어했습니다</div>
+            </div>
+
+            <div class="version-card success">
+                <div class="version-badge">버전 3 ⭐</div>
+                <div class="version-period">2025년 9월 ~ 10월 베타테스트</div>
+                <h3 style="font-size: 18px; margin: 12px 0; color: #ffffff;">동네성지</h3>
+                <div class="version-metric">15.3%</div>
+                <p style="font-size: 14px; color: #9CA3AF; margin-top: 16px; line-height: 1.6;">
+                    고객이 원하는 기종 검색<br>
+                    지역별 최저가 자동 표시
+                </p>
+                <div class="version-note">0.5%에서 15.3%까지<br>30배 향상</div>
+            </div>
+        </div>
+
+        <div class="chart-section">
+            <div class="chart-title">개통율 개선 그래프</div>
+
+            <svg class="line-chart-svg" viewBox="0 0 640 320" preserveAspectRatio="xMidYMid meet">
+                <!-- Background Grid -->
+                <line x1="80" y1="260" x2="600" y2="260" stroke="#E5E7EB" stroke-width="2"/>
+                <line x1="80" y1="200" x2="600" y2="200" stroke="#F3F4F6" stroke-width="1"/>
+                <line x1="80" y1="140" x2="600" y2="140" stroke="#F3F4F6" stroke-width="1"/>
+                <line x1="80" y1="80" x2="600" y2="80" stroke="#F3F4F6" stroke-width="1"/>
+                <line x1="80" y1="20" x2="600" y2="20" stroke="#F3F4F6" stroke-width="1"/>
+
+                <!-- Y-Axis Labels -->
+                <text x="65" y="265" font-size="13" fill="#9CA3AF" text-anchor="end" font-family="SUIT Variable" font-weight="600">0%</text>
+                <text x="65" y="205" font-size="13" fill="#9CA3AF" text-anchor="end" font-family="SUIT Variable" font-weight="600">5%</text>
+                <text x="65" y="145" font-size="13" fill="#9CA3AF" text-anchor="end" font-family="SUIT Variable" font-weight="600">10%</text>
+                <text x="65" y="85" font-size="13" fill="#9CA3AF" text-anchor="end" font-family="SUIT Variable" font-weight="600">15%</text>
+                <text x="65" y="25" font-size="13" fill="#9CA3AF" text-anchor="end" font-family="SUIT Variable" font-weight="600">20%</text>
+
+                <!-- Gradient for line -->
+                <defs>
+                    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#6B6B6B;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#242424;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Line Path with shadow effect -->
+                <polyline points="160,248 280,252 400,188 520,76"
+                    fill="none" stroke="url(#lineGradient)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
+                <polyline points="160,248 280,252 400,188 520,76"
+                    fill="none" stroke="url(#lineGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+                <!-- Data Points -->
+                <circle cx="160" cy="248" r="8" fill="#6B6B6B" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="280" cy="252" r="8" fill="#6B6B6B" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="400" cy="188" r="8" fill="#242424" stroke="#ffffff" stroke-width="2"/>
+                <circle cx="520" cy="76" r="12" fill="#242424" stroke="#ffffff" stroke-width="3"/>
+
+                <!-- Star highlight for peak -->
+                <circle cx="520" cy="76" r="20" fill="#242424" opacity="0.1"/>
+                <text x="520" y="50" font-size="24" text-anchor="middle">⭐</text>
+                <text x="520" y="30" font-size="16" fill="#242424" font-weight="800" text-anchor="middle" font-family="SUIT Variable">15.3%</text>
+
+                <!-- X-Axis Labels -->
+                <text x="160" y="285" font-size="14" fill="#6B6B6B" text-anchor="middle" font-family="SUIT Variable" font-weight="600">V1 (7-8월)</text>
+                <text x="280" y="285" font-size="14" fill="#6B6B6B" text-anchor="middle" font-family="SUIT Variable" font-weight="600">V2 (7-8월)</text>
+                <text x="400" y="285" font-size="14" fill="#6B6B6B" text-anchor="middle" font-family="SUIT Variable" font-weight="600">V3 (9월)</text>
+                <text x="520" y="285" font-size="14" fill="#242424" text-anchor="middle" font-family="SUIT Variable" font-weight="800">V3 (10월)</text>
+
+                <!-- Value Labels on points -->
+                <text x="160" y="235" font-size="13" fill="#6B6B6B" font-weight="700" text-anchor="middle" font-family="SUIT Variable">2.8%</text>
+                <text x="280" y="270" font-size="13" fill="#6B6B6B" font-weight="700" text-anchor="middle" font-family="SUIT Variable">0.5%</text>
+                <text x="400" y="175" font-size="13" fill="#242424" font-weight="700" text-anchor="middle" font-family="SUIT Variable">6.0%</text>
+            </svg>
+
+            <p style="text-align: center; font-size: 18px; font-weight: 700; color: #242424; margin-top: 40px;">
+                3개월 만에
+            </p>
+            <div class="problem-grid" style="margin-top: 24px;">
+                <div class="problem-card" style="background: #FAFBFC;">
+                    <div class="problem-content" style="text-align: center;">문제를 찾았습니다</div>
+                </div>
+                <div class="problem-card" style="background: #FAFBFC;">
+                    <div class="problem-content" style="text-align: center;">데이터가 방향을 알려줬습니다</div>
+                </div>
+            </div>
+            <div class="problem-grid" style="margin-top: 16px;">
+                <div class="problem-card" style="background: #FAFBFC;">
+                    <div class="problem-content" style="text-align: center;">빠르게 실행했습니다</div>
+                </div>
+                <div class="problem-card" style="background: #242424; border-color: #242424;">
+                    <div class="problem-content" style="text-align: center; color: #ffffff;">고객이 증명했습니다</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="cta-wrapper">
+            <p class="cta-text">검증된 서비스를 직접 체험해보세요</p>
+            <a href="https://nofee.team/store" class="cta-button" target="_blank">동네성지 체험하기 →</a>
+        </div>
+
+        <!-- SECTION 7: Proof by Numbers -->
+        <h2>데이터로 증명</h2>
+
+        <h3>전환 퍼널</h3>
+        <div class="soft-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">8천건+</div>
+                    <div class="stat-label">신청</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">36.13%</div>
+                    <div class="stat-label">구매 전환율<br>(개통정보 입력)</div>
+                </div>
+                <div class="stat-card highlight">
+                    <div class="stat-number">7.49%</div>
+                    <div class="stat-label">개통 완료 전환율</div>
+                </div>
+            </div>
+            <p style="text-align: center; font-weight: 700; font-size: 18px; color: #242424; margin-top: 32px;">
+                베타테스트 최고 개통율: 15.3% (2025년 10월)
+            </p>
+        </div>
+
+        <h3>마케팅 효율</h3>
+        <p style="text-align: center; font-size: 24px; font-weight: 700; color: #242424; margin: 32px 0;">
+            단 280만원으로 5,429명을 확보했습니다
+        </p>
+
+        <div class="soft-section">
+            <div class="efficiency-grid">
+                <div class="efficiency-card">
+                    <div class="efficiency-value">99원</div>
+                    <div class="efficiency-label">CPC<br>클릭당 비용</div>
+                </div>
+                <div class="efficiency-card">
+                    <div class="efficiency-value">515원</div>
+                    <div class="efficiency-label">CAC<br>고객획득비용</div>
+                </div>
+                <div class="efficiency-card">
+                    <div class="efficiency-value">315원</div>
+                    <div class="efficiency-label">CPA<br>신청당 비용</div>
+                </div>
+            </div>
+
+            <div class="problem-grid" style="margin-top: 32px;">
+                <div class="problem-card" style="background: white;">
+                    <div class="problem-title">280만원으로</div>
+                    <ul>
+                        <li>5천명 이상의 고객 확보</li>
+                        <li>8천건 이상의 신청 유도</li>
+                        <li>수백 건의 실제 개통 검증</li>
+                    </ul>
+                </div>
+                <div class="problem-card" style="background: #242424; border-color: #242424;">
+                    <div class="problem-title" style="color: #ffffff;">결론</div>
+                    <p style="color: #D1D5DB; font-size: 16px; margin-top: 16px; line-height: 1.7;">
+                        최소 비용<br>
+                        최대 효율을<br>
+                        <strong style="color: #ffffff;">증명했습니다</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 8: Web Traffic -->
+        <h2>웹 트래픽 & 사용자 행동</h2>
+
+        <p style="text-align: center; font-size: 20px; font-weight: 700; color: #242424; margin-bottom: 32px;">
+            베타테스트 기간 액티브 유저 (2025년 7-10월)
+        </p>
+
+        <div class="soft-section">
+            <div class="problem-grid">
+                <div class="stat-card">
+                    <div class="stat-number">43,716명</div>
+                    <div class="stat-label">총 액티브 유저</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">54,433회</div>
+                    <div class="stat-label">총 세션</div>
+                </div>
+            </div>
+        </div>
+
+        <h3>사용자 행동</h3>
+        <div class="problem-grid">
+            <div class="stat-card highlight">
+                <div class="stat-number">97%+</div>
+                <div class="stat-label">참여율</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2.87%</div>
+                <div class="stat-label">이탈률</div>
+            </div>
+        </div>
+
+        <div class="problem-grid">
+            <div class="stat-card">
+                <div class="stat-number">84.1%</div>
+                <div class="stat-label">모바일</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3.1분</div>
+                <div class="stat-label">세션 시간</div>
+            </div>
+        </div>
+
+        <div class="problem-grid">
+            <div class="stat-card">
+                <div class="stat-number">5.5개</div>
+                <div class="stat-label">세션당 페이지</div>
+            </div>
+        </div>
+
+        <h3>리텐션 (재방문율)</h3>
+        <div class="soft-section">
+            <div class="problem-grid">
+                <div class="stat-card highlight">
+                    <div class="stat-number">24.17%</div>
+                    <div class="stat-label">베타테스트 리텐션율</div>
+                </div>
+                <div class="stat-card highlight">
+                    <div class="stat-number">10,566명</div>
+                    <div class="stat-label">총 재방문 유저</div>
+                </div>
+            </div>
+
+            <p style="text-align: center; font-size: 18px; font-weight: 600; color: #242424; margin-top: 40px; margin-bottom: 20px;">
+                월별 리텐션 향상
+            </p>
+
+            <div class="problem-grid">
+                <div class="stat-card">
+                    <div class="stat-number">13.71%</div>
+                    <div class="stat-label">7월</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">23.01%</div>
+                    <div class="stat-label">8월</div>
+                </div>
+            </div>
+
+            <div class="problem-grid">
+                <div class="stat-card">
+                    <div class="stat-number">27.41%</div>
+                    <div class="stat-label">9월</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">28.80%</div>
+                    <div class="stat-label">10월</div>
+                </div>
+            </div>
+
+            <p style="text-align: center; font-weight: 700; font-size: 18px; color: #242424; margin-top: 32px;">
+                4개월 만에 리텐션 2배 이상 향상
+            </p>
+        </div>
+
+        <div class="soft-section">
+            <p style="text-align: center; font-size: 18px; font-weight: 600; color: #242424; margin-bottom: 20px;">
+                베타테스트 4개월 동안
+            </p>
+            <p style="text-align: center; font-size: 16px; color: #6B6B6B; line-height: 1.8;">
+                양질의 트래픽 | 적극적 탐색 | 모바일 중심 | 지속 성장하는 리텐션
+            </p>
+        </div>
+
+        <!-- SECTION 9: Growth Data -->
+        <h2>성장 곡선</h2>
+
+        <div class="chart-section">
+            <div class="chart-title">월별 신청 추이 (2025년)</div>
+
+            <div class="bar-chart">
+                <div class="bar-item">
+                    <div class="bar-header">
+                        <span class="bar-label">7월</span>
+                        <span class="bar-value">482건</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 12.3%;"></div>
+                    </div>
+                </div>
+
+                <div class="bar-item">
+                    <div class="bar-header">
+                        <span class="bar-label">8월</span>
+                        <span class="bar-value">2,850건 (+491%)</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 72.5%;"></div>
+                    </div>
+                </div>
+
+                <div class="bar-item">
+                    <div class="bar-header">
+                        <span class="bar-label">9월</span>
+                        <span class="bar-value">3,928건 ★</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+
+                <div class="bar-item">
+                    <div class="bar-header">
+                        <span class="bar-label">10월</span>
+                        <span class="bar-value">1,396건</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 35.5%;"></div>
+                    </div>
+                </div>
+
+                <div class="bar-item">
+                    <div class="bar-header">
+                        <span class="bar-label">11월 (19일)</span>
+                        <span class="bar-value">217건</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 5.5%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <p style="text-align: center; font-size: 20px; font-weight: 700; color: #242424; margin-top: 48px; margin-bottom: 32px;">
+                베타테스트에서 배운 것
+            </p>
+
+            <div class="problem-grid" style="margin-top: 24px;">
+                <div class="problem-card" style="background: #FAFBFC;">
+                    <div class="problem-title">8-9월 성장</div>
+                    <div class="problem-content">
+                        마케팅 예산 투입 → 즉각 반응<br>
+                        <strong>통제 가능한 성장 검증</strong>
+                    </div>
+                </div>
+                <div class="problem-card" style="background: #FAFBFC;">
+                    <div class="problem-title">10월 개통율 15.3%</div>
+                    <div class="problem-content">
+                        서비스 최적화 성공<br>
+                        <strong>10%+ 안정화 가능성 입증</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="problem-grid" style="margin-top: 16px;">
+                <div class="problem-card" style="background: #FAFBFC;">
+                    <div class="problem-title">11월 볼륨 감소</div>
+                    <div class="problem-content">
+                        페이드 마케팅 중단<br>
+                        공식 출시 준비 단계<br>
+                        <strong>성장을 통제할 수 있다는 증명</strong>
+                    </div>
+                </div>
+                <div class="problem-card" style="background: #242424; border-color: #242424;">
+                    <div class="problem-title" style="color: #ffffff;">베타테스트 완료</div>
+                    <div class="problem-content" style="color: #D1D5DB;">
+                        문제를 찾았습니다<br>
+                        해결했습니다<br>
+                        <strong style="color: #ffffff;">검증했습니다</strong>
+                    </div>
+                </div>
+            </div>
+
+            <p style="text-align: center; font-size: 24px; font-weight: 700; color: #242424; margin-top: 48px;">
+                이제 공식 출시입니다
+            </p>
+        </div>
+
+        <div class="section-divider">• • •</div>
+
+        <!-- SECTION 10: Vision -->
+        <h2>다음 단계</h2>
+
+        <div class="soft-section">
+            <p style="font-size: 18px; line-height: 1.8; color: #242424;">
+                <strong>지금:</strong> 정보 격차 해소 | 통신 시장 신뢰 회복 | 베타테스트 완료<br>
+                <strong>다음:</strong> 공식 출시 | 전국 확장 | 유통 파트너십<br>
+                <strong>최종:</strong> 대한민국 휴대폰 유통 표준 플랫폼
+            </p>
+        </div>
+
+        <h3>로드맵</h3>
+        <div class="roadmap-grid">
+            <div class="phase-card current">
+                <div class="phase-badge">Phase 1 ✓ 완료</div>
+                <div class="phase-title">시장 검증 완료</div>
+                <div class="phase-period">2025년 7-10월</div>
+                <ul class="phase-items">
+                    <li>개통율 30배 향상 검증 (0.5% → 15.3%)</li>
+                    <li>CAC 515원 검증</li>
+                    <li>베타테스트 완료</li>
+                </ul>
+            </div>
+
+            <div class="phase-card">
+                <div class="phase-badge">Phase 2</div>
+                <div class="phase-title">공식 출시</div>
+                <div class="phase-period">2025년 11월 ~</div>
+                <ul class="phase-items">
+                    <li>공식 서비스 런칭</li>
+                    <li>개통율 10%+ 안정화</li>
+                    <li>전국 판매점 제휴 확대</li>
+                    <li>필요: 마케팅 예산, 영업 인력</li>
+                </ul>
+            </div>
+
+            <div class="phase-card">
+                <div class="phase-badge">Phase 3</div>
+                <div class="phase-title">시장 선점</div>
+                <div class="phase-period">12-24개월</div>
+                <ul class="phase-items">
+                    <li>전국 커버리지 확보</li>
+                    <li>월간 안정적 매출 구조</li>
+                    <li>필요: 확장 자본</li>
+                </ul>
+            </div>
+
+            <div class="phase-card">
+                <div class="phase-badge">Phase 4</div>
+                <div class="phase-title">유통 파트너십</div>
+                <div class="phase-period">24개월+</div>
+                <ul class="phase-items">
+                    <li>통신 3사 공식 파트너</li>
+                    <li>업계 표준 플랫폼</li>
+                    <li>B2B 서비스 론칭</li>
+                    <li>필요: 전략적 파트너십</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta-wrapper">
+            <p class="cta-text">공식 출시와 함께 시작하세요</p>
+            <a href="https://nofee.team/" class="cta-button" target="_blank">노피 서비스 시작하기 →</a>
+        </div>
+
+        <!-- SECTION 11: Our Values -->
+        <h2>우리의 원칙</h2>
+
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-title">투명성</div>
+                <div class="value-content">
+                    모든 가격을 공개합니다.<br>
+                    숨겨진 비용은 없습니다.<br>
+                    고객이 모든 정보를 볼 수 있어야 합니다.
+                </div>
+                <div class="value-proof">증명: 모든 가격표 공개</div>
+            </div>
+
+            <div class="value-card">
+                <div class="value-title">빠른 실행</div>
+                <div class="value-content">
+                    3개월에 3번 개선했습니다.<br>
+                    실패를 두려워하지 않습니다.<br>
+                    데이터로 빠르게 학습합니다.
+                </div>
+                <div class="value-proof">증명: 개통율 30배 향상</div>
+            </div>
+
+            <div class="value-card">
+                <div class="value-title">고객 중심</div>
+                <div class="value-content">
+                    고객의 시간을 아껴줍니다.<br>
+                    진짜 최저가를 찾아줍니다.
+                </div>
+                <div class="value-proof">증명: 참여율 97%+</div>
+            </div>
+        </div>
+
+        <div class="section-divider">• • •</div>
+
+        <!-- SECTION 12: Closing -->
+        <h2>클로징</h2>
+
+        <blockquote style="font-size: 20px; border-left: 4px solid #242424;">
+            정보는 투명해야 하고,<br>
+            가격은 공정해야 하며,<br>
+            시장은 모두에게 평등해야 합니다.<br><br>
+
+            중학생 시절, 저만 알고 있던 정보를<br>
+            이제 모두가 알 수 있게 만들었습니다.<br><br>
+
+            <strong style="color: #242424;">단 280만원으로 5천명 이상을 확보했습니다.</strong><br>
+            <strong style="color: #242424;">개통율 30배 향상을 검증했습니다.</strong><br>
+            <strong style="color: #242424;">베타테스트를 완료했습니다.</strong><br><br>
+
+            노피는 준비된 로켓입니다.<br><br>
+
+            엔진을 검증했습니다.<br>
+            궤도를 계산했습니다.<br>
+            베타테스트를 완료했습니다.<br><br>
+
+            <strong style="font-size: 28px; color: #242424; font-style: normal;">이제 공식 출시입니다.</strong>
+        </blockquote>
+
+        <div class="cta-wrapper" style="margin-top: 60px; background: linear-gradient(135deg, #242424 0%, #000000 100%); border-color: #242424;">
+            <p class="cta-text" style="color: #D1D5DB; font-size: 20px; font-weight: 600;">투명한 시장의 시작, 노피와 함께하세요</p>
+            <a href="https://nofee.team/" class="cta-button inverted" style="font-size: 18px; padding: 20px 48px;" target="_blank">지금 노피 체험하기 →</a>
+        </div>
+
+    </div>
+</body>
+</html>
