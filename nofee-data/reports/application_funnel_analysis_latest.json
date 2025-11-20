@@ -1,0 +1,293 @@
+{
+  "metadata": {
+    "analyzed_at": "2025-11-20T09:30:37.918536",
+    "purpose": "견적신청 프로세스 퍼널 분석",
+    "version": "1.0"
+  },
+  "apply_phone": {
+    "total": 4101,
+    "by_step_code": [
+      {
+        "step_code": "0201006",
+        "count": 2860
+      },
+      {
+        "step_code": "0201007",
+        "count": 1018
+      },
+      {
+        "step_code": "0201003",
+        "count": 101
+      },
+      {
+        "step_code": "0201004",
+        "count": 68
+      },
+      {
+        "step_code": "0201005",
+        "count": 47
+      },
+      {
+        "step_code": "0201001",
+        "count": 7
+      }
+    ]
+  },
+  "apply_campaign": {
+    "total": 4778,
+    "by_step_code": [
+      {
+        "step_code": "0201006",
+        "count": 3068
+      },
+      {
+        "step_code": "0201007",
+        "count": 1094
+      },
+      {
+        "step_code": "0201003",
+        "count": 242
+      },
+      {
+        "step_code": "0201005",
+        "count": 233
+      },
+      {
+        "step_code": "0201004",
+        "count": 130
+      },
+      {
+        "step_code": "0201001",
+        "count": 11
+      }
+    ]
+  },
+  "step_code_definitions": {
+    "0201001": "신청접수",
+    "0201002": "견적확인",
+    "0201003": "매장선택",
+    "0201004": "방문예약",
+    "0201005": "개통완료",
+    "0201006": "신청취소",
+    "0201007": "매칭실패"
+  },
+  "store_purchases": {
+    "total": 3210,
+    "from_apply_phone": 2610,
+    "from_apply_campaign": 2841
+  },
+  "completions": {
+    "total": 280,
+    "from_apply_phone": 47,
+    "from_apply_campaign": 233
+  },
+  "funnel": {
+    "1_신청": {
+      "total": 8879,
+      "apply_phone": 4101,
+      "apply_campaign": 4778,
+      "percentage": 100.0
+    },
+    "2_매장구매확정": {
+      "total": 3210,
+      "from_apply_phone": 2610,
+      "from_apply_campaign": 2841,
+      "percentage": 36.15,
+      "conversion_rate": 36.15
+    },
+    "3_개통완료": {
+      "total": 280,
+      "from_apply_phone": 47,
+      "from_apply_campaign": 233,
+      "percentage": 3.15,
+      "conversion_from_application": 3.15,
+      "conversion_from_purchase": 8.72
+    }
+  },
+  "monthly_trend": [
+    {
+      "month": "2025-11",
+      "count": 223
+    },
+    {
+      "month": "2025-10",
+      "count": 1396
+    },
+    {
+      "month": "2025-09",
+      "count": 3928
+    },
+    {
+      "month": "2025-08",
+      "count": 2850
+    },
+    {
+      "month": "2025-07",
+      "count": 482
+    }
+  ],
+  "daily_trend_30d": [
+    {
+      "date": "2025-11-19",
+      "count": 7
+    },
+    {
+      "date": "2025-11-18",
+      "count": 9
+    },
+    {
+      "date": "2025-11-17",
+      "count": 6
+    },
+    {
+      "date": "2025-11-16",
+      "count": 7
+    },
+    {
+      "date": "2025-11-15",
+      "count": 12
+    },
+    {
+      "date": "2025-11-14",
+      "count": 3
+    },
+    {
+      "date": "2025-11-13",
+      "count": 17
+    },
+    {
+      "date": "2025-11-12",
+      "count": 14
+    },
+    {
+      "date": "2025-11-11",
+      "count": 14
+    },
+    {
+      "date": "2025-11-10",
+      "count": 7
+    },
+    {
+      "date": "2025-11-09",
+      "count": 15
+    },
+    {
+      "date": "2025-11-08",
+      "count": 6
+    },
+    {
+      "date": "2025-11-07",
+      "count": 12
+    },
+    {
+      "date": "2025-11-06",
+      "count": 15
+    },
+    {
+      "date": "2025-11-05",
+      "count": 9
+    },
+    {
+      "date": "2025-11-04",
+      "count": 14
+    },
+    {
+      "date": "2025-11-03",
+      "count": 16
+    },
+    {
+      "date": "2025-11-02",
+      "count": 13
+    },
+    {
+      "date": "2025-11-01",
+      "count": 27
+    },
+    {
+      "date": "2025-10-31",
+      "count": 5
+    },
+    {
+      "date": "2025-10-30",
+      "count": 6
+    },
+    {
+      "date": "2025-10-29",
+      "count": 7
+    },
+    {
+      "date": "2025-10-28",
+      "count": 11
+    },
+    {
+      "date": "2025-10-27",
+      "count": 24
+    },
+    {
+      "date": "2025-10-26",
+      "count": 7
+    },
+    {
+      "date": "2025-10-25",
+      "count": 13
+    },
+    {
+      "date": "2025-10-24",
+      "count": 18
+    },
+    {
+      "date": "2025-10-23",
+      "count": 23
+    },
+    {
+      "date": "2025-10-22",
+      "count": 21
+    },
+    {
+      "date": "2025-10-21",
+      "count": 19
+    }
+  ],
+  "top_products_by_applications": [
+    {
+      "product_name": "갤럭시 Z 폴드 7",
+      "count": 1577
+    },
+    {
+      "product_name": "갤럭시 S25",
+      "count": 902
+    },
+    {
+      "product_name": "아이폰 16 프로",
+      "count": 850
+    },
+    {
+      "product_name": "[사전예약] 아이폰 17",
+      "count": 742
+    },
+    {
+      "product_name": "갤럭시 Z 플립 7",
+      "count": 717
+    },
+    {
+      "product_name": "갤럭시 S25 울트라",
+      "count": 636
+    },
+    {
+      "product_name": "[사전예약] 아이폰 17 프로",
+      "count": 412
+    },
+    {
+      "product_name": "아이폰 16",
+      "count": 337
+    },
+    {
+      "product_name": "아이폰 16 프로 맥스",
+      "count": 327
+    },
+    {
+      "product_name": "아이폰 17",
+      "count": 270
+    }
+  ]
+}
