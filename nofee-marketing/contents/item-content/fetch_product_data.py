@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 """
-상품 데이터 조회 및 HTML 생성
+상품 데이터 조회 및 HTML/이미지 생성
 - 시세표 테이블을 사용하여 실제 판매가 최저가 조회
 - 6개 상품을 한 번에 하나의 HTML로 생성
+- Puppeteer를 사용하여 각 상품별 이미지 자동 생성 (3x4, 1x1)
+- 날짜별 output 폴더 자동 생성
 """
 import pymysql
 import json
 import sys
+import os
+import subprocess
 from datetime import datetime
+from pathlib import Path
 
 # DB 연결 정보
 DB_CONFIG = {
@@ -146,7 +151,9 @@ def get_product_data(product_name, product_code=None):
 
 def format_price(price):
     """가격을 만원 단위로 포맷팅"""
-    return int(price / 10000)
+    # 마이너스 가격은 0으로 처리
+    formatted = int(price / 10000)
+    return max(0, formatted)
 
 def generate_product_html(product, ratio='3x4'):
     """단일 상품 HTML 생성"""
@@ -157,8 +164,10 @@ def generate_product_html(product, ratio='3x4'):
     lowest_price = format_price(product['lowest_price'])
     nofee_support = format_price(product['nofee_support'])
 
-    # 이미지 파일명 (product에서 직접 가져오기)
+    # 이미지 파일명 (assets 폴더에서 가져오기)
     image_filename = product.get('image_file', product['name'].replace(' ', '') + '.png')
+    # 상대 경로 설정 (output/날짜/ 폴더에서 assets로 접근)
+    image_path = f'../../assets/{image_filename}'
 
     # 상품명 길이 체크
     title_class = 'long' if len(product['name']) > 10 else ''
@@ -186,7 +195,7 @@ def generate_product_html(product, ratio='3x4'):
             </div>
 
             <div class="product-image">
-                <img src="./{image_filename}" alt="{product['name']}">
+                <img src="{image_path}" alt="{product['name']}">
             </div>
 
             <div class="price-section">
@@ -201,11 +210,22 @@ def generate_product_html(product, ratio='3x4'):
     </div>
 '''
 
+def create_output_directories():
+    """output 폴더 구조 생성"""
+    today = datetime.now().strftime('%Y%m%d')
+    base_dir = Path('output') / today
+
+    # 디렉토리 생성
+    (base_dir / '3x4').mkdir(parents=True, exist_ok=True)
+    (base_dir / '1x1').mkdir(parents=True, exist_ok=True)
+
+    return base_dir
+
 def generate_multi_product_html(products, output_filename='all_products_3x4.html', ratio='3x4'):
     """여러 상품을 한 HTML로 생성"""
     if not products or len(products) == 0:
         print("❌ 상품 정보가 없어 HTML을 생성할 수 없습니다.")
-        return
+        return None
 
     # 각 상품의 HTML 생성
     products_html = '\n'.join([generate_product_html(p, ratio) for p in products if p])
@@ -256,16 +276,16 @@ def generate_multi_product_html(products, output_filename='all_products_3x4.html
         .header-banner {{
             background: #131FA0;
             width: 100%;
-            padding: 45px 50px;
+            padding: 35px 40px;
             text-align: center;
         }}
 
         .banner-line {{
-            font-size: 80px;
+            font-size: 70px;
             font-weight: 700;
             color: #fff;
             letter-spacing: -2.5px;
-            line-height: 1.25;
+            line-height: 1.2;
         }}
 
         .content {{
@@ -274,39 +294,39 @@ def generate_multi_product_html(products, output_filename='all_products_3x4.html
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 50px 60px;
+            padding: 35px 50px;
         }}
 
         .product-title {{
-            font-size: 160px;
+            font-size: 120px;
             font-weight: 900;
             color: #000;
             text-align: center;
             letter-spacing: -5px;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             line-height: 1.1;
             word-break: keep-all;
             max-width: 100%;
         }}
 
         .product-title.long {{
-            font-size: 125px;
+            font-size: 95px;
         }}
 
         .product-info {{
-            font-size: 52px;
+            font-size: 44px;
             font-weight: 500;
             color: #666;
             text-align: center;
-            margin-bottom: 55px;
+            margin-bottom: 35px;
             letter-spacing: -1.5px;
             white-space: nowrap;
         }}
 
         .product-image {{
-            width: 550px;
-            height: 550px;
-            margin-bottom: 55px;
+            width: 420px;
+            height: 420px;
+            margin-bottom: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -324,7 +344,7 @@ def generate_multi_product_html(products, output_filename='all_products_3x4.html
             justify-content: center;
             align-items: center;
             width: 100%;
-            gap: 90px;
+            gap: 60px;
             background: transparent;
         }}
 
@@ -334,7 +354,7 @@ def generate_multi_product_html(products, output_filename='all_products_3x4.html
         }}
 
         .price-box.original .price-value {{
-            font-size: 110px;
+            font-size: 85px;
             font-weight: 900;
             letter-spacing: -4px;
             color: #999;
@@ -343,18 +363,18 @@ def generate_multi_product_html(products, output_filename='all_products_3x4.html
         }}
 
         .price-box.lowest .price-value {{
-            font-size: 200px;
+            font-size: 150px;
             font-weight: 900;
             letter-spacing: -6px;
             white-space: nowrap;
         }}
 
         .canvas.compact .price-box.original .price-value {{
-            font-size: 90px;
+            font-size: 75px;
         }}
 
         .canvas.compact .price-box.lowest .price-value {{
-            font-size: 160px;
+            font-size: 130px;
         }}
 
         .price-box.lowest .price-value .amount {{
@@ -437,11 +457,35 @@ def generate_multi_product_html(products, output_filename='all_products_3x4.html
     print(f"   총 {len([p for p in products if p])}개 상품 포함")
     print(f"   생성일시: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
+    return output_filename
+
+def generate_screenshots(html_file, output_dir, ratio):
+    """Node.js 스크립트를 호출하여 스크린샷 생성"""
+    try:
+        result = subprocess.run(
+            ['node', 'screenshot.js', html_file, output_dir, ratio],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        print(result.stdout)
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"❌ 스크린샷 생성 실패: {e.stderr}")
+        return False
+    except FileNotFoundError:
+        print("❌ Node.js가 설치되어 있지 않습니다. 'node' 명령어를 찾을 수 없습니다.")
+        return False
+
 if __name__ == "__main__":
     print("="*60)
-    print("🚀 노피 상품 정보 조회 및 HTML 생성 시작")
+    print("🚀 노피 상품 정보 조회 및 HTML/이미지 생성 시작")
     print("="*60)
     print(f"📋 조회할 상품: {len(PRODUCT_LIST)}개\n")
+
+    # 출력 폴더 생성
+    base_dir = create_output_directories()
+    print(f"📁 출력 폴더 생성: {base_dir}\n")
 
     # 모든 상품 데이터 조회
     products = []
@@ -461,16 +505,39 @@ if __name__ == "__main__":
     if success_count > 0:
         # 3x4 버전 HTML 생성
         print("\n📄 3:4 비율 HTML 생성 중...")
-        output_filename_3x4 = 'all_products_3x4.html'
-        generate_multi_product_html(products, output_filename_3x4, ratio='3x4')
+        html_3x4 = str(base_dir / 'all_products_3x4.html')
+        generate_multi_product_html(products, html_3x4, ratio='3x4')
 
         # 1x1 버전 HTML 생성
         print("\n📄 1:1 비율 HTML 생성 중...")
-        output_filename_1x1 = 'all_products_1x1.html'
-        generate_multi_product_html(products, output_filename_1x1, ratio='1x1')
+        html_1x1 = str(base_dir / 'all_products_1x1.html')
+        generate_multi_product_html(products, html_1x1, ratio='1x1')
 
         print("\n" + "="*60)
         print("✅ 모든 HTML 파일 생성 완료!")
         print("="*60)
+
+        # 스크린샷 생성
+        print("\n" + "="*60)
+        print("📸 이미지 스크린샷 생성 시작")
+        print("="*60)
+
+        # 3x4 이미지 생성
+        output_3x4 = str(base_dir / '3x4')
+        if generate_screenshots(html_3x4, output_3x4, '3x4'):
+            print(f"✅ 3x4 이미지 저장 위치: {output_3x4}")
+
+        # 1x1 이미지 생성
+        output_1x1 = str(base_dir / '1x1')
+        if generate_screenshots(html_1x1, output_1x1, '1x1'):
+            print(f"✅ 1x1 이미지 저장 위치: {output_1x1}")
+
+        print("\n" + "="*60)
+        print("✅ 모든 작업 완료!")
+        print("="*60)
+        print(f"\n📂 결과 파일 위치: {base_dir}")
+        print(f"   - HTML: all_products_3x4.html, all_products_1x1.html")
+        print(f"   - 3x4 이미지: 3x4/ 폴더")
+        print(f"   - 1x1 이미지: 1x1/ 폴더")
     else:
         print("\n❌ 조회된 상품이 없어 HTML을 생성할 수 없습니다.")

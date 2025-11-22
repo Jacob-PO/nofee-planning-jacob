@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/nofee-workspace/nofee-planning#readme",
   "dependencies": {
-    "@google-analytics/data": "^5.2.1"
+    "@google-analytics/data": "^5.2.1",
+    "puppeteer": "^24.31.0"
   }
 }

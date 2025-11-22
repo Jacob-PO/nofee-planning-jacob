@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>아이폰 17 시리즈 - 3:4</title>
+    <title>노피 최저가 - 아이폰 17 & 갤럭시 시리즈 (1x1)</title>
     <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
     <style>
         * {
@@ -26,11 +26,26 @@
 
         .canvas {
             width: 1080px;
-            height: 1440px;
+            height: 1080px;
             background: #fff;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+        }
+
+        .header-banner {
+            background: #131FA0;
+            width: 100%;
+            padding: 35px 40px;
+            text-align: center;
+        }
+
+        .banner-line {
+            font-size: 70px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -2.5px;
+            line-height: 1.2;
         }
 
         .content {
@@ -39,54 +54,39 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 80px 60px;
-        }
-
-        .tags {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-
-        .tag {
-            background: #131FA0;
-            color: #fff;
-            font-size: 42px;
-            font-weight: 700;
-            padding: 18px 36px;
-            border-radius: 12px;
-            letter-spacing: -1px;
+            padding: 35px 50px;
         }
 
         .product-title {
-            font-size: 140px;
+            font-size: 120px;
             font-weight: 900;
             color: #000;
             text-align: center;
             letter-spacing: -5px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             line-height: 1.1;
             word-break: keep-all;
             max-width: 100%;
         }
 
         .product-title.long {
-            font-size: 110px;
+            font-size: 95px;
         }
 
         .product-info {
-            font-size: 48px;
+            font-size: 44px;
             font-weight: 500;
             color: #666;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 35px;
             letter-spacing: -1.5px;
+            white-space: nowrap;
         }
 
         .product-image {
-            width: 500px;
-            height: 500px;
-            margin-bottom: 60px;
+            width: 420px;
+            height: 420px;
+            margin-bottom: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -104,7 +104,7 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            gap: 80px;
+            gap: 60px;
             background: transparent;
         }
 
@@ -114,25 +114,27 @@
         }
 
         .price-box.original .price-value {
-            font-size: 100px;
+            font-size: 85px;
             font-weight: 900;
             letter-spacing: -4px;
             color: #999;
             text-decoration: line-through;
+            white-space: nowrap;
         }
 
         .price-box.lowest .price-value {
-            font-size: 180px;
+            font-size: 150px;
             font-weight: 900;
             letter-spacing: -6px;
+            white-space: nowrap;
         }
 
         .canvas.compact .price-box.original .price-value {
-            font-size: 80px;
+            font-size: 75px;
         }
 
         .canvas.compact .price-box.lowest .price-value {
-            font-size: 140px;
+            font-size: 130px;
         }
 
         .price-box.lowest .price-value .amount {
@@ -143,27 +145,70 @@
             color: #000;
         }
 
-        .cash-bonus-tag {
-            margin-top: 20px;
-            background: #131FA0;
-            color: #fff;
-            font-size: 32px;
+        /* 1x1 비율 전용 스타일 */
+        .canvas.square .header-banner {
+            padding: 28px 35px;
+        }
+
+        .canvas.square .banner-line {
+            font-size: 52px;
             font-weight: 700;
-            padding: 12px 24px;
-            border-radius: 8px;
-            display: inline-block;
+            line-height: 1.2;
+        }
+
+        .canvas.square .content {
+            padding: 30px 30px;
+        }
+
+        .canvas.square .product-title {
+            font-size: 105px;
+            margin-bottom: 20px;
+        }
+
+        .canvas.square .product-title.long {
+            font-size: 85px;
+        }
+
+        .canvas.square .product-info {
+            font-size: 38px;
+            margin-bottom: 30px;
+        }
+
+        .canvas.square .product-image {
+            width: 400px;
+            height: 400px;
+            margin-bottom: 35px;
+        }
+
+        .canvas.square .price-section {
+            gap: 50px;
+        }
+
+        .canvas.square .price-box.original .price-value {
+            font-size: 70px;
+        }
+
+        .canvas.square .price-box.lowest .price-value {
+            font-size: 120px;
+        }
+
+        .canvas.square.compact .price-box.original .price-value {
+            font-size: 60px;
+        }
+
+        .canvas.square.compact .price-box.lowest .price-value {
+            font-size: 95px;
         }
     </style>
 </head>
 <body>
     <!-- 아이폰 17 프로 -->
-    <div class="canvas">
+    <div class="canvas square">
+        <div class="header-banner">
+            <div class="banner-line">100% 할부원금만 받아요</div>
+            <div class="banner-line">집 근처에서 성지 가격으로</div>
+        </div>
         <div class="content">
-            <div class="tags">
-                <div class="tag">노피 지원금 118만원</div>
-                <div class="tag">누적 5만명 유저</div>
-            </div>
-
             <div class="product-title">
                 아이폰 17 프로
             </div>
@@ -173,7 +218,7 @@
             </div>
 
             <div class="product-image">
-                <img src="./아이폰17프로.png" alt="아이폰 17 프로">
+                <img src="../../assets/아이폰17프로.png" alt="아이폰 17 프로">
             </div>
 
             <div class="price-section">
@@ -181,20 +226,19 @@
                     <div class="price-value">178만원</div>
                 </div>
                 <div class="price-box lowest">
-                    <div class="price-value"><span class="amount">60</span><span class="unit">만원</span></div>
+                    <div class="price-value"><span class="amount">48</span><span class="unit">만원</span></div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- 아이폰 17 -->
-    <div class="canvas">
+    <div class="canvas square">
+        <div class="header-banner">
+            <div class="banner-line">100% 할부원금만 받아요</div>
+            <div class="banner-line">집 근처에서 성지 가격으로</div>
+        </div>
         <div class="content">
-            <div class="tags">
-                <div class="tag">노피 지원금 117만원</div>
-                <div class="tag">누적 5만명 유저</div>
-            </div>
-
             <div class="product-title">
                 아이폰 17
             </div>
@@ -204,7 +248,7 @@
             </div>
 
             <div class="product-image">
-                <img src="./아이폰17.png" alt="아이폰 17">
+                <img src="../../assets/아이폰17.png" alt="아이폰 17">
             </div>
 
             <div class="price-section">
@@ -212,20 +256,19 @@
                     <div class="price-value">128만원</div>
                 </div>
                 <div class="price-box lowest">
-                    <div class="price-value"><span class="amount">11</span><span class="unit">만원</span></div>
+                    <div class="price-value"><span class="amount">0</span><span class="unit">만원</span></div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- 아이폰 17 프로 맥스 -->
-    <div class="canvas compact">
+    <div class="canvas compact square">
+        <div class="header-banner">
+            <div class="banner-line">100% 할부원금만 받아요</div>
+            <div class="banner-line">집 근처에서 성지 가격으로</div>
+        </div>
         <div class="content">
-            <div class="tags">
-                <div class="tag">노피 지원금 92만원</div>
-                <div class="tag">누적 5만명 유저</div>
-            </div>
-
             <div class="product-title long">
                 아이폰 17 프로 맥스
             </div>
@@ -235,7 +278,7 @@
             </div>
 
             <div class="product-image">
-                <img src="./아이폰 17 프로 맥스.png" alt="아이폰 17 프로 맥스">
+                <img src="../../assets/아이폰 17 프로 맥스.png" alt="아이폰 17 프로 맥스">
             </div>
 
             <div class="price-section">
@@ -243,20 +286,19 @@
                     <div class="price-value">198만원</div>
                 </div>
                 <div class="price-box lowest">
-                    <div class="price-value"><span class="amount">106</span><span class="unit">만원</span></div>
+                    <div class="price-value"><span class="amount">102</span><span class="unit">만원</span></div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- 갤럭시 Z 폴드 7 -->
-    <div class="canvas">
+    <div class="canvas square">
+        <div class="header-banner">
+            <div class="banner-line">100% 할부원금만 받아요</div>
+            <div class="banner-line">집 근처에서 성지 가격으로</div>
+        </div>
         <div class="content">
-            <div class="tags">
-                <div class="tag">노피 지원금 139만원</div>
-                <div class="tag">누적 5만명 유저</div>
-            </div>
-
             <div class="product-title">
                 갤럭시 Z 폴드 7
             </div>
@@ -266,7 +308,7 @@
             </div>
 
             <div class="product-image">
-                <img src="./갤럭시 Z 폴드 7.png" alt="갤럭시 Z 폴드 7">
+                <img src="../../assets/갤럭시 Z 폴드 7.png" alt="갤럭시 Z 폴드 7">
             </div>
 
             <div class="price-section">
@@ -274,20 +316,19 @@
                     <div class="price-value">237만원</div>
                 </div>
                 <div class="price-box lowest">
-                    <div class="price-value"><span class="amount">98</span><span class="unit">만원</span></div>
+                    <div class="price-value"><span class="amount">85</span><span class="unit">만원</span></div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- 갤럭시 Z 플립 7 -->
-    <div class="canvas">
+    <div class="canvas square">
+        <div class="header-banner">
+            <div class="banner-line">100% 할부원금만 받아요</div>
+            <div class="banner-line">집 근처에서 성지 가격으로</div>
+        </div>
         <div class="content">
-            <div class="tags">
-                <div class="tag">노피 지원금 150만원</div>
-                <div class="tag">누적 5만명 유저</div>
-            </div>
-
             <div class="product-title">
                 갤럭시 Z 플립 7
             </div>
@@ -297,7 +338,7 @@
             </div>
 
             <div class="product-image">
-                <img src="./갤럭시 Z 플립 7.png" alt="갤럭시 Z 플립 7">
+                <img src="../../assets/갤럭시 Z 플립 7.png" alt="갤럭시 Z 플립 7">
             </div>
 
             <div class="price-section">
@@ -305,25 +346,20 @@
                     <div class="price-value">148만원</div>
                 </div>
                 <div class="price-box lowest">
-                    <div class="price-value"><span class="amount">-2</span><span class="unit">만원</span></div>
+                    <div class="price-value"><span class="amount">0</span><span class="unit">만원</span></div>
                 </div>
-            </div>
-
-            <div class="cash-bonus-tag">
-                개통하면 현금을 드려요
             </div>
         </div>
     </div>
 
     <!-- 갤럭시 S25 울트라 -->
-    <div class="canvas">
+    <div class="canvas square">
+        <div class="header-banner">
+            <div class="banner-line">100% 할부원금만 받아요</div>
+            <div class="banner-line">집 근처에서 성지 가격으로</div>
+        </div>
         <div class="content">
-            <div class="tags">
-                <div class="tag">노피 지원금 137만원</div>
-                <div class="tag">누적 5만명 유저</div>
-            </div>
-
-            <div class="product-title">
+            <div class="product-title long">
                 갤럭시 S25 울트라
             </div>
 
@@ -332,7 +368,7 @@
             </div>
 
             <div class="product-image">
-                <img src="./갤럭시 S25 울트라.png" alt="갤럭시 S25 울트라">
+                <img src="../../assets/갤럭시 S25 울트라.png" alt="갤럭시 S25 울트라">
             </div>
 
             <div class="price-section">
@@ -340,10 +376,11 @@
                     <div class="price-value">169만원</div>
                 </div>
                 <div class="price-box lowest">
-                    <div class="price-value"><span class="amount">32</span><span class="unit">만원</span></div>
+                    <div class="price-value"><span class="amount">26</span><span class="unit">만원</span></div>
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 </html>
