@@ -477,6 +477,194 @@ def generate_screenshots(html_file, output_dir, ratio):
         print("❌ Node.js가 설치되어 있지 않습니다. 'node' 명령어를 찾을 수 없습니다.")
         return False
 
+
+def generate_content_text(products, output_path):
+    """블로그 및 인스타그램 콘텐츠 텍스트 생성"""
+    now = datetime.now()
+    date_str = now.strftime('%Y년 %m월 %d일')
+    month_label = now.strftime('%Y년 %m월')
+
+    valid_products = [p for p in products if p]
+    if not valid_products:
+        return
+
+    # ===== 블로그 콘텐츠 생성 =====
+    blog_lines = [
+        f"{month_label} 휴대폰 최저가 총정리 - 아이폰17 & 갤럭시 시리즈",
+        "",
+        f"안녕하세요, 노피입니다!",
+        f"{date_str} 기준 인기 휴대폰 최저가를 정리해드립니다.",
+        "",
+        "━━━━━━━━━━━━━━━━━━━━━━━━",
+        "",
+        "노피는 우리 동네 성지 매장을 찾을 수 있는 플랫폼이에요.",
+        "온라인 문의 없이 직접 매장을 찾아서 발품 파는 게 제일 저렴합니다.",
+        "",
+        "👉 노피 바로가기",
+        "https://nofee.team/",
+        "",
+        "━━━━━━━━━━━━━━━━━━━━━━━━",
+        "",
+        "[ 오늘의 최저가 ]",
+        "",
+    ]
+
+    for idx, product in enumerate(valid_products, 1):
+        original_price = format_price(product['original_price'])
+        lowest_price = format_price(product['lowest_price'])
+        nofee_support = format_price(product['nofee_support'])
+
+        blog_lines.append(f"{idx}. {product['name']}")
+        blog_lines.append(f"   https://nofee.team/product/{product['product_group_code']}")
+        blog_lines.append("")
+        blog_lines.append(f"   출고가: {original_price}만원")
+        blog_lines.append(f"   최저가: {lowest_price}만원")
+        blog_lines.append(f"   노피지원금: {nofee_support}만원")
+        blog_lines.append("")
+
+    blog_lines.extend([
+        "━━━━━━━━━━━━━━━━━━━━━━━━",
+        "",
+        "[ 이용 방법 ]",
+        "",
+        "1. 노피 웹사이트에서 원하는 기종을 검색하세요",
+        "",
+        "2. 내 지역 근처 성지 매장의 최저가를 확인하세요",
+        "",
+        "3. 마음에 드는 매장에 직접 방문하면 끝!",
+        "",
+        "━━━━━━━━━━━━━━━━━━━━━━━━",
+        "",
+        "온라인 문의는 받지 않아요.",
+        "노피는 여러분이 동네 성지를 찾아서 직접 발품 팔 수 있도록 돕는 플랫폼입니다.",
+        "",
+        "직접 매장 방문이 제일 저렴합니다!",
+        "",
+        "👉 노피에서 동네 성지 찾기",
+        "https://nofee.team/",
+        "",
+    ])
+
+    # 해시태그 생성
+    hashtags = build_product_hashtags(valid_products)
+    blog_lines.extend([
+        "━━━━━━━━━━━━━━━━━━━━━━━━",
+        "",
+        " ".join(hashtags[:30])
+    ])
+
+    # ===== 인스타그램 콘텐츠 생성 =====
+    # 최저가 상품 찾기
+    best_product = min(valid_products, key=lambda x: x['lowest_price'])
+    best_price = format_price(best_product['lowest_price'])
+
+    insta_lines = [
+        "100% 할부원금만 받아요",
+        "집 근처에서 성지 가격으로",
+        "",
+        "━━━━━━━━━━━━━━━━━━━━━━━━",
+        "",
+    ]
+
+    # 간단한 가격 리스트
+    for product in valid_products[:4]:
+        lowest = format_price(product['lowest_price'])
+        insta_lines.append(f"{product['name']} → {lowest}만원")
+
+    insta_lines.extend([
+        "",
+        "━━━━━━━━━━━━━━━━━━━━━━━━",
+        "",
+        "노피에서 검색하면",
+        "동네 성지 매장 바로 찾을 수 있어요",
+        "",
+        "온라인 문의 말고",
+        "직접 매장 방문하세요",
+        "그게 제일 저렴합니다",
+        "",
+        "━━━━━━━━━━━━━━━━━━━━━━━━",
+        "",
+        "nofee.team",
+        "",
+        "━━━━━━━━━━━━━━━━━━━━━━━━",
+        "",
+        "휴대폰 바꿀 친구 태그해주세요",
+        "",
+        " ".join(hashtags[:30])
+    ])
+
+    # 파일 저장
+    content_lines = ["[BLOG]", ""]
+    content_lines.extend(blog_lines)
+    content_lines.append("")
+    content_lines.append("=" * 80)
+    content_lines.append("")
+    content_lines.append("[INSTAGRAM]")
+    content_lines.append("")
+    content_lines.extend(insta_lines)
+
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write("\n".join(content_lines))
+
+    print(f"📝 블로그/인스타 콘텐츠 저장 완료: {output_path}")
+
+
+def build_product_hashtags(products):
+    """상품 기반 해시태그 생성"""
+    hashtags = []
+
+    # 기본 브랜드 태그
+    base_tags = ['#노피', '#NOFEE', '#동네성지', '#휴대폰동네성지', '#휴대폰최저가']
+    hashtags.extend(base_tags)
+
+    # 상품별 태그
+    for product in products:
+        name = product['name'].replace(' ', '')
+        hashtags.append(f"#{name}")
+        hashtags.append(f"#{name}최저가")
+
+        # 시리즈별 태그
+        if '아이폰' in product['name']:
+            hashtags.append('#아이폰최저가')
+            if '17' in product['name']:
+                hashtags.append('#아이폰17')
+                if '프로' in product['name']:
+                    hashtags.append('#아이폰17프로')
+                if '프로맥스' in product['name'] or '프로 맥스' in product['name']:
+                    hashtags.append('#아이폰17프로맥스')
+        elif '갤럭시' in product['name']:
+            hashtags.append('#갤럭시최저가')
+            if 'S25' in product['name']:
+                hashtags.append('#갤럭시S25')
+                if '울트라' in product['name']:
+                    hashtags.append('#갤럭시S25울트라')
+            if '폴드' in product['name']:
+                hashtags.append('#갤럭시폴드')
+                hashtags.append('#갤럭시Z폴드7')
+            if '플립' in product['name']:
+                hashtags.append('#갤럭시플립')
+                hashtags.append('#갤럭시Z플립7')
+
+    # 일반 키워드
+    general_tags = [
+        '#휴대폰시세', '#휴대폰성지', '#휴대폰추천',
+        '#번호이동', '#기기변경', '#신규가입',
+        '#핸드폰최저가', '#스마트폰최저가',
+        '#할부원금', '#노피지원금',
+        '#폴더블폰', '#아이폰딜', '#갤럭시딜'
+    ]
+    hashtags.extend(general_tags)
+
+    # 중복 제거
+    seen = set()
+    unique_tags = []
+    for tag in hashtags:
+        if tag not in seen:
+            seen.add(tag)
+            unique_tags.append(tag)
+
+    return unique_tags
+
 if __name__ == "__main__":
     print("="*60)
     print("🚀 노피 상품 정보 조회 및 HTML/이미지 생성 시작")
@@ -532,6 +720,14 @@ if __name__ == "__main__":
         if generate_screenshots(html_1x1, output_1x1, '1x1'):
             print(f"✅ 1x1 이미지 저장 위치: {output_1x1}")
 
+        # 블로그/인스타 콘텐츠 텍스트 생성
+        print("\n" + "="*60)
+        print("📝 블로그/인스타 콘텐츠 생성 시작")
+        print("="*60)
+
+        content_path = str(base_dir / 'content.txt')
+        generate_content_text(products, content_path)
+
         print("\n" + "="*60)
         print("✅ 모든 작업 완료!")
         print("="*60)
@@ -539,5 +735,6 @@ if __name__ == "__main__":
         print(f"   - HTML: all_products_3x4.html, all_products_1x1.html")
         print(f"   - 3x4 이미지: 3x4/ 폴더")
         print(f"   - 1x1 이미지: 1x1/ 폴더")
+        print(f"   - 콘텐츠: content.txt")
     else:
         print("\n❌ 조회된 상품이 없어 HTML을 생성할 수 없습니다.")
