@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>에이전시 어드민 고객관리 페이지 UX 재설계 v2.1</title>
+    <meta name="description" content="판매점 사장님 중심 CRM 기능강화 - 단순하고 직관적인 설계">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif;
+        }
+        .tab-active {
+            border-bottom: 2px solid #2563eb;
+            color: #1f2937;
+            font-weight: 600;
+        }
+        .tab-inactive {
+            border-bottom: none;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+        .toss-clean-bg {
+            background: #ffffff;
+        }
+        .toss-subtle-bg {
+            background: #f9fafb;
+        }
+        .metric-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            background: #ffffff;
+        }
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .metric-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="bg-white border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">고객관리 페이지 UX 재설계</h1>
+            <p class="text-lg text-gray-600 mb-6">판매점 사장님을 위한 CRM 기능강화 버전</p>
+            <div class="text-right text-sm text-gray-500">
+                <div>2025.11.28</div>
+                <div>v2.1 - CRM Enhanced with Clear Information Architecture</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-12">
+
+        <!-- 핵심 목표 -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-blue-500">설계 목표</h2>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <h3 class="font-semibold text-gray-900 mb-2">1. 고객 정보 수동 입력</h3>
+                    <p class="text-sm text-gray-700">플랫폼 고객과 직접 고객을 구분하여 관리</p>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <h3 class="font-semibold text-gray-900 mb-2">2. 수익성 추적</h3>
+                    <p class="text-sm text-gray-700">현금/할부별 마진율 자동 계산 및 분석</p>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <h3 class="font-semibold text-gray-900 mb-2">3. 정산 자동화</h3>
+                    <p class="text-sm text-gray-700">정산 예정일 관리 및 자동 알림톡 발송</p>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <h3 class="font-semibold text-gray-900 mb-2">4. 대리점 분석</h3>
+                    <p class="text-sm text-gray-700">대리점별 판매량, 마진, 현황 파악</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 페이지 구조 및 플로우 -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-blue-500">페이지 구조 & UX 흐름</h2>
+
+            <!-- 플로우 설명 -->
+            <div class="bg-white rounded-lg border border-gray-200 p-8 mb-8">
+                <h3 class="text-lg font-bold text-gray-900 mb-6">고객 추가/수정 플로우</h3>
+                <div class="space-y-3">
+                    <div class="flex gap-3 items-start pb-3 border-b border-gray-200">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">1</div>
+                        <div class="flex-1">
+                            <p class="font-semibold text-gray-900 text-sm">고객 리스트 → "+ 고객 추가" 클릭</p>
+                            <p class="text-xs text-gray-600 mt-0.5">새 페이지로 이동</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 items-start pb-3 border-b border-gray-200">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">2</div>
+                        <div class="flex-1">
+                            <p class="font-semibold text-gray-900 text-sm">필수 5개 필드 입력 후 저장</p>
+                            <p class="text-xs text-gray-600 mt-0.5">고객명, 전화번호, 상품, 통신사, 가입유형</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 items-start pb-3 border-b border-gray-200">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">3</div>
+                        <div class="flex-1">
+                            <p class="font-semibold text-gray-900 text-sm">고객 리스트로 자동 복귀</p>
+                            <p class="text-xs text-gray-600 mt-0.5">추가된 고객이 목록에 표시됨</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">4</div>
+                        <div class="flex-1">
+                            <p class="font-semibold text-gray-900 text-sm">고객 리스트에서 "수정" 클릭 → 고객관리 탭</p>
+                            <p class="text-xs text-gray-600 mt-0.5">새 탭에서 상세 정보(구매유형, 출고가, 정산 예정일 등) 입력</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1. 고객 추가 페이지 -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">1. 고객 추가 페이지</h3>
+                <p class="text-sm text-gray-600 mb-6 bg-blue-50 border border-blue-200 rounded-lg p-3">고객 리스트에서 "+ 고객 추가" 버튼 → 새 페이지로 이동 → 필수 5개 필드 입력 후 저장</p>
+
+                <!-- 고객 추가 페이지 - 필수 5개 필드 -->
+                <div class="bg-white border border-gray-200 rounded-lg p-8 space-y-6">
+
+                    <!-- 헤더 -->
+                    <div class="pb-6 border-b border-gray-200">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-2">고객 추가</h4>
+                        <p class="text-sm text-gray-600">필수 정보만 입력하면 고객이 등록됩니다</p>
+                    </div>
+
+                    <!-- 필수 5개 필드 -->
+                    <div class="space-y-5">
+                        <!-- 고객명 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-2">고객명 <span class="text-red-500">*</span></label>
+                            <input type="text" placeholder="이름 입력" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        </div>
+
+                        <!-- 전화번호 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-2">전화번호 <span class="text-red-500">*</span></label>
+                            <input type="tel" placeholder="010-0000-0000" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        </div>
+
+                        <!-- 상품 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-2">상품 <span class="text-red-500">*</span></label>
+                            <select class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">선택하세요</option>
+                                <option>iPhone 15 Pro Max</option>
+                                <option>iPhone 15 Pro</option>
+                                <option>Galaxy S24 Ultra</option>
+                                <option>Galaxy S24</option>
+                            </select>
+                        </div>
+
+                        <!-- 통신사 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-2">통신사 <span class="text-red-500">*</span></label>
+                            <div class="flex gap-2">
+                                <label class="flex items-center gap-2 p-3 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1 text-sm font-semibold">
+                                    <input type="radio" name="carrier" value="sk" class="w-4 h-4" />
+                                    SK
+                                </label>
+                                <label class="flex items-center gap-2 p-3 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1 text-sm font-semibold">
+                                    <input type="radio" name="carrier" value="kt" checked class="w-4 h-4" />
+                                    KT
+                                </label>
+                                <label class="flex items-center gap-2 p-3 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1 text-sm font-semibold">
+                                    <input type="radio" name="carrier" value="lgu" class="w-4 h-4" />
+                                    LG U+
+                                </label>
+                                <label class="flex items-center gap-2 p-3 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1 text-sm font-semibold">
+                                    <input type="radio" name="carrier" value="other" class="w-4 h-4" />
+                                    기타
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 가입유형 -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-2">가입유형 <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="flex items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition text-sm font-semibold">
+                                    <input type="radio" name="joinType" value="new" checked class="w-4 h-4" />
+                                    신규가입
+                                </label>
+                                <label class="flex items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition text-sm font-semibold">
+                                    <input type="radio" name="joinType" value="switch" class="w-4 h-4" />
+                                    기기변경
+                                </label>
+                                <label class="flex items-center gap-2 p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition text-sm font-semibold">
+                                    <input type="radio" name="joinType" value="porting" class="w-4 h-4" />
+                                    번호이동
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 버튼 -->
+                    <div class="flex gap-3 pt-4 border-t border-gray-200">
+                        <button class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-bold">저장</button>
+                        <button class="flex-1 px-6 py-3 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200 font-bold">취소</button>
+                    </div>
+
+                    <!-- 안내 -->
+                    <div class="text-center text-xs text-gray-600">
+                        <p>저장 후 고객 리스트에서 "수정"을 눌러 상세정보(구매유형, 가격, 정산일 등)를 입력하세요</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 2. 고객관리 탭 (새 탭에서 열림 - 5가지 핵심 기능 100% 반영) -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-8">2. 고객관리 탭 (고객 리스트 → 수정 클릭 시 새 탭)</h3>
+                <p class="text-sm text-gray-600 mb-6 bg-blue-50 border border-blue-200 rounded-lg p-3">고객 리스트의 "수정" 버튼 클릭 → 새 탭으로 고객관리 페이지 열림. 고객의 모든 정보(개통정보, 정산, 알림톡)를 한 곳에서 관리</p>
+
+                <!-- 고객관리 탭 전체 레이아웃 -->
+                <div class="bg-white border border-gray-200 rounded-lg p-8 space-y-8">
+
+                    <!-- 헤더: 고객 기본정보 + 액션 버튼 -->
+                    <div class="pb-6 border-b border-gray-200">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="text-3xl font-bold text-gray-900">이영미</h4>
+                                <p class="text-sm text-gray-600 mt-2">010-9876-5432</p>
+                            </div>
+                            <button class="px-4 py-2 text-gray-600 hover:text-gray-900 text-sm font-semibold">← 돌아가기</button>
+                        </div>
+                    </div>
+
+                    <!-- 한 페이지 통합 레이아웃 -->
+                    <div class="space-y-8">
+                        <!-- 섹션 1: 개통정보 입력 -->
+                        <div>
+                            <h5 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                <span class="bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full text-xs font-bold">필수</span>
+                                개통정보 입력
+                            </h5>
+
+                            <div class="space-y-6">
+                                <!-- 필수 필드 0: 가입유형 -->
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-900 mb-3">가입유형 *</label>
+                                    <div class="flex gap-4">
+                                        <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1">
+                                            <input type="radio" name="joinType" value="new" checked class="w-5 h-5" />
+                                            <div>
+                                                <div class="font-semibold text-gray-900">신규가입</div>
+                                                <div class="text-xs text-gray-500">새로운 번호 개설</div>
+                                            </div>
+                                        </label>
+                                        <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1">
+                                            <input type="radio" name="joinType" value="switch" class="w-5 h-5" />
+                                            <div>
+                                                <div class="font-semibold text-gray-900">기기변경</div>
+                                                <div class="text-xs text-gray-500">기존 번호 유지</div>
+                                            </div>
+                                        </label>
+                                        <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1">
+                                            <input type="radio" name="joinType" value="porting" class="w-5 h-5" />
+                                            <div>
+                                                <div class="font-semibold text-gray-900">번호이동</div>
+                                                <div class="text-xs text-gray-500">다른사 번호 이전</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- 상품 선택 -->
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-900 mb-2">상품 *</label>
+                                    <select class="w-full px-4 py-3 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="">선택하세요</option>
+                                        <option>iPhone 15 Pro Max</option>
+                                        <option>iPhone 15 Pro</option>
+                                        <option>Galaxy S24 Ultra</option>
+                                        <option>Galaxy S24</option>
+                                    </select>
+                                </div>
+
+                                <!-- 필수 필드 1: 통신사 -->
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-900 mb-3">통신사 *</label>
+                                    <div class="flex gap-3">
+                                        <label class="flex items-center gap-2 p-3 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1 text-sm font-semibold">
+                                            <input type="radio" name="carrier" value="sk" class="w-4 h-4" />
+                                            SK
+                                        </label>
+                                        <label class="flex items-center gap-2 p-3 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1 text-sm font-semibold">
+                                            <input type="radio" name="carrier" value="kt" checked class="w-4 h-4" />
+                                            KT
+                                        </label>
+                                        <label class="flex items-center gap-2 p-3 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1 text-sm font-semibold">
+                                            <input type="radio" name="carrier" value="lgu" class="w-4 h-4" />
+                                            LG U+
+                                        </label>
+                                        <label class="flex items-center gap-2 p-3 border-2 border-gray-300 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1 text-sm font-semibold">
+                                            <input type="radio" name="carrier" value="other" class="w-4 h-4" />
+                                            기타
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- 필수 필드 2: 구매유형 -->
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-900 mb-3">구매유형 선택 *</label>
+                                    <div class="flex gap-4">
+                                        <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1">
+                                            <input type="radio" name="purchaseType" value="cash" checked class="w-5 h-5" />
+                                            <div>
+                                                <div class="font-semibold text-gray-900">현금완납</div>
+                                                <div class="text-xs text-gray-500">일시불로 구매</div>
+                                            </div>
+                                        </label>
+                                        <label class="flex items-center gap-3 p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition flex-1">
+                                            <input type="radio" name="purchaseType" value="installment" class="w-5 h-5" />
+                                            <div>
+                                                <div class="font-semibold text-gray-900">할부</div>
+                                                <div class="text-xs text-gray-500">할부원금 입력 필요</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- 정산 정보 그룹 -->
+                                <div class="grid grid-cols-2 gap-4">
+                                    <!-- 1행: 대리점, 요금제 -->
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-900 mb-2">대리점 *</label>
+                                        <select class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <option value="">선택</option>
+                                            <option selected>종로 LG전자샵</option>
+                                            <option>강남 갤럭시샵</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-900 mb-2">요금제 *</label>
+                                        <select class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                            <option>선택</option>
+                                            <option selected>5G 무제한 (79,000원)</option>
+                                            <option>4G 무제한 (59,000원)</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 2행: 출고가, 할부원금 -->
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-900 mb-2">출고가 (원) *</label>
+                                        <input type="number" value="1200000" placeholder="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-900 mb-2">할부원금 (원) *</label>
+                                        <input type="number" value="500000" placeholder="0" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                    </div>
+
+                                    <!-- 3행: 정산 예정일 (전체 너비) -->
+                                    <div class="col-span-2">
+                                        <label class="block text-xs font-bold text-gray-900 mb-2">정산 예정일 *</label>
+                                        <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 구분선 -->
+                        <div class="border-t border-gray-200 pt-8"></div>
+
+                        <!-- 섹션 2: 정산 완료 여부 -->
+                        <div>
+                            <h5 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                <span class="bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-bold">선택</span>
+                                정산 상태
+                            </h5>
+
+                            <!-- 정산 완료 체크 -->
+                            <div class="bg-white border-2 border-gray-200 rounded-lg p-6 flex items-center justify-between">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-900 mb-1">정산 완료 여부</label>
+                                    <p class="text-xs text-gray-600">정산이 완료되었는지 확인하세요</p>
+                                </div>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" class="w-6 h-6 accent-green-600" />
+                                    <span class="text-sm font-bold text-gray-700">완료됨</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 구분선 -->
+                        <div class="border-t border-gray-200 pt-8"></div>
+
+                        <!-- 섹션 3: 메모 (선택사항) - 메시지 스택 형태 -->
+                        <div>
+                            <h5 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                <span class="bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-bold">선택</span>
+                                메모 (선택사항)
+                            </h5>
+                            <p class="text-sm text-gray-600 mb-4">고객에 대한 메모를 남기세요</p>
+
+                            <!-- 메모 히스토리 -->
+                            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-4 space-y-4">
+                                <!-- 메모 1 -->
+                                <div class="flex gap-3">
+                                    <div class="flex-1">
+                                        <div class="bg-gray-100 rounded-lg p-4">
+                                            <p class="text-sm text-gray-900">입금 완료</p>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-2 text-right">2025.11.28 10:30</p>
+                                    </div>
+                                </div>
+
+                                <!-- 메모 2 -->
+                                <div class="flex gap-3">
+                                    <div class="flex-1">
+                                        <div class="bg-gray-100 rounded-lg p-4">
+                                            <p class="text-sm text-gray-900">할부 관련 문의 있음 - 24개월 할부 가능 확인됨</p>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-2 text-right">2025.11.27 14:15</p>
+                                    </div>
+                                </div>
+
+                                <!-- 메모 3 -->
+                                <div class="flex gap-3">
+                                    <div class="flex-1">
+                                        <div class="bg-gray-100 rounded-lg p-4">
+                                            <p class="text-sm text-gray-900">개통 완료됨</p>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-2 text-right">2025.11.26 09:00</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 메모 입력 -->
+                            <div class="flex gap-2">
+                                <textarea class="flex-1 border-2 border-gray-200 rounded-lg p-4 text-sm text-gray-900 placeholder-gray-400 resize-none" rows="3" placeholder="메모를 입력하고 엔터를 누르세요..."></textarea>
+                                <button class="px-6 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-bold h-full">추가</button>
+                            </div>
+                        </div>
+
+                        <!-- 구분선 -->
+                        <div class="border-t border-gray-200 pt-8"></div>
+
+                        <!-- 섹션 4: 알림톡 설정 -->
+                        <div>
+                            <h5 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+                                <span class="bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-bold">선택</span>
+                                알림톡 설정 (선택사항)
+                            </h5>
+
+                            <!-- 정산 예정일 알림 (자동 연동, 기본 활성화) -->
+                            <div class="bg-blue-50 border-2 border-blue-300 rounded-lg p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h5 class="font-bold text-gray-900 flex items-center gap-2">
+                                            <span class="bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-bold">자동</span>
+                                            정산 예정일 알림
+                                        </h5>
+                                        <p class="text-sm text-gray-600 mt-2">정산 예정일 전날 오전 9시에 고객에게 자동으로 알림톡 발송</p>
+                                    </div>
+                                    <label class="flex items-center gap-3 cursor-pointer">
+                                        <input type="checkbox" checked class="w-6 h-6 accent-blue-600" />
+                                        <span class="text-sm font-bold text-gray-700">활성화</span>
+                                    </label>
+                                </div>
+
+                                <div class="mt-4 space-y-3">
+                                    <div class="p-3 bg-white rounded border border-gray-200 text-xs text-gray-700">
+                                        <p class="font-semibold text-gray-900 mb-2">발송 예정:</p>
+                                        <p class="text-blue-600 font-semibold">2025년 12월 19일 (오전 9시)</p>
+                                    </div>
+                                    <div class="p-3 bg-white rounded border border-gray-200 text-xs text-gray-700">
+                                        <p class="font-semibold text-gray-900 mb-1">알림톡 내용:</p>
+                                        <p>"안녕하세요 이영미님, 내일(2025년 12월 20일)이 정산 예정일입니다. 정산이 완료되면 별도로 안내드리겠습니다."</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 최하단: 전체 저장/취소 버튼 -->
+                    <div class="mt-8 flex gap-3 border-t border-gray-200 pt-6">
+                        <button class="flex-1 px-6 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-bold text-lg">저장</button>
+                        <button class="flex-1 px-6 py-4 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 font-bold text-lg">취소</button>
+                    </div>
+
+                    <!-- 입력 팁 -->
+                    <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-gray-700">
+                        <p class="font-semibold text-gray-900 mb-2">관리 팁</p>
+                        <ul class="space-y-1 text-xs">
+                            <li><strong>개통정보 입력:</strong> 가입유형과 구매유형, 정산 예정일만 입력하면 됩니다. 나머지는 필요시 입력하세요.</li>
+                            <li><strong>정산 상태:</strong> 고객의 정산 완료 여부를 체크하고, 필요한 메모를 남기세요.</li>
+                            <li><strong>알림톡:</strong> 정산 예정일을 입력하면 자동으로 그 전날 오전 9시에 알림톡이 발송됩니다.</li>
+                            <li>모든 변경사항을 입력한 후 <strong>저장</strong> 버튼을 클릭하세요.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 상태 & 에러 대응 패턴 -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-blue-500">상태 & 에러 대응 패턴</h2>
+
+            <!-- 1. 고객 추가 - 로딩 상태 -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">1. 저장 중 (로딩 상태)</h3>
+                <div class="bg-gray-50 rounded-lg p-8 border border-gray-200">
+                    <div class="flex justify-center items-center gap-4 py-12">
+                        <div class="w-8 h-8 rounded-full border-4 border-gray-200 border-t-blue-500 animate-spin"></div>
+                        <p class="text-gray-600 font-semibold">고객 정보를 저장하는 중...</p>
+                    </div>
+                    <p class="text-xs text-gray-500 text-center mt-4">저장이 완료될 때까지 잠시만 기다려주세요</p>
+                </div>
+            </div>
+
+            <!-- 2. 저장 성공 -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">2. 저장 성공 (토스트 메시지)</h3>
+                <div class="flex gap-3 bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div class="flex-shrink-0 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center mt-0.5">
+                        <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-green-900">고객이 등록되었습니다</p>
+                        <p class="text-xs text-green-700 mt-0.5">3초 후 고객 리스트로 자동 이동합니다</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 필드 유효성 검사 에러 -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">3. 필드 유효성 검사 에러</h3>
+                <div class="space-y-4">
+                    <!-- 필수 필드 미입력 -->
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">고객명 <span class="text-red-500">*</span></label>
+                        <input type="text" placeholder="이름 입력" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-500" />
+                        <p class="text-xs text-red-600 mt-1">고객명을 입력해주세요</p>
+                    </div>
+                    <!-- 전화번호 형식 오류 -->
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">전화번호 <span class="text-red-500">*</span></label>
+                        <input type="tel" placeholder="010-0000-0000" value="01012" class="w-full px-4 py-3 border-2 border-red-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-500" />
+                        <p class="text-xs text-red-600 mt-1">올바른 휴대폰 번호를 입력해주세요 (예: 010-1234-5678)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 서버 에러 -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">4. 서버 에러</h3>
+                <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                    <div class="flex gap-3 items-start mb-4">
+                        <div class="flex-shrink-0 w-5 h-5 rounded-full bg-red-500 flex items-center justify-center mt-0.5">
+                            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-semibold text-red-900">저장 실패</p>
+                            <p class="text-sm text-red-700 mt-1">네트워크 오류로 저장에 실패했습니다. 잠시 후 다시 시도해주세요.</p>
+                        </div>
+                    </div>
+                    <button class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-semibold">다시 시도</button>
+                </div>
+            </div>
+
+            <!-- 5. 고객 리스트 - 빈 상태 -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">5. 고객 리스트 - 빈 상태</h3>
+                <div class="bg-gray-50 rounded-lg p-16 border border-gray-200 text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 mb-4">
+                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m0 0h6m0 0h-6m-6-6h-6"></path>
+                        </svg>
+                    </div>
+                    <p class="text-gray-600 font-semibold mb-2">등록된 고객이 없습니다</p>
+                    <p class="text-sm text-gray-500 mb-6">고객을 추가하여 시작하세요</p>
+                    <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold">고객 추가</button>
+                </div>
+            </div>
+
+            <!-- 6. 고객관리 탭 - 데이터 로딩 중 -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">6. 고객관리 탭 - 데이터 로딩 중</h3>
+                <div class="space-y-4">
+                    <!-- 헤더 스켈레톤 -->
+                    <div class="pb-4 border-b border-gray-200">
+                        <div class="h-8 w-32 bg-gray-200 rounded animate-pulse mb-2"></div>
+                        <div class="h-4 w-40 bg-gray-100 rounded animate-pulse"></div>
+                    </div>
+                    <!-- 섹션 스켈레톤 -->
+                    <div class="space-y-3">
+                        <div class="h-5 w-24 bg-gray-200 rounded animate-pulse"></div>
+                        <div class="h-10 bg-gray-100 rounded animate-pulse"></div>
+                        <div class="h-10 bg-gray-100 rounded animate-pulse"></div>
+                        <div class="h-10 bg-gray-100 rounded animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. 입력 도중 이탈 경고 -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">7. 입력 도중 이탈 경고 (모달)</h3>
+                <div class="bg-white border-2 border-gray-200 rounded-lg shadow-lg p-8 max-w-sm mx-auto">
+                    <h4 class="text-lg font-bold text-gray-900 mb-3">저장되지 않은 변경사항이 있습니다</h4>
+                    <p class="text-sm text-gray-600 mb-6">입력하신 정보가 모두 삭제됩니다. 정말 나가시겠어요?</p>
+                    <div class="flex gap-3">
+                        <button class="flex-1 px-4 py-2 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200 font-semibold text-sm">계속 입력</button>
+                        <button class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-semibold text-sm">나가기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 개발 단계 (v2.1) -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-blue-500">개발 추진 단계 (v2.1)</h2>
+
+            <div class="grid grid-cols-4 gap-4">
+                <div class="bg-blue-50 border-2 border-blue-400 rounded-lg p-6">
+                    <div class="text-sm font-bold text-blue-600 mb-3 bg-blue-100 px-3 py-1 rounded inline-block">Phase 1</div>
+                    <h4 class="font-bold text-gray-900 mb-2 text-lg">메인 탭 네비게이션</h4>
+                    <p class="text-xs text-gray-600 mb-3">4개 탭 구조 (개통정보 입력, 정산, 알림톡, 분석)</p>
+                    <p class="text-xs font-semibold text-blue-700">상태: 필수</p>
+                </div>
+                <div class="bg-green-50 border-2 border-green-400 rounded-lg p-6">
+                    <div class="text-sm font-bold text-green-600 mb-3 bg-green-100 px-3 py-1 rounded inline-block">Phase 2</div>
+                    <h4 class="font-bold text-gray-900 mb-2 text-lg">고객관리 탭 페이지</h4>
+                    <p class="text-xs text-gray-600 mb-3">고객 리스트 → 수정 버튼 → 새 탭 (개통정보, 정산, 알림톡)</p>
+                    <p class="text-xs font-semibold text-green-700">상태: 필수</p>
+                </div>
+                <div class="bg-orange-50 border-2 border-orange-400 rounded-lg p-6">
+                    <div class="text-sm font-bold text-orange-600 mb-3 bg-orange-100 px-3 py-1 rounded inline-block">Phase 3</div>
+                    <h4 class="font-bold text-gray-900 mb-2 text-lg">미완 작업 경고 & 폼 최적화</h4>
+                    <p class="text-xs text-gray-600 mb-3">상단 경고 카드, 필수 필드만 앞, 자동 계산, 조건부 필드</p>
+                    <p class="text-xs font-semibold text-orange-700">상태: 필수</p>
+                </div>
+                <div class="bg-purple-50 border-2 border-purple-400 rounded-lg p-6">
+                    <div class="text-sm font-bold text-purple-600 mb-3 bg-purple-100 px-3 py-1 rounded inline-block">Phase 4</div>
+                    <h4 class="font-bold text-gray-900 mb-2 text-lg">표/필터 및 상호작용</h4>
+                    <p class="text-xs text-gray-600 mb-3">고객 목록 4-5컬럼, 의미색 배지, 필터, 탭 전환</p>
+                    <p class="text-xs font-semibold text-purple-700">상태: 필수</p>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50 border border-blue-300 rounded-lg p-6">
+                <h4 class="font-bold text-gray-900 mb-4">추가 사항</h4>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li><span class="font-semibold text-blue-700">반응형:</span> 모바일/태블릿 대응 (탭 overflow-x, 카드 스택, 전체폭 버튼)</li>
+                    <li><span class="font-semibold text-blue-700">접근성:</span> 필드 라벨, 색상 대비 WCAG 준수, 필드별 검증 메시지</li>
+                    <li><span class="font-semibold text-blue-700">성능:</span> 풀 페이지 로드 최적화, 자동 계산 성능 (debounce 적용)</li>
+                    <li><span class="font-semibold text-blue-700">데이터:</span> 사용자 별 권한 기반 필터/표시 (대리점 매니저 vs 관리자)</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
