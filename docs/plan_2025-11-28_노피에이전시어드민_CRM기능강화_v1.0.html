@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노피 에이전시 어드민 CRM 기능 강화 - 노피 어드민 시스템</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-11-28_노피에이전시어드민_CRM기능강화_v1.0.html">
+    <meta property="og:title" content="[노피 기획안] 에이전시 어드민 CRM 기능 강화">
+    <meta property="og:description" content="🎯 에이전시 어드민 시스템의 CRM 기능 강화 | 고객 관계 관리 기능 추가 | 작성: 제이콥 | v1.0">
+    <meta property="og:image" content="https://nofee.team/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="노피 기획안 - 에이전시 어드민 CRM 기능 강화">
+    <meta property="og:site_name" content="노피 NOFEE - 기획 문서">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="article:author" content="제이콥">
+    <meta property="article:published_time" content="2025-11-28T00:00:00+09:00">
+    <meta property="article:modified_time" content="2025-11-28T00:00:00+09:00">
+    <meta property="article:section" content="기획안">
+    <meta property="article:tag" content="에이전시어드민">
+    <meta property="article:tag" content="CRM">
+    <meta property="article:tag" content="고객관리">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-11-28_노피에이전시어드민_CRM기능강화_v1.0.html">
+    <meta name="twitter:title" content="[노피 기획안] 에이전시 어드민 CRM 기능 강화">
+    <meta name="twitter:description" content="🎯 에이전시 어드민 시스템의 CRM 기능 강화 | 고객 관계 관리 기능 추가">
+    <meta name="twitter:image" content="https://nofee.team/images/og-image.png">
+    <meta name="twitter:image:alt" content="노피 기획안 - 에이전시 어드민 CRM 기능 강화">
+    <meta name="twitter:creator" content="@nofee_team">
+
+    <!-- Meta Description -->
+    <meta name="description" content="🎯 에이전시 어드민 시스템의 CRM 기능 강화 | 고객 관계 관리 기능 추가 | 노피 기획안 v1.0">
+    <meta name="keywords" content="노피, NOFEE, 기획안, 에이전시어드민, CRM, 고객관리, 기능강화">
+
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body {
+                padding: 15mm;
+            }
+        }
+
+        body {
+            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #ffffff;
+            color: #191f28;
+            line-height: 1.6;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-header {
+            border-bottom: 2px solid #3182f6;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .logo {
+            height: 32px;
+        }
+
+        .doc-meta {
+            text-align: right;
+            font-size: 11px;
+            color: #8b95a1;
+        }
+
+        .doc-meta-item {
+            margin-bottom: 4px;
+        }
+
+        .doc-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-subtitle {
+            font-size: 16px;
+            color: #4e5968;
+            font-weight: 400;
+        }
+
+        .info-box {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+
+        .info-item {
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #8b95a1;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: #191f28;
+            font-weight: 600;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e8eb;
+        }
+
+        .content {
+            color: #4e5968;
+            line-height: 1.8;
+        }
+
+        .content p {
+            margin-bottom: 12px;
+        }
+
+        .content ul, .content ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #eff8ff;
+            border-left: 4px solid #3182f6;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: #191f28;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #e5e8eb;
+        }
+
+        .comparison-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #191f28;
+        }
+
+        .comparison-table td {
+            color: #4e5968;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .tag-before {
+            background: #fee;
+            color: #d32f2f;
+        }
+
+        .tag-after {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        /* 모바일 화면 목업 스타일 */
+        .mockup-container {
+            display: flex;
+            gap: 32px;
+            margin: 32px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .phone-mockup {
+            width: 320px;
+            background: #fff;
+            border: 1px solid #d1d5db;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-screen {
+            height: 640px;
+            overflow-y: scroll;
+            background: #fff;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        .phone-screen::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .phone-screen::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 2px;
+        }
+
+        .phone-screen-content {
+            position: relative;
+            min-height: 100%;
+        }
+
+        .mockup-header {
+            background: #fff;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e8eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mockup-logo {
+            height: 20px;
+        }
+
+        .mockup-logo img {
+            height: 100%;
+        }
+
+        .mockup-label {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+            margin-top: 16px;
+            padding: 8px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .mockup-label.before {
+            color: #d32f2f;
+            background: #ffebee;
+        }
+
+        .mockup-label.after {
+            color: #2e7d32;
+            background: #e8f5e9;
+        }
+
+        .mockup-comparison-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #3182f6;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .mockup-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mockup-comparison-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        .screenshot-container {
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .screenshot-container img {
+            max-width: 320px;
+            border: 2px solid #e5e8eb;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .screenshot-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-header">
+        <div class="logo-container">
+            <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="logo">
+            <div class="doc-meta">
+                <div class="doc-meta-item">작성일: 2025.11.28</div>
+                <div class="doc-meta-item">버전: v1.0</div>
+                <div class="doc-meta-item">작성자: 제이콥</div>
+            </div>
+        </div>
+        <h1 class="doc-title">에이전시 어드민 CRM 기능 강화</h1>
+        <p class="doc-subtitle">고객 관계 관리 시스템 업데이트 및 기능 확대</p>
+    </div>
+
+    <div class="info-box">
+        <div class="info-item">
+            <div class="info-label">문서 유형</div>
+            <div class="info-value">기획안</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">우선순위</div>
+            <div class="info-value">높음 (High)</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">목표 배포일</div>
+            <div class="info-value">2025.12.15 ~ 2026.01.15</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">개요</h2>
+        <div class="content">
+            <p>노피 에이전시 어드민 시스템의 CRM(고객관계관리) 기능을 대폭 강화하는 기획안입니다. 현재 신청-개통 단계의 기본 정보 기록만 가능한 시스템에서 개통 이후의 고객 데이터 관리, 수익성 분석, 그리고 고객 접점 자동화를 통합한 완성도 높은 CRM 플랫폼으로 진화시킵니다.</p>
+
+            <div class="highlight-box">
+                <strong>핵심 변경사항</strong><br>
+                • 외부유입 고객 수동 입력 및 관리 기능<br>
+                • 휴대폰 대리점(유통처) 정보 기록 시스템<br>
+                • 개통 수익성 관리 (할부원금, 출고가, 마진액, 정산액)<br>
+                • 구매 유형 관리 (현금완납 vs 할부)<br>
+                • 요금제 변경 및 부가서비스 변경 일정 기반 자동 알림톡 시스템
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">1. 현재 시스템 상태 분석</h2>
+        <div class="content">
+            <p><strong>현재 구현된 기능:</strong></p>
+            <ul>
+                <li>신청(Apply) → 개통(Completed) 단계의 기본 정보 기록</li>
+                <li>개통 고객 상태 관리 (신청, 진행중, 완료, 반려)</li>
+                <li>시세표 기반 요금제 및 상품 정보 조회</li>
+                <li>판매점별 개통 이력 조회</li>
+                <li>메모 기반 업무 노트</li>
+            </ul>
+
+            <p><strong>현재 시스템의 한계:</strong></p>
+            <ul>
+                <li>노피 플랫폼을 통하지 않은 고객 정보 입력 불가</li>
+                <li>휴대폰 대리점 정보 미기록 (시장 경쟁력 분석 불가)</li>
+                <li>개통 후 수익성 분석 불가 (할부원금, 출고가, 마진액 미기록)</li>
+                <li>구매 유형(현금/할부) 구분 불가</li>
+                <li>요금제 변경/부가서비스 변경에 대한 고객 접점 자동화 미지원</li>
+                <li>정산액 관리 및 현금 수/지급 이력 추적 불가</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">2. 기능 요구사항 정의</h2>
+        <div class="content">
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">2.1 외부유입 고객 관리 (Non-Platform Customers)</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>요구사항</th>
+                        <th>설명</th>
+                        <th>데이터 모델</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>수동 입력 고객 추가</strong></td>
+                        <td>노피 플랫폼 미유입 고객을 수동으로 신규 등록 가능<br/>(고객명, 전화번호, 상품, 통신사 등)</td>
+                        <td>tb_apply_phone에 entry_type 필드 추가<br/>(0 = Platform, 1 = Manual)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>고객 기본정보</strong></td>
+                        <td>이름, 전화번호, 주소, 지역 등 최소 개통 정보</td>
+                        <td>기존 tb_apply_phone 필드 활용</td>
+                    </tr>
+                    <tr>
+                        <td><strong>고객 목록 관리</strong></td>
+                        <td>진입경로별(플랫폼/수동) 필터링 및 조회</td>
+                        <td>entry_type 기반 쿼리 필터링</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">2.2 휴대폰 대리점(유통처) 정보 관리</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>요구사항</th>
+                        <th>설명</th>
+                        <th>데이터 모델</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>대리점 명칭 기록</strong></td>
+                        <td>휴대폰을 구입한 휴대폰 대리점/샵의 이름 기록<br/>(예: "강남 갤럭시샵", "홍대 애플매장")</td>
+                        <td>tb_apply_phone에 completed_dealer_nm 필드<br/>(기존 completed_dealer는 코드, 새로운 필드는 이름)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>시장 경쟁력 분석</strong></td>
+                        <td>대리점별 출고가 및 마진액 비교 분석</td>
+                        <td>GROUP BY completed_dealer_nm 쿼리</td>
+                    </tr>
+                    <tr>
+                        <td><strong>대리점 신뢰도</strong></td>
+                        <td>대리점별 개통 품질(반품율, 만족도) 추적</td>
+                        <td>tb_apply_phone, tb_review_virtual 통계</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">2.3 개통 수익성 관리</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>입력 방식</th>
+                        <th>자동 계산</th>
+                        <th>데이터 모델</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>할부원금</strong></td>
+                        <td>개통완료 시 수동 입력 및 변경 가능</td>
+                        <td>-</td>
+                        <td>completed_installment_principal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>출고가</strong></td>
+                        <td>개통완료 시 수동 입력 및 변경 가능</td>
+                        <td>-</td>
+                        <td>completed_retail_price (기존 활용)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>마진액</strong></td>
+                        <td>-</td>
+                        <td>마진액 = 출고가 - 할부원금</td>
+                        <td>계산 필드 (VIEW 단계)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>정산액</strong></td>
+                        <td>수동 입력 및 변경 가능</td>
+                        <td>-</td>
+                        <td>tb_apply_settlement (신규 테이블)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>현금 수/지급</strong></td>
+                        <td>수동 기록 (날짜, 금액, 내용)</td>
+                        <td>-</td>
+                        <td>tb_apply_settlement_history (신규 테이블)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">2.4 구매 유형 관리</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>구매 유형</th>
+                        <th>설명</th>
+                        <th>데이터 모델</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>현금완납</strong></td>
+                        <td>고객이 현금으로 휴대폰 구매</td>
+                        <td>completed_purchase_type_code = '0401001'</td>
+                    </tr>
+                    <tr>
+                        <td><strong>할부</strong></td>
+                        <td>고객이 할부로 휴대폰 구매</td>
+                        <td>completed_purchase_type_code = '0401002'</td>
+                    </tr>
+                    <tr>
+                        <td><strong>용도</strong></td>
+                        <td>마진액 계산, 판매점 판매 전략 분석, 수익 예측</td>
+                        <td>GROUP BY 통계 쿼리</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">2.5 고객 접점 자동화 - 알림톡 시스템</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>기능</th>
+                        <th>설명</th>
+                        <th>데이터 모델</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>요금제 변경 일정</strong></td>
+                        <td>개통 고객별로 요금제 변경 예정일을 기록<br/>(최초 등록 후 언제부터 요금제 변경 가능 여부)</td>
+                        <td>tb_apply_plan_change (신규 테이블)<br/>- apply_no, change_target_date<br/>- min_rate_plan_fee, notify_yn</td>
+                    </tr>
+                    <tr>
+                        <td><strong>부가서비스 변경 일정</strong></td>
+                        <td>부가서비스 변경/추가 가능 예정일</td>
+                        <td>tb_apply_addon_change (신규 테이블)<br/>- apply_no, addon_change_target_date<br/>- notify_yn</td>
+                    </tr>
+                    <tr>
+                        <td><strong>최소 요금제 지정</strong></td>
+                        <td>요금제 변경 시 최소한 유지해야할 요금제 금액 설정<br/>(예: 3만원 이상 유지)</td>
+                        <td>tb_apply_plan_change의<br/>min_rate_plan_fee</td>
+                    </tr>
+                    <tr>
+                        <td><strong>알림톡 전송</strong></td>
+                        <td>설정된 날짜에 고객에게 자동 알림톡 발송<br/>(선택적: 발송 여부 on/off 설정)</td>
+                        <td>tb_apply_notification (신규 테이블)<br/>- apply_no, notify_type, scheduled_at<br/>- sent_yn, sent_at</td>
+                    </tr>
+                    <tr>
+                        <td><strong>알림톡 이력</strong></td>
+                        <td>발송된 알림톡의 결과(성공/실패) 기록</td>
+                        <td>tb_apply_notification 테이블</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">3. 시스템 아키텍처 및 플로우</h2>
+        <div class="content">
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">3.1 개통 고객 데이터 흐름도</h3>
+            <div class="highlight-box" style="background: #fff; border: 2px solid #e5e8eb; padding: 32px;">
+                <p style="text-align: center; font-family: 'Courier New', monospace; line-height: 2; font-size: 13px;">
+                    <strong style="display: block; margin-bottom: 16px;">고객 진입 경로</strong>
+                    <span style="display: block; margin-bottom: 8px;">┌─────────────────────┬──────────────────┐</span>
+                    <span style="display: block; margin-bottom: 8px;">│                     │                  │</span>
+                    <span style="display: block; margin-bottom: 8px;">▼                     ▼                  ▼</span>
+                    <span style="display: block; margin-bottom: 8px;">노피 플랫폼        수동 입력          외부 시스템</span>
+                    <span style="display: block; margin-bottom: 8px;">(노피앱/웹)        입력폼           API 연동</span>
+                    <span style="display: block; margin-bottom: 8px;">│                     │                  │</span>
+                    <span style="display: block; margin-bottom: 8px;">└─────────────────────┴──────────────────┘</span>
+                    <span style="display: block; margin-bottom: 8px;">│</span>
+                    <span style="display: block; margin-bottom: 8px;">▼</span>
+                    <span style="display: block; margin-bottom: 16px;"><strong>tb_apply_phone (기본 정보)</strong><br/>고객명, 전화번호, 상품, 통신사, 지역 등</span>
+                    <span style="display: block; margin-bottom: 8px;">│</span>
+                    <span style="display: block; margin-bottom: 8px;">▼</span>
+                    <span style="display: block; margin-bottom: 16px;"><strong>개통 완료</strong><br/>step_code = '0201005'</span>
+                    <span style="display: block; margin-bottom: 8px;">│</span>
+                    <span style="display: block; margin: 8px 0;"><span style="display: inline-block; width: 30%; text-align: center;">├─ 구매유형 입력<br/>(현금/할부)</span><span style="display: inline-block; width: 30%; text-align: center;">├─ 대리점 입력<br/>(이름)</span><span style="display: inline-block; width: 30%; text-align: center;">├─ 수익성 입력<br/>(할부원금, 출고가)</span></span>
+                    <span style="display: block; margin-bottom: 8px;">│</span>
+                    <span style="display: block; margin-bottom: 16px;"><span style="display: inline-block; width: 100%;"><strong>데이터베이스 저장</strong></span></span>
+                    <span style="display: block; margin-bottom: 8px;">┌──────────────────────┬──────────────────────┬───────────────────┐</span>
+                    <span style="display: block; margin-bottom: 8px;">▼                      ▼                      ▼</span>
+                    <span style="display: block; margin-bottom: 8px;">tb_apply_phone      tb_apply_settlement  tb_apply_plan</span>
+                    <span style="display: block; margin-bottom: 8px;">(수익성)            (정산 이력)          _change</span>
+                    <span style="display: block; margin-bottom: 8px;">│                      │                      (요금제변경)</span>
+                    <span style="display: block; margin-bottom: 8px;">└──────────────────────┴──────────────────────┴───────────────────┘</span>
+                    <span style="display: block; margin-bottom: 8px;">│</span>
+                    <span style="display: block; margin-bottom: 16px;"><strong>자동 계산 및 분석</strong><br/>마진액 = 출고가 - 할부원금<br/>대리점별 평균 마진액, 판매 통계</span>
+                    <span style="display: block; margin-bottom: 8px;">│</span>
+                    <span style="display: block; margin-bottom: 16px;"><strong>알림톡 자동 발송</strong><br/>요금제 변경 예정일 ▶ 알림톡 전송<br/>부가서비스 변경 예정일 ▶ 알림톡 전송</span>
+                </p>
+            </div>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">3.2 개통 완료 고객 상세 정보 입력 UI 플로우</h3>
+            <div class="highlight-box" style="background: #fff; border: 2px solid #e5e8eb; padding: 24px;">
+                <p style="text-align: center; font-size: 13px; line-height: 1.8;">
+                    <strong style="display: block; margin-bottom: 12px;">개통완료 → 고객상세 페이지</strong>
+                    <span style="display: block; margin-bottom: 8px;">현재: 신청정보 + 개통정보</span>
+                    <span style="display: block; margin-bottom: 16px;">⬇</span>
+                    <strong style="display: block; margin-bottom: 12px;">개통정보 입력 탭 (신규)</strong>
+                    <span style="display: block; margin-bottom: 8px;">┌──────────────────────────────────┐</span>
+                    <span style="display: block; margin-bottom: 8px;">│ ☐ 구매 유형 선택                 │</span>
+                    <span style="display: block; margin-bottom: 8px;">│   ◉ 현금완납  ○ 할부             │</span>
+                    <span style="display: block; margin-bottom: 8px;">├──────────────────────────────────┤</span>
+                    <span style="display: block; margin-bottom: 8px;">│ ☐ 휴대폰 대리점명                │</span>
+                    <span style="display: block; margin-bottom: 8px;">│ 텍스트입력 [강남 갤럭시샵   ]    │</span>
+                    <span style="display: block; margin-bottom: 8px;">├──────────────────────────────────┤</span>
+                    <span style="display: block; margin-bottom: 8px;">│ ☐ 할부원금 (원)                  │</span>
+                    <span style="display: block; margin-bottom: 8px;">│ [        500,000          ]      │</span>
+                    <span style="display: block; margin-bottom: 8px;">├──────────────────────────────────┤</span>
+                    <span style="display: block; margin-bottom: 8px;">│ ☐ 출고가 (원)                    │</span>
+                    <span style="display: block; margin-bottom: 8px;">│ [      1,200,000         ]       │</span>
+                    <span style="display: block; margin-bottom: 8px;">├──────────────────────────────────┤</span>
+                    <span style="display: block; margin-bottom: 8px;">│ ⓘ 마진액 (자동계산)               │</span>
+                    <span style="display: block; margin-bottom: 8px;">│   700,000 원 (= 출고가-할부원금)  │</span>
+                    <span style="display: block; margin-bottom: 8px;">├──────────────────────────────────┤</span>
+                    <span style="display: block; margin-bottom: 8px;">│ ☐ 개통요금제 (드롭다운)          │</span>
+                    <span style="display: block; margin-bottom: 8px;">│ [3만원대 ▼]                      │</span>
+                    <span style="display: block; margin-bottom: 8px;">└──────────────────────────────────┘</span>
+                    <span style="display: block; margin-bottom: 16px;">│</span>
+                    <span style="display: block; margin-bottom: 8px;">▼</span>
+                    <span style="display: block; margin-bottom: 16px;"><strong>[저장] 버튼</strong></span>
+                    <span style="display: block; margin-bottom: 8px;">│</span>
+                    <span style="display: block; margin-bottom: 16px;"><strong>정산 탭 (신규) 표시</strong><br/>→ 수동 입력 고객이면 추가 정산 정보 기록</span>
+                </p>
+            </div>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">3.3 정산액 관리 및 현금 수/지급 이력</h3>
+            <div class="highlight-box" style="background: #fff; border: 2px solid #e5e8eb; padding: 24px;">
+                <p style="text-align: center; font-size: 13px; line-height: 1.8;">
+                    <strong style="display: block; margin-bottom: 12px;">정산 탭 UI</strong>
+                    <span style="display: block; margin-bottom: 16px;">┌────────────────────────────────────┐<br/>│ <strong>정산 정보</strong>                        │<br/>├────────────────────────────────────┤<br/>│ 총 정산액: 500,000원                │<br/>│ 수취액: 250,000원                   │<br/>│ 미정산: 250,000원                   │<br/>├────────────────────────────────────┤<br/>│ <strong>정산 이력</strong>                       │<br/>├────────────────────────────────────┤<br/>│ [+ 정산 기록 추가]                  │<br/>├────────────────────────────────────┤<br/>│ 2025.11.25 | 입금 | 250,000원      │<br/>│ (계좌: 신한은행 123-456)            │<br/>│ 메모: 할부금 첫번째 분할금           │<br/>│                                    │<br/>│ 2025.10.20 | 출금 | 50,000원       │<br/>│ (비용: 배송료)                      │<br/>│ 메모: 택배 배송료                    │<br/>└────────────────────────────────────┘</span>
+                    <span style="display: block; margin-bottom: 16px;"><strong>정산 기록 추가 모달</strong><br/>- 거래 유형 (입금/출금)<br/>- 거래 금액<br/>- 거래 날짜<br/>- 은행/계좌정보 또는 비용 항목<br/>- 메모</span>
+                </p>
+            </div>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">3.4 요금제 변경 일정 및 알림톡 자동 발송</h3>
+            <div class="highlight-box" style="background: #fff; border: 2px solid #e5e8eb; padding: 24px;">
+                <p style="text-align: center; font-size: 13px; line-height: 1.8;">
+                    <strong style="display: block; margin-bottom: 12px;">알림톡 관리 탭</strong>
+                    <span style="display: block; margin-bottom: 8px;">┌──────────────────────────────────────┐</span>
+                    <span style="display: block; margin-bottom: 8px;">│ <strong>요금제 변경 알림</strong>                    │</span>
+                    <span style="display: block; margin-bottom: 8px;">├──────────────────────────────────────┤</span>
+                    <span style="display: block; margin-bottom: 8px;">│ 변경 가능 예정일: 2026.03.15          │</span>
+                    <span style="display: block; margin-bottom: 8px;">│ 최소 요금제: 30,000원 이상            │</span>
+                    <span style="display: block; margin-bottom: 8px;">│ ☐ 자동 알림톡 발송 허용               │</span>
+                    <span style="display: block; margin-bottom: 8px;">├──────────────────────────────────────┤</span>
+                    <span style="display: block; margin-bottom: 8px;">│ <strong>부가서비스 변경 알림</strong>               │</span>
+                    <span style="display: block; margin-bottom: 8px;">├──────────────────────────────────────┤</span>
+                    <span style="display: block; margin-bottom: 8px;">│ 변경 가능 예정일: 2026.04.20          │</span>
+                    <span style="display: block; margin-bottom: 8px;">│ ☐ 자동 알림톡 발송 허용               │</span>
+                    <span style="display: block; margin-bottom: 8px;">├──────────────────────────────────────┤</span>
+                    <span style="display: block; margin-bottom: 8px;">│ <strong>발송 이력</strong>                          │</span>
+                    <span style="display: block; margin-bottom: 8px;">├──────────────────────────────────────┤</span>
+                    <span style="display: block; margin-bottom: 8px;">│ ✓ 2026.03.15 | 요금제 변경 알림      │</span>
+                    <span style="display: block; margin-bottom: 8px;">│   성공 (2026.03.15 10:30)            │</span>
+                    <span style="display: block; margin-bottom: 8px;">│                                      │</span>
+                    <span style="display: block; margin-bottom: 8px;">│ ✓ 2026.04.20 | 부가서비스 변경 알림  │</span>
+                    <span style="display: block; margin-bottom: 8px;">│   대기중...</span>
+                    <span style="display: block; margin-bottom: 8px;">└──────────────────────────────────────┘</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">4. 데이터베이스 설계 (신규 테이블)</h2>
+        <div class="content">
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">4.1 tb_apply_phone 테이블 수정</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>필드명</th>
+                        <th>타입</th>
+                        <th>설명</th>
+                        <th>상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>entry_type</td>
+                        <td>TINYINT</td>
+                        <td>진입경로 (0=플랫폼, 1=수동입력)</td>
+                        <td><span class="tag tag-after">신규</span></td>
+                    </tr>
+                    <tr>
+                        <td>completed_dealer_nm</td>
+                        <td>VARCHAR(100)</td>
+                        <td>완료된 휴대폰 대리점명 (예: "강남 갤럭시샵")</td>
+                        <td><span class="tag tag-after">신규</span></td>
+                    </tr>
+                    <tr>
+                        <td>completed_purchase_type_code</td>
+                        <td>VARCHAR(20)</td>
+                        <td>구매 유형 코드 (0401001=현금, 0401002=할부)</td>
+                        <td><span class="tag tag-after">신규</span></td>
+                    </tr>
+                    <tr>
+                        <td>completed_retail_price</td>
+                        <td>INT</td>
+                        <td>출고가 (기존 필드, 개통 완료 시 입력 가능)</td>
+                        <td><span class="tag-before">기존 활용</span></td>
+                    </tr>
+                    <tr>
+                        <td>completed_installment_principal</td>
+                        <td>INT</td>
+                        <td>할부원금 (기존 필드, 개통 완료 시 입력 가능)</td>
+                        <td><span class="tag-before">기존 활용</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">4.2 tb_apply_settlement (신규 테이블) - 정산 정보</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>필드명</th>
+                        <th>타입</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>settlement_no</td>
+                        <td>INT (PK)</td>
+                        <td>정산 번호 (자동증가)</td>
+                    </tr>
+                    <tr>
+                        <td>apply_no</td>
+                        <td>INT (FK)</td>
+                        <td>신청 번호</td>
+                    </tr>
+                    <tr>
+                        <td>settlement_amount</td>
+                        <td>INT</td>
+                        <td>정산액 (원)</td>
+                    </tr>
+                    <tr>
+                        <td>received_amount</td>
+                        <td>INT</td>
+                        <td>수취액 (원)</td>
+                    </tr>
+                    <tr>
+                        <td>pending_amount</td>
+                        <td>INT</td>
+                        <td>미정산액 (원) = settlement_amount - received_amount</td>
+                    </tr>
+                    <tr>
+                        <td>created_at</td>
+                        <td>DATETIME</td>
+                        <td>생성 일시</td>
+                    </tr>
+                    <tr>
+                        <td>updated_at</td>
+                        <td>DATETIME</td>
+                        <td>수정 일시</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">4.3 tb_apply_settlement_history (신규 테이블) - 정산 이력</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>필드명</th>
+                        <th>타입</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>settlement_history_no</td>
+                        <td>INT (PK)</td>
+                        <td>정산 이력 번호 (자동증가)</td>
+                    </tr>
+                    <tr>
+                        <td>apply_no</td>
+                        <td>INT (FK)</td>
+                        <td>신청 번호</td>
+                    </tr>
+                    <tr>
+                        <td>transaction_type</td>
+                        <td>VARCHAR(20)</td>
+                        <td>거래 유형 (INCOME=입금, EXPENSE=출금)</td>
+                    </tr>
+                    <tr>
+                        <td>transaction_amount</td>
+                        <td>INT</td>
+                        <td>거래 금액 (원)</td>
+                    </tr>
+                    <tr>
+                        <td>transaction_date</td>
+                        <td>DATE</td>
+                        <td>거래 날짜</td>
+                    </tr>
+                    <tr>
+                        <td>bank_name</td>
+                        <td>VARCHAR(50)</td>
+                        <td>은행명 (입금 시)</td>
+                    </tr>
+                    <tr>
+                        <td>account_number</td>
+                        <td>VARCHAR(100)</td>
+                        <td>계좌번호 (입금 시, 암호화)</td>
+                    </tr>
+                    <tr>
+                        <td>expense_category</td>
+                        <td>VARCHAR(50)</td>
+                        <td>비용 항목 (출금 시, 예: 배송료, 수수료)</td>
+                    </tr>
+                    <tr>
+                        <td>memo</td>
+                        <td>TEXT</td>
+                        <td>거래 메모</td>
+                    </tr>
+                    <tr>
+                        <td>agency_account_no</td>
+                        <td>INT (FK)</td>
+                        <td>기록한 어드민 계정번호</td>
+                    </tr>
+                    <tr>
+                        <td>created_at</td>
+                        <td>DATETIME</td>
+                        <td>기록 일시</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">4.4 tb_apply_plan_change (신규 테이블) - 요금제 변경 일정</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>필드명</th>
+                        <th>타입</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>plan_change_no</td>
+                        <td>INT (PK)</td>
+                        <td>요금제 변경 일정 번호 (자동증가)</td>
+                    </tr>
+                    <tr>
+                        <td>apply_no</td>
+                        <td>INT (FK)</td>
+                        <td>신청 번호</td>
+                    </tr>
+                    <tr>
+                        <td>change_target_date</td>
+                        <td>DATE</td>
+                        <td>변경 가능 예정일 (고객이 언제부터 요금제 변경 가능)</td>
+                    </tr>
+                    <tr>
+                        <td>min_rate_plan_fee</td>
+                        <td>INT</td>
+                        <td>최소 요금제 (원) (변경 시 최소한 유지해야 할 요금제)</td>
+                    </tr>
+                    <tr>
+                        <td>notify_yn</td>
+                        <td>CHAR(1)</td>
+                        <td>자동 알림톡 발송 여부 (Y/N)</td>
+                    </tr>
+                    <tr>
+                        <td>created_at</td>
+                        <td>DATETIME</td>
+                        <td>생성 일시</td>
+                    </tr>
+                    <tr>
+                        <td>updated_at</td>
+                        <td>DATETIME</td>
+                        <td>수정 일시</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">4.5 tb_apply_addon_change (신규 테이블) - 부가서비스 변경 일정</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>필드명</th>
+                        <th>타입</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>addon_change_no</td>
+                        <td>INT (PK)</td>
+                        <td>부가서비스 변경 일정 번호 (자동증가)</td>
+                    </tr>
+                    <tr>
+                        <td>apply_no</td>
+                        <td>INT (FK)</td>
+                        <td>신청 번호</td>
+                    </tr>
+                    <tr>
+                        <td>addon_change_target_date</td>
+                        <td>DATE</td>
+                        <td>변경 가능 예정일 (고객이 언제부터 부가서비스 변경 가능)</td>
+                    </tr>
+                    <tr>
+                        <td>notify_yn</td>
+                        <td>CHAR(1)</td>
+                        <td>자동 알림톡 발송 여부 (Y/N)</td>
+                    </tr>
+                    <tr>
+                        <td>created_at</td>
+                        <td>DATETIME</td>
+                        <td>생성 일시</td>
+                    </tr>
+                    <tr>
+                        <td>updated_at</td>
+                        <td>DATETIME</td>
+                        <td>수정 일시</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">4.6 tb_apply_notification (신규 테이블) - 알림톡 발송 이력</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>필드명</th>
+                        <th>타입</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>notification_no</td>
+                        <td>INT (PK)</td>
+                        <td>알림톡 번호 (자동증가)</td>
+                    </tr>
+                    <tr>
+                        <td>apply_no</td>
+                        <td>INT (FK)</td>
+                        <td>신청 번호</td>
+                    </tr>
+                    <tr>
+                        <td>notify_type</td>
+                        <td>VARCHAR(20)</td>
+                        <td>알림 유형 (PLAN_CHANGE=요금제, ADDON_CHANGE=부가서비스)</td>
+                    </tr>
+                    <tr>
+                        <td>scheduled_at</td>
+                        <td>DATETIME</td>
+                        <td>예정 발송 일시</td>
+                    </tr>
+                    <tr>
+                        <td>sent_yn</td>
+                        <td>CHAR(1)</td>
+                        <td>발송 여부 (Y/N)</td>
+                    </tr>
+                    <tr>
+                        <td>sent_at</td>
+                        <td>DATETIME</td>
+                        <td>실제 발송 일시</td>
+                    </tr>
+                    <tr>
+                        <td>send_result</td>
+                        <td>VARCHAR(20)</td>
+                        <td>발송 결과 (SUCCESS=성공, FAILED=실패, PENDING=대기중)</td>
+                    </tr>
+                    <tr>
+                        <td>error_message</td>
+                        <td>TEXT</td>
+                        <td>오류 메시지 (실패 시)</td>
+                    </tr>
+                    <tr>
+                        <td>created_at</td>
+                        <td>DATETIME</td>
+                        <td>생성 일시</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">5. 개발 범위 및 일정</h2>
+        <div class="content">
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">5.1 Phase 1 - 기본 데이터 관리 (2-3주)</h3>
+            <ul>
+                <li><strong>데이터베이스:</strong> 신규 테이블 생성 (tb_apply_settlement, tb_apply_plan_change, tb_apply_addon_change, tb_apply_notification)</li>
+                <li><strong>tb_apply_phone 수정:</strong> entry_type, completed_dealer_nm, completed_purchase_type_code 필드 추가</li>
+                <li><strong>Backend:</strong> ApplyPhoneDto 확장 (새로운 필드 추가)</li>
+                <li><strong>Backend:</strong> ApplyPhoneService 로직 업데이트 (마진액 자동 계산)</li>
+                <li><strong>Backend:</strong> API 엔드포인트 추가 (정산 정보 조회/등록/수정)</li>
+                <li><strong>Frontend:</strong> 개통 정보 입력 폼 UI 추가 (구매유형, 대리점, 할부원금, 출고가)</li>
+            </ul>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">5.2 Phase 2 - 정산 관리 시스템 (2-3주)</h3>
+            <ul>
+                <li><strong>Backend:</strong> ApplySettlementService 구현 (정산액 계산, 이력 조회)</li>
+                <li><strong>Backend:</strong> ApplySettlementHistoryService 구현 (입금/출금 이력 기록)</li>
+                <li><strong>Backend:</strong> API 엔드포인트 추가 (정산 이력 조회/추가/수정)</li>
+                <li><strong>Frontend:</strong> 정산 탭 UI 구현 (정산 현황, 이력 조회, 이력 추가)</li>
+                <li><strong>Frontend:</strong> 정산 이력 추가 모달 UI</li>
+            </ul>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">5.3 Phase 3 - 알림톡 자동화 (2-3주)</h3>
+            <ul>
+                <li><strong>Backend:</strong> ApplyPlanChangeService 구현 (요금제 변경 일정 조회/등록/수정)</li>
+                <li><strong>Backend:</strong> ApplyAddonChangeService 구현 (부가서비스 변경 일정 조회/등록/수정)</li>
+                <li><strong>Backend:</strong> ApplyNotificationService 구현 (알림톡 예약/발송)</li>
+                <li><strong>Backend:</strong> 스케줄러 (Scheduler) 구현 (예정된 알림톡 자동 발송)</li>
+                <li><strong>Backend:</strong> 외부 알림톡 API 연동 (제공업체: Kakao Biz, NHN, 등)</li>
+                <li><strong>Frontend:</strong> 알림톡 관리 탭 UI (요금제/부가서비스 변경 일정 설정, 발송 이력 조회)</li>
+            </ul>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">5.4 Phase 4 - 분석 및 최적화 (1-2주)</h3>
+            <ul>
+                <li><strong>Backend:</strong> 대리점별 마진액 통계 쿼리</li>
+                <li><strong>Backend:</strong> 구매유형별 판매 통계</li>
+                <li><strong>Backend:</strong> 정산 현황 대시보드 API</li>
+                <li><strong>Frontend:</strong> 통계 대시보드 UI (차트, 테이블)</li>
+                <li><strong>테스트:</strong> 전체 통합 테스트 및 데이터 정합성 검증</li>
+            </ul>
+
+            <h3 style="font-size: 16px; font-weight: 600; margin-top: 20px; margin-bottom: 12px;">5.5 전체 일정</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>내용</th>
+                        <th>기간</th>
+                        <th>담당</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Phase 1</td>
+                        <td>기본 데이터 관리</td>
+                        <td>2-3주</td>
+                        <td>Backend (1명) + Frontend (1명)</td>
+                    </tr>
+                    <tr>
+                        <td>Phase 2</td>
+                        <td>정산 관리 시스템</td>
+                        <td>2-3주</td>
+                        <td>Backend (1명) + Frontend (1명)</td>
+                    </tr>
+                    <tr>
+                        <td>Phase 3</td>
+                        <td>알림톡 자동화</td>
+                        <td>2-3주</td>
+                        <td>Backend (1명) + Frontend (1명)</td>
+                    </tr>
+                    <tr>
+                        <td>Phase 4</td>
+                        <td>분석 및 최적화</td>
+                        <td>1-2주</td>
+                        <td>Backend (1명) + Frontend (1명)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>합계</strong></td>
+                        <td><strong>전체</strong></td>
+                        <td><strong>7-11주</strong></td>
+                        <td><strong>-</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">6. 기대 효과</h2>
+        <div class="content">
+            <ul>
+                <li><strong>고객 관리 효율화:</strong> 외부 유입 고객까지 통합 관리로 전체 고객 풀 확대</li>
+                <li><strong>수익성 분석:</strong> 대리점별, 구매유형별 마진액 분석으로 판매 전략 수립 가능</li>
+                <li><strong>정산 투명성:</strong> 입금/출금 이력 명확화로 재무 관리 개선</li>
+                <li><strong>고객 접점 자동화:</strong> 요금제 변경 시점의 자동 알림톡으로 고객 재가입율 향상</li>
+                <li><strong>비용 절감:</strong> 수동 고객 관리 업무 감소</li>
+                <li><strong>데이터 기반 의사결정:</strong> 통계 대시보드로 경영 현황 실시간 파악</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
