@@ -27,6 +27,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
+    // Dotenv - .env 파일 자동 로드
+    implementation 'me.paulschwarz:spring-dotenv:4.0.0'
+
     // MyBatis
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 

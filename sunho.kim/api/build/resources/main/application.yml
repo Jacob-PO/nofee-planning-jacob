@@ -1,13 +1,20 @@
+# ===========================================
+# Nofee Carrier Test API - Application Configuration
+# ===========================================
+# 민감한 정보는 .env 파일에서 관리합니다.
+# 실행 전 .env 파일이 있는지 확인하세요.
+# ===========================================
+
 server:
-  port: 8090
+  port: ${SERVER_PORT:8090}
 
 spring:
   application:
     name: carrier-test-api
   datasource:
-    url: jdbc:mysql://3.34.129.112:3306/db_nofee?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
-    username: nofee
-    password: HBDyNLZBXZ41TkeZ
+    url: ${DB_URL:jdbc:mysql://localhost:3306/db_nofee}
+    username: ${DB_USERNAME:nofee}
+    password: ${DB_PASSWORD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -25,20 +32,20 @@ springdoc:
 # Google Sheets 설정
 google:
   sheets:
-    spreadsheet-id: ${GOOGLE_SHEETS_SPREADSHEET_ID:1ftWmcEBku_il3V50HQv33H-n6j3K1epVVwpbugAu2zU}
-    credentials-path: ${GOOGLE_SHEETS_CREDENTIALS:/Users/jacob/Desktop/workspace/nofee/google_api_key.json}
-    subsidy-sheet-name: summary-new
-    mapping-sheet-name: summary-mapping
-    cache-ttl-hours: 24
+    spreadsheet-id: ${GOOGLE_SHEETS_SPREADSHEET_ID:}
+    credentials-path: ${GOOGLE_SHEETS_CREDENTIALS:}
+    subsidy-sheet-name: ${GOOGLE_SHEETS_SUBSIDY_SHEET:summary-new}
+    mapping-sheet-name: ${GOOGLE_SHEETS_MAPPING_SHEET:summary-mapping}
+    cache-ttl-hours: ${GOOGLE_SHEETS_CACHE_TTL:24}
 
 # 통신사 API 설정
 carrier:
   skt:
-    base-url: https://www.tworld.co.kr
+    base-url: ${CARRIER_SKT_URL:https://www.tworld.co.kr}
   kt:
-    base-url: https://shop.kt.com
+    base-url: ${CARRIER_KT_URL:https://shop.kt.com}
   lgu:
-    base-url: https://www.uplus.co.kr
+    base-url: ${CARRIER_LGU_URL:https://www.uplus.co.kr}
 
 # MyBatis 설정
 mybatis:
