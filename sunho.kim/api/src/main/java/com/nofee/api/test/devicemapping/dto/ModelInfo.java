@@ -70,12 +70,12 @@ public class ModelInfo {
         String lower = name.toLowerCase().replaceAll("\\s+", " ").trim();
 
         // 갤럭시 시리즈
-        if (lower.matches(".*(?:갤럭시|galaxy).*")) {
+        if (GALAXY_PATTERN.matcher(lower).matches()) {
             return extractGalaxy(lower);
         }
 
         // 아이폰 시리즈
-        if (lower.matches(".*(?:아이폰|iphone).*")) {
+        if (IPHONE_PATTERN.matcher(lower).matches()) {
             return extractIphone(lower);
         }
 
@@ -84,68 +84,60 @@ public class ModelInfo {
 
     private static ModelInfo extractGalaxy(String lower) {
         // Z 폴드
-        Pattern foldPattern = Pattern.compile("(?:z\\s*)?폴드\\s*(\\d+)|z?\\s*fold\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
-        Matcher foldMatcher = foldPattern.matcher(lower);
+        Matcher foldMatcher = FOLD_PATTERN.matcher(lower);
         if (foldMatcher.find()) {
             String num = foldMatcher.group(1) != null ? foldMatcher.group(1) : foldMatcher.group(2);
             return ModelInfo.builder().brand(Brand.GALAXY).series("Fold" + (num != null ? num : "")).build();
         }
 
         // Z 플립
-        Pattern flipPattern = Pattern.compile("(?:z\\s*)?플립\\s*(\\d+)|z?\\s*flip\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
-        Matcher flipMatcher = flipPattern.matcher(lower);
+        Matcher flipMatcher = FLIP_PATTERN.matcher(lower);
         if (flipMatcher.find()) {
             String num = flipMatcher.group(1) != null ? flipMatcher.group(1) : flipMatcher.group(2);
             return ModelInfo.builder().brand(Brand.GALAXY).series("Flip" + (num != null ? num : "")).build();
         }
 
         // 퀀텀 시리즈
-        Pattern quantumPattern = Pattern.compile("퀀텀\\s*(\\d+)|quantum\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
-        Matcher quantumMatcher = quantumPattern.matcher(lower);
+        Matcher quantumMatcher = QUANTUM_PATTERN.matcher(lower);
         if (quantumMatcher.find()) {
             String num = quantumMatcher.group(1) != null ? quantumMatcher.group(1) : quantumMatcher.group(2);
             return ModelInfo.builder().brand(Brand.GALAXY).series("Quantum" + num).build();
         }
 
         // A 시리즈
-        Pattern aPattern = Pattern.compile("a\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
-        Matcher aMatcher = aPattern.matcher(lower);
+        Matcher aMatcher = A_SERIES_PATTERN.matcher(lower);
         if (aMatcher.find()) {
             return ModelInfo.builder().brand(Brand.GALAXY).series("A" + aMatcher.group(1)).build();
         }
 
         // S 시리즈 + 변형
-        Pattern sPattern = Pattern.compile("s\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
-        Matcher sMatcher = sPattern.matcher(lower);
+        Matcher sMatcher = S_SERIES_PATTERN.matcher(lower);
         if (sMatcher.find()) {
             String num = sMatcher.group(1);
             String variant = null;
-            if (lower.matches(".*(?:울트라|ultra).*")) variant = "Ultra";
-            else if (lower.matches(".*(?:엣지|edge).*")) variant = "Edge";
-            else if (lower.matches(".*(?:플러스|\\+|plus).*")) variant = "+";
-            else if (lower.matches(".*fe.*")) variant = "FE";
+            if (ULTRA_PATTERN.matcher(lower).matches()) variant = "Ultra";
+            else if (EDGE_PATTERN.matcher(lower).matches()) variant = "Edge";
+            else if (PLUS_PATTERN.matcher(lower).matches()) variant = "+";
+            else if (FE_PATTERN.matcher(lower).matches()) variant = "FE";
             return ModelInfo.builder().brand(Brand.GALAXY).series("S" + num).variant(variant).build();
         }
 
         // 점프 시리즈
-        Pattern jumpPattern = Pattern.compile("점프\\s*(\\d+)|jump\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
-        Matcher jumpMatcher = jumpPattern.matcher(lower);
+        Matcher jumpMatcher = JUMP_PATTERN.matcher(lower);
         if (jumpMatcher.find()) {
             String num = jumpMatcher.group(1) != null ? jumpMatcher.group(1) : jumpMatcher.group(2);
             return ModelInfo.builder().brand(Brand.GALAXY).series("Jump" + num).build();
         }
 
         // 버디 시리즈
-        Pattern buddyPattern = Pattern.compile("버디\\s*(\\d+)|buddy\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
-        Matcher buddyMatcher = buddyPattern.matcher(lower);
+        Matcher buddyMatcher = BUDDY_PATTERN.matcher(lower);
         if (buddyMatcher.find()) {
             String num = buddyMatcher.group(1) != null ? buddyMatcher.group(1) : buddyMatcher.group(2);
             return ModelInfo.builder().brand(Brand.GALAXY).series("Buddy" + num).build();
         }
 
         // M 시리즈
-        Pattern mPattern = Pattern.compile("m\\s*(\\d+)", Pattern.CASE_INSENSITIVE);
-        Matcher mMatcher = mPattern.matcher(lower);
+        Matcher mMatcher = M_SERIES_PATTERN.matcher(lower);
         if (mMatcher.find()) {
             return ModelInfo.builder().brand(Brand.GALAXY).series("M" + mMatcher.group(1)).build();
         }
@@ -158,40 +150,39 @@ public class ModelInfo {
         String series = null;
 
         // Air
-        if (lower.matches(".*(?:에어|air).*")) {
+        if (AIR_PATTERN.matcher(lower).matches()) {
             variant = "Air";
             series = "Air";
         }
         // Pro Max
-        else if (lower.matches(".*(?:프로\\s*맥스|pro\\s*max).*")) {
+        else if (PRO_MAX_PATTERN.matcher(lower).matches()) {
             variant = "ProMax";
         }
         // Pro
-        else if (lower.matches(".*(?:프로|pro).*")) {
+        else if (PRO_PATTERN.matcher(lower).matches()) {
             variant = "Pro";
         }
         // Plus
-        else if (lower.matches(".*(?:플러스|\\+|plus).*")) {
+        else if (PLUS_PATTERN.matcher(lower).matches()) {
             variant = "+";
         }
         // Mini
-        else if (lower.matches(".*(?:미니|mini).*")) {
+        else if (MINI_PATTERN.matcher(lower).matches()) {
             variant = "Mini";
         }
         // SE
-        else if (lower.matches(".*se.*")) {
+        else if (SE_PATTERN.matcher(lower).matches()) {
             variant = "SE";
             series = "SE";
         }
         // e 모델
-        else if (lower.matches(".*\\d+\\s*e\\b.*")) {
+        else if (E_MODEL_PATTERN.matcher(lower).matches()) {
             variant = "e";
         }
 
         // 숫자 추출 (Air, SE가 아닌 경우)
         if (series == null) {
-            Pattern numPattern = Pattern.compile("(\\d+)");
-            Matcher numMatcher = numPattern.matcher(lower);
+            Matcher numMatcher = NUMBER_PATTERN.matcher(lower);
             if (numMatcher.find()) {
                 series = numMatcher.group(1);
             }
