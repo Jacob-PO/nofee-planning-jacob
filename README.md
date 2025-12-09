@@ -2,8 +2,8 @@
 
 노피(NOFEE) 서비스의 **전략 기획, 데이터 분석, 마케팅 기획**을 위한 통합 저장소입니다.
 
-**최종 업데이트**: 2025-11-19
-**버전**: 3.0
+**최종 업데이트**: 2025-12-09
+**버전**: 3.1
 **관리자**: 김선호 (CEO)
 
 ---
@@ -375,10 +375,26 @@ cd nofee-crawler/workspace-sales-crawler
 
 ## 🔒 보안 및 권한
 
+### 환경변수 설정
+모든 민감정보는 프로젝트 루트의 `.env` 파일에서 관리됩니다.
+
+```bash
+# .env 파일 위치
+/Users/jacob/Desktop/workspace/nofee/.env
+
+# 설정 항목
+- DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME  # 개발 DB
+- DB_HOST_PROD, DB_PASSWORD_PROD 등               # 운영 DB
+- AES_SECRET_KEY                                   # 암호화 키
+- OPENAI_API_KEY                                   # AI Agent용
+- GOOGLE_SHEETS_*                                  # Google Sheets API
+- NEXT_PUBLIC_KAKAO_*                              # Kakao API
+- NEXT_PUBLIC_GTM_ID                               # Google Tag Manager
+```
+
 ### DB 접근
-- **Host**: 43.203.125.223
-- **Port**: 3306
-- **Database**: db_nofee
+- **개발 DB**: 환경변수 `DB_HOST` 참조
+- **운영 DB**: 환경변수 `DB_HOST_PROD` 참조
 - **접근 권한**: CEO, CTO 만
 
 ### GA4 접근
@@ -389,10 +405,18 @@ cd nofee-crawler/workspace-sales-crawler
 ### Git 관리
 - **저장소**: Private Repository
 - **접근 권한**: 팀원만
+- **.gitignore**: `.env` 파일은 Git에서 제외됨
 
 ---
 
 ## ✅ 변경 이력
+
+### 2025-12-09 (v3.1) - 보안 강화
+- 모든 민감정보를 환경변수(.env)로 분리
+- 하드코딩된 DB 접속정보, API 키 제거
+- Python 스크립트에서 `python-dotenv` 사용하도록 변경
+- .gitignore에 .env 추가
+- 개발/운영 DB 환경 분리
 
 ### 2025-11-19 (v3.0) - 전면 개편
 - nofee-data 폴더 구조 전면 재구성
@@ -442,9 +466,9 @@ cd nofee-crawler/workspace-sales-crawler
 ## 📞 문의
 
 **관리자**: 김선호 (CEO)
-**최종 업데이트**: 2025-11-19
-**문서 버전**: 3.0
-**다음 업데이트 예정**: 2025-12-19 (월 1회 정기 업데이트)
+**최종 업데이트**: 2025-12-09
+**문서 버전**: 3.1
+**다음 업데이트 예정**: 2026-01-09 (월 1회 정기 업데이트)
 
 ---
 
