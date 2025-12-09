@@ -31,10 +31,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class PlanSheetService {
 
-    @Value("${google.sheets.spreadsheet-id}")
+    @Value("${nofee.google.sheets.pricetable.spreadsheet-id:}")
     private String spreadsheetId;
 
-    @Value("${google.sheets.credentials-path}")
+    @Value("${nofee.google.sheets.credentials-path:}")
     private String credentialsPath;
 
     private static final String PLAN_SHEET_NAME = "summary-plan";

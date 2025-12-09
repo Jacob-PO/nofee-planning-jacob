@@ -46,11 +46,11 @@ dependencies {
     // HTTP Client
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
 
-    // MySQL Database
-    runtimeOnly 'com.mysql:mysql-connector-j:8.2.0'
+    // MariaDB Database
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.3.0'
 
-    // H2 Database (테스트용)
-    runtimeOnly 'com.h2database:h2'
+    // Log4jdbc (SQL 로깅)
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'

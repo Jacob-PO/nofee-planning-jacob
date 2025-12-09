@@ -36,16 +36,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class SubsidyCacheService {
 
-    @Value("${google.sheets.spreadsheet-id}")
+    @Value("${nofee.google.sheets.pricetable.spreadsheet-id:}")
     private String spreadsheetId;
 
-    @Value("${google.sheets.subsidy-sheet-name}")
+    @Value("${nofee.google.sheets.subsidy-sheet-name:summary-new}")
     private String sheetName;
 
-    @Value("${google.sheets.credentials-path}")
+    @Value("${nofee.google.sheets.credentials-path:}")
     private String credentialsPath;
 
-    @Value("${google.sheets.cache-ttl-hours}")
+    @Value("${nofee.google.sheets.cache-ttl-hours:24}")
     private int cacheTtlHours;
 
     private Sheets sheetsService;

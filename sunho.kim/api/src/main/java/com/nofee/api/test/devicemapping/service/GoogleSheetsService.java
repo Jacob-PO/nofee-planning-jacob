@@ -29,13 +29,13 @@ import java.util.List;
 @Service
 public class GoogleSheetsService {
 
-    @Value("${google.sheets.spreadsheet-id}")
+    @Value("${nofee.google.sheets.pricetable.spreadsheet-id:}")
     private String spreadsheetId;
 
-    @Value("${google.sheets.mapping-sheet-name}")
+    @Value("${nofee.google.sheets.mapping-sheet-name:summary-mapping}")
     private String sheetName;
 
-    @Value("${google.sheets.credentials-path}")
+    @Value("${nofee.google.sheets.credentials-path:}")
     private String credentialsPath;
 
     private Sheets sheetsService;
