@@ -7,25 +7,30 @@
 
 import pymysql
 import json
+import os
 from datetime import datetime, date
 from pathlib import Path
 from collections import defaultdict
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 import binascii
+from dotenv import load_dotenv
+
+# .env 파일 로드
+load_dotenv(Path(__file__).parents[4] / '.env')
 
 # DB 설정
 DB_CONFIG = {
-    'host': '43.203.125.223',
-    'port': 3306,
-    'user': 'nofee',
-    'password': 'HBDyNLZBXZ41TkeZ',
-    'database': 'db_nofee',
+    'host': os.getenv('DB_HOST'),
+    'port': int(os.getenv('DB_PORT', 3306)),
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASSWORD'),
+    'database': os.getenv('DB_NAME'),
     'charset': 'utf8mb4'
 }
 
 # AES 복호화 키
-SECRET_KEY = '4QEG4veBEftgjer6'
+SECRET_KEY = os.getenv('AES_SECRET_KEY')
 
 def decrypt_aes(encrypted_hex_data):
     """AES 복호화 (HEX 중첩 방식)"""

@@ -10,13 +10,19 @@ from datetime import datetime
 from pathlib import Path
 from collections import defaultdict
 
+import os
+from dotenv import load_dotenv
+
+# .env 파일 로드
+load_dotenv(Path(__file__).parents[4] / '.env')
+
 # DB 연결 정보
 DB_CONFIG = {
-    'host': '43.203.125.223',
-    'port': 3306,
-    'user': 'nofee',
-    'password': 'HBDyNLZBXZ41TkeZ',
-    'database': 'db_nofee',
+    'host': os.getenv('DB_HOST'),
+    'port': int(os.getenv('DB_PORT', 3306)),
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASSWORD'),
+    'database': os.getenv('DB_NAME'),
     'charset': 'utf8mb4'
 }
 

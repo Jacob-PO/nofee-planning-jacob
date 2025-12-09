@@ -13,13 +13,13 @@ class CampaignPriceTossStyle:
         self.output_path.mkdir(exist_ok=True)
         self.env_vars = self.load_env_vars()
 
-        # DB 연결 정보 (env 우선)
+        # DB 연결 정보 (env 필수)
         self.db_config = {
-            'host': self.env_vars.get('DB_HOST', '43.203.125.223'),
+            'host': self.env_vars.get('DB_HOST'),
             'port': int(self.env_vars.get('DB_PORT', 3306)),
-            'user': self.env_vars.get('DB_USER', 'nofee'),
-            'password': self.env_vars.get('DB_PASSWORD', 'HBDyNLZBXZ41TkeZ'),
-            'database': self.env_vars.get('DB_NAME', 'db_nofee'),
+            'user': self.env_vars.get('DB_USER'),
+            'password': self.env_vars.get('DB_PASSWORD'),
+            'database': self.env_vars.get('DB_NAME'),
             'charset': self.env_vars.get('DB_CHARSET', 'utf8mb4')
         }
 

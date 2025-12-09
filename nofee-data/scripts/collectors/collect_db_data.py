@@ -10,13 +10,18 @@ from datetime import datetime, date
 import os
 from pathlib import Path
 
-# 프로젝트 루트에서 .env 읽기
+from dotenv import load_dotenv
+
+# .env 파일 로드
+load_dotenv(Path(__file__).parents[4] / '.env')
+
+# DB 설정
 DB_CONFIG = {
-    'host': '43.203.125.223',
-    'port': 3306,
-    'user': 'nofee',
-    'password': 'HBDyNLZBXZ41TkeZ',
-    'database': 'db_nofee',
+    'host': os.getenv('DB_HOST'),
+    'port': int(os.getenv('DB_PORT', 3306)),
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASSWORD'),
+    'database': os.getenv('DB_NAME'),
     'charset': 'utf8mb4'
 }
 
