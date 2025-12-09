@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노피 홈 화면 기획</title>
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'SUIT Variable', -apple-system, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #fff;
+            color: #191f28;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+        .header {
+            border-bottom: 2px solid #3182f6;
+            padding-bottom: 20px;
+            margin-bottom: 32px;
+        }
+        .header h1 { font-size: 24px; margin-bottom: 8px; }
+        .header p { color: #6b7280; font-size: 13px; }
+        .section { margin: 40px 0; }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e8eb;
+        }
+        .box {
+            background: #f8fafc;
+            border-left: 4px solid #3182f6;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .box.green { border-color: #22c55e; background: #f0fdf4; }
+        .box.yellow { border-color: #f59e0b; background: #fef3c7; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid #e5e8eb;
+            text-align: left;
+        }
+        th { background: #f9fafb; font-weight: 600; }
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .formula {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 16px;
+            font-family: monospace;
+            font-size: 13px;
+            margin: 16px 0;
+            white-space: pre-wrap;
+        }
+        ul { margin-left: 20px; }
+        li { margin-bottom: 6px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>노피 홈 화면 기획</h1>
+    <p>v1.0 | 2025.12.08 | 작성: 제이콥</p>
+</div>
+
+<!-- 1. 핵심 컨셉 -->
+<div class="section">
+    <h2 class="section-title">1. 핵심 컨셉</h2>
+
+    <div class="box green">
+        <strong>홈 = 동네성지</strong><br>
+        지도 + 하단 모달 구조 (당근마켓 동네지도 방식)
+    </div>
+
+    <table>
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>화면 구조</td><td>상단 50% 지도 + 하단 50% 모달</td></tr>
+        <tr><td>초기 위치</td><td>IP 기반 위치 추정 → 해당 지역 판매점 표시</td></tr>
+        <tr><td>지도 핀</td><td>노피 입점 판매점 위치</td></tr>
+        <tr><td>모달 내용</td><td>지역명 + 퀵메뉴 + 딜 리스트</td></tr>
+    </table>
+</div>
+
+<!-- 2. 인터랙션 -->
+<div class="section">
+    <h2 class="section-title">2. 인터랙션</h2>
+
+    <table>
+        <tr><th>동작</th><th>결과</th></tr>
+        <tr><td>모달 위로 스와이프</td><td>모달 100% (지도 숨김)</td></tr>
+        <tr><td>풀모달에서 스크롤</td><td>모달 유지 (축소 안 됨)</td></tr>
+        <tr><td>"축소" 버튼 클릭</td><td>모달 50%로 복귀</td></tr>
+        <tr><td>지도 핀 클릭</td><td>판매점 미니카드 노출</td></tr>
+        <tr><td>위치 새로고침</td><td>GPS로 현재 위치 재조회</td></tr>
+    </table>
+</div>
+
+<!-- 3. 모달 콘텐츠 -->
+<div class="section">
+    <h2 class="section-title">3. 모달 콘텐츠</h2>
+
+    <table>
+        <tr><th>순서</th><th>컴포넌트</th><th>내용</th></tr>
+        <tr><td>1</td><td>지역명</td><td>"📍 은평구 갈현동" (변경 가능)</td></tr>
+        <tr><td>2</td><td>퀵메뉴</td><td>핫딜 / 시세표 / 신뢰높은매장 / 견적비교</td></tr>
+        <tr><td>3</td><td>딜 리스트</td><td>내 주변 판매점 딜 카드</td></tr>
+    </table>
+</div>
+
+<!-- 4. 딜 카드 -->
+<div class="section">
+    <h2 class="section-title">4. 딜 카드 구성</h2>
+
+    <table>
+        <tr><th>우선순위</th><th>정보</th><th>표시</th></tr>
+        <tr><td>1</td><td><strong>월 납부금액</strong></td><td>가장 크게</td></tr>
+        <tr><td>2</td><td>할부원금</td><td>보조 텍스트</td></tr>
+        <tr><td>3</td><td>신뢰높이</td><td>"신뢰 51층"</td></tr>
+        <tr><td>4</td><td>판매점 지역</td><td>"강남구" 태그</td></tr>
+        <tr><td>5</td><td>평균대비</td><td>"평균보다 2만원↓"</td></tr>
+    </table>
+</div>
+
+<!-- 5. 월 납부금액 공식 -->
+<div class="section">
+    <h2 class="section-title">5. 월 납부금액 산정</h2>
+
+    <div class="box">
+        <strong>월 납부금액 = 월 할부금 + 월 요금제</strong>
+    </div>
+
+    <div class="formula">■ 공시지원금
+할부원금 = 출고가 - 공시지원금 - 추가지원금
+월 납부금액 = (할부원금 ÷ 24) + 요금제 월정액
+
+■ 선택약정
+월 납부금액 = (출고가 ÷ 24) + (요금제 × 0.75)</div>
+
+    <div class="box yellow">
+        <strong>가드레일:</strong> 24개월 총비용 항상 병기 (토글 불가)
+    </div>
+</div>
+
+<!-- 6. 신뢰높이 -->
+<div class="section">
+    <h2 class="section-title">6. 신뢰높이</h2>
+
+    <table>
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>정의</td><td>1~100 점수를 "층"으로 표현</td></tr>
+        <tr><td>표시</td><td>"신뢰 51층"</td></tr>
+        <tr><td>구성</td><td>가격일치율 + 조건일치율 + 후기점수 - 클레임율</td></tr>
+    </table>
+</div>
+
+<!-- 7. 핵심 API -->
+<div class="section">
+    <h2 class="section-title">7. 핵심 API</h2>
+
+    <table>
+        <tr><th>기능</th><th>엔드포인트</th></tr>
+        <tr><td>상품 목록</td><td><code>POST /product-group/phone</code></td></tr>
+        <tr><td>인기 TOP 10</td><td><code>POST /product-group/phone/top</code></td></tr>
+        <tr><td>매장 목록</td><td><code>POST /store</code></td></tr>
+        <tr><td>지역 조회</td><td><code>POST /area/all</code></td></tr>
+        <tr><td>견적 신청</td><td><code>POST /apply/phone/estimate-regist</code></td></tr>
+    </table>
+
+    <p style="margin-top: 16px; font-size: 12px; color: #6b7280;">
+        * 상세 API 문서: <code>sunho.kim/docs/API_ENDPOINTS.md</code>
+    </p>
+</div>
+
+<!-- 8. 코드 체계 -->
+<div class="section">
+    <h2 class="section-title">8. 코드 체계</h2>
+
+    <table>
+        <tr><th>코드</th><th>통신사</th><th>코드</th><th>가입유형</th></tr>
+        <tr><td><code>0301001001</code></td><td>SKT</td><td><code>0301007001</code></td><td>신규가입</td></tr>
+        <tr><td><code>0301001002</code></td><td>KT</td><td><code>0301007002</code></td><td>번호이동</td></tr>
+        <tr><td><code>0301001003</code></td><td>LG U+</td><td><code>0301007003</code></td><td>기기변경</td></tr>
+    </table>
+
+    <table>
+        <tr><th>코드</th><th>지원유형</th></tr>
+        <tr><td><code>0301006001</code></td><td>공시지원금</td></tr>
+        <tr><td><code>0301006002</code></td><td>선택약정</td></tr>
+    </table>
+</div>
+
+<div style="margin-top: 60px; padding-top: 20px; border-top: 1px solid #e5e8eb; font-size: 12px; color: #8b95a1;">
+    <p>관련 문서: claude.md, EXECUTION_GUIDE.md, sunho.kim/docs/API_ENDPOINTS.md</p>
+</div>
+
+</body>
+</html>

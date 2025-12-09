@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nofee.api.test.trustscore.mapper.TrustScoreMapper">
+
+    <!-- 매장 기본 정보 조회 -->
+    <select id="selectStoreInfo" parameterType="Integer" resultType="java.util.HashMap">
+        /* [trustscore-sqlmap][selectStoreInfo] 매장 신뢰점수 기본 정보 조회 */
+        SELECT
+            S.store_no AS storeNo,
+            S.nickname AS storeName,
+            COALESCE(S.review, 0) AS reviewCount,
+            COALESCE(S.review_avg, 0) AS avgRating,
+            COALESCE(S.view, 0) AS viewCount,
+            COALESCE(SF.favorite_count, 0) AS favoriteCount,
+            COALESCE(SC.complaint_count, 0) AS complaintCount,
+            S.last_updated_at AS lastUpdatedAt
+        FROM
+            tb_store S
+            LEFT JOIN (
+                SELECT store_no, COUNT(*) AS favorite_count
+                FROM tb_store_favorite
+                GROUP BY store_no
+            ) SF ON S.store_no = SF.store_no
+            LEFT JOIN (
+                SELECT store_no, COUNT(*) AS complaint_count
+                FROM tb_store_complaint
+                GROUP BY store_no
+            ) SC ON S.store_no = SC.store_no
+        WHERE
+            S.deleted_yn = 'N'
+            AND S.step_code = '0202003'
+            AND S.master_yn = 'N'
+            AND S.store_no = #{storeNo}
+    </select>
+
+    <!-- 여러 매장 기본 정보 일괄 조회 -->
+    <select id="selectStoreInfoList" parameterType="java.util.List" resultType="java.util.HashMap">
+        /* [trustscore-sqlmap][selectStoreInfoList] 매장 신뢰점수 기본 정보 일괄 조회 */
+        SELECT
+            S.store_no AS storeNo,
+            S.nickname AS storeName,
+            COALESCE(S.review, 0) AS reviewCount,
+            COALESCE(S.review_avg, 0) AS avgRating,
+            COALESCE(S.view, 0) AS viewCount,
+            COALESCE(SF.favorite_count, 0) AS favoriteCount,
+            COALESCE(SC.complaint_count, 0) AS complaintCount,
+            S.last_updated_at AS lastUpdatedAt
+        FROM
+            tb_store S
+            LEFT JOIN (
+                SELECT store_no, COUNT(*) AS favorite_count
+                FROM tb_store_favorite
+                GROUP BY store_no
+            ) SF ON S.store_no = SF.store_no
+            LEFT JOIN (
+                SELECT store_no, COUNT(*) AS complaint_count
+                FROM tb_store_complaint
+                GROUP BY store_no
+            ) SC ON S.store_no = SC.store_no
+        WHERE
+            S.deleted_yn = 'N'
+            AND S.step_code = '0202003'
+            AND S.master_yn = 'N'
+            AND S.store_no IN
+            <foreach collection="storeNos" item="storeNo" open="(" separator="," close=")">
+                #{storeNo}
+            </foreach>
+    </select>
+
+    <!-- 매장 리뷰 통계 조회 -->
+    <select id="selectReviewStats" parameterType="Integer" resultType="java.util.HashMap">
+        /* [trustscore-sqlmap][selectReviewStats] 매장 리뷰 통계 조회 */
+        <![CDATA[
+        SELECT
+            COUNT(*) AS totalReviews,
+            COALESCE(AVG(rating), 0) AS avgRating,
+            SUM(CASE WHEN rating >= 4 THEN 1 ELSE 0 END) AS positiveReviews,
+            SUM(CASE WHEN rating <= 2 THEN 1 ELSE 0 END) AS negativeReviews
+        FROM (
+            SELECT rating FROM tb_review_store_phone
+            WHERE deleted_yn = 'N' AND store_no = #{storeNo}
+            UNION ALL
+            SELECT rating FROM tb_review_store_phone_virtual
+            WHERE deleted_yn = 'N' AND store_no = #{storeNo}
+        ) reviews
+        ]]>
+    </select>
+
+</mapper>

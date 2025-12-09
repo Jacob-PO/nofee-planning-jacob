@@ -1,0 +1,55 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: carrier-test-api
+  datasource:
+    url: jdbc:mysql://3.34.129.112:3306/db_nofee?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    username: nofee
+    password: HBDyNLZBXZ41TkeZ
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+
+# Swagger UI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
+# Google Sheets 설정
+google:
+  sheets:
+    spreadsheet-id: ${GOOGLE_SHEETS_SPREADSHEET_ID:1ftWmcEBku_il3V50HQv33H-n6j3K1epVVwpbugAu2zU}
+    credentials-path: ${GOOGLE_SHEETS_CREDENTIALS:/Users/jacob/Desktop/workspace/nofee/google_api_key.json}
+    subsidy-sheet-name: summary-new
+    mapping-sheet-name: summary-mapping
+    cache-ttl-hours: 24
+
+# 통신사 API 설정
+carrier:
+  skt:
+    base-url: https://www.tworld.co.kr
+  kt:
+    base-url: https://shop.kt.com
+  lgu:
+    base-url: https://www.uplus.co.kr
+
+# MyBatis 설정
+mybatis:
+  mapper-locations: classpath:sqlmap/*.xml
+  type-aliases-package: com.nofee.api.test
+  configuration:
+    map-underscore-to-camel-case: true
+
+# 로깅
+logging:
+  level:
+    com.nofee.api.test: DEBUG
+    org.springframework.web: INFO
+    org.mybatis: DEBUG
