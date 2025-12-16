@@ -497,6 +497,17 @@
         const documents = [
             {
                 type: 'plan',
+                title: 'Deal 페이지 가격 API 개선',
+                description: '외부 API 의존성 제거로 Deal 페이지 "가격 구성" 섹션 안정화. 스케줄러 기반 1시간마다 통신사 데이터 수집, 내부 DB에서 출고가/공시지원금/추가지원금 조회. tb_carrier_rate_plan, tb_public_subsidy 테이블 신규 생성 및 tb_product_phone 출고가 컬럼 추가.',
+                url: 'docs/plan_2025-12-13_Deal페이지_가격API_개선_v1.0.html',
+                version: 'v1.0',
+                author: '제이콥',
+                date: '2025.12.13',
+                updated: '2025.12.13',
+                tags: ['진행중']
+            },
+            {
+                type: 'plan',
                 title: '에이전시 어드민 고객관리 페이지 UX 재설계',
                 description: '판매점 사장님 중심 고객관리 CRM 기능강화 버전. 필수 5개 필드만으로 빠른 고객 등록, 정산 자동화, 알림톡 자동 발송 시스템. 모달 제외한 새 페이지 방식, 상태/에러/빈 화면 대응 패턴 포함. 토스 스타일 미니멀 디자인.',
                 url: 'docs/plan_2025-11-28_노피에이전시어드민_고객관리페이지_UX재설계_v2.0.html',
