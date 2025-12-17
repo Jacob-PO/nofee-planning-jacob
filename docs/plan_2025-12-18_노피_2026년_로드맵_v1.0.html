@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노피 2026년 로드맵 - 노피 기획 문서</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-12-18_노피_2026년_로드맵_v1.0.html">
+    <meta property="og:title" content="[노피 기획안] 노피 2026년 로드맵">
+    <meta property="og:description" content="2026년 노피 성장 전략 및 제품 로드맵 | 휴대폰의 모든 것을 해결하는 플랫폼 | 작성: 제이콥 | v1.0">
+    <meta property="og:image" content="https://nofee.team/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="노피 기획안 - 2026년 로드맵">
+    <meta property="og:site_name" content="노피 NOFEE - 기획 문서">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="article:author" content="제이콥">
+    <meta property="article:published_time" content="2025-12-18T00:00:00+09:00">
+    <meta property="article:modified_time" content="2025-12-18T00:00:00+09:00">
+    <meta property="article:section" content="로드맵">
+    <meta property="article:tag" content="로드맵">
+    <meta property="article:tag" content="2026년">
+    <meta property="article:tag" content="전략">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-12-18_노피_2026년_로드맵_v1.0.html">
+    <meta name="twitter:title" content="[노피 기획안] 노피 2026년 로드맵">
+    <meta name="twitter:description" content="2026년 노피 성장 전략 및 제품 로드맵">
+    <meta name="twitter:image" content="https://nofee.team/images/og-image.png">
+    <meta name="twitter:image:alt" content="노피 기획안 - 2026년 로드맵">
+    <meta name="twitter:creator" content="@nofee_team">
+
+    <!-- Meta Description -->
+    <meta name="description" content="2026년 노피 성장 전략 및 제품 로드맵 | 노피 기획안 v1.0">
+    <meta name="keywords" content="노피, NOFEE, 로드맵, 2026년, 전략, 성장">
+
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body {
+                padding: 15mm;
+            }
+        }
+
+        body {
+            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #ffffff;
+            color: #191f28;
+            line-height: 1.6;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-header {
+            border-bottom: 2px solid #3182f6;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .logo {
+            height: 32px;
+        }
+
+        .doc-meta {
+            text-align: right;
+            font-size: 11px;
+            color: #8b95a1;
+        }
+
+        .doc-meta-item {
+            margin-bottom: 4px;
+        }
+
+        .doc-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-subtitle {
+            font-size: 18px;
+            color: #4e5968;
+            font-weight: 400;
+        }
+
+        .section {
+            margin: 48px 0;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e8eb;
+        }
+
+        .content {
+            color: #4e5968;
+            line-height: 1.9;
+        }
+
+        .content p {
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+
+        /* 비전 박스 */
+        .vision-box {
+            background: linear-gradient(135deg, #3182f6 0%, #1e40af 100%);
+            border-radius: 16px;
+            padding: 40px;
+            color: white;
+            text-align: center;
+            margin: 32px 0;
+        }
+
+        .vision-title {
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .vision-text {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        /* 현재 vs 미래 비교 */
+        .compare-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 24px;
+            align-items: center;
+            margin: 32px 0;
+        }
+
+        .compare-box {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .compare-box.current {
+            border: 2px solid #e5e8eb;
+        }
+
+        .compare-box.future {
+            border: 2px solid #3182f6;
+            background: #eff8ff;
+        }
+
+        .compare-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b95a1;
+            margin-bottom: 8px;
+        }
+
+        .compare-box.future .compare-label {
+            color: #3182f6;
+        }
+
+        .compare-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 12px;
+        }
+
+        .compare-desc {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .arrow {
+            font-size: 32px;
+            color: #3182f6;
+        }
+
+        /* 3개 프로젝트 카드 */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .project-card {
+            background: #fff;
+            border: 2px solid #e5e8eb;
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.2s;
+        }
+
+        .project-card:hover {
+            border-color: #3182f6;
+            box-shadow: 0 4px 20px rgba(49, 130, 246, 0.15);
+        }
+
+        .project-number {
+            width: 36px;
+            height: 36px;
+            background: #3182f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 12px;
+        }
+
+        .project-desc {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        /* 순환 다이어그램 */
+        .cycle-container {
+            background: #f9fafb;
+            border-radius: 20px;
+            padding: 48px;
+            margin: 40px 0;
+        }
+
+        .cycle-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 40px;
+        }
+
+        .cycle-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cycle-step {
+            display: flex;
+            align-items: center;
+        }
+
+        .cycle-box {
+            background: white;
+            border: 2px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 16px 20px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .cycle-box.highlight {
+            border-color: #3182f6;
+            background: #eff8ff;
+        }
+
+        .cycle-box.point {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .cycle-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .cycle-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #191f28;
+        }
+
+        .cycle-sub {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .cycle-arrow {
+            font-size: 20px;
+            color: #3182f6;
+            padding: 0 8px;
+        }
+
+        /* 포인트 적립 표 */
+        .point-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .point-table th,
+        .point-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e5e8eb;
+        }
+
+        .point-table th {
+            background: #3182f6;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .point-table td {
+            background: white;
+            font-size: 14px;
+            color: #4e5968;
+        }
+
+        .point-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .point-table .point-value {
+            color: #3182f6;
+            font-weight: 700;
+        }
+
+        /* 하이라이트 박스 */
+        .highlight-box {
+            background: #eff8ff;
+            border-left: 4px solid #3182f6;
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box.yellow {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+        }
+
+        .highlight-box strong {
+            color: #191f28;
+            font-size: 15px;
+        }
+
+        .highlight-box p {
+            margin-top: 8px;
+            color: #4e5968;
+            font-size: 14px;
+        }
+
+        /* 레퍼런스 박스 */
+        .reference-box {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .reference-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+            margin-bottom: 12px;
+        }
+
+        .reference-content {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        /* 결론 박스 */
+        .conclusion-box {
+            background: linear-gradient(135deg, #1e1e1e 0%, #333 100%);
+            border-radius: 16px;
+            padding: 40px;
+            color: white;
+            margin: 40px 0;
+        }
+
+        .conclusion-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .conclusion-list {
+            list-style: none;
+        }
+
+        .conclusion-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .conclusion-list li:last-child {
+            border-bottom: none;
+        }
+
+        .conclusion-number {
+            width: 28px;
+            height: 28px;
+            background: #3182f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            .compare-container {
+                grid-template-columns: 1fr;
+            }
+            .arrow {
+                transform: rotate(90deg);
+            }
+            .cycle-diagram {
+                flex-direction: column;
+            }
+            .cycle-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-header">
+        <div class="logo-container">
+            <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="logo">
+            <div class="doc-meta">
+                <div class="doc-meta-item">작성일: 2025.12.18</div>
+                <div class="doc-meta-item">버전: v1.0</div>
+                <div class="doc-meta-item">작성자: 제이콥</div>
+            </div>
+        </div>
+        <h1 class="doc-title">노피 2026년 로드맵</h1>
+        <p class="doc-subtitle">휴대폰의 모든 것을 해결하는 플랫폼으로 진화</p>
+    </div>
+
+    <!-- 비전 -->
+    <div class="vision-box">
+        <div class="vision-title">2026 VISION</div>
+        <div class="vision-text">
+            휴대폰에 대해 알고 싶고, 사고 싶고,<br>
+            필요한 것까지 모두 해결할 수 있는 곳
+        </div>
+    </div>
+
+    <!-- 현재 vs 미래 -->
+    <div class="section">
+        <h2 class="section-title">노피는 어디로 가는가?</h2>
+        <div class="content">
+            <p>지금 노피는 "휴대폰 개통"에 집중하고 있습니다. 2026년에는 여기서 한 발 더 나아가, 휴대폰과 관련된 모든 것을 해결할 수 있는 플랫폼으로 확장합니다.</p>
+        </div>
+
+        <div class="compare-container">
+            <div class="compare-box current">
+                <div class="compare-label">현재 노피</div>
+                <div class="compare-title">휴대폰 개통 플랫폼</div>
+                <div class="compare-desc">최저가 딜 + 채팅 개통</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="compare-box future">
+                <div class="compare-label">2026 노피</div>
+                <div class="compare-title">휴대폰 라이프 플랫폼</div>
+                <div class="compare-desc">정보 + 구매 + 악세서리 + 커뮤니티</div>
+            </div>
+        </div>
+
+        <div class="reference-box">
+            <div class="reference-title">참고: 화해 앱의 성공 사례</div>
+            <div class="reference-content">
+                화해는 "화장품 정보 플랫폼"으로 시작해서, 사용자들이 성분 정보와 리뷰를 보러 왔다가 자연스럽게 구매까지 이어지는 구조를 만들었습니다.
+                2024년 매출 824억원, MAU 100만명을 달성했습니다.<br><br>
+                <strong>노피도 같은 전략입니다.</strong> "휴대폰 정보"를 보러 온 사람이 자연스럽게 "개통"과 "악세서리 구매"까지 이어지는 구조를 만듭니다.
+            </div>
+        </div>
+    </div>
+
+    <!-- 3대 프로젝트 -->
+    <div class="section">
+        <h2 class="section-title">2026년 3대 프로젝트</h2>
+        <div class="content">
+            <p>2026년에 집중할 세 가지 핵심 프로젝트입니다.</p>
+        </div>
+
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-number">1</div>
+                <div class="project-title">휴대폰 정보 페이지</div>
+                <div class="project-desc">
+                    전세계 휴대폰 스펙을 <strong>일반인이 이해할 수 있는 언어</strong>로 정리합니다.<br><br>
+                    예시: "AnTuTu 150만점" → "고사양 게임도 끊김 없이 돌아가요"<br><br>
+                    정보를 보러 온 사람이 → 딜을 보고 → 개통까지 자연스럽게 이어집니다.
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-number">2</div>
+                <div class="project-title">악세서리 샵</div>
+                <div class="project-desc">
+                    노피에서 개통한 휴대폰에 맞는 <strong>케이스, 필름, 충전기</strong> 등을 바로 구매할 수 있습니다.<br><br>
+                    외부 셀러가 입점하고, 노피가 직접 검증합니다 (직접 사용 + 리뷰 + 품질 테스트).<br><br>
+                    개통 직후 "이 폰에 맞는 케이스 보기" → 높은 전환율
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-number">3</div>
+                <div class="project-title">포인트 시스템</div>
+                <div class="project-desc">
+                    <strong>모든 것을 연결하는 고리</strong>입니다.<br><br>
+                    리뷰 쓰면 포인트 적립 → 포인트로 악세서리 구매 → 다시 노피 이용<br><br>
+                    사용자가 계속 돌아오는 선순환 구조를 만듭니다.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 포인트 순환 구조 -->
+    <div class="section">
+        <h2 class="section-title">포인트가 만드는 선순환</h2>
+        <div class="content">
+            <p>포인트 시스템은 단순한 적립/사용이 아닙니다. <strong>사용자가 노피 생태계 안에서 계속 활동하게 만드는 연결고리</strong>입니다.</p>
+        </div>
+
+        <div class="cycle-container">
+            <div class="cycle-title">사용자 여정과 포인트 흐름</div>
+            <div class="cycle-diagram">
+                <div class="cycle-step">
+                    <div class="cycle-box">
+                        <div class="cycle-icon">👤</div>
+                        <div class="cycle-label">회원가입</div>
+                        <div class="cycle-sub">+1,000P</div>
+                    </div>
+                    <div class="cycle-arrow">→</div>
+                </div>
+
+                <div class="cycle-step">
+                    <div class="cycle-box highlight">
+                        <div class="cycle-icon">📱</div>
+                        <div class="cycle-label">휴대폰 정보 탐색</div>
+                        <div class="cycle-sub">스펙, 비교, 리뷰</div>
+                    </div>
+                    <div class="cycle-arrow">→</div>
+                </div>
+
+                <div class="cycle-step">
+                    <div class="cycle-box">
+                        <div class="cycle-icon">✍️</div>
+                        <div class="cycle-label">기기 리뷰 작성</div>
+                        <div class="cycle-sub">+500P</div>
+                    </div>
+                    <div class="cycle-arrow">→</div>
+                </div>
+
+                <div class="cycle-step">
+                    <div class="cycle-box highlight">
+                        <div class="cycle-icon">💰</div>
+                        <div class="cycle-label">딜 보고 개통</div>
+                        <div class="cycle-sub">채팅으로 간편하게</div>
+                    </div>
+                    <div class="cycle-arrow">→</div>
+                </div>
+
+                <div class="cycle-step">
+                    <div class="cycle-box">
+                        <div class="cycle-icon">⭐</div>
+                        <div class="cycle-label">판매점 리뷰</div>
+                        <div class="cycle-sub">+500P</div>
+                    </div>
+                    <div class="cycle-arrow">→</div>
+                </div>
+
+                <div class="cycle-step">
+                    <div class="cycle-box">
+                        <div class="cycle-icon">👥</div>
+                        <div class="cycle-label">친구 추천</div>
+                        <div class="cycle-sub">+2,000P</div>
+                    </div>
+                    <div class="cycle-arrow">→</div>
+                </div>
+
+                <div class="cycle-step">
+                    <div class="cycle-box point">
+                        <div class="cycle-icon">🛒</div>
+                        <div class="cycle-label">샵에서 사용</div>
+                        <div class="cycle-sub">케이스, 필름 등</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box yellow">
+            <strong>핵심: 포인트를 쓰려면 다시 노피로</strong>
+            <p>적립한 포인트는 노피 악세서리 샵에서만 사용할 수 있습니다. 사용자는 포인트를 쓰기 위해 다시 노피에 방문하고, 그 과정에서 새로운 휴대폰 정보를 보고, 또 리뷰를 쓰고, 친구를 추천합니다. <strong>이렇게 선순환이 만들어집니다.</strong></p>
+        </div>
+    </div>
+
+    <!-- 포인트 적립 정책 -->
+    <div class="section">
+        <h2 class="section-title">포인트 적립 정책 (예시)</h2>
+        <div class="content">
+            <p>구체적인 포인트 정책은 추후 확정됩니다. 아래는 방향성을 보여주는 예시입니다.</p>
+        </div>
+
+        <table class="point-table">
+            <thead>
+                <tr>
+                    <th>활동</th>
+                    <th>적립 포인트</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>회원가입</td>
+                    <td class="point-value">+1,000P</td>
+                    <td>신규 가입 시 1회</td>
+                </tr>
+                <tr>
+                    <td>휴대폰 리뷰 작성</td>
+                    <td class="point-value">+500P</td>
+                    <td>기기별 상세 리뷰 (사진 포함)</td>
+                </tr>
+                <tr>
+                    <td>판매점 리뷰 작성</td>
+                    <td class="point-value">+500P</td>
+                    <td>개통 완료 후 판매점 평가</td>
+                </tr>
+                <tr>
+                    <td>친구 추천</td>
+                    <td class="point-value">+2,000P</td>
+                    <td>추천한 친구가 개통 완료 시</td>
+                </tr>
+                <tr>
+                    <td>첫 개통 완료</td>
+                    <td class="point-value">+3,000P</td>
+                    <td>노피에서 첫 휴대폰 개통</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 이게 왜 좋은가 -->
+    <div class="section">
+        <h2 class="section-title">이 전략이 좋은 이유</h2>
+
+        <div class="highlight-box">
+            <strong>1. 광고 의존도가 낮아집니다</strong>
+            <p>지금은 메타 광고로 유저를 데려옵니다. 휴대폰 정보 페이지가 생기면 "갤럭시 S25 스펙", "아이폰 16 리뷰" 같은 검색으로 자연스럽게 유입됩니다.</p>
+        </div>
+
+        <div class="highlight-box">
+            <strong>2. "파는 곳"이 아니라 "알려주는 곳"이 됩니다</strong>
+            <p>화해가 "화장품 파는 앱"이 아니라 "화장품 정보 앱"으로 인식되듯이, 노피도 "휴대폰 정보 플랫폼"으로 인식됩니다. 신뢰도가 올라가고, 자연스럽게 구매로 이어집니다.</p>
+        </div>
+
+        <div class="highlight-box">
+            <strong>3. 리뷰 콘텐츠가 자동으로 쌓입니다</strong>
+            <p>포인트를 주면 사용자가 리뷰를 씁니다. 리뷰가 쌓이면 더 많은 사람이 정보를 보러 옵니다. 이렇게 콘텐츠가 자동으로 축적됩니다.</p>
+        </div>
+
+        <div class="highlight-box">
+            <strong>4. 사용자가 떠나지 않습니다</strong>
+            <p>개통만 하면 끝이었던 관계가, 포인트와 악세서리 샵으로 계속 이어집니다. 다음 폰을 살 때도 당연히 노피를 찾습니다.</p>
+        </div>
+    </div>
+
+    <!-- 결론 -->
+    <div class="conclusion-box">
+        <div class="conclusion-title">2026년, 노피가 만들 것</div>
+        <ul class="conclusion-list">
+            <li>
+                <span class="conclusion-number">1</span>
+                <span><strong>휴대폰 정보 페이지</strong> - 모든 휴대폰 정보를 쉬운 언어로</span>
+            </li>
+            <li>
+                <span class="conclusion-number">2</span>
+                <span><strong>악세서리 샵</strong> - 검증된 악세서리를 최저가로</span>
+            </li>
+            <li>
+                <span class="conclusion-number">3</span>
+                <span><strong>포인트 시스템</strong> - 모든 것을 연결하는 선순환 고리</span>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
