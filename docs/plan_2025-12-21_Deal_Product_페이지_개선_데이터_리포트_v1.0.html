@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deal·Product 페이지 개선 데이터 리포트 - 노피 어드민 시스템</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-12-21_Deal_Product_페이지_개선_데이터_리포트_v1.0.html">
+    <meta property="og:title" content="[노피 기획안] Deal·Product 페이지 개선 데이터 리포트">
+    <meta property="og:description" content="🎯 홈→딜 클릭률 11.0% | Product 랜딩→딜 6.6% | Deal 클릭→완료 68.1% | 작성: 제이콥 | v1.0">
+    <meta property="og:image" content="https://nofee.team/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="노피 기획안 - Deal·Product 페이지 개선 데이터 리포트">
+    <meta property="og:site_name" content="노피 NOFEE - 기획 문서">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="article:author" content="제이콥">
+    <meta property="article:published_time" content="2025-12-21T00:00:00+09:00">
+    <meta property="article:modified_time" content="2025-12-21T00:00:00+09:00">
+    <meta property="article:section" content="기획안">
+    <meta property="article:tag" content="GA4">
+    <meta property="article:tag" content="UI/UX">
+    <meta property="article:tag" content="Deal">
+    <meta property="article:tag" content="Product">
+    <meta property="article:tag" content="데이터 리포트">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-12-21_Deal_Product_페이지_개선_데이터_리포트_v1.0.html">
+    <meta name="twitter:title" content="[노피 기획안] Deal·Product 페이지 개선 데이터 리포트">
+    <meta name="twitter:description" content="🎯 홈→딜 클릭률 11.0% | Product 랜딩→딜 6.6% | Deal 클릭→완료 68.1%">
+    <meta name="twitter:image" content="https://nofee.team/images/og-image.png">
+    <meta name="twitter:image:alt" content="노피 기획안 - Deal·Product 페이지 개선 데이터 리포트">
+    <meta name="twitter:creator" content="@nofee_team">
+
+    <!-- Meta Description -->
+    <meta name="description" content="🎯 홈→딜 클릭률 11.0% | Product 랜딩→딜 6.6% | Deal 클릭→완료 68.1% | 노피 데이터 리포트 v1.0">
+    <meta name="keywords" content="노피, NOFEE, 데이터 리포트, GA4, Deal, Product, UI/UX">
+
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body {
+                padding: 15mm;
+            }
+        }
+
+        body {
+            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #ffffff;
+            color: #191f28;
+            line-height: 1.6;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-header {
+            border-bottom: 2px solid #3182f6;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .logo {
+            height: 32px;
+        }
+
+        .doc-meta {
+            text-align: right;
+            font-size: 11px;
+            color: #8b95a1;
+        }
+
+        .doc-meta-item {
+            margin-bottom: 4px;
+        }
+
+        .doc-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-subtitle {
+            font-size: 16px;
+            color: #4e5968;
+            font-weight: 400;
+        }
+
+        .info-box {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #8b95a1;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: #191f28;
+            font-weight: 600;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e8eb;
+        }
+
+        .content {
+            color: #4e5968;
+            line-height: 1.8;
+        }
+
+        .content p {
+            margin-bottom: 12px;
+        }
+
+        .content ul, .content ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #eff8ff;
+            border-left: 4px solid #3182f6;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: #191f28;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #e5e8eb;
+        }
+
+        .comparison-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #191f28;
+        }
+
+        .comparison-table td {
+            color: #4e5968;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-header">
+        <div class="logo-container">
+            <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="logo">
+            <div class="doc-meta">
+                <div class="doc-meta-item">작성일: 2025.12.21</div>
+                <div class="doc-meta-item">버전: v1.0</div>
+                <div class="doc-meta-item">작성자: 제이콥</div>
+            </div>
+        </div>
+        <h1 class="doc-title">Deal·Product 페이지 개선 데이터 리포트</h1>
+        <p class="doc-subtitle">GA4 재추출 데이터 기반 개선 배경, 변경 내용, 기대되는 효과 정리</p>
+    </div>
+
+    <div class="info-box">
+        <div class="info-item">
+            <div class="info-label">문서 유형</div>
+            <div class="info-value">데이터 리포트</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">분석 기간</div>
+            <div class="info-value">2025.12.08 ~ 12.21 (14일)</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">데이터 소스</div>
+            <div class="info-value">GA4 Data API</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">개요</h2>
+        <div class="content">
+            <p>Deal·Product 페이지 개선은 “홈→딜 이동 에너지 손실”과 “Product 랜딩의 낮은 딜 전환”을 근거로 진행되었습니다. GA4 데이터를 2025-12-08~12-21로 재추출하여 원인과 개선 방향을 정리했습니다.</p>
+
+            <div class="highlight-box">
+                <strong>핵심 변경사항</strong><br>
+                • Deal: 가격/혜택 First View 상단 + 상단 CTA, Similar 상단 이동, 섹션/CTA/스크롤 트래킹 추가<br>
+                • Product: 최저가 딜 상단 이동, 상단/스티키 CTA 정합화, 딜 노출량 확대, CTA/딜 섹션 트래킹 추가<br>
+                • 공통: 홈→딜 이동 손실 분석을 위한 채널/디바이스별 분해
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">문제정의 (데이터 기반)</h2>
+        <div class="content">
+            <p>물리학 제1법칙 관점에서 유입 에너지는 보존되지만, 홈→딜 이동 단계에서 에너지가 대량 손실되고 있습니다. 특히 모바일·Paid Social 구간에서 손실이 집중됩니다.</p>
+            <ul>
+                <li>홈 진입 1,762세션 중 딜 카드 클릭 194세션(11.0%)</li>
+                <li>모바일 클릭률 8.7%, 데스크탑 24.3%</li>
+                <li>Paid Social 클릭률 5.4%로 최저</li>
+                <li>최근 클릭률 급락: 12/16 24.0% → 12/21 1.2%</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">GA4 재추출 데이터 요약</h2>
+        <div class="content">
+            <p><strong>1) 홈→딜 이동</strong></p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>지표</th>
+                        <th>값</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>홈 진입 세션</td>
+                        <td>1,762</td>
+                    </tr>
+                    <tr>
+                        <td>딜 카드 클릭 세션</td>
+                        <td>194 (11.0%)</td>
+                    </tr>
+                    <tr>
+                        <td>딜 상세 뷰 세션</td>
+                        <td>313 (17.8%)</td>
+                    </tr>
+                    <tr>
+                        <td>클릭→뷰 전환율(근사)</td>
+                        <td>161.3%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>2) 모바일/채널별 클릭률</strong></p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>클릭률</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>mobile</td>
+                        <td>8.7%</td>
+                    </tr>
+                    <tr>
+                        <td>desktop</td>
+                        <td>24.3%</td>
+                    </tr>
+                    <tr>
+                        <td>Paid Social</td>
+                        <td>5.4%</td>
+                    </tr>
+                    <tr>
+                        <td>Direct</td>
+                        <td>27.1%</td>
+                    </tr>
+                    <tr>
+                        <td>Organic Search</td>
+                        <td>19.0%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>3) Product 페이지 성과</strong></p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>지표</th>
+                        <th>값</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>전체 세션 대비 Product 세션</td>
+                        <td>1,946 / 4,910 (39.6%)</td>
+                    </tr>
+                    <tr>
+                        <td>Product 랜딩 → 딜 상세</td>
+                        <td>27 / 407 (6.6%)</td>
+                    </tr>
+                    <tr>
+                        <td>Product 랜딩 → 견적 클릭</td>
+                        <td>11 / 407 (2.7%)</td>
+                    </tr>
+                    <tr>
+                        <td>Product 랜딩 → 견적 완료</td>
+                        <td>4 / 407 (1.0%)</td>
+                    </tr>
+                    <tr>
+                        <td>전체 견적 완료 중 Product 기여</td>
+                        <td>4 / 64 (6.2%)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>4) Deal 페이지 전환</strong></p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>지표</th>
+                        <th>값</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>딜 상세 → 견적 클릭</td>
+                        <td>94 / 450 (20.9%)</td>
+                    </tr>
+                    <tr>
+                        <td>견적 클릭 → 완료</td>
+                        <td>64 / 94 (68.1%)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">어떤 것을 왜/어떻게 변경했는가</h2>
+        <div class="content">
+            <p><strong>Deal 페이지</strong></p>
+            <ul>
+                <li>가격/혜택을 First View 최상단으로 이동: 모바일·Paid Social에서 클릭 손실이 크므로 첫 화면 가치 전달 강화</li>
+                <li>Similar 섹션 상단 이동: 스크롤 손실 구간 이전에서 대안 딜 비교 가능하도록 배치</li>
+                <li>상단 CTA + 하단 CTA 분리 노출: 상단 CTA가 보일 때는 하단 CTA 숨김 처리로 중복 노출 제거</li>
+                <li>섹션/CTA/스크롤/가격상세 트래킹 추가: 개선 효과를 정량 검증 가능한 상태로 정비</li>
+            </ul>
+
+            <p><strong>Product 페이지</strong></p>
+            <ul>
+                <li>최저가 딜 섹션 상단 이동: Product 랜딩→딜 전환(6.6%) 개선을 위해 딜 노출을 상단으로 이동</li>
+                <li>상단/스티키 CTA 문구 통일: “최저가 딜 보기”로 행동 유도 일관성 확보</li>
+                <li>딜 노출량 확대(5→10개): 클릭률 향상을 위한 선택지 확장</li>
+                <li>CTA 노출/클릭 + 딜 섹션 노출 트래킹 추가: 개선 효과 측정 가능</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title">기대되는 데이터 변화</h2>
+        <div class="content">
+            <p>현 구조는 클릭 손실이 큰 구간에서 가치 전달·행동 유도를 강화하는 방식입니다.</p>
+            <ul>
+                <li>현재 홈→딜 클릭률 11.0% → First View 가치 강화로 클릭률 개선 기대</li>
+                <li>현재 Product 랜딩→딜 전환 6.6% → 딜 섹션 상단/CTA 강화로 딜 이동 증가 기대</li>
+                <li>현재 Deal 딜→클릭 20.9% → 가격/혜택 First View 및 Similar 상단 배치로 클릭 증가 기대</li>
+            </ul>
+            <p>개선 효과는 신규 GA4 이벤트(CTA visible/click, deal_section_view, product_deal_section_view)로 정량 검증할 예정입니다.</p>
+        </div>
+    </div>
+</body>
+</html>
