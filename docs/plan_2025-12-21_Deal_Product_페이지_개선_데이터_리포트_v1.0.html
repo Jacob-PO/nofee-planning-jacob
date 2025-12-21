@@ -211,7 +211,7 @@
             </div>
         </div>
         <h1 class="doc-title">Deal·Product 페이지 개선 데이터 리포트</h1>
-        <p class="doc-subtitle">GA4 재추출 데이터 기반 개선 배경, 변경 내용, 기대되는 효과 정리</p>
+        <p class="doc-subtitle">GA4 재추출 데이터로 개선 이유, 변경 내용, 기대 효과를 쉽게 정리</p>
     </div>
 
     <div class="info-box">
@@ -232,25 +232,25 @@
     <div class="section">
         <h2 class="section-title">개요</h2>
         <div class="content">
-            <p>Deal·Product 페이지 개선은 “홈→딜 이동 에너지 손실”과 “Product 랜딩의 낮은 딜 전환”을 근거로 진행되었습니다. GA4 데이터를 2025-12-08~12-21로 재추출하여 원인과 개선 방향을 정리했습니다.</p>
+            <p>이번 개선은 “홈에서 딜로 넘어가는 비율이 낮다”와 “Product에서 딜로 이동이 적다”는 데이터를 근거로 진행했습니다. GA4 데이터를 2025-12-08~12-21로 다시 뽑아 원인과 방향을 정리했습니다.</p>
 
             <div class="highlight-box">
                 <strong>핵심 변경사항</strong><br>
-                • Deal: 가격/혜택 First View 상단 + 상단 CTA, Similar 상단 이동, 섹션/CTA/스크롤 트래킹 추가<br>
-                • Product: 최저가 딜 상단 이동, 상단/스티키 CTA 정합화, 딜 노출량 확대, CTA/딜 섹션 트래킹 추가<br>
-                • 공통: 홈→딜 이동 손실 분석을 위한 채널/디바이스별 분해
+                • Deal: 가격/혜택을 첫 화면 맨 위에 배치, 상단 CTA 추가, 비슷한 상품 상단 이동, 섹션/CTA/스크롤 트래킹 추가<br>
+                • Product: 최저가 딜 섹션 상단 이동, 상단/스티키 CTA 문구 통일, 딜 노출 수 확대, CTA/딜 섹션 트래킹 추가<br>
+                • 공통: 홈→딜 이동 문제를 채널/기기별로 나눠 확인
             </div>
         </div>
     </div>
 
     <div class="section">
-        <h2 class="section-title">문제정의 (데이터 기반)</h2>
+        <h2 class="section-title">문제 정의 (데이터 기반)</h2>
         <div class="content">
-            <p>물리학 제1법칙 관점에서 유입 에너지는 보존되지만, 홈→딜 이동 단계에서 에너지가 대량 손실되고 있습니다. 특히 모바일·Paid Social 구간에서 손실이 집중됩니다.</p>
+            <p>홈에 들어온 사람은 많지만, 딜로 넘어가는 비율이 낮습니다. 특히 모바일·Paid Social에서 이탈이 큽니다.</p>
             <ul>
-                <li>홈 진입 1,762세션 중 딜 카드 클릭 194세션(11.0%)</li>
-                <li>모바일 클릭률 8.7%, 데스크탑 24.3%</li>
-                <li>Paid Social 클릭률 5.4%로 최저</li>
+                <li>홈 방문 1,762세션 중 딜 카드 클릭 194세션(11.0%)</li>
+                <li>모바일 8.7%, 데스크탑 24.3%</li>
+                <li>Paid Social 5.4%로 가장 낮음</li>
                 <li>최근 클릭률 급락: 12/16 24.0% → 12/21 1.2%</li>
             </ul>
         </div>
@@ -259,7 +259,7 @@
     <div class="section">
         <h2 class="section-title">GA4 재추출 데이터 요약</h2>
         <div class="content">
-            <p><strong>1) 홈→딜 이동</strong></p>
+            <p><strong>1) 홈 → 딜 이동</strong></p>
             <table class="comparison-table">
                 <thead>
                     <tr>
@@ -277,17 +277,18 @@
                         <td>194 (11.0%)</td>
                     </tr>
                     <tr>
-                        <td>딜 상세 뷰 세션</td>
+                        <td>딜 상세 보기 세션</td>
                         <td>313 (17.8%)</td>
                     </tr>
                     <tr>
-                        <td>클릭→뷰 전환율(근사)</td>
+                        <td>클릭 대비 딜 상세 진입률(추정)</td>
                         <td>161.3%</td>
                     </tr>
                 </tbody>
             </table>
+            <p>※ 딜 상세 직접 유입이 포함되어 100%를 넘을 수 있습니다.</p>
 
-            <p><strong>2) 모바일/채널별 클릭률</strong></p>
+            <p><strong>2) 기기/채널별 클릭률</strong></p>
             <table class="comparison-table">
                 <thead>
                     <tr>
@@ -333,19 +334,19 @@
                         <td>1,946 / 4,910 (39.6%)</td>
                     </tr>
                     <tr>
-                        <td>Product 랜딩 → 딜 상세</td>
+                        <td>Product 첫 방문 → 딜 상세</td>
                         <td>27 / 407 (6.6%)</td>
                     </tr>
                     <tr>
-                        <td>Product 랜딩 → 견적 클릭</td>
+                        <td>Product 첫 방문 → 견적 클릭</td>
                         <td>11 / 407 (2.7%)</td>
                     </tr>
                     <tr>
-                        <td>Product 랜딩 → 견적 완료</td>
+                        <td>Product 첫 방문 → 견적 완료</td>
                         <td>4 / 407 (1.0%)</td>
                     </tr>
                     <tr>
-                        <td>전체 견적 완료 중 Product 기여</td>
+                        <td>전체 견적 완료 중 Product에서 발생</td>
                         <td>4 / 64 (6.2%)</td>
                     </tr>
                 </tbody>
@@ -374,22 +375,22 @@
     </div>
 
     <div class="section">
-        <h2 class="section-title">어떤 것을 왜/어떻게 변경했는가</h2>
+        <h2 class="section-title">무엇을 왜/어떻게 바꿨나</h2>
         <div class="content">
             <p><strong>Deal 페이지</strong></p>
             <ul>
-                <li>가격/혜택을 First View 최상단으로 이동: 모바일·Paid Social에서 클릭 손실이 크므로 첫 화면 가치 전달 강화</li>
-                <li>Similar 섹션 상단 이동: 스크롤 손실 구간 이전에서 대안 딜 비교 가능하도록 배치</li>
-                <li>상단 CTA + 하단 CTA 분리 노출: 상단 CTA가 보일 때는 하단 CTA 숨김 처리로 중복 노출 제거</li>
-                <li>섹션/CTA/스크롤/가격상세 트래킹 추가: 개선 효과를 정량 검증 가능한 상태로 정비</li>
+                <li>가격/혜택을 첫 화면 맨 위로 이동: 모바일·Paid Social에서 이탈이 커서 첫 화면에서 바로 가치 전달</li>
+                <li>비슷한 상품 섹션 상단 이동: 스크롤을 많이 내리기 전에 다른 딜을 비교할 수 있게 함</li>
+                <li>상단 CTA가 보일 때 하단 CTA 숨김: 두 CTA 동시 노출로 생기는 혼란 방지</li>
+                <li>섹션/CTA/스크롤/가격 상세 트래킹 추가: 개선 효과를 숫자로 확인 가능</li>
             </ul>
 
             <p><strong>Product 페이지</strong></p>
             <ul>
-                <li>최저가 딜 섹션 상단 이동: Product 랜딩→딜 전환(6.6%) 개선을 위해 딜 노출을 상단으로 이동</li>
-                <li>상단/스티키 CTA 문구 통일: “최저가 딜 보기”로 행동 유도 일관성 확보</li>
-                <li>딜 노출량 확대(5→10개): 클릭률 향상을 위한 선택지 확장</li>
-                <li>CTA 노출/클릭 + 딜 섹션 노출 트래킹 추가: 개선 효과 측정 가능</li>
+                <li>최저가 딜 섹션 상단 이동: Product에서 딜로 넘어가는 비율이 낮아 상단에 먼저 노출</li>
+                <li>상단/스티키 CTA 문구 통일: “최저가 딜 보기”로 하나의 행동으로 유도</li>
+                <li>딜 노출 수 확대(5→10개): 선택지를 늘려 클릭 기회 확대</li>
+                <li>CTA/딜 섹션 노출·클릭 트래킹 추가: 개선 효과를 숫자로 확인</li>
             </ul>
         </div>
     </div>
@@ -397,13 +398,13 @@
     <div class="section">
         <h2 class="section-title">기대되는 데이터 변화</h2>
         <div class="content">
-            <p>현 구조는 클릭 손실이 큰 구간에서 가치 전달·행동 유도를 강화하는 방식입니다.</p>
+            <p>이번 변경은 클릭이 많이 떨어지는 구간에서 가치와 행동을 더 빨리 보여주는 방식입니다.</p>
             <ul>
-                <li>현재 홈→딜 클릭률 11.0% → First View 가치 강화로 클릭률 개선 기대</li>
-                <li>현재 Product 랜딩→딜 전환 6.6% → 딜 섹션 상단/CTA 강화로 딜 이동 증가 기대</li>
-                <li>현재 Deal 딜→클릭 20.9% → 가격/혜택 First View 및 Similar 상단 배치로 클릭 증가 기대</li>
+                <li>홈→딜 클릭률 11.0%: 첫 화면 가치 전달 강화로 클릭률 상승 기대</li>
+                <li>Product 첫 방문→딜 전환 6.6%: 딜 섹션 상단/CTA 강화로 이동 증가 기대</li>
+                <li>Deal 상세→견적 클릭 20.9%: 가격/혜택 첫 화면 + 비슷한 상품 상단 배치로 클릭 증가 기대</li>
             </ul>
-            <p>개선 효과는 신규 GA4 이벤트(CTA visible/click, deal_section_view, product_deal_section_view)로 정량 검증할 예정입니다.</p>
+            <p>개선 효과는 새 GA4 이벤트(CTA 노출/클릭, deal_section_view, product_deal_section_view)로 숫자로 확인할 예정입니다.</p>
         </div>
     </div>
 </body>
