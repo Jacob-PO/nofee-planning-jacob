@@ -21,128 +21,56 @@
         .header p { color: #6b7684; font-size: 14px; }
         .meta { display: flex; gap: 24px; font-size: 12px; color: #8b95a1; margin-top: 12px; }
 
-        .db-box { background: #f9fafb; border: 1px solid #e5e8eb; padding: 16px; border-radius: 8px; margin-bottom: 32px; }
-
         .request { border: 1px solid #e5e8eb; border-radius: 12px; padding: 24px; margin: 24px 0; }
         .request h2 { font-size: 18px; margin-bottom: 16px; }
-        .request .tag { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; margin-left: 8px; }
-        .request .tag-1 { background: #fee2e2; color: #dc2626; }
-        .request .tag-2 { background: #fef3c7; color: #d97706; }
-        .request .tag-3 { background: #dcfce7; color: #16a34a; }
 
-        .problem { color: #dc2626; margin: 12px 0; font-size: 14px; }
+        .box { background: #f9fafb; border: 1px solid #e5e8eb; padding: 16px; border-radius: 8px; margin: 12px 0; }
+        .box strong { color: #191f28; }
 
-        .impl { background: #f9fafb; border: 1px solid #e5e8eb; padding: 16px; border-radius: 8px; margin: 16px 0; }
-
-        .need { background: #eff8ff; border: 1px solid #bae6fd; padding: 16px; border-radius: 8px; margin: 16px 0; }
+        .need { background: #eff8ff; border: 1px solid #bae6fd; padding: 16px; border-radius: 8px; margin: 12px 0; }
         .need strong { color: #0369a1; }
-
-        .code {
-            background: #1e293b;
-            color: #e2e8f0;
-            padding: 16px;
-            border-radius: 8px;
-            font-family: 'SF Mono', monospace;
-            font-size: 12px;
-            margin: 12px 0;
-            white-space: pre;
-            overflow-x: auto;
-        }
-        .c { color: #94a3b8; }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>리뷰 API 개선 요청</h1>
-        <p>리뷰 데이터 조회 시 발생하는 문제 해결을 위한 백엔드 수정 요청</p>
+        <p>리뷰 조회 API 응답 데이터 보완 요청</p>
         <div class="meta">
             <span>작성일: 2025.12.28</span>
             <span>작성자: 제이콥</span>
         </div>
     </div>
 
-    <div class="db-box">
-        <strong>DB 현황</strong><br>
-        tb_review_store_phone (47건) + tb_review_store_phone_virtual (295건) = 총 342건
-    </div>
-
     <!-- 요청 1 -->
     <div class="request">
-        <h2>요청 1: 리뷰 통계 데이터 추가 <span class="tag tag-1">1순위</span></h2>
+        <h2>요청 1: 상품 리뷰 조회</h2>
 
-        <p class="problem">
-            문제: 리뷰가 10건만 조회되어 프론트에서 만족도 계산이 부정확함
-        </p>
-
-        <div class="impl">
+        <div class="box">
             <strong>API:</strong> POST /review
         </div>
 
         <div class="need">
             <strong>필요한 데이터</strong><br>
-            - 전체 리뷰 중 4점 이상 리뷰 수
+            - 해당 상품의 전체 리뷰 목록<br>
+            - 전체 리뷰의 평균 평점
         </div>
-
-        <div class="code"><span class="c">-- 쿼리 참고</span>
-SELECT
-  COUNT(*) as total,
-  SUM(CASE WHEN rating >= 4 THEN 1 ELSE 0 END) as high_rating_count
-FROM (
-  SELECT rating FROM tb_review_store_phone
-  WHERE deleted_yn = 'N' AND product_group_code = #{productGroupCode}
-  UNION ALL
-  SELECT rating FROM tb_review_store_phone_virtual
-  WHERE product_group_code = #{productGroupCode}
-) combined</div>
     </div>
 
     <!-- 요청 2 -->
     <div class="request">
-        <h2>요청 2: 판매점 목록에 대표 리뷰 포함 <span class="tag tag-2">2순위</span></h2>
+        <h2>요청 2: 판매점 목록 조회</h2>
 
-        <p class="problem">
-            문제: 판매점별 리뷰 조회 시 빈 결과 반환되어 추가 API 호출 필요
-        </p>
-
-        <div class="impl">
+        <div class="box">
             <strong>API:</strong> POST /store/list
         </div>
 
         <div class="need">
             <strong>필요한 데이터</strong><br>
-            - 각 판매점의 대표 리뷰 1건 (내용, 평점)
-        </div>
-
-        <div class="code"><span class="c">-- 쿼리 참고 (판매점별 대표 리뷰 1건)</span>
-SELECT content, rating, user_nm
-FROM (
-  SELECT content, rating, user_nm, created_at
-  FROM tb_review_store_phone
-  WHERE deleted_yn = 'N' AND store_no = #{storeNo}
-  UNION ALL
-  SELECT content, rating, user_nm, created_at
-  FROM tb_review_store_phone_virtual
-  WHERE store_no = #{storeNo}
-) combined
-ORDER BY rating DESC, created_at DESC
-LIMIT 1</div>
-    </div>
-
-    <!-- 요청 3 -->
-    <div class="request">
-        <h2>요청 3: 리뷰 조회 개수 확대 <span class="tag tag-3">3순위</span></h2>
-
-        <p class="problem">
-            문제: Length 파라미터가 10으로 제한됨
-        </p>
-
-        <div class="impl">
-            <strong>API:</strong> POST /review
-        </div>
-
-        <div class="need">
-            <strong>필요한 변경</strong><br>
-            - Length 파라미터 최대값을 50으로 확대
+            각 판매점마다 대표 리뷰 1건 포함 (가장 최근 + 가장 높은 별점 기준)<br><br>
+            - 리뷰 내용<br>
+            - 별점<br>
+            - 작성일<br>
+            - 작성자
         </div>
     </div>
 
