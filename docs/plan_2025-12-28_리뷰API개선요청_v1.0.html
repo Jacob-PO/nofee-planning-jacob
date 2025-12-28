@@ -3,737 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>리뷰 API 개선 요청 - 노피 어드민 시스템</title>
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-12-28_리뷰API개선요청_v1.0.html">
-    <meta property="og:title" content="[노피 기획안] 리뷰 API 개선 요청">
-    <meta property="og:description" content="🎯 SEO 만족도 표시 오류 해결 및 리뷰 데이터 정합성 개선 | Product/Home/Deal 페이지 | 작성: 제이콥 | v1.0">
-    <meta property="og:image" content="https://nofee.team/images/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="노피 기획안 - 리뷰 API 개선 요청">
-    <meta property="og:site_name" content="노피 NOFEE - 기획 문서">
-    <meta property="og:locale" content="ko_KR">
-    <meta property="article:author" content="제이콥">
-    <meta property="article:published_time" content="2025-12-28T00:00:00+09:00">
-    <meta property="article:modified_time" content="2025-12-28T00:00:00+09:00">
-    <meta property="article:section" content="기획안">
-    <meta property="article:tag" content="리뷰">
-    <meta property="article:tag" content="API">
-    <meta property="article:tag" content="SEO">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-12-28_리뷰API개선요청_v1.0.html">
-    <meta name="twitter:title" content="[노피 기획안] 리뷰 API 개선 요청">
-    <meta name="twitter:description" content="🎯 SEO 만족도 표시 오류 해결 및 리뷰 데이터 정합성 개선">
-    <meta name="twitter:image" content="https://nofee.team/images/og-image.png">
-    <meta name="twitter:image:alt" content="노피 기획안 - 리뷰 API 개선 요청">
-    <meta name="twitter:creator" content="@nofee_team">
-
-    <!-- Meta Description -->
-    <meta name="description" content="🎯 SEO 만족도 표시 오류 해결 및 리뷰 데이터 정합성 개선 | 노피 기획안 v1.0">
-    <meta name="keywords" content="노피, NOFEE, 기획안, 리뷰, API, SEO, 만족도">
-
+    <title>리뷰 API 개선 요청</title>
     <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        @media print {
-            @page {
-                size: A4;
-                margin: 0;
-            }
-            body {
-                padding: 15mm;
-            }
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Pretendard', 'Malgun Gothic', sans-serif;
-            max-width: 1400px;
+            font-family: 'SUIT Variable', -apple-system, sans-serif;
+            max-width: 800px;
             margin: 0 auto;
             padding: 40px;
-            background: #ffffff;
+            background: #fff;
             color: #191f28;
-            line-height: 1.6;
-            font-size: 14px;
-            -webkit-font-smoothing: antialiased;
+            line-height: 1.7;
         }
+        .header { border-bottom: 2px solid #3182f6; padding-bottom: 20px; margin-bottom: 32px; }
+        .header h1 { font-size: 24px; margin-bottom: 8px; }
+        .header p { color: #6b7684; font-size: 14px; }
+        .meta { display: flex; gap: 24px; font-size: 12px; color: #8b95a1; margin-top: 12px; }
 
-        .document-header {
-            border-bottom: 2px solid #3182f6;
-            padding-bottom: 24px;
-            margin-bottom: 32px;
-        }
+        .db-box { background: #f0f9ff; border: 1px solid #bae6fd; padding: 16px; border-radius: 8px; margin-bottom: 32px; }
+        .db-box strong { color: #0369a1; }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
+        .request { border: 1px solid #e5e8eb; border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .request h2 { font-size: 18px; margin-bottom: 16px; }
+        .request .tag { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; margin-left: 8px; }
+        .request .tag-1 { background: #fee2e2; color: #dc2626; }
+        .request .tag-2 { background: #fef3c7; color: #d97706; }
+        .request .tag-3 { background: #dcfce7; color: #16a34a; }
 
-        .logo {
-            height: 32px;
-        }
+        .problem { color: #dc2626; margin: 12px 0; font-size: 14px; }
+        .solution { background: #f0fdf4; padding: 16px; border-radius: 8px; margin: 16px 0; }
+        .solution strong { color: #16a34a; }
 
-        .doc-meta {
-            text-align: right;
-            font-size: 11px;
-            color: #8b95a1;
-        }
-
-        .doc-meta-item {
-            margin-bottom: 4px;
-        }
-
-        .doc-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #191f28;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-        }
-
-        .doc-subtitle {
-            font-size: 16px;
-            color: #4e5968;
-            font-weight: 400;
-        }
-
-        .info-box {
-            background: #f9fafb;
-            border: 1px solid #e5e8eb;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 24px 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 24px;
-        }
-
-        .info-item {
-        }
-
-        .info-label {
-            font-size: 12px;
-            color: #8b95a1;
-            margin-bottom: 8px;
-        }
-
-        .info-value {
-            font-size: 16px;
-            color: #191f28;
-            font-weight: 600;
-        }
-
-        .section {
-            margin: 40px 0;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #191f28;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #e5e8eb;
-        }
-
-        .subsection-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #191f28;
-            margin: 24px 0 12px 0;
-        }
-
-        .content {
-            color: #4e5968;
-            line-height: 1.8;
-        }
-
-        .content p {
-            margin-bottom: 12px;
-        }
-
-        .content ul, .content ol {
-            margin-left: 20px;
-            margin-bottom: 12px;
-        }
-
-        .content li {
-            margin-bottom: 8px;
-        }
-
-        .highlight-box {
-            background: #eff8ff;
-            border-left: 4px solid #3182f6;
-            padding: 16px 20px;
-            margin: 16px 0;
-            border-radius: 4px;
-        }
-
-        .highlight-box strong {
-            color: #191f28;
-        }
-
-        .problem-box {
-            background: #fff5f5;
-            border-left: 4px solid #d32f2f;
-            padding: 16px 20px;
-            margin: 16px 0;
-            border-radius: 4px;
-        }
-
-        .problem-box strong {
-            color: #d32f2f;
-        }
-
-        .solution-box {
-            background: #f0fdf4;
-            border-left: 4px solid #22c55e;
-            padding: 16px 20px;
-            margin: 16px 0;
-            border-radius: 4px;
-        }
-
-        .solution-box strong {
-            color: #16a34a;
-        }
-
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        .comparison-table th,
-        .comparison-table td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #e5e8eb;
-        }
-
-        .comparison-table th {
-            background: #f9fafb;
-            font-weight: 600;
-            color: #191f28;
-        }
-
-        .comparison-table td {
-            color: #4e5968;
-        }
-
-        .priority-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        .priority-table th,
-        .priority-table td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #e5e8eb;
-        }
-
-        .priority-table th {
-            background: #3182f6;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .priority-table td {
-            color: #4e5968;
-        }
-
-        .priority-table tr:nth-child(2) td:first-child {
-            background: #fee2e2;
-            color: #dc2626;
-            font-weight: 600;
-        }
-
-        .priority-table tr:nth-child(3) td:first-child {
-            background: #fef3c7;
-            color: #d97706;
-            font-weight: 600;
-        }
-
-        .priority-table tr:nth-child(4) td:first-child {
-            background: #d1fae5;
-            color: #059669;
-            font-weight: 600;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
-            margin-right: 8px;
-        }
-
-        .tag-before {
-            background: #fee;
-            color: #d32f2f;
-        }
-
-        .tag-after {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .tag-high {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-
-        .tag-medium {
-            background: #fef3c7;
-            color: #d97706;
-        }
-
-        .tag-low {
-            background: #d1fae5;
-            color: #059669;
-        }
-
-        .code-block {
+        .code {
             background: #1e293b;
             color: #e2e8f0;
-            padding: 16px 20px;
+            padding: 16px;
             border-radius: 8px;
-            font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+            font-family: 'SF Mono', monospace;
             font-size: 13px;
-            overflow-x: auto;
-            margin: 16px 0;
-            line-height: 1.6;
+            margin: 12px 0;
+            white-space: pre;
         }
-
-        .code-block .comment {
-            color: #94a3b8;
-        }
-
-        .code-block .key {
-            color: #7dd3fc;
-        }
-
-        .code-block .value {
-            color: #86efac;
-        }
-
-        .code-block .string {
-            color: #fde68a;
-        }
-
-        .api-endpoint {
-            background: #f1f5f9;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
-            font-size: 13px;
-            display: inline-block;
-            margin: 4px 0;
-        }
-
-        .api-method {
-            background: #3182f6;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-right: 8px;
-        }
-
-        .page-card {
-            border: 1px solid #e5e8eb;
-            border-radius: 12px;
-            padding: 24px;
-            margin: 20px 0;
-        }
-
-        .page-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .page-card-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #191f28;
-        }
-
-        .page-card-location {
-            font-size: 12px;
-            color: #8b95a1;
-            font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
-        }
+        .c { color: #94a3b8; }
+        .k { color: #7dd3fc; }
+        .v { color: #86efac; }
     </style>
 </head>
 <body>
-    <div class="document-header">
-        <div class="logo-container">
-            <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="logo">
-            <div class="doc-meta">
-                <div class="doc-meta-item">작성일: 2025.12.28</div>
-                <div class="doc-meta-item">버전: v1.0</div>
-                <div class="doc-meta-item">작성자: 제이콥</div>
-            </div>
-        </div>
-        <h1 class="doc-title">리뷰 API 개선 요청</h1>
-        <p class="doc-subtitle">SEO 만족도 표시 오류 해결 및 리뷰 데이터 정합성 개선을 위한 백엔드 API 수정 요청</p>
-    </div>
-
-    <div class="info-box">
-        <div class="info-item">
-            <div class="info-label">문서 유형</div>
-            <div class="info-value">API 요청서</div>
-        </div>
-        <div class="info-item">
-            <div class="info-label">우선순위</div>
-            <div class="info-value">높음 (High)</div>
-        </div>
-        <div class="info-item">
-            <div class="info-label">영향 범위</div>
-            <div class="info-value">Product / Home / Deal 페이지</div>
+    <div class="header">
+        <h1>리뷰 API 개선 요청</h1>
+        <p>리뷰 데이터 조회 시 발생하는 문제 해결 요청</p>
+        <div class="meta">
+            <span>작성일: 2025.12.28</span>
+            <span>작성자: 제이콥</span>
         </div>
     </div>
 
-    <div class="section">
-        <h2 class="section-title">1. 개요</h2>
-        <div class="content">
-            <p>현재 리뷰 API의 제한으로 인해 SEO 메타데이터와 UI에서 정확하지 않은 데이터가 표시되고 있습니다.
-               이 문서는 각 페이지별로 필요한 리뷰 데이터와 API 개선 방향을 정리합니다.</p>
-
-            <div class="highlight-box">
-                <strong>핵심 요청사항</strong><br>
-                • Product 페이지: 리뷰 통계(만족도) 데이터 제공<br>
-                • Home 페이지: 판매점 대표 리뷰 안정적 조회<br>
-                • Deal 페이지: 판매점 리뷰 조회 개수 확대
-            </div>
-        </div>
+    <div class="db-box">
+        <strong>📊 DB 현황</strong><br>
+        전체 리뷰 342건 (실제 47 + 가상 295) · 리뷰 보유 판매점 15개 · 최다: 폰슐랭 135건
     </div>
 
-    <div class="section">
-        <h2 class="section-title">2. 페이지별 상세 요청</h2>
+    <!-- 요청 1 -->
+    <div class="request">
+        <h2>요청 1: 리뷰 통계 필드 추가 <span class="tag tag-1">1순위</span></h2>
 
-        <!-- Product 페이지 -->
-        <div class="page-card">
-            <div class="page-card-header">
-                <div class="page-card-title">📱 Product 페이지 (상품 상세)</div>
-                <div class="page-card-location">app/product/[productGroupCode]/page.tsx</div>
-            </div>
+        <p class="problem">
+            ⚠️ 문제: 리뷰 10건만 조회되어 만족도 계산이 잘못됨 (100건 중 10건 조회 → 10% 표시)
+        </p>
 
-            <div class="problem-box">
-                <strong>🚨 현재 문제 (DB 검증 완료)</strong><br>
-                • 리뷰 API 기본 조회 개수: <strong>10건</strong><br>
-                • 만족도 계산 로직: (조회된 리뷰 중 4점 이상 수 / <strong>전체</strong> 리뷰 수) × 100<br>
-                • <strong>실제 버그:</strong> 전체 100건 중 10건만 조회 → 10건 모두 고평점이어도 <span class="tag tag-before">10%</span>로 표시<br>
-                • <strong>DB 현황:</strong> 전체 리뷰 342건 (실제 47건 + 가상 295건), 4점 이상 100%
-            </div>
-
-            <h3 class="subsection-title">SEO에 미치는 영향</h3>
-            <p>Google 검색결과에 만족도가 잘못 표시됩니다:</p>
-            <div class="code-block">
-                <span class="comment">// 현재 검색결과 표시 (버그)</span><br>
-                갤럭시 S24 성지 리뷰 100건 <span class="tag tag-before">10%</span> 만족 - 노피<br><br>
-                <span class="comment">// 정확한 표시 (수정 후)</span><br>
-                갤럭시 S24 성지 리뷰 100건 <span class="tag tag-after">100%</span> 만족 - 노피
-            </div>
-
-            <h3 class="subsection-title">버그 원인 (프론트엔드 코드)</h3>
-            <div class="code-block">
-                <span class="comment">// app/product/[productGroupCode]/page.tsx:251-252</span><br>
-                const highRatingCount = reviewList.filter(r => r.rating >= 4).length; <span class="comment">// 10건 중 계산</span><br>
-                const satisfactionPercent = (highRatingCount / reviewCountNum) * 100; <span class="comment">// 전체 수로 나눔</span><br><br>
-                <span class="comment">// 예: highRatingCount=10, reviewCountNum=100 → 10% (잘못됨!)</span>
-            </div>
-
-            <h3 class="subsection-title">필요한 데이터</h3>
-            <table class="comparison-table">
-                <tr>
-                    <th>필드명</th>
-                    <th>타입</th>
-                    <th>설명</th>
-                </tr>
-                <tr>
-                    <td>total</td>
-                    <td>number</td>
-                    <td>전체 리뷰 수</td>
-                </tr>
-                <tr>
-                    <td>avgRating</td>
-                    <td>number</td>
-                    <td>평균 평점 (예: 4.2)</td>
-                </tr>
-                <tr>
-                    <td>highRatingCount</td>
-                    <td>number</td>
-                    <td>4점 이상 리뷰 수</td>
-                </tr>
-                <tr>
-                    <td>satisfactionRate</td>
-                    <td>number</td>
-                    <td>만족도 % (highRatingCount / total × 100)</td>
-                </tr>
-            </table>
-
-            <div class="solution-box">
-                <strong>✅ 요청 API 옵션</strong><br><br>
-                <strong>옵션 A) 기존 리뷰 목록 API 응답에 통계 추가</strong>
-            </div>
-            <div class="code-block">
-                <span class="api-method">POST</span> <span class="api-endpoint">/review</span><br><br>
-                <span class="comment">// Request</span><br>
-                { <span class="key">"productGroupCode"</span>: <span class="string">"PG001"</span> }<br><br>
-                <span class="comment">// Response</span><br>
-                {<br>
-                &nbsp;&nbsp;<span class="key">"total"</span>: <span class="value">50</span>,<br>
-                &nbsp;&nbsp;<span class="key">"list"</span>: [...],<br>
-                &nbsp;&nbsp;<span class="key">"stats"</span>: {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"avgRating"</span>: <span class="value">4.2</span>,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"highRatingCount"</span>: <span class="value">30</span>,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"satisfactionRate"</span>: <span class="value">60</span><br>
-                &nbsp;&nbsp;}<br>
-                }
-            </div>
-
-            <div class="solution-box">
-                <strong>옵션 B) 리뷰 통계 전용 API 신규 생성</strong>
-            </div>
-            <div class="code-block">
-                <span class="api-method">POST</span> <span class="api-endpoint">/review/stats</span><br><br>
-                <span class="comment">// Request</span><br>
-                { <span class="key">"productGroupCode"</span>: <span class="string">"PG001"</span> }<br><br>
-                <span class="comment">// Response</span><br>
-                {<br>
-                &nbsp;&nbsp;<span class="key">"total"</span>: <span class="value">50</span>,<br>
-                &nbsp;&nbsp;<span class="key">"avgRating"</span>: <span class="value">4.2</span>,<br>
-                &nbsp;&nbsp;<span class="key">"highRatingCount"</span>: <span class="value">30</span>,<br>
-                &nbsp;&nbsp;<span class="key">"satisfactionRate"</span>: <span class="value">60</span><br>
-                }
-            </div>
+        <div class="solution">
+            <strong>✅ 요청:</strong> POST /review 응답에 <code>highRatingCount</code> 필드 추가
         </div>
 
-        <!-- Home 페이지 -->
-        <div class="page-card">
-            <div class="page-card-header">
-                <div class="page-card-title">🏠 Home 페이지 (인기 판매점 섹션)</div>
-                <div class="page-card-location">app/components/home-v2/PopularStoreSection.tsx</div>
-            </div>
+        <div class="code"><span class="c">// 현재</span>
+{ "total": 100, "list": [...] }
 
-            <div class="problem-box">
-                <strong>🚨 현재 문제 (DB 검증 완료)</strong><br>
-                • <code>getStoreReviewsByStoreNo(storeNo)</code>로 5개 판매점 리뷰 조회<br>
-                • 일부 판매점은 <code>store.review > 0</code>임에도 API가 빈 결과 반환<br>
-                • <strong>DB 현황:</strong> 리뷰 있는 판매점 15개 (폰슐랭 135건, 신성교회 51건 등)<br>
-                • <strong>결과:</strong> 5개 카드 중 2-3개만 리뷰가 표시됨
-            </div>
+<span class="c">// 요청</span>
+{ "total": 100, "list": [...], <span class="k">"highRatingCount"</span>: <span class="v">95</span> }  <span class="c">// 4점 이상 리뷰 수</span></div>
 
-            <h3 class="subsection-title">필요한 데이터</h3>
-            <p>리뷰가 있는 판매점 5개의 대표 리뷰 1건씩 (총 5건)</p>
-            <table class="comparison-table">
-                <tr>
-                    <th>필드명</th>
-                    <th>타입</th>
-                    <th>설명</th>
-                </tr>
-                <tr>
-                    <td>rating</td>
-                    <td>string</td>
-                    <td>평점 (예: "5.0")</td>
-                </tr>
-                <tr>
-                    <td>content</td>
-                    <td>string</td>
-                    <td>리뷰 내용</td>
-                </tr>
-                <tr>
-                    <td>userNm</td>
-                    <td>string</td>
-                    <td>작성자명</td>
-                </tr>
-                <tr>
-                    <td>createdDt</td>
-                    <td>string</td>
-                    <td>작성일</td>
-                </tr>
-            </table>
-
-            <div class="solution-box">
-                <strong>✅ 요청 API 옵션</strong><br><br>
-                <strong>옵션 A) 기존 판매점 목록 API 응답에 대표 리뷰 포함</strong>
-            </div>
-            <div class="code-block">
-                <span class="api-method">POST</span> <span class="api-endpoint">/store/list</span><br><br>
-                <span class="comment">// Response 각 판매점 항목에 추가</span><br>
-                {<br>
-                &nbsp;&nbsp;<span class="key">"storeNo"</span>: <span class="value">123</span>,<br>
-                &nbsp;&nbsp;<span class="key">"nickname"</span>: <span class="string">"강남모바일"</span>,<br>
-                &nbsp;&nbsp;<span class="key">"rating"</span>: <span class="value">4.8</span>,<br>
-                &nbsp;&nbsp;<span class="key">"review"</span>: <span class="value">50</span>,<br>
-                &nbsp;&nbsp;<span class="key">"topReview"</span>: {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"rating"</span>: <span class="string">"5.0"</span>,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"content"</span>: <span class="string">"친절하고 가격도 좋았어요!"</span>,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"userNm"</span>: <span class="string">"김**"</span><br>
-                &nbsp;&nbsp;}<br>
-                }
-            </div>
-
-            <div class="solution-box">
-                <strong>옵션 B) 판매점 대표 리뷰 배치 조회 API 신규 생성</strong>
-            </div>
-            <div class="code-block">
-                <span class="api-method">POST</span> <span class="api-endpoint">/review/store/top</span><br><br>
-                <span class="comment">// Request - 여러 판매점 한번에 조회</span><br>
-                { <span class="key">"storeNos"</span>: [<span class="value">1, 2, 3, 4, 5</span>] }<br><br>
-                <span class="comment">// Response</span><br>
-                {<br>
-                &nbsp;&nbsp;<span class="key">"1"</span>: { <span class="key">"rating"</span>: <span class="string">"5.0"</span>, <span class="key">"content"</span>: <span class="string">"..."</span>, <span class="key">"userNm"</span>: <span class="string">"김**"</span> },<br>
-                &nbsp;&nbsp;<span class="key">"2"</span>: { <span class="key">"rating"</span>: <span class="string">"4.5"</span>, <span class="key">"content"</span>: <span class="string">"..."</span>, <span class="key">"userNm"</span>: <span class="string">"이**"</span> },<br>
-                &nbsp;&nbsp;...<br>
-                }
-            </div>
-        </div>
-
-        <!-- Deal 페이지 -->
-        <div class="page-card">
-            <div class="page-card-header">
-                <div class="page-card-title">💰 Deal 페이지 (판매점 후기 섹션)</div>
-                <div class="page-card-location">app/deal/[dealId]/components/StoreIntroSection.tsx</div>
-            </div>
-
-            <div class="problem-box">
-                <strong>🚨 현재 문제 (DB 검증 완료)</strong><br>
-                • <code>getStoreReviewList(storeNo, { length: 10 })</code> 10건만 조회<br>
-                • <strong>DB 현황:</strong> 폰슐랭 대전지점 135건, 신성교회 51건 등 다수 리뷰 보유<br>
-                • 판매점에 135건 리뷰가 있어도 10건만 표시됨<br>
-                • 사용자가 전체 리뷰를 볼 수 없음
-            </div>
-
-            <h3 class="subsection-title">필요한 데이터</h3>
-            <p>해당 판매점의 충분한 리뷰 목록 (30~50건) 또는 페이지네이션 지원</p>
-
-            <div class="solution-box">
-                <strong>✅ 요청 API 옵션</strong><br><br>
-                <strong>옵션 A) 기존 API Length 파라미터 제한 해제</strong>
-            </div>
-            <div class="code-block">
-                <span class="api-method">POST</span> <span class="api-endpoint">/review</span><br><br>
-                <span class="comment">// Request - Length 50 이상 허용</span><br>
-                { <span class="key">"storeNo"</span>: <span class="value">123</span>, <span class="key">"Length"</span>: <span class="value">50</span> }
-            </div>
-
-            <div class="solution-box">
-                <strong>옵션 B) 판매점 리뷰 전용 API (페이지네이션)</strong>
-            </div>
-            <div class="code-block">
-                <span class="api-method">POST</span> <span class="api-endpoint">/review/store/{storeNo}</span><br><br>
-                <span class="comment">// Request</span><br>
-                { <span class="key">"page"</span>: <span class="value">1</span>, <span class="key">"size"</span>: <span class="value">20</span> }<br><br>
-                <span class="comment">// Response</span><br>
-                {<br>
-                &nbsp;&nbsp;<span class="key">"total"</span>: <span class="value">50</span>,<br>
-                &nbsp;&nbsp;<span class="key">"list"</span>: [...],<br>
-                &nbsp;&nbsp;<span class="key">"hasMore"</span>: <span class="value">true</span><br>
-                }
-            </div>
-        </div>
+        <p style="font-size: 13px; color: #6b7684; margin-top: 12px;">
+            → 프론트에서 만족도 = highRatingCount / total × 100 으로 계산
+        </p>
     </div>
 
-    <div class="section">
-        <h2 class="section-title">3. 우선순위</h2>
-        <div class="content">
-            <table class="priority-table">
-                <tr>
-                    <th>순위</th>
-                    <th>항목</th>
-                    <th>영향도</th>
-                    <th>예상 난이도</th>
-                    <th>비고</th>
-                </tr>
-                <tr>
-                    <td>1순위</td>
-                    <td>Product 만족도 통계</td>
-                    <td>SEO 검색결과에 직접 영향</td>
-                    <td>중</td>
-                    <td>Google 검색결과 노출 품질</td>
-                </tr>
-                <tr>
-                    <td>2순위</td>
-                    <td>Home PopularStore 대표리뷰</td>
-                    <td>홈 첫인상, 신뢰도</td>
-                    <td>중</td>
-                    <td>현재 빈 리뷰 카드 발생</td>
-                </tr>
-                <tr>
-                    <td>3순위</td>
-                    <td>Deal 리뷰 Length 증가</td>
-                    <td>상세페이지 완성도</td>
-                    <td>하</td>
-                    <td>파라미터 제한 해제만 필요</td>
-                </tr>
-            </table>
+    <!-- 요청 2 -->
+    <div class="request">
+        <h2>요청 2: 판매점 대표 리뷰 조회 <span class="tag tag-2">2순위</span></h2>
+
+        <p class="problem">
+            ⚠️ 문제: 판매점 리뷰 조회 시 일부 storeNo에서 빈 결과 반환됨
+        </p>
+
+        <div class="solution">
+            <strong>✅ 요청:</strong> POST /store/list 응답에 <code>topReview</code> 필드 추가
         </div>
+
+        <div class="code"><span class="c">// 현재</span>
+{ "storeNo": 18, "nickname": "폰슐랭", "review": 135 }
+
+<span class="c">// 요청</span>
+{
+  "storeNo": 18,
+  "nickname": "폰슐랭",
+  "review": 135,
+  <span class="k">"topReview"</span>: { <span class="k">"content"</span>: "친절하고 좋았어요", <span class="k">"rating"</span>: "5.0" }
+}</div>
     </div>
 
-    <div class="section">
-        <h2 class="section-title">4. 현재 사용 중인 API 목록</h2>
-        <div class="content">
-            <table class="comparison-table">
-                <tr>
-                    <th>API</th>
-                    <th>위치</th>
-                    <th>현재 제한</th>
-                </tr>
-                <tr>
-                    <td><code>POST /review</code></td>
-                    <td>getProductGroupReviewList()</td>
-                    <td>Length 기본 10건</td>
-                </tr>
-                <tr>
-                    <td><code>POST /review</code></td>
-                    <td>getStoreReviewsByStoreNo()</td>
-                    <td>일부 storeNo에서 빈 결과 반환</td>
-                </tr>
-                <tr>
-                    <td><code>POST /review</code></td>
-                    <td>getStoreReviewList()</td>
-                    <td>Length 기본 10건</td>
-                </tr>
-            </table>
+    <!-- 요청 3 -->
+    <div class="request">
+        <h2>요청 3: 리뷰 조회 개수 확대 <span class="tag tag-3">3순위</span></h2>
+
+        <p class="problem">
+            ⚠️ 문제: Length 파라미터가 10으로 제한됨 (135건 리뷰 중 10건만 표시)
+        </p>
+
+        <div class="solution">
+            <strong>✅ 요청:</strong> POST /review의 Length 파라미터 50까지 허용
         </div>
-    </div>
 
-    <div class="section">
-        <h2 class="section-title">5. 기대 효과</h2>
-        <div class="content">
-            <div class="highlight-box">
-                <strong>개선 시 기대되는 효과</strong><br><br>
-                <strong>1. SEO 품질 개선</strong><br>
-                • Google 검색결과에 정확한 만족도 표시<br>
-                • 사용자 신뢰도 및 클릭률 향상<br><br>
+        <div class="code"><span class="c">// 현재 (제한됨)</span>
+{ "storeNo": 18, "Length": 50 }  <span class="c">→ 10건만 반환</span>
 
-                <strong>2. 사용자 경험 개선</strong><br>
-                • 홈 화면 인기 판매점에 리뷰 100% 노출<br>
-                • 딜 상세페이지에서 충분한 리뷰 확인 가능<br><br>
-
-                <strong>3. 서버 부하 감소</strong><br>
-                • 배치 API 도입 시 N+1 호출 문제 해결<br>
-                • 불필요한 반복 API 호출 제거
-            </div>
-        </div>
+<span class="c">// 요청</span>
+{ "storeNo": 18, "Length": 50 }  <span class="c">→ 50건 반환</span></div>
     </div>
 
 </body>
