@@ -9,7 +9,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'SUIT Variable', -apple-system, sans-serif;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 40px;
             background: #fff;
@@ -21,8 +21,7 @@
         .header p { color: #6b7684; font-size: 14px; }
         .meta { display: flex; gap: 24px; font-size: 12px; color: #8b95a1; margin-top: 12px; }
 
-        .db-box { background: #f0f9ff; border: 1px solid #bae6fd; padding: 16px; border-radius: 8px; margin-bottom: 32px; }
-        .db-box strong { color: #0369a1; }
+        .db-box { background: #f9fafb; border: 1px solid #e5e8eb; padding: 16px; border-radius: 8px; margin-bottom: 32px; }
 
         .request { border: 1px solid #e5e8eb; border-radius: 12px; padding: 24px; margin: 24px 0; }
         .request h2 { font-size: 18px; margin-bottom: 16px; }
@@ -32,8 +31,11 @@
         .request .tag-3 { background: #dcfce7; color: #16a34a; }
 
         .problem { color: #dc2626; margin: 12px 0; font-size: 14px; }
-        .solution { background: #f0fdf4; padding: 16px; border-radius: 8px; margin: 16px 0; }
-        .solution strong { color: #16a34a; }
+
+        .impl { background: #f9fafb; border: 1px solid #e5e8eb; padding: 16px; border-radius: 8px; margin: 16px 0; }
+
+        .need { background: #eff8ff; border: 1px solid #bae6fd; padding: 16px; border-radius: 8px; margin: 16px 0; }
+        .need strong { color: #0369a1; }
 
         .code {
             background: #1e293b;
@@ -41,19 +43,18 @@
             padding: 16px;
             border-radius: 8px;
             font-family: 'SF Mono', monospace;
-            font-size: 13px;
+            font-size: 12px;
             margin: 12px 0;
             white-space: pre;
+            overflow-x: auto;
         }
         .c { color: #94a3b8; }
-        .k { color: #7dd3fc; }
-        .v { color: #86efac; }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>리뷰 API 개선 요청</h1>
-        <p>리뷰 데이터 조회 시 발생하는 문제 해결 요청</p>
+        <p>리뷰 데이터 조회 시 발생하는 문제 해결을 위한 백엔드 수정 요청</p>
         <div class="meta">
             <span>작성일: 2025.12.28</span>
             <span>작성자: 제이콥</span>
@@ -61,55 +62,70 @@
     </div>
 
     <div class="db-box">
-        <strong>📊 DB 현황</strong><br>
-        전체 리뷰 342건 (실제 47 + 가상 295) · 리뷰 보유 판매점 15개 · 최다: 폰슐랭 135건
+        <strong>DB 현황</strong><br>
+        tb_review_store_phone (47건) + tb_review_store_phone_virtual (295건) = 총 342건
     </div>
 
     <!-- 요청 1 -->
     <div class="request">
-        <h2>요청 1: 리뷰 통계 필드 추가 <span class="tag tag-1">1순위</span></h2>
+        <h2>요청 1: 리뷰 통계 데이터 추가 <span class="tag tag-1">1순위</span></h2>
 
         <p class="problem">
-            ⚠️ 문제: 리뷰 10건만 조회되어 만족도 계산이 잘못됨 (100건 중 10건 조회 → 10% 표시)
+            문제: 리뷰가 10건만 조회되어 프론트에서 만족도 계산이 부정확함
         </p>
 
-        <div class="solution">
-            <strong>✅ 요청:</strong> POST /review 응답에 <code>highRatingCount</code> 필드 추가
+        <div class="impl">
+            <strong>API:</strong> POST /review
         </div>
 
-        <div class="code"><span class="c">// 현재</span>
-{ "total": 100, "list": [...] }
+        <div class="need">
+            <strong>필요한 데이터</strong><br>
+            - 전체 리뷰 중 4점 이상 리뷰 수
+        </div>
 
-<span class="c">// 요청</span>
-{ "total": 100, "list": [...], <span class="k">"highRatingCount"</span>: <span class="v">95</span> }  <span class="c">// 4점 이상 리뷰 수</span></div>
-
-        <p style="font-size: 13px; color: #6b7684; margin-top: 12px;">
-            → 프론트에서 만족도 = highRatingCount / total × 100 으로 계산
-        </p>
+        <div class="code"><span class="c">-- 쿼리 참고</span>
+SELECT
+  COUNT(*) as total,
+  SUM(CASE WHEN rating >= 4 THEN 1 ELSE 0 END) as high_rating_count
+FROM (
+  SELECT rating FROM tb_review_store_phone
+  WHERE deleted_yn = 'N' AND product_group_code = #{productGroupCode}
+  UNION ALL
+  SELECT rating FROM tb_review_store_phone_virtual
+  WHERE product_group_code = #{productGroupCode}
+) combined</div>
     </div>
 
     <!-- 요청 2 -->
     <div class="request">
-        <h2>요청 2: 판매점 대표 리뷰 조회 <span class="tag tag-2">2순위</span></h2>
+        <h2>요청 2: 판매점 목록에 대표 리뷰 포함 <span class="tag tag-2">2순위</span></h2>
 
         <p class="problem">
-            ⚠️ 문제: 판매점 리뷰 조회 시 일부 storeNo에서 빈 결과 반환됨
+            문제: 판매점별 리뷰 조회 시 빈 결과 반환되어 추가 API 호출 필요
         </p>
 
-        <div class="solution">
-            <strong>✅ 요청:</strong> POST /store/list 응답에 <code>topReview</code> 필드 추가
+        <div class="impl">
+            <strong>API:</strong> POST /store/list
         </div>
 
-        <div class="code"><span class="c">// 현재</span>
-{ "storeNo": 18, "nickname": "폰슐랭", "review": 135 }
+        <div class="need">
+            <strong>필요한 데이터</strong><br>
+            - 각 판매점의 대표 리뷰 1건 (내용, 평점)
+        </div>
 
-<span class="c">// 요청</span>
-{
-  "storeNo": 18,
-  "nickname": "폰슐랭",
-  "review": 135,
-  <span class="k">"topReview"</span>: { <span class="k">"content"</span>: "친절하고 좋았어요", <span class="k">"rating"</span>: "5.0" }
-}</div>
+        <div class="code"><span class="c">-- 쿼리 참고 (판매점별 대표 리뷰 1건)</span>
+SELECT content, rating, user_nm
+FROM (
+  SELECT content, rating, user_nm, created_at
+  FROM tb_review_store_phone
+  WHERE deleted_yn = 'N' AND store_no = #{storeNo}
+  UNION ALL
+  SELECT content, rating, user_nm, created_at
+  FROM tb_review_store_phone_virtual
+  WHERE store_no = #{storeNo}
+) combined
+ORDER BY rating DESC, created_at DESC
+LIMIT 1</div>
     </div>
 
     <!-- 요청 3 -->
@@ -117,18 +133,17 @@
         <h2>요청 3: 리뷰 조회 개수 확대 <span class="tag tag-3">3순위</span></h2>
 
         <p class="problem">
-            ⚠️ 문제: Length 파라미터가 10으로 제한됨 (135건 리뷰 중 10건만 표시)
+            문제: Length 파라미터가 10으로 제한됨
         </p>
 
-        <div class="solution">
-            <strong>✅ 요청:</strong> POST /review의 Length 파라미터 50까지 허용
+        <div class="impl">
+            <strong>API:</strong> POST /review
         </div>
 
-        <div class="code"><span class="c">// 현재 (제한됨)</span>
-{ "storeNo": 18, "Length": 50 }  <span class="c">→ 10건만 반환</span>
-
-<span class="c">// 요청</span>
-{ "storeNo": 18, "Length": 50 }  <span class="c">→ 50건 반환</span></div>
+        <div class="need">
+            <strong>필요한 변경</strong><br>
+            - Length 파라미터 최대값을 50으로 확대
+        </div>
     </div>
 
 </body>
