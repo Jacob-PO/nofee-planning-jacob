@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome 페이지 전환율 개선 기획안 - 노피</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jacob-po.github.io/nofee_planning/plan_2025-12-31_Welcome페이지_전환율개선_기획안_v1.0.html">
+    <meta property="og:title" content="[노피 기획안] Welcome 페이지 전환율 개선">
+    <meta property="og:description" content="GA4 데이터 기반 Welcome 페이지 53.7% 이탈률 개선 기획. 신규가입 혜택 명시, 상품 정보 연계, 가치 명제 강화.">
+    <meta property="og:image" content="https://nofee.team/images/og-image.png">
+    <meta property="og:site_name" content="노피 NOFEE - 기획 문서">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="article:author" content="제이콥">
+    <meta property="article:published_time" content="2025-12-31T00:00:00+09:00">
+
+    <!-- Meta Description -->
+    <meta name="description" content="GA4 데이터 기반 Welcome 페이지 53.7% 이탈률 개선 기획. 신규가입 혜택 명시, 상품 정보 연계, 가치 명제 강화.">
+
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #ffffff;
+            color: #191f28;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .document-header {
+            border-bottom: 2px solid #131FA0;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .logo { height: 32px; }
+
+        .doc-meta {
+            text-align: right;
+            font-size: 11px;
+            color: #8b95a1;
+        }
+
+        .doc-meta-item { margin-bottom: 4px; }
+
+        .doc-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 12px;
+        }
+
+        .doc-subtitle {
+            font-size: 16px;
+            color: #4e5968;
+        }
+
+        .info-box {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 24px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #8b95a1;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: #191f28;
+            font-weight: 600;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e8eb;
+        }
+
+        .content {
+            color: #4e5968;
+            line-height: 1.8;
+        }
+
+        .content p { margin-bottom: 12px; }
+        .content ul { margin-left: 20px; margin-bottom: 12px; }
+        .content li { margin-bottom: 8px; }
+
+        .highlight-box {
+            background: #eff8ff;
+            border-left: 4px solid #131FA0;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .critical-box {
+            background: #fef2f2;
+            border-left: 4px solid #dc2626;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #e5e8eb;
+        }
+
+        .comparison-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #191f28;
+        }
+
+        .comparison-table td { color: #4e5968; }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .metric-card {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #131FA0;
+            margin-bottom: 8px;
+        }
+
+        .metric-value.red {
+            color: #dc2626;
+        }
+
+        .metric-value.green {
+            color: #16a34a;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: #6b7684;
+        }
+
+        .metric-sub {
+            font-size: 11px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        .subsection {
+            margin: 24px 0;
+            padding: 20px;
+            background: #fafbfc;
+            border-radius: 8px;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #191f28;
+            margin-bottom: 12px;
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        .before-box, .after-box {
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .before-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        .after-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        .before-box h4 { color: #dc2626; font-size: 14px; margin-bottom: 12px; }
+        .after-box h4 { color: #16a34a; font-size: 14px; margin-bottom: 12px; }
+
+        .funnel-visual {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 24px;
+            border-radius: 12px;
+            font-family: 'SF Mono', 'Consolas', monospace;
+            font-size: 13px;
+            margin: 24px 0;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.6;
+        }
+
+        .data-note {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 12px;
+            color: #64748b;
+            margin: 16px 0;
+        }
+
+        @media (max-width: 768px) {
+            .info-box { grid-template-columns: 1fr 1fr; }
+            .metric-grid { grid-template-columns: 1fr 1fr; }
+            .before-after { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-header">
+        <div class="logo-container">
+            <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="logo">
+            <div class="doc-meta">
+                <div class="doc-meta-item">작성일: 2025.12.31</div>
+                <div class="doc-meta-item">버전: v1.0</div>
+                <div class="doc-meta-item">작성자: 제이콥</div>
+            </div>
+        </div>
+        <h1 class="doc-title">Welcome 페이지 전환율 개선 기획안</h1>
+        <p class="doc-subtitle">GA4 데이터 기반 로그인 전환율 53.7% 이탈 문제 해결</p>
+    </div>
+
+    <div class="info-box">
+        <div class="info-item">
+            <div class="info-label">문서 유형</div>
+            <div class="info-value">기획안</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">데이터 소스</div>
+            <div class="info-value">GA4 + Production DB</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">분석 기간</div>
+            <div class="info-value">2025년 연간</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">총 사용자 수</div>
+            <div class="info-value">43,303명</div>
+        </div>
+    </div>
+
+    <!-- 핵심 문제 요약 -->
+    <div class="section">
+        <h2 class="section-title">핵심 문제 요약</h2>
+
+        <div class="critical-box">
+            <strong>Welcome 페이지에서 연간 9,931명이 이탈합니다.</strong><br>
+            로그인 페이지까지 왔는데 53.7%가 로그인 버튼을 누르지 않습니다. 이들은 이미 상품에 관심을 보인 고의도 사용자입니다.
+        </div>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value">18,502</div>
+                <div class="metric-label">Welcome 페이지 도달</div>
+                <div class="metric-sub">연간 총 방문자</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value red">53.7%</div>
+                <div class="metric-label">이탈률</div>
+                <div class="metric-sub">로그인 안 하고 이탈</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value red">9,931</div>
+                <div class="metric-label">연간 손실 사용자</div>
+                <div class="metric-sub">고의도 사용자 손실</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">26.8초</div>
+                <div class="metric-label">평균 체류시간</div>
+                <div class="metric-sub">전체 페이지 중 최단</div>
+            </div>
+        </div>
+
+        <div class="data-note">
+            GA4 Property ID: 474694872 / Production DB: db_nofee / 데이터 기간: 2025년 연간
+        </div>
+    </div>
+
+    <!-- 전체 퍼널에서의 위치 -->
+    <div class="section">
+        <h2 class="section-title">전체 퍼널에서의 위치</h2>
+
+        <div class="funnel-visual">전체 사용자 유입 (43,303명)
+     │
+     ▼
+홈 페이지 (38,439명)
+     │
+     ▼ ─────────── 51.6% 이탈 (19,836명) ← 1위 병목
+상품 탐색 (18,603명)
+     │
+     ▼ ─────────── 0.5% 이탈 (양호)
+Welcome 페이지 (18,502명)
+     │
+     ▼ ─────────── 53.7% 이탈 (9,931명) ← 2위 병목 (이 문서의 대상)
+로그인 완료 (8,571명)
+     │
+     ▼
+최종 전환 (6,019명)</div>
+
+        <table class="comparison-table">
+            <tr>
+                <th>단계</th>
+                <th>시작</th>
+                <th>도달</th>
+                <th>이탈 수</th>
+                <th>이탈률</th>
+                <th>병목 순위</th>
+            </tr>
+            <tr>
+                <td>유입 → 홈</td>
+                <td>43,303</td>
+                <td>38,439</td>
+                <td>4,864</td>
+                <td>11.2%</td>
+                <td>4위</td>
+            </tr>
+            <tr style="background: #fef2f2;">
+                <td><strong>홈 → Product</strong></td>
+                <td>38,439</td>
+                <td>18,603</td>
+                <td><strong>19,836</strong></td>
+                <td><strong>51.6%</strong></td>
+                <td>1위</td>
+            </tr>
+            <tr>
+                <td>Product → Welcome</td>
+                <td>18,603</td>
+                <td>18,502</td>
+                <td>101</td>
+                <td>0.5%</td>
+                <td>-</td>
+            </tr>
+            <tr style="background: #fff7ed;">
+                <td><strong>Welcome → 로그인</strong></td>
+                <td>18,502</td>
+                <td>8,571</td>
+                <td><strong>9,931</strong></td>
+                <td><strong>53.7%</strong></td>
+                <td>2위 (이 문서)</td>
+            </tr>
+            <tr>
+                <td>로그인 → 활성 사용</td>
+                <td>8,571</td>
+                <td>~5,000</td>
+                <td>~3,571</td>
+                <td>41.7%</td>
+                <td>3위</td>
+            </tr>
+        </table>
+
+        <div class="highlight-box">
+            <strong>핵심 인사이트:</strong> "로그인까지 오면 70%가 가입한다"<br>
+            문제는 로그인까지 오게 만드는 것입니다. Welcome 페이지에서 왜 로그인해야 하는지 명확하게 전달해야 합니다.
+        </div>
+    </div>
+
+    <!-- 현재 문제점 -->
+    <div class="section">
+        <h2 class="section-title">현재 문제점</h2>
+
+        <div class="subsection">
+            <div class="subsection-title">1. "왜 로그인해야 하지?" - 가치 명제 부재</div>
+            <div class="content">
+                <p>기존 Welcome 페이지는 단순히 "카카오로 로그인" 버튼만 있었습니다. 사용자 입장에서는:</p>
+                <ul>
+                    <li>"로그인하면 뭐가 좋은데?"</li>
+                    <li>"굳이 개인정보 줘야 해?"</li>
+                    <li>"그냥 가격만 보고 싶은데..."</li>
+                </ul>
+                <p>로그인의 혜택이 명확하지 않아 이탈이 발생합니다.</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">2. 이전 맥락과 단절됨</div>
+            <div class="content">
+                <p>사용자가 Deal 페이지에서 특정 상품(예: 아이폰 16 Pro, 월 55,000원)을 보고 왔는데, Welcome 페이지에서는 그 상품 정보가 전혀 보이지 않습니다.</p>
+                <ul>
+                    <li>"내가 보던 상품은 어디 갔지?"</li>
+                    <li>"다시 찾아야 하나?"</li>
+                    <li>맥락 단절로 인한 불안감 → 이탈</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">3. 체류시간 26.8초 - 결정 장애</div>
+            <div class="content">
+                <p>Welcome 페이지의 평균 체류시간이 26.8초로 전체 페이지 중 가장 짧습니다.</p>
+                <ul>
+                    <li>너무 짧은 시간 = 바로 이탈</li>
+                    <li>결정할 정보가 없어서 빠르게 나감</li>
+                    <li>혜택/이유가 명확하면 체류시간 증가 예상</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 개선 방향 -->
+    <div class="section">
+        <h2 class="section-title">개선 방향</h2>
+
+        <div class="highlight-box">
+            <strong>핵심 전략</strong><br>
+            1. 신규가입 혜택(1만원 쿠폰)을 명확히 강조<br>
+            2. Deal 페이지에서 본 상품 정보를 그대로 보여주기<br>
+            3. 할인된 가격을 직접 보여줘서 전환 동기 부여
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">1. 신규가입 혜택 명시</div>
+            <div class="before-after">
+                <div class="before-box">
+                    <h4>변경 전</h4>
+                    <p>"카카오로 로그인"<br>(혜택 언급 없음)</p>
+                </div>
+                <div class="after-box">
+                    <h4>변경 후</h4>
+                    <p>"신규가입 시<br><strong style="color: #131FA0;">1만원 쿠폰</strong> 즉시 지급"</p>
+                </div>
+            </div>
+            <div class="content">
+                <p>로그인해야 하는 명확한 이유(1만원 혜택)를 헤드라인에서 바로 전달합니다.</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">2. 상품 정보 연계 (Deal → Welcome)</div>
+            <div class="before-after">
+                <div class="before-box">
+                    <h4>변경 전</h4>
+                    <p>일반 쿠폰 이미지<br>(어떤 상품인지 모름)</p>
+                </div>
+                <div class="after-box">
+                    <h4>변경 후</h4>
+                    <p>사용자가 보던 상품 이미지<br>상품명, 통신사, 용량<br>할부원금: <s>990,000원</s> → <strong style="color: #131FA0;">980,000원</strong></p>
+                </div>
+            </div>
+            <div class="content">
+                <p>Deal 페이지에서 "견적 신청" 클릭 시, 해당 상품 정보를 sessionStorage에 저장합니다. Welcome 페이지에서 이 정보를 불러와 사용자가 보던 상품과 할인된 가격을 보여줍니다.</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">3. 할인 가격 시각화</div>
+            <div class="content">
+                <p>할부원금에서 1만원을 뺀 가격을 직접 보여줍니다.</p>
+                <ul>
+                    <li>기존 가격: 취소선 처리 (예: <s>990,000원</s>)</li>
+                    <li>할인 가격: 강조 표시 (예: <strong style="color: #131FA0;">980,000원</strong>)</li>
+                    <li>"1만원 추가할인 받기" 문구로 행동 유도</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 개선 항목 정리 -->
+    <div class="section">
+        <h2 class="section-title">개선 항목 정리</h2>
+
+        <table class="comparison-table">
+            <tr>
+                <th>항목</th>
+                <th>변경 전</th>
+                <th>변경 후</th>
+            </tr>
+            <tr>
+                <td>헤드라인 (상품 있을 때)</td>
+                <td>없음</td>
+                <td>"신규가입하고 {상품명} 1만원 추가할인 받기"</td>
+            </tr>
+            <tr>
+                <td>헤드라인 (상품 없을 때)</td>
+                <td>"카카오로 로그인"</td>
+                <td>"신규가입 시 1만원 쿠폰 즉시 지급"</td>
+            </tr>
+            <tr>
+                <td>상품 이미지</td>
+                <td>없음</td>
+                <td>Deal 페이지에서 본 상품 썸네일</td>
+            </tr>
+            <tr>
+                <td>상품 정보</td>
+                <td>없음</td>
+                <td>통신사 + 용량 표시</td>
+            </tr>
+            <tr>
+                <td>가격 표시</td>
+                <td>없음</td>
+                <td>기존 가격(취소선) + 할인 가격</td>
+            </tr>
+            <tr>
+                <td>쿠폰 카드 (상품 없을 때)</td>
+                <td>없음</td>
+                <td>인터스텔라 블루 그라데이션 카드<br>"10,000원 첫 구매 할인 쿠폰"</td>
+            </tr>
+            <tr>
+                <td>PC 레이아웃</td>
+                <td>전체 너비로 늘어남</td>
+                <td>max-width: 430px (모바일과 동일)</td>
+            </tr>
+            <tr>
+                <td>브랜드 컬러</td>
+                <td>핑크/빨강 혼용</td>
+                <td>인터스텔라 블루(#131FA0) 통일</td>
+            </tr>
+            <tr>
+                <td>불필요한 버튼</td>
+                <td>Apple, 네이버, 페이스북, 이메일</td>
+                <td>카카오 로그인만 유지</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 기술 구현 사항 -->
+    <div class="section">
+        <h2 class="section-title">기술 구현 사항</h2>
+
+        <div class="subsection">
+            <div class="subsection-title">Deal → Welcome 데이터 전달</div>
+            <div class="content">
+                <p>Deal 페이지에서 비로그인 사용자가 "견적 신청" 클릭 시:</p>
+                <ul>
+                    <li>sessionStorage에 displayInfo 저장</li>
+                    <li>저장 항목: productGroupNm, installmentPrincipal, monthPrice, storage, carrier, productGroupThumbImage</li>
+                    <li>Welcome 페이지에서 useEffect로 불러와 표시</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">수정된 파일</div>
+            <div class="content">
+                <ul>
+                    <li><strong>DealDetailClient.tsx:</strong> displayInfo를 pendingEstimate에 추가 저장</li>
+                    <li><strong>welcome/page.tsx:</strong> 상품 정보 표시 UI, 할인 가격 계산, PC 레이아웃 수정</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 예상 효과 -->
+    <div class="section">
+        <h2 class="section-title">예상 효과</h2>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value red">53.7%</div>
+                <div class="metric-label">현재 이탈률</div>
+                <div class="metric-sub">9,931명/년 손실</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">→</div>
+                <div class="metric-label"></div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value green">40%</div>
+                <div class="metric-label">목표 이탈률</div>
+                <div class="metric-sub">13.7%p 개선 목표</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value green">+2,500</div>
+                <div class="metric-label">추가 전환 예상</div>
+                <div class="metric-sub">연간 추가 가입자</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <p><strong>보수적 추정:</strong> 이탈률을 53.7% → 40%로 개선 시</p>
+            <ul>
+                <li>추가 로그인 완료: 18,502 × 13.7% = 약 2,535명/년</li>
+                <li>추가 최종 전환(70% 적용): 2,535 × 70% = 약 1,775명/년</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <strong>참고:</strong> 이 개선만으로는 완전한 해결이 어렵습니다. 근본적 해결을 위해서는 "비회원 견적 신청" 기능 도입이 필요합니다. 비회원도 견적을 받을 수 있게 하면 로그인 장벽 자체를 제거할 수 있습니다.
+        </div>
+    </div>
+
+    <!-- 다음 단계 -->
+    <div class="section">
+        <h2 class="section-title">다음 단계: 비회원 견적 신청</h2>
+
+        <div class="content">
+            <p>현재 개선은 "로그인해야 하는 이유"를 명확히 하는 것입니다. 하지만 진짜 해결책은 <strong>로그인 없이도 견적을 받을 수 있게 하는 것</strong>입니다.</p>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">비회원 견적 신청 도입 시 예상 효과</div>
+            <div class="content">
+                <ul>
+                    <li>현재 이탈하는 9,931명 중 상당수가 견적 신청 가능</li>
+                    <li>견적 받은 후 자연스럽게 가입 유도 가능</li>
+                    <li>로그인 → 가입 전환율 70% 기준, 약 6,952명 추가 가입 예상</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <strong>우선순위 제안:</strong><br>
+            1. [완료] Welcome 페이지 가치 명제 개선 (이 문서)<br>
+            2. [예정] 비회원 견적 신청 기능 개발<br>
+            3. [예정] 홈 → Product 이탈 개선 (1위 병목)
+        </div>
+    </div>
+
+    <!-- 벤치마킹 참고 -->
+    <div class="section">
+        <h2 class="section-title">벤치마킹 참고</h2>
+
+        <div class="content">
+            <p>지그재그(Zigzag) 스타일의 Welcome 페이지를 참고했습니다:</p>
+            <ul>
+                <li>쿠폰/혜택을 헤드라인에서 바로 강조</li>
+                <li>심플하고 명확한 가치 명제</li>
+                <li>단일 CTA 버튼으로 선택 장애 제거</li>
+                <li>브랜드 컬러 일관성 유지</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
