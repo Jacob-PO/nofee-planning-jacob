@@ -687,5 +687,403 @@ Welcome 페이지 (18,502명)
         </div>
     </div>
 
+    <!-- 카카오 로그인 전체 플로우 -->
+    <div class="section">
+        <h2 class="section-title">카카오 로그인 전체 플로우</h2>
+
+        <div class="funnel-visual">┌─────────────────────────────────────────────────────────────────────────┐
+│  1. /welcome                                                            │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │  "첫 구매라면 누구나 1만원 쿠폰 즉시 지급!"                       │   │
+│  │                                                                   │   │
+│  │              [10,000원 쿠폰 카드]                                 │   │
+│  │                                                                   │   │
+│  │  ┌─────────────────────────────────────────┐                     │   │
+│  │  │  카카오로 3초 만에 시작하기              │ ← 클릭              │   │
+│  │  └─────────────────────────────────────────┘                     │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+└────────────────────────────────┬────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  2. API: GET /login/kakao/login-uri                                     │
+│     → 카카오 로그인 URL 반환                                            │
+│     → window.location.href = loginUrl (카카오 로그인 페이지로 이동)     │
+└────────────────────────────────┬────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  3. 카카오 로그인 페이지 (외부)                                          │
+│     사용자가 카카오 계정으로 로그인/동의                                 │
+└────────────────────────────────┬────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  4. /login/kakao/callback?code=XXXX                                     │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │  [스피너 표시]                                                    │   │
+│  │                                                                   │   │
+│  │  Step 1: GET /login/kakao/access-token?code=XXXX                 │   │
+│  │          → kakaoAccessToken 획득                                 │   │
+│  │                                                                   │   │
+│  │  Step 2: POST /login/kakao { kakaoAccessToken }                  │   │
+│  │          → { isRegistered: boolean } 응답                        │   │
+│  │                                                                   │   │
+│  │  Step 3: isRegistered 판단                                        │   │
+│  │          ├─ true  → GET /user → 홈으로 이동 (기존 회원)          │   │
+│  │          └─ false → /signup/terms로 이동 (신규 회원)             │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+└────────────────────────────────┬────────────────────────────────────────┘
+                                 │
+                                 │ (신규 회원인 경우)
+                                 ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  5. /signup/terms (약관 동의) ★ 회원가입 완료 시점                       │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │  "서비스 이용 약관을 확인해주세요."                               │   │
+│  │                                                                   │   │
+│  │  ☑️ 전체 동의                                                     │   │
+│  │                                                                   │   │
+│  │  ☐ 만 14세 이상입니다. (필수)                                    │   │
+│  │  ☐ 서비스 이용약관 (필수)                                        │   │
+│  │  ☐ 개인정보 수집 및 이용 동의 (필수)                             │   │
+│  │  ☐ 마케팅 목적 제3자제공에 대한 동의 (선택)                      │   │
+│  │  ☐ 이벤트 및 할인 혜택 안내 동의 (선택)                          │   │
+│  │                                                                   │   │
+│  │  ┌─────────────────────────────────────────┐                     │   │
+│  │  │              다음으로                    │ ← 클릭              │   │
+│  │  └─────────────────────────────────────────┘                     │   │
+│  │                                                                   │   │
+│  │  → POST /login/sign-up/kakao { kakaoAccessToken, ...terms }      │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+└────────────────────────────────┬────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  6. /signup/wishInfo (희망정보 - Step 1)                                │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │  "희망지역을 선택해주세요."                                       │   │
+│  │  "노피가 가까운 성지를 연결해드려요!"                             │   │
+│  │                                                                   │   │
+│  │  시/도: [서울특별시 ▼]                                           │   │
+│  │  시/군/구: [강남구 ▼]                                            │   │
+│  │                                                                   │   │
+│  │  ┌─────────────────────────────────────────┐                     │   │
+│  │  │              입력 완료                   │                     │   │
+│  │  └─────────────────────────────────────────┘                     │   │
+│  │  → PUT /mypage/area { sidoNo, sigunguNo }                        │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+└────────────────────────────────┬────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  7. /signup/wishInfo (희망정보 - Step 2)                                │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │  [X] ← Step 2에만 스킵 버튼 있음                                  │   │
+│  │                                                                   │   │
+│  │  "가입을 환영합니다."                                             │   │
+│  │  "간단하게 정보를 입력하고, 맞춤형 추천을 받아보세요!"            │   │
+│  │                                                                   │   │
+│  │  통신사: [SKT ▼]                                                 │   │
+│  │  가격대: [0~10만원 ▼]                                            │   │
+│  │  제조사: [삼성 ▼]                                                │   │
+│  │                                                                   │   │
+│  │  ┌─────────────────────────────────────────┐                     │   │
+│  │  │              시작하기                    │                     │   │
+│  │  └─────────────────────────────────────────┘                     │   │
+│  │  → PUT /mypage/wish-info { carrierCode, priceRangeCode, ... }    │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+└────────────────────────────────┬────────────────────────────────────────┘
+                                 │
+                                 ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  8. /signup/completed (완료)                                             │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │                                                                   │   │
+│  │              WelcomePopup 표시                                    │   │
+│  │                                                                   │   │
+│  │  → trackSignupComplete() (GA4)                                   │   │
+│  │  → fbTrackCompleteRegistration() (Meta Pixel)                    │   │
+│  │                                                                   │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────────────┘</div>
+
+        <div class="subsection">
+            <div class="subsection-title">API 호출 순서</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>순서</th>
+                    <th>API</th>
+                    <th>메서드</th>
+                    <th>설명</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>/login/kakao/login-uri</td>
+                    <td>GET</td>
+                    <td>카카오 로그인 URL 조회</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>/login/kakao/access-token?code=XXX</td>
+                    <td>GET</td>
+                    <td>인가코드로 액세스토큰 발급</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>/login/kakao</td>
+                    <td>POST</td>
+                    <td>카카오 로그인 (신규/기존 판단)</td>
+                </tr>
+                <tr style="background: #eff8ff;">
+                    <td><strong>4</strong></td>
+                    <td><strong>/login/sign-up/kakao</strong></td>
+                    <td><strong>POST</strong></td>
+                    <td><strong>카카오 회원가입 (약관 동의 포함) ★</strong></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>/mypage/area</td>
+                    <td>PUT</td>
+                    <td>희망지역 저장</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>/mypage/wish-info</td>
+                    <td>PUT</td>
+                    <td>희망 핸드폰 정보 저장</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>/user</td>
+                    <td>GET</td>
+                    <td>사용자 정보 조회</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="critical-box">
+            <strong>회원가입 완료 시점</strong><br>
+            /signup/terms에서 "다음으로" 클릭 시 POST /login/sign-up/kakao API 호출 → 이 시점에 DB에 사용자 생성<br>
+            이후 wishInfo, completed 단계는 이미 가입된 회원에게 추가 정보를 수집하는 과정
+        </div>
+    </div>
+
+    <!-- 물리학적 분석 -->
+    <div class="section">
+        <h2 class="section-title">물리학적 분석 (F_net = F_motivation - F_friction)</h2>
+
+        <table class="comparison-table">
+            <tr>
+                <th>단계</th>
+                <th>F_motivation</th>
+                <th>F_friction</th>
+                <th>F_net</th>
+                <th>상태</th>
+            </tr>
+            <tr>
+                <td>Welcome</td>
+                <td>0.4</td>
+                <td>0.3</td>
+                <td>+0.1</td>
+                <td style="color: #f59e0b;">약함</td>
+            </tr>
+            <tr style="background: #fef2f2;">
+                <td><strong>Terms (약관)</strong></td>
+                <td>0.2</td>
+                <td>0.7</td>
+                <td><strong>-0.5</strong></td>
+                <td style="color: #dc2626;"><strong>이탈!</strong></td>
+            </tr>
+            <tr style="background: #fef2f2;">
+                <td><strong>WishInfo (희망정보)</strong></td>
+                <td>0.3</td>
+                <td>0.5</td>
+                <td><strong>-0.2</strong></td>
+                <td style="color: #dc2626;"><strong>이탈!</strong></td>
+            </tr>
+        </table>
+
+        <div class="highlight-box">
+            <strong>GA4 실측:</strong> 로그인 버튼 클릭 → 가입 완료 = 19.1% 전환율
+        </div>
+    </div>
+
+    <!-- 회원가입 퍼널 상세 데이터 -->
+    <div class="section">
+        <h2 class="section-title">회원가입 퍼널 상세 데이터 (GA4)</h2>
+
+        <table class="comparison-table">
+            <tr>
+                <th>퍼널 단계</th>
+                <th>이벤트명</th>
+                <th>발생횟수</th>
+                <th>사용자수</th>
+                <th>이탈률</th>
+            </tr>
+            <tr>
+                <td>1. 로그인 버튼 클릭</td>
+                <td>login_button_click</td>
+                <td>755</td>
+                <td>441</td>
+                <td>-</td>
+            </tr>
+            <tr style="background: #fef2f2;">
+                <td><strong>2. 로그인 완료</strong></td>
+                <td>login_complete</td>
+                <td>415</td>
+                <td>185</td>
+                <td style="color: #dc2626;"><strong>45.0%</strong></td>
+            </tr>
+            <tr style="background: #fff7ed;">
+                <td>3. 가입 단계 진행</td>
+                <td>signup_step</td>
+                <td>323</td>
+                <td>153</td>
+                <td style="color: #f59e0b;">22.2%</td>
+            </tr>
+            <tr style="background: #fef2f2;">
+                <td><strong>4. 가입 완료</strong></td>
+                <td>sign_up</td>
+                <td>144</td>
+                <td>137</td>
+                <td style="color: #dc2626;"><strong>55.4%</strong></td>
+            </tr>
+        </table>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value red">45%</div>
+                <div class="metric-label">카카오 로그인 이탈</div>
+                <div class="metric-sub">755→415 (340명 이탈)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">22%</div>
+                <div class="metric-label">약관 진입 전 이탈</div>
+                <div class="metric-sub">415→323 (92명 이탈)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value red">55%</div>
+                <div class="metric-label">약관/희망정보 이탈</div>
+                <div class="metric-sub">323→144 (179명 이탈)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">19.1%</div>
+                <div class="metric-label">전체 전환율</div>
+                <div class="metric-sub">755→144</div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">단계별 이탈 분석</div>
+            <div class="content">
+                <p><strong>1. 카카오 로그인 단계 (45% 이탈)</strong></p>
+                <ul>
+                    <li>755명 클릭 → 415명만 로그인 완료</li>
+                    <li>340명(45%)이 카카오 로그인 화면에서 이탈</li>
+                    <li>원인: 카카오 인증 취소, 브라우저 닫기, 비밀번호 분실 등</li>
+                </ul>
+
+                <p><strong>2. 로그인 완료 → 약관 진입 (22% 이탈)</strong></p>
+                <ul>
+                    <li>415명 → 323명</li>
+                    <li>92명(22%)이 약관 페이지 진입 전 이탈</li>
+                    <li>원인: 콜백 페이지 로딩 중 이탈, 네트워크 오류 등</li>
+                </ul>
+
+                <p><strong>3. 약관/희망정보 단계 (55% 이탈) - 가장 큰 문제</strong></p>
+                <ul>
+                    <li>323명 → 144명</li>
+                    <li>179명(55%)이 약관 동의 또는 희망정보 입력 중 이탈</li>
+                    <li>원인: 5개 체크박스 마찰, 진행률 불명확, 가치 제안 부재</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="critical-box">
+            <strong>핵심 인사이트</strong><br>
+            가입 단계(약관+희망정보)에서 55%가 이탈하는 것이 가장 큰 문제입니다.<br>
+            카카오 로그인 자체에서도 45%가 이탈하지만, 이는 외부 요인(카카오 서비스)이므로 통제가 어렵습니다.<br>
+            <strong>우선순위: 약관/희망정보 단계 개선 → 전환율 19.1% → 목표 35%+</strong>
+        </div>
+    </div>
+
+    <!-- 코드에서 발견된 문제점 -->
+    <div class="section">
+        <h2 class="section-title">코드에서 발견된 문제점</h2>
+
+        <div class="subsection">
+            <div class="subsection-title">1. Welcome 페이지 - 동기 부여 부족</div>
+            <div class="content">
+                <ul>
+                    <li>사회적 증거 없음 - "6,000명이 가입했어요" 같은 문구 부재</li>
+                    <li>긴급성 없음 - "오늘 가입 시 우선 배정" 같은 문구 부재</li>
+                    <li>신뢰 지표 없음 - "★4.8 평점" 같은 문구 부재</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">2. 약관 동의 - 엔트로피 높음</div>
+            <div class="content">
+                <ul>
+                    <li>5개 체크박스 = 5번 의사결정 = 높은 엔트로피</li>
+                    <li>진행률 표시 없음 (전체 몇 단계 중인지 모름)</li>
+                    <li>"전체 동의" 버튼은 있음 (긍정적)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">3. 희망정보 - 스킵 불균형</div>
+            <div class="content">
+                <ul>
+                    <li>Step 1 (지역)은 스킵 불가</li>
+                    <li>Step 2 (통신사/가격대/제조사)만 X 버튼으로 스킵 가능</li>
+                    <li>왜 이 정보가 필요한지 명확한 가치 제안 없음</li>
+                    <li>진행률 표시 없음</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 회원가입 플로우 개선 제안 -->
+    <div class="section">
+        <h2 class="section-title">회원가입 플로우 개선 제안</h2>
+
+        <div class="warning-box">
+            <strong>제안:</strong> 약관 동의 전에 먼저 회원가입을 완료하고, 이후 단계에서 약관/추가정보 수집<br><br>
+            <strong>이유:</strong> 현재 약관 동의 단계(F_net = -0.5)가 가장 큰 이탈 구간. 먼저 가입시키고 나중에 정보를 받으면 이탈 감소
+        </div>
+
+        <div class="before-after">
+            <div class="before-box">
+                <h4>현재 플로우</h4>
+                <p>1. 카카오 로그인<br>
+                2. 약관 동의 (5개) ← 이탈!<br>
+                3. POST /sign-up/kakao (회원가입)<br>
+                4. 희망지역<br>
+                5. 희망정보<br>
+                6. 완료</p>
+            </div>
+            <div class="after-box">
+                <h4>개선 플로우</h4>
+                <p>1. 카카오 로그인<br>
+                2. POST /sign-up/kakao (회원가입) ← 먼저!<br>
+                3. 약관 동의 (정보 업데이트)<br>
+                4. 희망지역 (스킵 가능)<br>
+                5. 희망정보 (스킵 가능)<br>
+                6. 완료</p>
+            </div>
+        </div>
+
+        <div class="critical-box">
+            <strong>백엔드 수정 필요</strong><br>
+            현재 POST /login/sign-up/kakao API는 필수 약관 3개가 모두 "Y"여야만 회원 생성 가능<br>
+            프론트엔드만으로는 플로우 변경 불가능 → 백엔드 팀과 협의 필요<br><br>
+            <strong>예상 작업량:</strong> 백엔드 30분~1시간, 프론트엔드 30분~1시간
+        </div>
+    </div>
+
 </body>
 </html>
