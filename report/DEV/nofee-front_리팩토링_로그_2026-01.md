@@ -4,7 +4,9 @@
 
 - 작업 기간: 2026년 1월
 - 브랜치: sunho.kim
-- 커밋: ade19d2
+- 커밋:
+  - ade19d2 (코드 안정성 개선 - P0/P1 이슈 수정)
+  - 0bdd01e (Meta Pixel CompleteRegistration 이벤트 누락 수정)
 - 배포 환경: development (dev.nofee.team)
 
 ## 분석 대상
@@ -208,9 +210,98 @@ envs/.env.production 파일에도 동일하게 설정 필요.
 
 ---
 
+### 4. fbPixel.ts - Meta Pixel 이벤트 누락 수정
+
+#### 문제 상황
+
+GA4에서는 sign_up 이벤트가 정상 트래킹되나 Meta Pixel의 CompleteRegistration 이벤트가 누락되는 현상 발견.
+
+원인:
+1. Facebook Pixel 스크립트(`faceBookPixel.tsx`)는 `strategy="afterInteractive"`로 로드
+2. 카카오 로그인 콜백 페이지의 useEffect가 먼저 실행
+3. `fbTrackCompleteRegistration` 호출 시점에 `window.fbq`가 아직 undefined
+4. 기존 `trackPixelEvent` 함수는 `!window.fbq`일 때 조용히 return하여 이벤트 유실
+
+```typescript
+// 문제가 되는 코드
+function trackPixelEvent(eventName, params, eventId) {
+  if (typeof window === 'undefined' || !window.fbq) return;  // 조용히 종료
+  // ...
+}
+```
+
+GA4는 정상 동작한 이유:
+- GA4 초기화 스크립트가 `<head>` 내에서 `dataLayer` 큐를 먼저 생성
+- Facebook Pixel은 `<body>` 시작 부분에서 로드되어 상대적으로 늦게 초기화
+
+#### 해결 방법
+
+`trackPixelEvent` 함수에 retry 로직 추가. fbq가 로드되지 않은 경우 100ms 간격으로 최대 5회 재시도.
+
+#### 변경 내용
+
+파일: lib/analytics/fbPixel.ts
+
+변경 전:
+```typescript
+function trackPixelEvent(
+  eventName: string,
+  params?: Record<string, unknown>,
+  eventId?: string
+) {
+  if (typeof window === 'undefined' || !window.fbq) return;
+
+  if (eventId) {
+    window.fbq('track', eventName, params, { eventID: eventId });
+  } else {
+    window.fbq('track', eventName, params);
+  }
+}
+```
+
+변경 후:
+```typescript
+function trackPixelEvent(
+  eventName: string,
+  params?: Record<string, unknown>,
+  eventId?: string,
+  retryCount = 0
+) {
+  if (typeof window === 'undefined') return;
+
+  if (!window.fbq) {
+    if (retryCount < 5) {
+      setTimeout(() => {
+        trackPixelEvent(eventName, params, eventId, retryCount + 1);
+      }, 100);
+    } else {
+      console.warn('[FB Pixel] fbq not available after 5 retries:', eventName);
+    }
+    return;
+  }
+
+  if (eventId) {
+    window.fbq('track', eventName, params, { eventID: eventId });
+  } else {
+    window.fbq('track', eventName, params);
+  }
+}
+```
+
+#### 영향
+
+모든 FB Pixel 이벤트가 스크립트 로드 전에 호출되어도 정상 트래킹됨:
+- fbTrackViewContent (ViewContent)
+- fbTrackInitiateCheckout (InitiateCheckout)
+- fbTrackLead (Lead)
+- fbTrackSearch (Search)
+- fbTrackCompleteRegistration (CompleteRegistration)
+
+---
+
 ## P1 Important 수정사항
 
-### 4. DealList.tsx - 필터 체인 최적화
+### 5. DealList.tsx - 필터 체인 최적화
 
 #### 문제 상황
 
@@ -271,7 +362,7 @@ const filteredDeals = useMemo(() => {
 
 ---
 
-### 5. LowestDealSection.tsx - 필터 체인 최적화
+### 6. LowestDealSection.tsx - 필터 체인 최적화
 
 #### 문제 상황
 
@@ -395,14 +486,15 @@ npm run build
 | app/components/home-v2/DealList.tsx | 수정 | +22, -23 |
 | app/product/[productGroupCode]/components/LowestDealSection.tsx | 수정 | +12, -13 |
 | lib/analytics/faceBookPixel.tsx | 수정 | +3, -6 |
+| lib/analytics/fbPixel.ts | 수정 | +16, -2 |
 
-총계: 45 insertions, 49 deletions
+총계: 61 insertions, 51 deletions
 
 ---
 
 ## Git 커밋 정보
 
-- 커밋 해시: ade19d2
+### 커밋 1: ade19d2
 - 브랜치: sunho.kim
 - 이전 커밋: 53b3dd3 (refactor: 코드 안정성 개선 및 중복 코드 제거)
 
@@ -438,7 +530,7 @@ fix: 코드 안정성 개선 - P0/P1 이슈 수정
 - 해결: 단일 filter 함수 내에서 모든 조건 검사 O(n)
 - 성능 개선: 4회 배열 순회 -> 1회 순회
 
-### 5. LowestDealSection.tsx - 필터 체인 최적화
+### 6. LowestDealSection.tsx - 필터 체인 최적화
 - 3단계 필터 체인 -> 단일 패스 필터로 최적화
 - 동일한 패턴 적용으로 일관성 확보
 - 성능 개선: 3회 배열 순회 -> 1회 순회
@@ -448,12 +540,42 @@ fix: 코드 안정성 개선 - P0/P1 이슈 수정
 - TypeScript 타입 검사 통과
 ```
 
+### 커밋 2: 0bdd01e
+- 브랜치: sunho.kim
+- 이전 커밋: ade19d2 (fix: 코드 안정성 개선 - P0/P1 이슈 수정)
+
+커밋 메시지:
+```
+fix: Meta Pixel CompleteRegistration 이벤트 누락 수정
+
+## 문제 상황
+- 카카오 로그인 콜백 페이지에서 fbTrackCompleteRegistration 호출 시
+  Facebook Pixel 스크립트가 아직 로드되지 않아 window.fbq가 undefined
+- 기존 코드는 fbq가 없으면 조용히 return하여 이벤트 유실
+
+## 해결 방법
+- trackPixelEvent 함수에 retry 로직 추가
+- fbq가 로드되지 않은 경우 100ms 간격으로 최대 5회 재시도
+- 5회 재시도 후에도 실패 시 console.warn으로 로깅
+
+## 영향 범위
+- fbTrackViewContent
+- fbTrackInitiateCheckout
+- fbTrackLead
+- fbTrackSearch
+- fbTrackCompleteRegistration
+
+모든 FB Pixel 이벤트가 스크립트 로드 전에 호출되어도 정상 트래킹됨
+```
+
 ---
 
 ## GitHub Issue 연동
 
 Issue: #84
-코멘트 URL: https://github.com/nofee-workspace/nofee-front/issues/84#issuecomment-3703248603
+코멘트 URL:
+- https://github.com/nofee-workspace/nofee-front/issues/84#issuecomment-3703248603
+- https://github.com/nofee-workspace/nofee-front/issues/84#issuecomment-3703365361
 
 ---
 

@@ -1,0 +1,143 @@
+{
+  "timestamp": "2026-01-01T09:11:15.962Z",
+  "summary": {
+    "total": 32,
+    "byType": {
+      "PageView": 24,
+      "ViewContent": 3,
+      "SubscribedButtonClick": 2,
+      "Contact": 2,
+      "InitiateCheckout": 1
+    }
+  },
+  "events": [
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:41.047Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:41.523Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:41.523Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:43.680Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:43.999Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:43.999Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:47.669Z"
+    },
+    {
+      "eventName": "ViewContent",
+      "timestamp": "2026-01-01T09:10:47.729Z"
+    },
+    {
+      "eventName": "ViewContent",
+      "timestamp": "2026-01-01T09:10:53.775Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:55.839Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:56.133Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:56.133Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:58.915Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:59.192Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:10:59.192Z"
+    },
+    {
+      "eventName": "SubscribedButtonClick",
+      "timestamp": "2026-01-01T09:11:01.484Z"
+    },
+    {
+      "eventName": "Contact",
+      "timestamp": "2026-01-01T09:11:01.484Z"
+    },
+    {
+      "eventName": "Contact",
+      "timestamp": "2026-01-01T09:11:01.484Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:11:03.075Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:11:03.486Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:11:03.486Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:11:04.681Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:11:04.998Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:11:04.998Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:11:07.252Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:11:07.539Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:11:07.539Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:11:10.186Z"
+    },
+    {
+      "eventName": "ViewContent",
+      "timestamp": "2026-01-01T09:11:10.239Z"
+    },
+    {
+      "eventName": "SubscribedButtonClick",
+      "timestamp": "2026-01-01T09:11:13.376Z"
+    },
+    {
+      "eventName": "InitiateCheckout",
+      "timestamp": "2026-01-01T09:11:13.408Z"
+    },
+    {
+      "eventName": "PageView",
+      "timestamp": "2026-01-01T09:11:13.545Z"
+    }
+  ]
+}
