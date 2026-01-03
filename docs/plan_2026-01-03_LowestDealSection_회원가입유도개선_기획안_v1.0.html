@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LowestDealSection 회원가입 유도 개선 기획안 - 노피</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jacob-po.github.io/nofee_planning/plan_2026-01-03_LowestDealSection_회원가입유도개선_기획안_v1.0.html">
+    <meta property="og:title" content="[노피 기획안] LowestDealSection 회원가입 유도 개선">
+    <meta property="og:description" content="GA4 데이터 기반 Welcome 페이지 39.4% 전환율 개선 기획. 1위 가격 노출, 5만원 쿠폰 혜택 명시, 하단 고정 CTA로 가입 유도.">
+    <meta property="og:image" content="https://nofee.team/images/og-image.png">
+    <meta property="og:site_name" content="노피 NOFEE - 기획 문서">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="article:author" content="제이콥">
+    <meta property="article:published_time" content="2026-01-03T00:00:00+09:00">
+
+    <!-- Meta Description -->
+    <meta name="description" content="GA4 데이터 기반 Welcome 페이지 39.4% 전환율 개선 기획. 1위 가격 노출, 5만원 쿠폰 혜택 명시, 하단 고정 CTA로 가입 유도.">
+
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SUIT Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #ffffff;
+            color: #191f28;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .document-header {
+            border-bottom: 2px solid #131FA0;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .logo { height: 32px; }
+
+        .doc-meta {
+            text-align: right;
+            font-size: 11px;
+            color: #8b95a1;
+        }
+
+        .doc-meta-item { margin-bottom: 4px; }
+
+        .doc-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 12px;
+        }
+
+        .doc-subtitle {
+            font-size: 16px;
+            color: #4e5968;
+        }
+
+        .info-box {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 24px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #8b95a1;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: #191f28;
+            font-weight: 600;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #191f28;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e8eb;
+        }
+
+        .content {
+            color: #4e5968;
+            line-height: 1.8;
+        }
+
+        .content p { margin-bottom: 12px; }
+        .content ul { margin-left: 20px; margin-bottom: 12px; }
+        .content li { margin-bottom: 8px; }
+
+        .highlight-box {
+            background: #eff8ff;
+            border-left: 4px solid #131FA0;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .critical-box {
+            background: #fef2f2;
+            border-left: 4px solid #dc2626;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #e5e8eb;
+        }
+
+        .comparison-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #191f28;
+        }
+
+        .comparison-table td { color: #4e5968; }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .metric-card {
+            background: #f9fafb;
+            border: 1px solid #e5e8eb;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #131FA0;
+            margin-bottom: 8px;
+        }
+
+        .metric-value.red {
+            color: #dc2626;
+        }
+
+        .metric-value.green {
+            color: #16a34a;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: #6b7684;
+        }
+
+        .metric-sub {
+            font-size: 11px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        .subsection {
+            margin: 24px 0;
+            padding: 20px;
+            background: #fafbfc;
+            border-radius: 8px;
+        }
+
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #191f28;
+            margin-bottom: 12px;
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        .before-box, .after-box {
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .before-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        .after-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        .before-box h4 { color: #dc2626; font-size: 14px; margin-bottom: 12px; }
+        .after-box h4 { color: #16a34a; font-size: 14px; margin-bottom: 12px; }
+
+        .funnel-visual {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 24px;
+            border-radius: 12px;
+            font-family: 'SF Mono', 'Consolas', monospace;
+            font-size: 13px;
+            margin: 24px 0;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.6;
+        }
+
+        .data-note {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 12px;
+            color: #64748b;
+            margin: 16px 0;
+        }
+
+        .mockup-container {
+            display: flex;
+            gap: 32px;
+            margin: 32px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .phone-mockup {
+            width: 320px;
+            background: #fff;
+            border: 1px solid #d1d5db;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-screen {
+            background: #fff;
+            padding: 16px;
+        }
+
+        .mockup-label {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #191f28;
+            margin-top: 16px;
+            padding: 8px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .mockup-label.before {
+            color: #dc2626;
+            background: #ffebee;
+        }
+
+        .mockup-label.after {
+            color: #16a34a;
+            background: #e8f5e9;
+        }
+
+        @media (max-width: 768px) {
+            .info-box { grid-template-columns: 1fr 1fr; }
+            .metric-grid { grid-template-columns: 1fr 1fr; }
+            .before-after { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-header">
+        <div class="logo-container">
+            <img src="https://nofee.team/images/logo.svg" alt="NOFEE" class="logo">
+            <div class="doc-meta">
+                <div class="doc-meta-item">작성일: 2026.01.03</div>
+                <div class="doc-meta-item">버전: v1.0</div>
+                <div class="doc-meta-item">작성자: 제이콥</div>
+            </div>
+        </div>
+        <h1 class="doc-title">LowestDealSection 회원가입 유도 개선 기획안</h1>
+        <p class="doc-subtitle">비회원 가격 확인 -> Welcome 페이지 -> 회원가입 전환율 개선</p>
+    </div>
+
+    <div class="info-box">
+        <div class="info-item">
+            <div class="info-label">문서 유형</div>
+            <div class="info-value">기획안</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">데이터 소스</div>
+            <div class="info-value">GA4</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">분석 기간</div>
+            <div class="info-value">2025.01.03 ~ 2026.01.03</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">총 세션 수</div>
+            <div class="info-value">77,066건</div>
+        </div>
+    </div>
+
+    <!-- 1. 문제 정의 -->
+    <div class="section">
+        <h2 class="section-title">1. 현황: Welcome 페이지에서 60%가 이탈한다</h2>
+
+        <div class="critical-box">
+            <strong>39,480명이 Welcome 페이지를 봤는데, 15,551명만 카카오 로그인을 시도했습니다.</strong><br>
+            23,929명(60.6%)이 가입하지 않고 이탈합니다. 이들은 이미 상품에 관심을 보이고 가격까지 확인한 사용자입니다.
+        </div>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value">77,066</div>
+                <div class="metric-label">총 세션</div>
+                <div class="metric-sub">1년간 누적</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">39,480</div>
+                <div class="metric-label">Welcome 페이지 PV</div>
+                <div class="metric-sub">가입 의지가 있는 사용자</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">15,551</div>
+                <div class="metric-label">카카오 로그인 시도</div>
+                <div class="metric-sub">실제 가입 진행</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value red">39.4%</div>
+                <div class="metric-label">전환율</div>
+                <div class="metric-sub">60.6% 이탈</div>
+            </div>
+        </div>
+
+        <div class="data-note">
+            GA4 Property ID: 474694872 / 데이터 수집일: 2026-01-03 / 기간: 2025-01-03 ~ 2026-01-03 (365일)
+        </div>
+    </div>
+
+    <!-- 2. 트래픽 분석 -->
+    <div class="section">
+        <h2 class="section-title">2. 트래픽 분석: 어디서 왔고 어디로 가나</h2>
+
+        <div class="subsection">
+            <div class="subsection-title">주요 페이지 조회수</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>페이지</th>
+                    <th>조회수(PV)</th>
+                    <th>사용자수</th>
+                    <th>비고</th>
+                </tr>
+                <tr>
+                    <td>/ (홈)</td>
+                    <td>107,187</td>
+                    <td>35,084</td>
+                    <td>메인 진입점</td>
+                </tr>
+                <tr style="background: #eff8ff;">
+                    <td><strong>/welcome</strong></td>
+                    <td><strong>39,480</strong></td>
+                    <td><strong>18,730</strong></td>
+                    <td>가입 유도 페이지 (개선 대상)</td>
+                </tr>
+                <tr>
+                    <td>/home-v2</td>
+                    <td>16,314</td>
+                    <td>5,299</td>
+                    <td>새 홈 테스트</td>
+                </tr>
+                <tr>
+                    <td>/store</td>
+                    <td>15,625</td>
+                    <td>4,900</td>
+                    <td>매장 목록</td>
+                </tr>
+                <tr>
+                    <td>/login/kakao/callback</td>
+                    <td>15,551</td>
+                    <td>8,697</td>
+                    <td>카카오 로그인 완료</td>
+                </tr>
+                <tr>
+                    <td>/product/SM-ZF-7</td>
+                    <td>14,343</td>
+                    <td>6,312</td>
+                    <td>갤럭시 Z 폴드7</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">트래픽 채널</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>채널</th>
+                    <th>세션</th>
+                    <th>사용자</th>
+                    <th>참여율</th>
+                </tr>
+                <tr>
+                    <td>Paid Social (유료 SNS 광고)</td>
+                    <td>35,019</td>
+                    <td>24,102</td>
+                    <td>99.6%</td>
+                </tr>
+                <tr>
+                    <td>Direct (직접 방문)</td>
+                    <td>11,856</td>
+                    <td>8,969</td>
+                    <td>98.1%</td>
+                </tr>
+                <tr>
+                    <td>Organic Search (검색 유입)</td>
+                    <td>11,593</td>
+                    <td>6,659</td>
+                    <td>97.5%</td>
+                </tr>
+                <tr>
+                    <td>Organic Social (자연 SNS)</td>
+                    <td>10,896</td>
+                    <td>3,881</td>
+                    <td>93.1%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">디바이스 분포</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>디바이스</th>
+                    <th>세션</th>
+                    <th>사용자</th>
+                    <th>비율</th>
+                </tr>
+                <tr style="background: #eff8ff;">
+                    <td><strong>모바일</strong></td>
+                    <td><strong>65,233</strong></td>
+                    <td><strong>39,629</strong></td>
+                    <td><strong>84.6%</strong></td>
+                </tr>
+                <tr>
+                    <td>데스크톱</td>
+                    <td>10,374</td>
+                    <td>4,746</td>
+                    <td>13.5%</td>
+                </tr>
+                <tr>
+                    <td>태블릿</td>
+                    <td>1,626</td>
+                    <td>1,133</td>
+                    <td>2.1%</td>
+                </tr>
+            </table>
+            <div class="content">
+                <p>사용자의 84.6%가 모바일입니다. 모바일 환경에서의 사용성이 전환율에 가장 큰 영향을 미칩니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 문제 분석 -->
+    <div class="section">
+        <h2 class="section-title">3. 왜 이탈하나? - 기존 문제점</h2>
+
+        <div class="funnel-visual">비회원이 상품 검색
+     |
+     v
+가격 확인하려고 딜 클릭
+     |
+     v --------- 모든 정보 블러 처리 -> "뭐지?" 당황
+딜 리스트 (모두 블러)
+     |
+     v --------- "본인인증" 문구 -> 부담감
+Welcome 페이지 이동
+     |
+     v --------- 혜택이 안 보임 -> "왜 가입해야 해?"
+60% 이탈</div>
+
+        <div class="subsection">
+            <div class="subsection-title">문제 1: 모든 정보가 블러 처리됨</div>
+            <div class="content">
+                <p>기존에는 비회원에게 모든 딜 정보를 블러 처리했습니다.</p>
+                <ul>
+                    <li>1위 가격도 안 보임 -> "이 서비스가 싼지 비싼지" 판단 불가</li>
+                    <li>어떤 통신사, 어떤 지역인지 전혀 모름</li>
+                    <li>가치를 확인할 수 없으니 가입할 이유가 없음</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">문제 2: "본인인증" 문구의 부담감</div>
+            <div class="content">
+                <p>기존 CTA 버튼 문구: "본인인증하고 맞춤견적 확인"</p>
+                <ul>
+                    <li>"본인인증" = 무거운 절차라는 인식</li>
+                    <li>실제로는 카카오 로그인 3초면 되는데, 문구 때문에 이탈</li>
+                    <li>사용자는 번거로운 절차를 피하고 싶어함</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">문제 3: Welcome 페이지에 혜택이 안 보임</div>
+            <div class="content">
+                <p>기존 Welcome 페이지:</p>
+                <ul>
+                    <li>"카카오로 로그인" 버튼만 덜렁 있음</li>
+                    <li>가입하면 뭐가 좋은지 설명이 없음</li>
+                    <li>쿠폰 혜택은 있는데 눈에 안 띔</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. 개선 내용 -->
+    <div class="section">
+        <h2 class="section-title">4. 개선 내용: LowestDealSection</h2>
+
+        <div class="highlight-box">
+            <strong>핵심 전략</strong><br>
+            1. 1위 가격은 공개해서 가치를 증명한다<br>
+            2. "본인인증" 대신 "3초 만에"로 부담감을 줄인다<br>
+            3. 5만원 쿠폰 혜택을 명확하게 보여준다
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">개선 1: 1위 딜 가격 공개</div>
+            <div class="before-after">
+                <div class="before-box">
+                    <h4>변경 전</h4>
+                    <p>모든 딜 블러 처리<br>
+                    - 1위 가격도 안 보임<br>
+                    - 통신사, 지역 전부 블러<br>
+                    - "뭐가 좋은지 모르겠다"</p>
+                </div>
+                <div class="after-box">
+                    <h4>변경 후</h4>
+                    <p><strong>1위 딜 가격 공개</strong><br>
+                    - 할부원금 그대로 노출<br>
+                    - "시세보다 XX만원 저렴" 표시<br>
+                    - 세부정보(통신사, 지역)만 블러</p>
+                </div>
+            </div>
+            <div class="content">
+                <p>1위 가격을 보여주면 사용자가 "아 이 서비스 진짜 싸구나"를 바로 인지합니다. 세부 정보는 블러 처리해서 "더 알고 싶으면 가입하세요"를 유도합니다.</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">개선 2: CTA 버튼 문구 변경</div>
+            <div class="before-after">
+                <div class="before-box">
+                    <h4>변경 전</h4>
+                    <p>"본인인증하고 맞춤견적 확인"<br><br>
+                    - "본인인증" = 부담스러운 절차<br>
+                    - 길고 복잡한 느낌</p>
+                </div>
+                <div class="after-box">
+                    <h4>변경 후</h4>
+                    <p><strong>"3초 만에 맞춤견적 받기"</strong><br><br>
+                    - "3초" = 빠르고 간편함<br>
+                    - 실제 카카오 로그인 소요 시간</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">개선 3: 하단 고정 CTA</div>
+            <div class="content">
+                <p>비회원이 상품을 검색하고 딜 목록을 볼 때, 화면 하단에 고정된 CTA 버튼을 표시합니다.</p>
+                <ul>
+                    <li>스크롤해도 항상 보이는 위치</li>
+                    <li>"지원금 변동으로 가격이 수시로 바뀌어요" 안내 문구</li>
+                    <li>"3초 만에 맞춤견적 받기" 버튼</li>
+                    <li>버튼 클릭 시 Welcome 페이지로 이동</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">개선 4: 시세 대비 절감액 표시</div>
+            <div class="content">
+                <p>상품 선택 시 타이틀에 시세 대비 절감액을 표시합니다.</p>
+                <ul>
+                    <li>"오늘 갤럭시 Z 폴드7, 시세보다 32만원 저렴해요"</li>
+                    <li>시세 = 출고가 - 공시지원금</li>
+                    <li>절감액 = 시세 - 최저가</li>
+                    <li>가치를 숫자로 명확하게 전달</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">개선 5: 신규가입 쿠폰 배너</div>
+            <div class="content">
+                <p>비회원에게 쿠폰 혜택을 눈에 띄게 보여줍니다.</p>
+                <ul>
+                    <li>"신규가입 최대 5만원 추가할인"</li>
+                    <li>"신규가입 . 첫구매 . 친구초대 혜택" 서브 문구</li>
+                    <li>상품 검색 전/후 모두 표시</li>
+                    <li>클릭 시 Welcome 페이지로 이동</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Welcome 페이지 연동 -->
+    <div class="section">
+        <h2 class="section-title">5. Welcome 페이지 개선</h2>
+
+        <div class="subsection">
+            <div class="subsection-title">쿠폰 혜택 명시</div>
+            <div class="before-after">
+                <div class="before-box">
+                    <h4>변경 전</h4>
+                    <p>쿠폰 금액: 1만원<br><br>
+                    "신규가입 시 1만원 혜택"<br>
+                    - 금액이 작아 보임<br>
+                    - 상세 내역 없음</p>
+                </div>
+                <div class="after-box">
+                    <h4>변경 후</h4>
+                    <p><strong>쿠폰 금액: 최대 5만원</strong><br><br>
+                    - 신규가입 쿠폰: 1만원<br>
+                    - 첫구매 쿠폰: 2만원<br>
+                    - 친구초대 쿠폰: 2만원<br>
+                    <strong>총 혜택: 최대 5만원</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">상품 정보 연계</div>
+            <div class="content">
+                <p>Deal 페이지에서 본 상품 정보를 Welcome 페이지에 표시합니다.</p>
+                <ul>
+                    <li>상품 썸네일 이미지</li>
+                    <li>상품명, 통신사, 용량</li>
+                    <li>원래 가격(취소선) -> 할인 가격</li>
+                    <li>쿠폰 적용 시 얼마나 저렴한지 직접 보여줌</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">CTA 버튼 문구</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>항목</th>
+                    <th>변경 전</th>
+                    <th>변경 후</th>
+                </tr>
+                <tr>
+                    <td>버튼 문구</td>
+                    <td>카카오로 로그인</td>
+                    <td>카카오로 3초 만에 시작하기</td>
+                </tr>
+                <tr>
+                    <td>헤드라인</td>
+                    <td>로그인/회원가입</td>
+                    <td>신규가입하고 {상품명} 최대 5만원 추가할인 받기</td>
+                </tr>
+                <tr>
+                    <td>닫기 버튼</td>
+                    <td>우상단 X</td>
+                    <td>"먼저 둘러볼게요" 텍스트 링크</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- 6. 전체 개선 항목 정리 -->
+    <div class="section">
+        <h2 class="section-title">6. 전체 개선 항목 정리</h2>
+
+        <table class="comparison-table">
+            <tr>
+                <th>항목</th>
+                <th>변경 전</th>
+                <th>변경 후</th>
+                <th>파일</th>
+            </tr>
+            <tr>
+                <td>1위 딜 가격</td>
+                <td>블러 처리</td>
+                <td>가격 공개, 세부정보만 블러</td>
+                <td>LowestDealSection.tsx</td>
+            </tr>
+            <tr>
+                <td>2위 이하 딜</td>
+                <td>블러 처리</td>
+                <td>전체 블러 (변경 없음)</td>
+                <td>LowestDealSection.tsx</td>
+            </tr>
+            <tr>
+                <td>CTA 버튼 문구</td>
+                <td>"본인인증하고 맞춤견적 확인"</td>
+                <td>"3초 만에 맞춤견적 받기"</td>
+                <td>LowestDealSection.tsx</td>
+            </tr>
+            <tr>
+                <td>하단 고정 CTA</td>
+                <td>없음</td>
+                <td>비회원+상품선택 시 하단 고정</td>
+                <td>LowestDealSection.tsx</td>
+            </tr>
+            <tr>
+                <td>시세 대비 절감액</td>
+                <td>없음</td>
+                <td>"시세보다 XX만원 저렴해요" 타이틀</td>
+                <td>LowestDealSection.tsx</td>
+            </tr>
+            <tr>
+                <td>신규가입 쿠폰 배너</td>
+                <td>없음</td>
+                <td>"신규가입 최대 5만원 추가할인"</td>
+                <td>LowestDealSection.tsx</td>
+            </tr>
+            <tr>
+                <td>쿠폰 금액</td>
+                <td>1만원</td>
+                <td>최대 5만원 (1만+2만+2만)</td>
+                <td>welcome/page.tsx</td>
+            </tr>
+            <tr>
+                <td>쿠폰 상세 내역</td>
+                <td>없음</td>
+                <td>신규가입/첫구매/친구초대 분리 표시</td>
+                <td>welcome/page.tsx</td>
+            </tr>
+            <tr>
+                <td>상품 정보 연계</td>
+                <td>없음</td>
+                <td>Deal에서 본 상품 정보 표시</td>
+                <td>welcome/page.tsx</td>
+            </tr>
+            <tr>
+                <td>로그인 버튼 문구</td>
+                <td>"카카오로 로그인"</td>
+                <td>"카카오로 3초 만에 시작하기"</td>
+                <td>welcome/page.tsx</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 7. 예상 효과 -->
+    <div class="section">
+        <h2 class="section-title">7. 예상 효과</h2>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value red">39.4%</div>
+                <div class="metric-label">현재 전환율</div>
+                <div class="metric-sub">Welcome -> 로그인</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">-></div>
+                <div class="metric-label"></div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value green">50%+</div>
+                <div class="metric-label">목표 전환율</div>
+                <div class="metric-sub">+10%p 이상 개선</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value green">+3,900</div>
+                <div class="metric-label">추가 가입자/년</div>
+                <div class="metric-sub">39,480 x 10%</div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">개선 항목별 예상 효과</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>개선 항목</th>
+                    <th>예상 효과</th>
+                    <th>근거</th>
+                </tr>
+                <tr>
+                    <td>1위 가격 공개</td>
+                    <td>+3~5%p</td>
+                    <td>가치 증명으로 가입 동기 부여</td>
+                </tr>
+                <tr>
+                    <td>CTA 문구 변경 ("3초 만에")</td>
+                    <td>+2~3%p</td>
+                    <td>부담감 제거로 클릭률 상승</td>
+                </tr>
+                <tr>
+                    <td>5만원 쿠폰 혜택 명시</td>
+                    <td>+3~5%p</td>
+                    <td>가입 혜택 명확화로 동기 부여</td>
+                </tr>
+                <tr>
+                    <td>하단 고정 CTA</td>
+                    <td>+2~3%p</td>
+                    <td>노출 빈도 증가로 클릭률 상승</td>
+                </tr>
+                <tr style="background: #f0fdf4;">
+                    <td><strong>합계</strong></td>
+                    <td><strong>+10~16%p</strong></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="success-box">
+            <strong>기대 효과 요약</strong><br><br>
+            현재 연간 Welcome 페이지 방문자 39,480명 중 15,551명이 가입 시도 (39.4%)<br>
+            개선 후 목표: 50% 이상 전환율 달성<br>
+            예상 추가 가입자: 연간 3,900명 이상
+        </div>
+    </div>
+
+    <!-- 8. 기술 구현 -->
+    <div class="section">
+        <h2 class="section-title">8. 기술 구현 상세</h2>
+
+        <div class="subsection">
+            <div class="subsection-title">LowestDealSection.tsx 주요 변경</div>
+            <div class="content">
+                <ul>
+                    <li><strong>hasMounted 상태:</strong> hydration 에러 방지를 위한 클라이언트 마운트 체크</li>
+                    <li><strong>marketPriceSavings 계산:</strong> 시세(출고가-공시지원금) 대비 절감액 계산</li>
+                    <li><strong>비회원 분기 처리:</strong> isLoggedIn 상태에 따라 1위 딜 가격 노출/블러 분기</li>
+                    <li><strong>하단 고정 CTA:</strong> fixed 포지션으로 스크롤해도 항상 표시</li>
+                    <li><strong>스켈레톤 UI:</strong> 로딩 상태에서 부드러운 사용자 경험 제공</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">welcome/page.tsx 주요 변경</div>
+            <div class="content">
+                <ul>
+                    <li><strong>WELCOME_COUPON_AMOUNT:</strong> 10,000 -> 50,000으로 변경</li>
+                    <li><strong>쿠폰 상세 표시:</strong> 신규가입/첫구매/친구초대 각각 금액 표시</li>
+                    <li><strong>상품 정보 연계:</strong> sessionStorage에서 pendingEstimate 정보 읽어서 표시</li>
+                    <li><strong>getDiscountedInstallmentPrincipal:</strong> 쿠폰 적용 가격 계산 함수</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">관련 파일</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>파일 경로</th>
+                    <th>역할</th>
+                </tr>
+                <tr>
+                    <td>app/product/[productGroupCode]/components/LowestDealSection.tsx</td>
+                    <td>딜 목록 섹션 컴포넌트</td>
+                </tr>
+                <tr>
+                    <td>app/(auth)/welcome/page.tsx</td>
+                    <td>회원가입 유도 페이지</td>
+                </tr>
+                <tr>
+                    <td>lib/constants.ts</td>
+                    <td>STORAGE_KEY_PENDING_ESTIMATE 상수</td>
+                </tr>
+                <tr>
+                    <td>lib/analytics/gtag.ts</td>
+                    <td>GA4 이벤트 트래킹</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- 9. 측정 방법 -->
+    <div class="section">
+        <h2 class="section-title">9. 성과 측정 방법</h2>
+
+        <div class="subsection">
+            <div class="subsection-title">핵심 KPI</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>지표</th>
+                    <th>현재</th>
+                    <th>목표</th>
+                    <th>측정 방법</th>
+                </tr>
+                <tr>
+                    <td>Welcome -> 로그인 전환율</td>
+                    <td>39.4%</td>
+                    <td>50%+</td>
+                    <td>GA4: /welcome PV vs /login/kakao/callback PV</td>
+                </tr>
+                <tr>
+                    <td>CTA 클릭률</td>
+                    <td>-</td>
+                    <td>20%+</td>
+                    <td>GA4: lowest_deal_action_click 이벤트</td>
+                </tr>
+                <tr>
+                    <td>쿠폰 배너 클릭률</td>
+                    <td>-</td>
+                    <td>10%+</td>
+                    <td>GA4: welcome_coupon_banner_click 이벤트</td>
+                </tr>
+                <tr>
+                    <td>일평균 신규 가입</td>
+                    <td>~42명</td>
+                    <td>60명+</td>
+                    <td>GA4: sign_up 이벤트</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">GA4 이벤트</div>
+            <div class="funnel-visual">// 하단 CTA 클릭
+trackLowestDealActionClick({
+  action: 'fixed_cta_click',
+  productGroupCode: '...',
+  userType: 'non_member'
+});
+
+// 쿠폰 배너 클릭
+trackWelcomeCouponBannerClick({
+  source: 'lowest_deal_section',
+  position: 'top' | 'bottom'
+});
+
+// Welcome 페이지 로그인 버튼 클릭
+trackLoginButtonClick('welcome');</div>
+        </div>
+    </div>
+
+    <!-- 10. 결론 -->
+    <div class="section">
+        <h2 class="section-title">10. 결론</h2>
+
+        <div class="highlight-box">
+            <strong>핵심 전략</strong><br><br>
+            1. <strong>가치 증명:</strong> 1위 가격 공개로 "이 서비스가 진짜 싸다"를 바로 보여줌<br>
+            2. <strong>부담감 제거:</strong> "본인인증" -> "3초 만에"로 심리적 장벽 낮춤<br>
+            3. <strong>혜택 명시:</strong> 5만원 쿠폰을 눈에 띄게 표시해서 가입 동기 부여<br>
+            4. <strong>노출 증가:</strong> 하단 고정 CTA로 언제든 가입 가능하게
+        </div>
+
+        <div class="content">
+            <p><strong>예상 결과</strong></p>
+            <ul>
+                <li>Welcome -> 로그인 전환율: 39.4% -> 50%+ (10%p 이상 개선)</li>
+                <li>연간 추가 가입자: 3,900명 이상</li>
+                <li>가입 후 상담 신청 증가로 매출 연결</li>
+            </ul>
+        </div>
+
+        <div class="data-note">
+            최종 업데이트: 2026-01-03 / 데이터 기준: GA4 (2025-01-03 ~ 2026-01-03)
+        </div>
+    </div>
+
+</body>
+</html>
