@@ -1508,6 +1508,521 @@ done
 
 ---
 
+---
+
+---
+
+## 비회원 UX 개선 및 페이지 구조 정리 (2026-01-03 ~ 2026-01-04)
+
+### 커밋 목록
+
+| 커밋 | 메시지 | 날짜 |
+|------|--------|------|
+| f6130b3 | feat: PriceRankChart 비회원 그래프 확인 바텀시트 적용 | 2026-01-04 |
+| 7b556cd | refactor: 페이지별 UI 정리 및 Welcome 페이지 간소화 | 2026-01-03 |
+| 325e61b | feat: 비회원 가입 유도 바텀시트 추가 및 UX 개선 | 2026-01-03 |
+| 31b825f | feat: 비회원 검색결과 UI 개선 및 인기 상품 섹션 리뉴얼 | 2026-01-03 |
+| 5843b3f | feat: LowestDealSection UI 개선 및 시세현황 섹션 분리 | 2026-01-03 |
+| aacd048 | refactor: home-v2에서 HotDealSection 제거 | 2026-01-03 |
+| 0eed3fc | refactor: 모든 페이지에서 HotDealSection 제거 | 2026-01-03 |
+| 22fb9ee | fix: 상품 선택 결과 화면에 동일한 스페이싱 적용 | 2026-01-03 |
+| 7d6db97 | feat(LowestDealSection): 인기 검색어 기능 추가 및 UI/UX 개선 | 2026-01-03 |
+| 68f8eec | feat: LowestDealSection 개선 및 GA4 이벤트 추가 | 2026-01-03 |
+
+---
+
+### 1. 비회원 가입 유도 바텀시트 추가
+
+#### 배경
+
+기존에는 비회원이 딜 카드나 필터를 클릭하면 바로 `/welcome` 페이지로 이동했다. 이 방식은 갑작스러워 사용자에게 당혹감을 줄 수 있다는 피드백이 있었다.
+
+#### 해결 방법
+
+공통 `BottomSheet` 컴포넌트를 사용하여 왜 가입이 필요한지 먼저 설명하고, 사용자가 확인 후 결정할 수 있도록 단계를 추가했다.
+
+#### 변경 내용
+
+**1. LowestDealSection.tsx - 비회원 딜 카드/필터 클릭 시 바텀시트**
+
+```typescript
+// 상태 추가
+const [isSignupSheetOpen, setIsSignupSheetOpen] = useState(false);
+
+// 1위, 2위, 3위 딜 카드 클릭 시
+onClick={() => setIsSignupSheetOpen(true)}
+
+// 필터 버튼 클릭 시 (지역, 가입유형, 통신사, 요금제)
+onClick={() => setIsSignupSheetOpen(true)}
+
+// 바텀시트 컴포넌트
+<BottomSheet
+  isOpen={isSignupSheetOpen}
+  onClose={() => setIsSignupSheetOpen(false)}
+  title="감사합니다"
+>
+  <div className="px-5 pb-6">
+    <div className="space-y-3 mb-6">
+      <p className="text-[15px] text-[#374151] leading-relaxed">
+        저희가 수집한 가격 정보를 무료로 제공해 드리고 있어요.
+      </p>
+      <p className="text-[14px] text-[#6B7280] leading-relaxed">
+        다만 모든 분께 무한정 제공하기 어려워서, 카카오톡으로 간편하게 가입해 주신 분들께만 보여드리고 있어요.
+      </p>
+      <p className="text-[14px] text-[#6B7280] leading-relaxed">
+        가입 즉시 내 조건에 맞는 맞춤 견적을 확인하실 수 있어요.
+      </p>
+    </div>
+    <button
+      onClick={() => router.push('/welcome')}
+      className="w-full py-3.5 bg-[#131FA0] text-white text-[15px] font-semibold rounded-xl"
+    >
+      무료로 맞춤 견적 받기
+    </button>
+  </div>
+</BottomSheet>
+```
+
+**2. PriceRankChart.tsx - 그래프 확인 버튼 바텀시트**
+
+```typescript
+// 기존: 바로 /welcome 이동
+const handleLoginClick = () => {
+  router.push('/welcome');
+};
+
+// 변경: 바텀시트 먼저 표시
+const [isSignupSheetOpen, setIsSignupSheetOpen] = useState(false);
+
+const handleLoginClick = () => {
+  setIsSignupSheetOpen(true);
+};
+
+const handleGoToSignup = () => {
+  sessionStorage.removeItem(STORAGE_KEY_PENDING_ESTIMATE);
+  localStorage.setItem(STORAGE_KEY_AFTER_LOGIN_REDIRECT, window.location.pathname);
+  router.push('/welcome');
+};
+```
+
+#### 바텀시트 적용 위치
+
+| 컴포넌트 | 트리거 | 적용 |
+|----------|--------|------|
+| LowestDealSection | 비회원 1위/2위/3위 딜 카드 클릭 | O |
+| LowestDealSection | 비회원 필터 버튼 클릭 | O |
+| PriceRankChart | "전국 최저가 그래프 확인하기" 버튼 | O |
+
+---
+
+### 2. 인기 상품 섹션 개선
+
+#### 변경 사항
+
+| 항목 | 변경 전 | 변경 후 |
+|------|---------|---------|
+| 타이틀 | 인기 검색어 | 지금 뜨는 상품 |
+| 서브타이틀 | - | 클릭하면 바로 시세를 확인할 수 있어요 |
+| 정렬 로직 (1~5위) | view 기준 상위 | view 기준 상위 |
+| 정렬 로직 (6~10위) | view 기준 | 랜덤 (다양성 확보) |
+
+#### 변경 내용
+
+**LowestDealSection.tsx**
+
+```typescript
+// 인기 상품 정렬 로직
+const hotDealItems = useMemo(() => {
+  const allItems = productStatsMap ?
+    Object.entries(productStatsMap)
+      .map(([code, stats]) => ({
+        productGroupCode: code,
+        productGroupNm: stats.name,
+        view: stats.view || 0,
+      }))
+      .sort((a, b) => b.view - a.view)
+    : [];
+
+  // 1~5위: view 기준 상위 5개
+  const top5 = allItems.slice(0, 5);
+
+  // 6~10위: 나머지 중 랜덤 5개
+  const rest = allItems.slice(5);
+  const shuffled = rest.sort(() => Math.random() - 0.5);
+  const random5 = shuffled.slice(0, 5);
+
+  return [...top5, ...random5];
+}, [productStatsMap]);
+```
+
+---
+
+### 3. 페이지별 LowestDealSection 정리
+
+#### 제거된 항목
+
+| 페이지 | 변경 사항 |
+|--------|-----------|
+| Product 페이지 | LowestDealSectionWrapper 제거 |
+| Compare 페이지 | LowestDealSectionWrapper 제거 |
+| Deal 페이지 | "지금 뜨는 상품" 섹션 숨김 (hideProductInfo=true일 때) |
+
+#### 변경 내용
+
+**1. app/product/[productGroupCode]/page.tsx**
+
+```typescript
+// 제거됨
+import { LowestDealSectionWrapper } from './components/LowestDealSectionWrapper';
+
+// 제거됨
+<div className="h-2 bg-gray-100" />
+<LowestDealSectionWrapper initialProductCode={params.productGroupCode} />
+```
+
+**2. app/compare/ComparePageClient.tsx**
+
+```typescript
+// LowestDealSectionWrapper import 및 사용 제거
+```
+
+**3. LowestDealSection.tsx - hideProductInfo 조건 추가**
+
+```typescript
+// "지금 뜨는 상품" 섹션
+{!hideProductInfo && hotDealItems.length > 0 && (
+  <section>
+    <h3>지금 뜨는 상품</h3>
+    {/* ... */}
+  </section>
+)}
+```
+
+---
+
+### 4. Welcome 페이지 간소화
+
+#### 배경
+
+기존에는 sessionStorage에서 이전에 보던 상품 정보를 읽어와 표시했으나, 페이지 구조 변경으로 해당 기능이 불필요해졌다.
+
+#### 변경 내용
+
+**app/(auth)/welcome/page.tsx**
+
+```typescript
+// 제거됨: sessionStorage 읽기 로직
+// 제거됨: DisplayInfo 인터페이스
+// 제거됨: useState, useEffect for pending estimate
+
+// 항상 일반 메시지 표시
+<p>신규가입 시 최대 5만원 혜택</p>
+```
+
+---
+
+### 5. 시세현황 섹션 분리
+
+#### 배경
+
+"최근 거래 264건 / 입점 상품 596개" 시세현황 카드가 LowestDealSection 내부에 있어 모든 페이지에서 표시되었다. 이 정보는 home-v2(메인 페이지)에서만 노출되어야 한다.
+
+#### 해결 방법
+
+MarketStatsSection을 독립 컴포넌트로 분리하고 home-v2에서만 렌더링하도록 변경했다.
+
+#### 변경 내용
+
+**1. app/components/home-v2/components/MarketStatsSection.tsx (신규)**
+
+```typescript
+export default function MarketStatsSection() {
+  const { totalDealCount, totalConsultCount } = usePriceTable();
+
+  return (
+    <section className="px-4 pb-6">
+      <div className="bg-gradient-to-r from-[#F8F9FF] to-[#F0F3FF] rounded-2xl p-5">
+        <div className="flex items-center justify-between">
+          <div>
+            <span className="text-[#6B7280] text-sm">최근 거래</span>
+            <span className="text-[#131FA0] font-bold text-lg ml-2">
+              {totalConsultCount.toLocaleString()}건
+            </span>
+          </div>
+          <div>
+            <span className="text-[#6B7280] text-sm">입점 상품</span>
+            <span className="text-[#131FA0] font-bold text-lg ml-2">
+              {totalDealCount.toLocaleString()}개
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+**2. PriceTableContext.tsx - 통계 데이터 추가**
+
+```typescript
+// Context에 추가
+totalDealCount: priceTableRows.length,
+totalConsultCount: Object.values(productStatsMap).reduce(
+  (sum, stats) => sum + (stats.consult || 0), 0
+),
+```
+
+**3. home-v2/index.tsx - MarketStatsSection 배치**
+
+```typescript
+<LowestDealSection />
+<MarketStatsSection />
+```
+
+---
+
+### 6. 하단 고정 CTA 제거
+
+#### 배경
+
+기존 하단 고정 CTA ("지원금 변동으로 가격이 수시로 바뀌어요 / 3초 만에 맞춤견적 받기")가 바텀시트로 기능이 통합되어 제거되었다.
+
+#### 변경 내용
+
+**LowestDealSection.tsx**
+
+```typescript
+// 제거됨
+{!isLoggedIn && (
+  <div className="fixed bottom-0 left-0 right-0 z-40">
+    <div className="bg-[#131FA0] text-white py-4 px-5">
+      <p>지원금 변동으로 가격이 수시로 바뀌어요</p>
+      <button>3초 만에 맞춤견적 받기</button>
+    </div>
+  </div>
+)}
+```
+
+---
+
+### 7. 비회원 1위 딜 카드 텍스트 크기 개선
+
+#### 배경
+
+비회원 검색 결과에서 1위 딜 카드의 텍스트들이 너무 작아서 가독성이 떨어졌다.
+
+#### 해결 방법
+
+공통 타이포그래피 컴포넌트를 import하여 일관된 폰트 사이즈 시스템을 적용했다.
+
+#### 변경 내용
+
+| 요소 | 변경 전 (모바일→PC) | 변경 후 (모바일→PC) | 적용 컴포넌트 |
+|------|---------------------|---------------------|---------------|
+| 가입유형 | 15px → 18px | 16px → 18px | TitleS |
+| 통신사 | 14px → 17px | 16px → 18px | TitleS |
+| 지역 | 13px → 16px | 15px → 18px | BodyM |
+| 가격 | 17px → 22px | 18px → 24px | MainPrice |
+| 시세 저렴 | 12px → 14px | 13px → 16px | LabelM |
+| 상세 정보 확인하기 | 12px → 13px | 13px → 16px | LabelM |
+
+---
+
+### 8. HotDealSection 제거
+
+#### 배경
+
+HotDealSection이 LowestDealSection의 "지금 뜨는 상품" 기능과 중복되어 제거되었다.
+
+#### 변경 내용
+
+| 페이지 | 변경 사항 |
+|--------|-----------|
+| home-v2 | HotDealSection import 및 렌더링 제거 |
+| product | HotDealSection import 및 렌더링 제거 |
+| deal | HotDealSection import 및 렌더링 제거 |
+| compare | HotDealSection import 및 렌더링 제거 |
+
+---
+
+### 변경 파일 목록
+
+| 파일 | 변경 유형 | 설명 |
+|------|----------|------|
+| app/product/[productGroupCode]/components/LowestDealSection.tsx | 수정 | 바텀시트, 인기 상품, 필터 핸들러 |
+| app/product/[productGroupCode]/components/LowestDealSectionWrapper.tsx | 유지 | hideProductInfo prop |
+| app/product/[productGroupCode]/page.tsx | 수정 | LowestDealSectionWrapper 제거 |
+| app/compare/ComparePageClient.tsx | 수정 | LowestDealSectionWrapper 제거 |
+| app/deal/[dealId]/components/PriceRankChart.tsx | 수정 | 바텀시트 적용 |
+| app/deal/[dealId]/DealDetailClient.tsx | 수정 | hideProductInfo=true |
+| app/(auth)/welcome/page.tsx | 수정 | sessionStorage 로직 제거 |
+| app/components/home-v2/components/MarketStatsSection.tsx | 신규 | 시세현황 섹션 분리 |
+| app/components/home-v2/context/PriceTableContext.tsx | 수정 | totalDealCount, totalConsultCount 추가 |
+| app/components/home-v2/index.tsx | 수정 | MarketStatsSection 배치 |
+
+---
+
+### 테스트 결과
+
+```bash
+npm run build
+# 결과: 56개 페이지 컴파일 성공
+```
+
+---
+
+## 코드 안정성 추가 개선 (2026-01-04)
+
+### 1. 리뷰 이미지 URL 보안 강화
+
+#### 문제 상황
+
+StoreIntroSection.tsx에서 리뷰 이미지 URL을 sanitize 없이 직접 사용하고 있어 잠재적 XSS 위험이 있었다.
+
+```typescript
+// 문제가 되는 코드
+{image && (
+  <img src={image} alt="리뷰 이미지" />
+)}
+```
+
+#### 해결 방법
+
+기존 `sanitizeImageUrl` 유틸리티 함수를 적용하여 이미지 URL을 검증하도록 수정했다.
+
+#### 변경 내용
+
+파일: `app/deal/[dealId]/components/StoreIntroSection.tsx` (line 59)
+
+```typescript
+// 변경 전
+<img src={image} alt="리뷰 이미지" />
+
+// 변경 후
+<img src={sanitizeImageUrl(image)} alt="리뷰 이미지" />
+```
+
+---
+
+### 2. home-v2 GA4 pageview 추가
+
+#### 문제 상황
+
+home-v2 페이지에서 FB Pixel pageview만 트래킹하고 GA4 pageview는 누락되어 있었다.
+
+```typescript
+// 기존 코드
+useEffect(() => {
+  fbPageview('/home-v2');
+}, []);
+```
+
+#### 해결 방법
+
+GA4 `pageview` 함수를 import하여 FB Pixel과 함께 호출하도록 수정했다.
+
+#### 변경 내용
+
+파일: `app/components/home-v2/index.tsx` (lines 12, 21)
+
+```typescript
+// 변경 후
+import { pageview } from '@/lib/analytics/gtag';
+
+// GA4 + FB Pixel 페이지뷰 트래킹
+useEffect(() => {
+  if (pageViewTracked.current) return;
+  pageViewTracked.current = true;
+  pageview('/home-v2');
+  fbPageview('/home-v2');
+}, []);
+```
+
+---
+
+### 3. compare 페이지 searchParams 입력 검증
+
+#### 문제 상황
+
+compare 페이지에서 URL searchParams(`codes`, `from`)를 검증 없이 직접 API 호출에 사용하고 있어 잠재적 보안 위험이 있었다.
+
+```typescript
+// 문제가 되는 코드
+const codes = searchParams.codes?.split('-vs-') || [];
+// codes를 검증 없이 getProductGroupCodeOne()에 전달
+```
+
+#### 해결 방법
+
+productGroupCode 형식 검증 함수를 추가하여 유효한 코드만 API에 전달하도록 수정했다.
+
+#### 변경 내용
+
+파일: `app/compare/page.tsx` (lines 16-25, 454-456, 473)
+
+```typescript
+/**
+ * productGroupCode 입력 검증
+ * - 영숫자, 하이픈만 허용 (예: AP-P-17, SS-G-S25U-512)
+ * - 최대 50자 제한
+ */
+function isValidProductGroupCode(code: string | undefined): code is string {
+  if (!code || typeof code !== 'string') return false;
+  if (code.length > 50) return false;
+  return /^[A-Za-z0-9-]+$/.test(code);
+}
+
+// 사용
+const rawCodes = searchParams.codes?.split('-vs-') || [];
+const codes = rawCodes.filter(isValidProductGroupCode);
+
+// from 파라미터도 검증
+else if (isValidProductGroupCode(searchParams.from)) {
+  initialProduct1 = await loadProductData(searchParams.from);
+}
+```
+
+---
+
+### 4. 스킵한 항목
+
+#### localStorage SSR 체크 (AuthContext.tsx)
+
+사유: 분석 결과 `'use client'` 컴포넌트에서 localStorage 접근이 콜백 함수 내부에서만 발생하여 SSR 문제가 없음. 이미 안전한 코드.
+
+#### 공통 컴포넌트 추출 (SearchButton, WelcomeCouponBanner)
+
+사유: 리팩토링 작업으로 분류. 현재 코드가 정상 동작하며 보안/버그 이슈 아님.
+
+#### 상수 통합 (COLORS, FILTER_OPTIONS)
+
+사유: 리팩토링 작업으로 분류. 향후 별도 작업으로 진행 권장.
+
+#### 레거시 코드 정리
+
+사유: 향후 개발 참조용으로 유지. 별도 작업으로 진행 권장.
+
+---
+
+### 변경 파일 목록
+
+| 파일 | 변경 유형 | 설명 |
+|------|----------|------|
+| app/deal/[dealId]/components/StoreIntroSection.tsx | 수정 | 리뷰 이미지 sanitizeImageUrl 적용 |
+| app/components/home-v2/index.tsx | 수정 | GA4 pageview 추가 |
+| app/compare/page.tsx | 수정 | searchParams 입력 검증 추가 |
+
+---
+
+### 테스트 결과
+
+```bash
+npm run build
+# 결과: 56개 페이지 컴파일 성공
+```
+
+---
+
 ## 향후 권장 작업
 
 1. Chat 메시지 가상화: 채팅 메시지가 1000개 이상인 방이 발생할 경우 react-window 도입 검토
@@ -1517,3 +2032,5 @@ done
 5. Meta Events Manager 모니터링: 카탈로그 매칭률 확인 (24-48시간 후)
 6. Google Merchant Center 피드 등록 후 진단 오류 모니터링
 7. Google Shopping 노출 확인 (피드 등록 후 24-48시간 소요)
+8. SearchButton, WelcomeCouponBanner 공통 컴포넌트 추출
+9. COLORS, FILTER_OPTIONS 상수 통합
