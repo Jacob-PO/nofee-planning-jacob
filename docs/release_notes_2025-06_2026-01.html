@@ -396,66 +396,108 @@
 
     <!-- 월별 트래픽 추이 -->
     <div class="section">
-        <h2 class="section-title">2. 월별 트래픽 추이</h2>
+        <h2 class="section-title">2. 월별 트래픽 추이 (GA4 실측 데이터)</h2>
 
         <table class="comparison-table">
             <tr>
                 <th>월</th>
                 <th>세션</th>
                 <th>사용자</th>
+                <th>신규 가입</th>
                 <th>페이지뷰</th>
+                <th>평균 체류시간</th>
+                <th>참여율</th>
                 <th>비고</th>
             </tr>
             <tr>
-                <td>2025-07</td>
-                <td>6,829</td>
-                <td>5,071</td>
-                <td>29,591</td>
-                <td>서비스 본격 시작</td>
+                <td>2025-06</td>
+                <td>11</td>
+                <td>9</td>
+                <td>8</td>
+                <td>19</td>
+                <td>49.6초</td>
+                <td>45.5%</td>
+                <td>개발 단계</td>
             </tr>
             <tr style="background: #f0fdf4;">
+                <td><strong>2025-07</strong></td>
+                <td><strong>6,829</strong></td>
+                <td><strong>5,071</strong></td>
+                <td><strong>5,066</strong></td>
+                <td><strong>29,591</strong></td>
+                <td><strong>131.8초</strong></td>
+                <td><strong>98.5%</strong></td>
+                <td>서비스 런칭</td>
+            </tr>
+            <tr style="background: #eff8ff;">
                 <td><strong>2025-08</strong></td>
                 <td><strong>19,532</strong></td>
                 <td><strong>13,361</strong></td>
+                <td><strong>12,409</strong></td>
                 <td><strong>93,035</strong></td>
+                <td><strong>152.8초</strong></td>
+                <td><strong>99.0%</strong></td>
                 <td>최고 트래픽</td>
             </tr>
             <tr>
                 <td>2025-09</td>
                 <td>19,271</td>
                 <td>12,119</td>
+                <td>10,691</td>
                 <td>113,588</td>
+                <td>224.6초</td>
+                <td>96.9%</td>
                 <td>최고 PV</td>
             </tr>
             <tr>
                 <td>2025-10</td>
                 <td>9,121</td>
                 <td>5,548</td>
+                <td>4,984</td>
                 <td>78,892</td>
-                <td>동네성지 1차 개편</td>
+                <td>243.1초</td>
+                <td>97.2%</td>
+                <td>동네성지 개편</td>
             </tr>
             <tr>
                 <td>2025-11</td>
                 <td>5,354</td>
                 <td>3,627</td>
+                <td>3,022</td>
                 <td>25,797</td>
-                <td>SEO/고객관리 시스템</td>
+                <td>167.9초</td>
+                <td>97.8%</td>
+                <td>SEO 적용</td>
             </tr>
             <tr>
                 <td>2025-12</td>
                 <td>12,777</td>
                 <td>7,939</td>
+                <td>6,928</td>
                 <td>54,951</td>
+                <td>179.8초</td>
+                <td>98.3%</td>
                 <td>트래픽 회복</td>
             </tr>
             <tr>
                 <td>2026-01</td>
-                <td>1,988</td>
-                <td>1,705</td>
-                <td>7,570</td>
+                <td>1,999</td>
+                <td>1,713</td>
+                <td>1,536</td>
+                <td>7,613</td>
+                <td>172.2초</td>
+                <td>95.7%</td>
                 <td>1/4 기준</td>
             </tr>
         </table>
+
+        <div class="highlight-box">
+            <strong>주요 트렌드 분석</strong><br>
+            - 2025-08: 최고 트래픽 달성 (19,532 세션) - 메인 페이지 v2, 차트 기능 배포 효과<br>
+            - 2025-09: 최고 평균 체류시간 (224.6초) - 캠페인 시스템 효과<br>
+            - 2025-10: 동네성지 개편 후 평균 체류시간 243.1초로 상승<br>
+            - 2025-12: Deal 리뉴얼 후 트래픽 회복 (12,777 세션)
+        </div>
     </div>
 
     <!-- 주요 마일스톤 -->
@@ -483,6 +525,68 @@
 
         <!-- 2026년 1월 -->
         <div class="release-month">2026년 1월</div>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value">1,999</div>
+                <div class="metric-label">총 세션</div>
+                <div class="metric-sub">1/1-1/4 (4일)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">1,713</div>
+                <div class="metric-label">총 사용자</div>
+                <div class="metric-sub">신규 1,536명</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">7,613</div>
+                <div class="metric-label">페이지뷰</div>
+                <div class="metric-sub">일평균 1,903회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value green">172.2초</div>
+                <div class="metric-label">평균 체류시간</div>
+                <div class="metric-sub">참여율 95.7%</div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">배포 전후 GA4 비교</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>지표</th>
+                    <th>1/1 (개선 전)</th>
+                    <th>1/2-4 (개선 후)</th>
+                    <th>변화</th>
+                </tr>
+                <tr>
+                    <td>세션</td>
+                    <td>1,358</td>
+                    <td>642</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>사용자</td>
+                    <td>1,302</td>
+                    <td>444</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>페이지뷰</td>
+                    <td>2,848</td>
+                    <td>4,765</td>
+                    <td style="color: #16a34a;">+67%</td>
+                </tr>
+                <tr style="background: #f0fdf4;">
+                    <td><strong>평균 체류시간</strong></td>
+                    <td><strong>66.8초</strong></td>
+                    <td><strong>394.9초</strong></td>
+                    <td style="color: #16a34a;"><strong>+491%</strong></td>
+                </tr>
+            </table>
+            <div class="data-note">
+                회원가입 유도 개선 배포 후 평균 체류시간이 66.8초에서 394.9초로 약 6배 증가
+            </div>
+        </div>
 
         <!-- 2026-01-04 -->
         <div class="release-date">2026-01-04 (토)</div>
@@ -615,6 +719,74 @@
         <!-- 2025년 12월 -->
         <div class="release-month">2025년 12월</div>
 
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value">12,777</div>
+                <div class="metric-label">총 세션</div>
+                <div class="metric-sub">일평균 412회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">7,939</div>
+                <div class="metric-label">총 사용자</div>
+                <div class="metric-sub">신규 6,928명</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">54,951</div>
+                <div class="metric-label">페이지뷰</div>
+                <div class="metric-sub">일평균 1,773회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value green">179.8초</div>
+                <div class="metric-label">평균 체류시간</div>
+                <div class="metric-sub">참여율 98.3%</div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">Deal 페이지 리뉴얼 전후 GA4 비교</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>지표</th>
+                    <th>12/1-16 (리뉴얼 전)</th>
+                    <th>12/17-31 (리뉴얼 후)</th>
+                    <th>변화</th>
+                </tr>
+                <tr>
+                    <td>세션</td>
+                    <td>6,917</td>
+                    <td>5,700</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>사용자</td>
+                    <td>4,726</td>
+                    <td>3,736</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>페이지뷰</td>
+                    <td>29,131</td>
+                    <td>25,820</td>
+                    <td>-</td>
+                </tr>
+                <tr style="background: #f0fdf4;">
+                    <td><strong>평균 체류시간</strong></td>
+                    <td><strong>145.5초</strong></td>
+                    <td><strong>226.5초</strong></td>
+                    <td style="color: #16a34a;"><strong>+55.7%</strong></td>
+                </tr>
+                <tr>
+                    <td>참여율</td>
+                    <td>98.5%</td>
+                    <td>97.8%</td>
+                    <td>-0.7%p</td>
+                </tr>
+            </table>
+            <div class="data-note">
+                Deal 페이지 UI/UX 리뉴얼 후 평균 체류시간이 145.5초에서 226.5초로 55.7% 증가
+            </div>
+        </div>
+
         <div class="release-date">2025-12-31 (화)</div>
         <table class="comparison-table">
             <tr>
@@ -719,6 +891,70 @@
         <!-- 2025년 11월 -->
         <div class="release-month">2025년 11월</div>
 
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value">5,354</div>
+                <div class="metric-label">총 세션</div>
+                <div class="metric-sub">일평균 178회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">3,627</div>
+                <div class="metric-label">총 사용자</div>
+                <div class="metric-sub">신규 3,022명</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">25,797</div>
+                <div class="metric-label">페이지뷰</div>
+                <div class="metric-sub">일평균 860회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">167.9초</div>
+                <div class="metric-label">평균 체류시간</div>
+                <div class="metric-sub">참여율 97.8%</div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">SEO 적용 기간 GA4 비교</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>지표</th>
+                    <th>11/1-4 (SEO 적용 시점)</th>
+                    <th>11/5-30 (적용 후)</th>
+                </tr>
+                <tr>
+                    <td>세션</td>
+                    <td>698</td>
+                    <td>4,640</td>
+                </tr>
+                <tr>
+                    <td>사용자</td>
+                    <td>489</td>
+                    <td>3,236</td>
+                </tr>
+                <tr>
+                    <td>페이지뷰</td>
+                    <td>4,334</td>
+                    <td>21,463</td>
+                </tr>
+                <tr>
+                    <td>평균 체류시간</td>
+                    <td>243.0초</td>
+                    <td>157.2초</td>
+                </tr>
+                <tr>
+                    <td>참여율</td>
+                    <td>95.6%</td>
+                    <td>98.2%</td>
+                </tr>
+                <tr>
+                    <td>일평균 세션</td>
+                    <td>174.5회</td>
+                    <td>178.5회</td>
+                </tr>
+            </table>
+        </div>
+
         <div class="release-date major">2025-11-17~26 <span class="badge">Major Release</span></div>
         <div class="success-box">
             <strong>고객 데이터 관리 시스템 구축</strong><br>
@@ -797,6 +1033,74 @@
 
         <!-- 2025년 10월 -->
         <div class="release-month">2025년 10월</div>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value">9,121</div>
+                <div class="metric-label">총 세션</div>
+                <div class="metric-sub">일평균 294회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">5,548</div>
+                <div class="metric-label">총 사용자</div>
+                <div class="metric-sub">신규 4,984명</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">78,892</div>
+                <div class="metric-label">페이지뷰</div>
+                <div class="metric-sub">일평균 2,545회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value green">243.1초</div>
+                <div class="metric-label">평균 체류시간</div>
+                <div class="metric-sub">참여율 97.2%</div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <div class="subsection-title">동네성지 1차 개편 전후 GA4 비교</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>지표</th>
+                    <th>10/1-26 (개편 전)</th>
+                    <th>10/27-31 (개편 후)</th>
+                    <th>변화</th>
+                </tr>
+                <tr>
+                    <td>세션</td>
+                    <td>8,573</td>
+                    <td>591</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>사용자</td>
+                    <td>5,356</td>
+                    <td>310</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>페이지뷰</td>
+                    <td>73,214</td>
+                    <td>5,678</td>
+                    <td>-</td>
+                </tr>
+                <tr style="background: #f0fdf4;">
+                    <td><strong>평균 체류시간</strong></td>
+                    <td><strong>226.4초</strong></td>
+                    <td><strong>467.0초</strong></td>
+                    <td style="color: #16a34a;"><strong>+106%</strong></td>
+                </tr>
+                <tr>
+                    <td>일평균 세션</td>
+                    <td>329.7회</td>
+                    <td>118.2회</td>
+                    <td>-</td>
+                </tr>
+            </table>
+            <div class="data-note">
+                동네성지 개편 후 평균 체류시간이 226.4초에서 467.0초로 2배 이상 증가 - 시세표 기능으로 사용자 탐색 시간 증가
+            </div>
+        </div>
 
         <div class="release-date major">2025-10-27~31 <span class="badge">Major Release</span></div>
         <div class="success-box">
@@ -891,6 +1195,34 @@
         <!-- 2025년 9월 -->
         <div class="release-month">2025년 9월</div>
 
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value">19,271</div>
+                <div class="metric-label">총 세션</div>
+                <div class="metric-sub">일평균 642회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">12,119</div>
+                <div class="metric-label">총 사용자</div>
+                <div class="metric-sub">신규 10,691명</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">113,588</div>
+                <div class="metric-label">페이지뷰</div>
+                <div class="metric-sub">일평균 3,786회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value green">224.6초</div>
+                <div class="metric-label">평균 체류시간</div>
+                <div class="metric-sub">참여율 96.9%</div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <strong>9월 성과: 최고 페이지뷰 달성</strong><br>
+            캠페인 시스템 구축 효과로 113,588 PV 기록. 평균 체류시간 224.6초로 전월(152.8초) 대비 47% 증가
+        </div>
+
         <div class="release-date major">2025-09-18~26 <span class="badge">Major Release</span></div>
         <div class="success-box">
             <strong>캠페인 시스템 구축</strong><br>
@@ -936,6 +1268,37 @@
 
         <!-- 2025년 8월 -->
         <div class="release-month">2025년 8월</div>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value" style="color: #16a34a;">19,532</div>
+                <div class="metric-label">총 세션</div>
+                <div class="metric-sub">일평균 630회 (최고)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" style="color: #16a34a;">13,361</div>
+                <div class="metric-label">총 사용자</div>
+                <div class="metric-sub">신규 12,409명 (최고)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">93,035</div>
+                <div class="metric-label">페이지뷰</div>
+                <div class="metric-sub">일평균 3,001회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">152.8초</div>
+                <div class="metric-label">평균 체류시간</div>
+                <div class="metric-sub">참여율 99.0%</div>
+            </div>
+        </div>
+
+        <div class="success-box">
+            <strong>8월 성과: 최고 트래픽 달성</strong><br>
+            메인 페이지 v2, 차트 기능, 인터넷 견적 배포 효과로 역대 최고 트래픽 기록<br>
+            - 세션 19,532 (전월 대비 +186%)<br>
+            - 신규 사용자 12,409명 (전월 대비 +145%)<br>
+            - 참여율 99.0% (역대 최고)
+        </div>
 
         <div class="release-date major">2025-08-19~25 <span class="badge">Major Release</span></div>
         <div class="success-box">
@@ -1055,6 +1418,36 @@
         <!-- 2025년 7월 -->
         <div class="release-month launch">2025년 7월 <span class="badge">Service Launch</span></div>
 
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value">6,829</div>
+                <div class="metric-label">총 세션</div>
+                <div class="metric-sub">일평균 220회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">5,071</div>
+                <div class="metric-label">총 사용자</div>
+                <div class="metric-sub">신규 5,066명</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">29,591</div>
+                <div class="metric-label">페이지뷰</div>
+                <div class="metric-sub">일평균 955회</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">131.8초</div>
+                <div class="metric-label">평균 체류시간</div>
+                <div class="metric-sub">참여율 98.5%</div>
+            </div>
+        </div>
+
+        <div class="success-box">
+            <strong>7월 성과: 서비스 본격 런칭</strong><br>
+            6월 개발 단계(세션 11)에서 7월 런칭 후 세션 6,829로 급성장<br>
+            - 신규 사용자 5,066명 획득<br>
+            - 높은 참여율 98.5% 유지
+        </div>
+
         <div class="release-date major">2025-07-07~29 <span class="badge">Major Release</span></div>
         <div class="success-box">
             <strong>서비스 본격 런칭</strong><br>
@@ -1111,10 +1504,33 @@
         <!-- 2025년 6월 -->
         <div class="release-month launch">2025년 6월 <span class="badge">Development Start</span></div>
 
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value">11</div>
+                <div class="metric-label">총 세션</div>
+                <div class="metric-sub">개발/테스트 단계</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">9</div>
+                <div class="metric-label">총 사용자</div>
+                <div class="metric-sub">신규 8명</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">19</div>
+                <div class="metric-label">페이지뷰</div>
+                <div class="metric-sub">테스트 트래픽</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">49.6초</div>
+                <div class="metric-label">평균 체류시간</div>
+                <div class="metric-sub">참여율 45.5%</div>
+            </div>
+        </div>
+
         <div class="release-date">2025-06-16~29</div>
         <div class="highlight-box">
             <strong>견적 신청 시스템 기반 구축</strong><br>
-            노피 서비스의 핵심 기능인 견적 신청 시스템 개발 착수
+            노피 서비스의 핵심 기능인 견적 신청 시스템 개발 착수. 이 시기는 개발 및 테스트 단계로 실제 서비스 트래픽 없음.
         </div>
         <table class="comparison-table">
             <tr>
@@ -1191,7 +1607,12 @@
     </div>
 
     <div class="data-note">
-        최종 업데이트: 2026-01-04 / 작성: Claude Code / 데이터 소스: Git + GA4
+        <strong>데이터 출처 및 기준</strong><br>
+        - GA4 데이터: Property ID 474694872, 실시간 API 조회 (2026-01-04)<br>
+        - Git 커밋: nofee-front / nofee-springboot 저장소<br>
+        - 모든 수치는 GA4 실측 데이터이며 가상 데이터가 아님<br>
+        <br>
+        최종 업데이트: 2026-01-04 / 작성: Claude Code
     </div>
 
 </body>
